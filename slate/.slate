@@ -1,0 +1,37 @@
+# Alias
+alias modal `,ctrl
+
+# Global
+config defaultToCurrentScreen true
+config modalEscapeKey esc
+
+# Reload Slate
+bind r:${modal} relaunch
+
+# Keyboard shortcuts
+bind left:${modal} move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
+bind right:${modal} move screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+bind up:${modal} move screenOriginX;screenOriginY screenSizeX;screenSizeY
+bind down:${modal} move screenSizeX/4;screenSizeY/4 screenSizeX/2;screenSizeY/2
+
+bind h:${modal}:toggle push left
+bind j:${modal}:toggle push down
+bind k:${modal}:toggle push up
+bind l:${modal}:toggle push right
+
+bind c:${modal} move (screenSizeX-windowSizeX)/2;(screenSizeY-windowSizeY)/2 windowSizeX;windowSizeY
+bind u:${modal} undo
+
+# Snapshots
+bind pad-:${modal} sequence delete-snapshot snapshotStack all | snapshot snapshotStack stack
+bind `:${modal} activate-snapshot snapshotStack
+
+# Grid
+config gridBackgroundColor "0;0;0;0"
+config gridCellBackgroundColor "0;0;0;.4"
+config gridCellSelectedColor "20;100;20;.4"
+config gridCellRoundedCornerSize 1
+bind space:ctrl grid padding:2 0:8,8
+
+# Hints
+bind esc:cmd hint
