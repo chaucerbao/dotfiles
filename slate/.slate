@@ -23,7 +23,7 @@ bind c:${modal} move (screenSizeX-windowSizeX)/2;(screenSizeY-windowSizeY)/2 win
 bind u:${modal} undo
 
 # Snapshots
-bind pad-:${modal} sequence delete-snapshot snapshotStack all | snapshot snapshotStack stack
+bind =:${modal} sequence delete-snapshot snapshotStack all | snapshot snapshotStack stack
 bind `:${modal} activate-snapshot snapshotStack
 
 # Grid
