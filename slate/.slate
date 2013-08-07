@@ -1,5 +1,7 @@
 # Alias
 alias modal `,ctrl
+alias leftHalf corner top-left resize:screenSizeX/2;screenSizeY
+alias rightHalf corner top-right resize:screenSizeX/2;screenSizeY
 
 # Global
 config defaultToCurrentScreen true
@@ -9,15 +11,15 @@ config modalEscapeKey esc
 bind r:${modal} relaunch
 
 # Keyboard shortcuts
-bind left:${modal} move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
-bind right:${modal} move screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+bind left:${modal} chain ${leftHalf} | ${leftHalf} left
+bind right:${modal} chain ${rightHalf} | ${rightHalf} right
 bind up:${modal} move screenOriginX;screenOriginY screenSizeX;screenSizeY
-bind down:${modal} move screenSizeX/4;screenSizeY/4 screenSizeX/2;screenSizeY/2
+bind down:${modal} move screenOriginX+screenSizeX/4;screenOriginY+screenSizeY/4 screenSizeX/2;screenSizeY/2
 
-bind h:${modal}:toggle push left
+bind h:${modal}:toggle chain push left | push left none left
 bind j:${modal}:toggle push down
 bind k:${modal}:toggle push up
-bind l:${modal}:toggle push right
+bind l:${modal}:toggle chain push right | push right none right
 
 bind c:${modal} move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2 windowSizeX;windowSizeY
 bind u:${modal} undo
@@ -31,7 +33,7 @@ config gridBackgroundColor "0;0;0;0"
 config gridCellBackgroundColor "0;0;0;.4"
 config gridCellSelectedColor "20;100;20;.4"
 config gridCellRoundedCornerSize 1
-bind space:ctrl grid padding:2 0:8,8
+bind space:ctrl grid padding:2 0:8,8 1:8,8
 
 # Hints
 bind esc:cmd hint
