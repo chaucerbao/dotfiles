@@ -19,7 +19,7 @@ bind j:${modal}:toggle push down
 bind k:${modal}:toggle push up
 bind l:${modal}:toggle push right
 
-bind c:${modal} move (screenSizeX-windowSizeX)/2;(screenSizeY-windowSizeY)/2 windowSizeX;windowSizeY
+bind c:${modal} move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2 windowSizeX;windowSizeY
 bind u:${modal} undo
 
 # Snapshots
