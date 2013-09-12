@@ -33,11 +33,13 @@ set spell
 set backspace=indent,eol,start
 
 " User interface
-set lines=40 columns=80
 set scrolloff=1
-set guioptions-=T
 set nowrap
 set number
+if has("gui_running")
+	set lines=40 columns=80
+	set guioptions-=T
+endif
 
 " Color scheme
 syntax enable
