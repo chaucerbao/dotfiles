@@ -31,6 +31,7 @@ runtime macros/matchit.vim
 set noswapfile
 set spell
 set backspace=indent,eol,start
+set splitbelow splitright
 
 " User interface
 set scrolloff=1
@@ -70,9 +71,17 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Mappings
 let mapleader=","
 nmap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" Tabs
 nmap <C-t> :tabnew<CR>
 nmap <C-tab> :tabnext<CR>
 nmap <C-S-tab> :tabprevious<CR>
+
+" Split window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Cut, Copy, and Paste for Windows environments
 if has('win32') || has('win64')
