@@ -30,11 +30,10 @@ bind =:${modal} sequence delete-snapshot snapshotStack all | snapshot snapshotSt
 bind `:${modal} activate-snapshot snapshotStack
 
 # Grid
-config gridBackgroundColor "0;0;0;0"
-config gridCellBackgroundColor "0;0;0;.4"
-config gridCellSelectedColor "20;100;20;.4"
+config gridCellBackgroundColor "0;0;0;.45"
+config gridRoundedCornerSize 2
 config gridCellRoundedCornerSize 1
-bind space:ctrl grid padding:2 0:8,8 1:8,8
+bind space:ctrl grid padding:1 0:8,8 1:8,8
 
 # Hints
 bind esc:cmd hint
