@@ -22,6 +22,7 @@ bind k:${modal}:toggle push up
 bind l:${modal}:toggle chain push right | push right none right
 
 bind c:${modal} move screenOriginX+screenSizeX/2-windowSizeX/2;screenOriginY+screenSizeY/2-windowSizeY/2 windowSizeX;windowSizeY
+bind f:${modal} move screenOriginX;screenOriginY screenSizeX;screenSizeY
 bind u:${modal} undo
 
 # Snapshots
