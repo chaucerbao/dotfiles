@@ -8,19 +8,16 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
+Bundle 'troydm/easytree.vim'
+Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'vim-scripts/HTML-AutoCloseTag'
+Bundle 'mattn/emmet-vim'
 Bundle 'maksimr/vim-jsbeautify'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'honza/vim-snippets'
-Bundle 'garbas/vim-snipmate'
 
 filetype plugin indent on
 
@@ -35,6 +32,7 @@ set splitbelow splitright
 
 " User interface
 set scrolloff=1
+set laststatus=2
 set nowrap
 set number
 if has("gui_running")
@@ -54,19 +52,16 @@ set ignorecase
 set tabstop=2 shiftwidth=2
 set autoindent
 
-" Folding
-autocmd BufRead,BufNewFile *.php,*.cf[cm],*.html,*.css,*.scss,*.js,*.coffee set foldmethod=indent nofoldenable
-
 " Autocomplete
 set wildmenu wildmode=longest:full,full
 set wildignore=*.jpg,*.gif,*.png,*.swf,*.gz,*.swp,.git/*,.svn/*,.DS_Store,Thumbs.db
 
-" Filetype associations for files with mixed types
-autocmd BufRead,BufNewFile *.php set filetype=php.html
-autocmd BufRead,BufNewFile *.cfm set filetype=cf.html
-
 " Trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
+
+" File type dependent settings
+autocmd FileType php,cf,html,css,scss,javascript set foldmethod=indent nofoldenable autoindent
+autocmd FileType ruby set foldmethod=syntax nofoldenable
 
 " Mappings
 let mapleader=","
@@ -83,6 +78,12 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Navigate by displayed lines when wrapped
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+
 " Cut, Copy, and Paste for Windows environments
 if has('win32') || has('win64')
 	vnoremap <C-x> "+x
@@ -95,11 +96,27 @@ endif
 " Don't let CtrlP manage the working directory
 let g:ctrlp_working_path_mode=0
 
-" CoffeeScript Settings
-let coffee_compile_vert=1
+" EasyTree mappings and settings
+nmap <Leader>t :EasyTree<CR>
+let g:easytree_width_auto_fit=1
 
 " Pad comments with a space
 let NERDSpaceDelims=1
+
+" Smart tab completion for Emmet
+function! s:smart_tab_completion()
+	let line = getline('.')
+	let to_cursor = strpart(line, 0, col('.') - 1)
+	let previous_character = matchstr(to_cursor, '[^ \t">]$')
+
+	if (strlen(previous_character) > 0)
+		return "\<plug>(EmmetExpandAbbr)"
+	endif
+
+	return "\<tab>"
+endfunction
+imap <expr><tab> <sid>smart_tab_completion()
+let g:user_emmet_mode='i'
 
 " JsBeautify mappings
 autocmd FileType javascript noremap <buffer> <Leader>b :call JsBeautify()<CR>
