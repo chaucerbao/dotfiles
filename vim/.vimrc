@@ -9,6 +9,7 @@ Bundle 'gmarik/vundle'
 
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
+Bundle 'editorconfig/editorconfig-vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'troydm/easytree.vim'
 Bundle 'Lokaltog/vim-easymotion'
