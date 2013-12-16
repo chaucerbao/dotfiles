@@ -16,6 +16,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/nerdcommenter'
+Bundle 'junegunn/vim-easy-align'
 Bundle 'scrooloose/syntastic'
 Bundle 'mattn/emmet-vim'
 Bundle 'maksimr/vim-jsbeautify'
@@ -103,6 +104,9 @@ let g:easytree_width_auto_fit=1
 
 " Pad comments with a space
 let NERDSpaceDelims=1
+
+" EasyAlign mappings
+vmap <Enter> <Plug>(EasyAlign)
 
 " Smart tab completion for Emmet
 function! s:smart_tab_completion()
