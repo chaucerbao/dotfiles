@@ -65,6 +65,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd FileType php,cf,html,css,scss,javascript set foldmethod=indent nofoldenable autoindent
 autocmd FileType ruby set foldmethod=syntax nofoldenable
 
+" Tags
+set tags=./tags;/
+
 " Mappings
 let mapleader=","
 nmap <Leader>cd :cd %:p:h<CR>:pwd<CR>
