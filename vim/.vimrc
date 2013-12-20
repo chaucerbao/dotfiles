@@ -70,9 +70,11 @@ let mapleader=","
 nmap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Tabs
-nmap <C-t> :tabnew<CR>
-nmap <C-tab> :tabnext<CR>
-nmap <C-S-tab> :tabprevious<CR>
+nmap tn :tabnew<CR>
+nmap tl :tabnext<CR>
+nmap th :tabprevious<CR>
+nmap tm :tabmove<Space>
+nmap td :tabclose<CR>
 
 " Split window navigation
 nnoremap <C-h> <C-w>h
