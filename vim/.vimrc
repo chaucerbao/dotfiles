@@ -72,6 +72,9 @@ set tags=./tags;/
 let mapleader=","
 nmap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
+" Paste toggle
+set pastetoggle=<F2>
+
 " Tabs
 nmap tn :tabnew<CR>
 nmap tl :tabnext<CR>
