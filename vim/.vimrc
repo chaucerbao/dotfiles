@@ -11,7 +11,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'editorconfig/editorconfig-vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'troydm/easytree.vim'
+Bundle 'scrooloose/nerdtree'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Raimondi/delimitMate'
 Bundle 'tpope/vim-surround'
@@ -106,9 +106,8 @@ endif
 " Don't let CtrlP manage the working directory
 let g:ctrlp_working_path_mode=0
 
-" EasyTree mappings and settings
-nmap <Leader>t :EasyTree<CR>
-let g:easytree_width_auto_fit=1
+" NERDTree mappings
+nmap <Leader>t :NERDTreeToggle<CR>
 
 " Pad comments with a space
 let NERDSpaceDelims=1
