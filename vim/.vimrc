@@ -80,7 +80,7 @@ nmap tn :tabnew<CR>
 nmap tl :tabnext<CR>
 nmap th :tabprevious<CR>
 nmap tm :tabmove<Space>
-nmap td :tabclose<CR>
+nmap td :tabclose!<CR>
 
 " Split window navigation
 nnoremap <C-h> <C-w>h
