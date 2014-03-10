@@ -56,7 +56,7 @@ set autoindent
 
 " Autocomplete
 set wildmenu wildmode=longest:full,full
-set wildignore=*.jpg,*.gif,*.png,*.swf,*.gz,*.swp,.git/*,.svn/*,.DS_Store,Thumbs.db
+set wildignore=*.jpg,*.gif,*.png,*.swf,*.gz,*.swp,*/node_modules,.git/*,.svn/*,.DS_Store,Thumbs.db
 
 " Trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
