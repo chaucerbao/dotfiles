@@ -134,3 +134,7 @@ let g:user_emmet_mode='i'
 autocmd FileType javascript noremap <buffer> <Leader>b :call JsBeautify()<CR>
 autocmd FileType html noremap <buffer> <Leader>b :call HtmlBeautify()<CR>
 autocmd FileType scss,css noremap <buffer> <Leader>b :call CSSBeautify()<CR>
+
+autocmd FileType javascript vnoremap <buffer> <Leader>b :call RangeJsBeautify()<CR>
+autocmd FileType html vnoremap <buffer> <Leader>b :call RangeHtmlBeautify()<CR>
+autocmd FileType scss,css vnoremap <buffer> <Leader>b :call RangeCSSBeautify()<CR>
