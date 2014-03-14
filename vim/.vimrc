@@ -122,7 +122,7 @@ function! s:smart_tab_completion()
 	let previous_character = matchstr(to_cursor, '[^ \t">]$')
 
 	if (strlen(previous_character) > 0)
-		return "\<plug>(EmmetExpandAbbr)"
+		return "\<Plug>(emmet-expand-abbr)"
 	endif
 
 	return "\<tab>"
