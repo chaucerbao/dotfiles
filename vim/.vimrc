@@ -48,11 +48,11 @@ set background=dark
 colorscheme solarized
 
 " Search and replace
-set ignorecase
+set ignorecase smartcase hlsearch
 
 " Indentation
 set tabstop=2 shiftwidth=2
-set autoindent
+set autoindent shiftround
 
 " Autocomplete
 set wildmenu wildmode=longest:full,full
@@ -71,6 +71,8 @@ set tags=./tags;/
 " Mappings
 let mapleader=","
 nmap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+nmap <Leader>/ :nohlsearch<CR>
+nmap ; :
 
 " Paste toggle
 set pastetoggle=<F2>
@@ -89,10 +91,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Navigate by displayed lines when wrapped
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
+nmap j gj
+nmap k gk
 
 " Cut, Copy, and Paste for Windows environments
 if has('win32') || has('win64')
@@ -112,6 +112,14 @@ nmap <Leader>t :NERDTreeToggle<CR>
 " Pad comments with a space
 let NERDSpaceDelims=1
 
+" EasyMotion mappings
+let g:EasyMotion_startofline=0
+map s <Plug>(easymotion-s)
+map <Leader>h <Plug>(easymotion-linebackward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>l <Plug>(easymotion-lineforward)
+
 " EasyAlign mappings
 vmap <Enter> <Plug>(EasyAlign)
 
@@ -125,16 +133,16 @@ function! s:smart_tab_completion()
 		return "\<Plug>(emmet-expand-abbr)"
 	endif
 
-	return "\<tab>"
+	return "\<Tab>"
 endfunction
-imap <expr><tab> <sid>smart_tab_completion()
+imap <expr><Tab> <SID>smart_tab_completion()
 let g:user_emmet_mode='i'
 
 " JsBeautify mappings
-autocmd FileType javascript noremap <buffer> <Leader>b :call JsBeautify()<CR>
-autocmd FileType html noremap <buffer> <Leader>b :call HtmlBeautify()<CR>
-autocmd FileType scss,css noremap <buffer> <Leader>b :call CSSBeautify()<CR>
+autocmd FileType javascript nmap <buffer> <Leader>b :call JsBeautify()<CR>
+autocmd FileType html nmap <buffer> <Leader>b :call HtmlBeautify()<CR>
+autocmd FileType scss,css nmap <buffer> <Leader>b :call CSSBeautify()<CR>
 
-autocmd FileType javascript vnoremap <buffer> <Leader>b :call RangeJsBeautify()<CR>
-autocmd FileType html vnoremap <buffer> <Leader>b :call RangeHtmlBeautify()<CR>
-autocmd FileType scss,css vnoremap <buffer> <Leader>b :call RangeCSSBeautify()<CR>
+autocmd FileType javascript vmap <buffer> <Leader>b :call RangeJsBeautify()<CR>
+autocmd FileType html vmap <buffer> <Leader>b :call RangeHtmlBeautify()<CR>
+autocmd FileType scss,css vmap <buffer> <Leader>b :call RangeCSSBeautify()<CR>
