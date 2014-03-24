@@ -70,19 +70,19 @@ set tags=./tags;/
 
 " Mappings
 let mapleader=","
-nmap <Leader>cd :cd %:p:h<CR>:pwd<CR>
-nmap <Leader>/ :nohlsearch<CR>
-nmap ; :
+nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <Leader>/ :nohlsearch<CR>
+nnoremap ; :
 
 " Paste toggle
 set pastetoggle=<F2>
 
 " Tabs
-nmap tn :tabnew<CR>
-nmap tl :tabnext<CR>
-nmap th :tabprevious<CR>
-nmap tm :tabmove<Space>
-nmap td :tabclose!<CR>
+nnoremap tn :tabnew<CR>
+nnoremap tl :tabnext<CR>
+nnoremap th :tabprevious<CR>
+nnoremap tm :tabmove<Space>
+nnoremap td :tabclose!<CR>
 
 " Split window navigation
 nnoremap <C-h> <C-w>h
@@ -91,8 +91,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Navigate by displayed lines when wrapped
-nmap j gj
-nmap k gk
+noremap j gj
+noremap k gk
 
 " Cut, Copy, and Paste for Windows environments
 if has('win32') || has('win64')
@@ -107,7 +107,7 @@ endif
 let g:ctrlp_working_path_mode=0
 
 " NERDTree mappings
-nmap <Leader>t :NERDTreeToggle<CR>
+nnoremap <Leader>t :NERDTreeToggle<CR>
 
 " Pad comments with a space
 let NERDSpaceDelims=1
@@ -139,10 +139,10 @@ imap <expr><Tab> <SID>smart_tab_completion()
 let g:user_emmet_mode='i'
 
 " JsBeautify mappings
-autocmd FileType javascript nmap <buffer> <Leader>b :call JsBeautify()<CR>
-autocmd FileType html nmap <buffer> <Leader>b :call HtmlBeautify()<CR>
-autocmd FileType scss,css nmap <buffer> <Leader>b :call CSSBeautify()<CR>
+autocmd FileType javascript nnoremap <buffer> <Leader>b :call JsBeautify()<CR>
+autocmd FileType html nnoremap <buffer> <Leader>b :call HtmlBeautify()<CR>
+autocmd FileType scss,css nnoremap <buffer> <Leader>b :call CSSBeautify()<CR>
 
-autocmd FileType javascript vmap <buffer> <Leader>b :call RangeJsBeautify()<CR>
-autocmd FileType html vmap <buffer> <Leader>b :call RangeHtmlBeautify()<CR>
-autocmd FileType scss,css vmap <buffer> <Leader>b :call RangeCSSBeautify()<CR>
+autocmd FileType javascript vnoremap <buffer> <Leader>b :call RangeJsBeautify()<CR>
+autocmd FileType html vnoremap <buffer> <Leader>b :call RangeHtmlBeautify()<CR>
+autocmd FileType scss,css vnoremap <buffer> <Leader>b :call RangeCSSBeautify()<CR>
