@@ -5,21 +5,21 @@ filetype off
 set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
-Bundle 'editorconfig/editorconfig-vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Raimondi/delimitMate'
-Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'junegunn/vim-easy-align'
-Bundle 'scrooloose/syntastic'
-Bundle 'mattn/emmet-vim'
-Bundle 'maksimr/vim-jsbeautify'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'scrooloose/syntastic'
+Plugin 'mattn/emmet-vim'
+Plugin 'maksimr/vim-jsbeautify'
 
 filetype plugin indent on
 
