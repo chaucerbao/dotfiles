@@ -27,19 +27,15 @@ filetype plugin indent on
 runtime macros/matchit.vim
 
 " General settings
-set noswapfile
-set spell
-set backspace=indent,eol,start
-set splitbelow splitright
+set spell noswapfile splitbelow splitright backspace=indent,eol,start
+if has("mouse")
+	set mouse=a
+endif
 
 " User interface
-set scrolloff=1
-set laststatus=2
-set nowrap
-set number
+set number nowrap scrolloff=1 laststatus=2
 if has("gui_running")
-	set lines=40 columns=80
-	set guioptions-=T
+	set lines=40 columns=80 guioptions-=T
 endif
 
 " Color scheme
@@ -51,17 +47,15 @@ colorscheme solarized
 set ignorecase smartcase hlsearch
 
 " Indentation
-set tabstop=2 shiftwidth=2
-set autoindent shiftround
+set autoindent shiftround tabstop=2 shiftwidth=2
 
 " Autocomplete
-set wildmenu wildmode=longest:full,full
-set wildignore=*.jpg,*.gif,*.png,*.swf,*.gz,*.swp,*/node_modules,.git/*,.svn/*,.DS_Store,Thumbs.db
+set wildmenu wildmode=longest:full,full wildignore=*.jpg,*.gif,*.png,*.swf,*.gz,*.swp,*/node_modules,.git/*,.svn/*,.DS_Store,Thumbs.db
 
 " Trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-" File type dependent settings
+" File-type dependent settings
 autocmd FileType php,cf,html,css,scss,javascript set foldmethod=indent nofoldenable autoindent
 autocmd FileType ruby set foldmethod=syntax nofoldenable
 
@@ -73,9 +67,6 @@ let mapleader=","
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap ; :
-
-" Paste toggle
-set pastetoggle=<F2>
 
 " Tabs
 nnoremap tn :tabnew<CR>
@@ -93,6 +84,9 @@ nnoremap <C-l> <C-w>l
 " Navigate by displayed lines when wrapped
 noremap j gj
 noremap k gk
+
+" Paste toggle
+set pastetoggle=<F2>
 
 " Cut, Copy, and Paste for Windows environments
 if has('win32') || has('win64')
