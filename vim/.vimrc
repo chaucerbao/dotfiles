@@ -29,7 +29,7 @@ runtime macros/matchit.vim
 " General settings
 set spell noswapfile splitbelow splitright backspace=indent,eol,start
 if has("mouse")
-	set mouse=a
+	set mouse=a ttymouse=xterm2
 endif
 
 " User interface
