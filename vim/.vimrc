@@ -108,7 +108,7 @@ let NERDSpaceDelims=1
 
 " EasyMotion mappings
 let g:EasyMotion_startofline=0
-map s <Plug>(easymotion-s)
+map s <Plug>(easymotion-s2)
 map <Leader>h <Plug>(easymotion-linebackward)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
