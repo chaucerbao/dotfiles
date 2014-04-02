@@ -11,7 +11,6 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
@@ -25,6 +24,9 @@ filetype plugin indent on
 
 " MatchIt plug-in
 runtime macros/matchit.vim
+
+" Netrw plug-in
+let g:netrw_liststyle=1
 
 " General settings
 set spell noswapfile splitbelow splitright backspace=indent,eol,start
@@ -99,9 +101,6 @@ endif
 
 " Don't let CtrlP manage the working directory
 let g:ctrlp_working_path_mode=0
-
-" NERDTree mappings
-nnoremap <Leader>t :NERDTreeToggle<CR>
 
 " Pad comments with a space
 let NERDSpaceDelims=1
