@@ -66,6 +66,7 @@ set tags=./tags;/
 
 " Mappings
 let mapleader=","
+nnoremap <Leader>e :Explore .<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 map ; :
