@@ -71,11 +71,10 @@ nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap ; :
 
 " Tabs
-nnoremap tn :tabnew<CR>
-nnoremap tl :tabnext<CR>
-nnoremap th :tabprevious<CR>
-nnoremap tm :tabmove<Space>
-nnoremap td :tabclose!<CR>
+nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>tm :tabmove<Space>
+nnoremap <Leader>to :tabonly!<CR>
+nnoremap <Leader>td :tabclose!<CR>
 
 " Split window navigation
 nnoremap <C-h> <C-w>h
