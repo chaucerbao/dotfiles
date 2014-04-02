@@ -68,8 +68,8 @@ set tags=./tags;/
 let mapleader=","
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
-nnoremap ; :
-nnoremap : ;
+map ; :
+noremap ;; ;
 
 " Tabs
 nnoremap <Leader>tn :tabnew<CR>
