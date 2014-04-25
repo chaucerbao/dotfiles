@@ -7,7 +7,7 @@ This is my configuration for [Vim] as a web developer.  I'm using [Vundle] as th
 	$ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 	``
 
-2. Run `:BundleInstall` inside [Vim] to load all the bundles
+2. Run `:PluginInstall` inside [Vim] to load all the bundles
 
 3. Profit!
 
