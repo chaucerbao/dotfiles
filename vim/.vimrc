@@ -59,6 +59,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " File-type dependent settings
 autocmd FileType php,cf,html,css,scss,javascript set foldmethod=indent nofoldenable autoindent
+autocmd FileType php set tabstop=4 shiftwidth=4 expandtab
 autocmd FileType ruby set foldmethod=syntax nofoldenable
 
 " Tags
