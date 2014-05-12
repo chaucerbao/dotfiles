@@ -49,7 +49,7 @@ colorscheme solarized
 set ignorecase smartcase hlsearch
 
 " Indentation
-set autoindent shiftround tabstop=2 shiftwidth=2
+set autoindent shiftround tabstop=2 shiftwidth=2 expandtab
 
 " Autocomplete
 set wildmenu wildmode=longest:full,full wildignore=*.jpg,*.gif,*.png,*.swf,*.gz,*.swp,*/node_modules,.git/*,.svn/*,.DS_Store,Thumbs.db
@@ -59,7 +59,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " File-type dependent settings
 autocmd FileType php,cf,html,css,scss,javascript set foldmethod=indent nofoldenable autoindent
-autocmd FileType php set tabstop=4 shiftwidth=4 expandtab
+autocmd FileType php,python set tabstop=4 shiftwidth=4
 autocmd FileType ruby set foldmethod=syntax nofoldenable
 
 " Tags
