@@ -52,7 +52,7 @@ set ignorecase smartcase hlsearch
 set autoindent shiftround tabstop=2 shiftwidth=2 expandtab
 
 " Autocomplete
-set wildmenu wildmode=longest:full,full wildignore=*.jpg,*.gif,*.png,*.swf,*.gz,*.swp,*/node_modules,.git/*,.svn/*,.DS_Store,Thumbs.db
+set wildmenu wildmode=longest:full,full wildignore=*.jpg,*.gif,*.png,*.ico,*.gz,*/node_modules
 
 " Trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
@@ -92,17 +92,11 @@ noremap k gk
 " Paste toggle
 set pastetoggle=<F2>
 
-" Cut, Copy, and Paste for Windows environments
-if has('win32') || has('win64')
-	vnoremap <C-x> "+x
-	vnoremap <C-c> "+y
-	map <C-v> "+gP
-	cmap <C-v> <C-r>+
-	exe 'inoremap <script> <C-v> <C-g>u' . paste#paste_cmd['i']
-endif
-
-" Don't let CtrlP manage the working directory
+" CtrlP settings
 let g:ctrlp_working_path_mode=0
+if executable('find') && executable('grep')
+	let g:ctrlp_user_command = 'find %s -type f | grep -v -E ".jpg$|.gif$|.png$|.ico$|.gz$|node_modules/|/\."'
+endif
 
 " Pad comments with a space
 let NERDSpaceDelims=1
