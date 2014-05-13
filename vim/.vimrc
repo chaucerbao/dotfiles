@@ -7,26 +7,24 @@ call vundle#rc()
 
 Plugin 'gmarik/vundle'
 
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-vinegar'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'Lokaltog/vim-easymotion'
+Plugin 'scrooloose/syntastic'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'scrooloose/syntastic'
+Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mattn/emmet-vim'
 Plugin 'maksimr/vim-jsbeautify'
+Plugin 'junegunn/vim-easy-align'
 
 filetype plugin indent on
 
 " MatchIt plug-in
 runtime macros/matchit.vim
-
-" Netrw plug-in
-let g:netrw_liststyle=1
 
 " General settings
 set spell noswapfile splitbelow splitright backspace=indent,eol,start
@@ -67,7 +65,6 @@ set tags=./tags;/
 
 " Mappings
 let mapleader=","
-nnoremap <Leader>e :Explore .<CR>
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 map ; :
