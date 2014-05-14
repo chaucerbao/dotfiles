@@ -3,8 +3,7 @@ set nocompatible
 filetype off
 
 set runtimepath+=~/.vim/bundle/vundle/
-call vundle#rc()
-
+call vundle#begin()
 Plugin 'gmarik/vundle'
 
 Plugin 'kien/ctrlp.vim'
@@ -20,6 +19,7 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mattn/emmet-vim'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'junegunn/vim-easy-align'
+call vundle#end()
 
 filetype plugin indent on
 
