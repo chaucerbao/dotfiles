@@ -14,11 +14,11 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-abolish'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mattn/emmet-vim'
 Plugin 'maksimr/vim-jsbeautify'
-Plugin 'junegunn/vim-easy-align'
 call vundle#end()
 
 filetype plugin indent on
@@ -103,9 +103,6 @@ let g:EasyMotion_startofline=0
 highlight link EasyMotionTarget2First EasyMotionTarget
 highlight link EasyMotionTarget2Second EasyMotionTarget
 map s <Plug>(easymotion-s2)
-
-" EasyAlign mappings
-vmap <Enter> <Plug>(EasyAlign)
 
 " Smart tab completion for Emmet
 function! s:smart_tab_completion()
