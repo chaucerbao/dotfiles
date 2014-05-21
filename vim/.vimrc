@@ -6,19 +6,19 @@ set runtimepath+=~/.vim/bundle/vundle/
 call vundle#begin()
 Plugin 'gmarik/vundle'
 
+Plugin 'editorconfig/editorconfig-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-vinegar'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'Raimondi/delimitMate'
-Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-surround'
+Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/syntastic'
+Plugin 'Chiel92/vim-autoformat'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mattn/emmet-vim'
-Plugin 'maksimr/vim-jsbeautify'
+Plugin 'bling/vim-airline'
+Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 
 filetype plugin indent on
@@ -28,13 +28,13 @@ runtime macros/matchit.vim
 
 " General settings
 set spell noswapfile splitbelow splitright backspace=indent,eol,start
-if has("mouse")
+if has('mouse')
 	set mouse=a ttymouse=xterm2
 endif
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
-if has("gui_running")
+if has('gui_running')
 	set lines=40 columns=80 guioptions-=T
 endif
 
@@ -47,7 +47,7 @@ colorscheme solarized
 set ignorecase smartcase hlsearch
 
 " Indentation
-set autoindent shiftround tabstop=2 shiftwidth=2 expandtab
+set autoindent shiftround expandtab tabstop=2 shiftwidth=2
 
 " Autocomplete
 set wildmenu wildmode=longest:full,full wildignore=*.jpg,*.gif,*.png,*.ico,*.gz,*/node_modules
@@ -64,7 +64,7 @@ autocmd FileType ruby set foldmethod=syntax nofoldenable
 set tags=./tags;/
 
 " Mappings
-let mapleader=","
+let mapleader=','
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 map ; :
@@ -118,12 +118,3 @@ function! s:smart_tab_completion()
 endfunction
 imap <expr><Tab> <SID>smart_tab_completion()
 let g:user_emmet_mode='i'
-
-" JsBeautify mappings
-autocmd FileType javascript nnoremap <buffer> <Leader>b :call JsBeautify()<CR>
-autocmd FileType html nnoremap <buffer> <Leader>b :call HtmlBeautify()<CR>
-autocmd FileType scss,css nnoremap <buffer> <Leader>b :call CSSBeautify()<CR>
-
-autocmd FileType javascript vnoremap <buffer> <Leader>b :call RangeJsBeautify()<CR>
-autocmd FileType html vnoremap <buffer> <Leader>b :call RangeHtmlBeautify()<CR>
-autocmd FileType scss,css vnoremap <buffer> <Leader>b :call RangeCSSBeautify()<CR>
