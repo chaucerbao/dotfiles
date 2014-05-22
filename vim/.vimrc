@@ -17,6 +17,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mattn/emmet-vim'
+Plugin 'sjl/gundo.vim'
 Plugin 'bling/vim-airline'
 Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
@@ -118,3 +119,6 @@ function! s:smart_tab_completion()
 endfunction
 imap <expr><Tab> <SID>smart_tab_completion()
 let g:user_emmet_mode='i'
+
+" Gundo mappings
+nnoremap <Leader>u :GundoToggle<CR>
