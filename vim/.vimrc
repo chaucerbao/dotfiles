@@ -12,13 +12,12 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-surround'
 Plugin 'Raimondi/delimitMate'
-Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mattn/emmet-vim'
-Plugin 'sjl/gundo.vim'
+Plugin 'mbbill/undotree'
 Plugin 'bling/vim-airline'
 Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
@@ -126,5 +125,5 @@ endfunction
 imap <expr><Tab> <SID>smart_tab_completion()
 let g:user_emmet_mode='i'
 
-" Gundo
-nnoremap <Leader>u :GundoToggle<CR>
+" Undotree
+nnoremap <Leader>u :UndotreeToggle<CR>
