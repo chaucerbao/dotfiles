@@ -1,4 +1,4 @@
-autolaunch.set(true)
+hydra.autolaunch.set(true)
 
 function focusedObjects()
   local thisWindowObject = window.focusedwindow()
@@ -14,33 +14,33 @@ function focusedObjects()
   }
 end
 
-function moveTo(location)
+function moveTo(target)
   local focused = focusedObjects()
   local x, y, toScreen
 
-  if location == 1 then
+  if target == 1 then
     -- Quadrant 1 (Top-left)
     x = focused.screen.x
     y = focused.screen.y
-  elseif location == 2 then
+  elseif target == 2 then
     -- Quadrant 2 (Top-right)
     x = focused.screen.x + focused.screen.w - focused.window.w
     y = focused.screen.y
-  elseif location == 3 then
+  elseif target == 3 then
     -- Quadrant 3 (Bottom-right)
     x = focused.screen.x + focused.screen.w - focused.window.w
     y = focused.screen.y + focused.screen.h - focused.window.h
-  elseif location == 4 then
+  elseif target == 4 then
     -- Quadrant 4 (Bottom-left)
     x = focused.screen.x
     y = focused.screen.y + focused.screen.h - focused.window.h
-  elseif location == 'center' then
+  elseif target == 'center' then
     -- Center
     x = focused.screen.x + (focused.screen.w - focused.window.w) / 2
     y = focused.screen.y + (focused.screen.h - focused.window.h) / 2
-  elseif location == 'nextScreen' or location == 'previousScreen' then
+  elseif target == 'nextScreen' or target == 'previousScreen' then
     -- Previous/next screen
-    if location == 'nextScreen' then toScreen = focused.screenObject:next():frame_without_dock_or_menu()
+    if target == 'nextScreen' then toScreen = focused.screenObject:next():frame_without_dock_or_menu()
     else toScreen = focused.screenObject:previous():frame_without_dock_or_menu() end
     x = toScreen.x + (focused.window.x - focused.screen.x) / focused.screen.w * toScreen.w
     y = toScreen.y + (focused.window.y - focused.screen.y) / focused.screen.h * toScreen.h
@@ -102,6 +102,6 @@ hotkey.bind(mods, "UP", function() snapResize('h', -1) end)
 hotkey.bind(mods, "F", fullscreen)
 hotkey.bind(mods, "R", hydra.reload)
 
-menu.hide()
+hydra.menu.hide()
 
 hydra.alert('Hydra config is loaded')
