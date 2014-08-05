@@ -103,5 +103,3 @@ hotkey.bind(mods, "F", fullscreen)
 hotkey.bind(mods, "R", hydra.reload)
 
 hydra.menu.hide()
-
-hydra.alert('Hydra config is loaded')
