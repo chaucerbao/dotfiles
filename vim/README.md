@@ -1,16 +1,13 @@
 # Vim Settings
-This is my configuration for [Vim] as a web developer.  I'm using [Vundle] as the plug-in manager, which has a dependency on [Git] \(so be sure to have it installed\).
+My configuration for [Vim] as a web developer.  I'm using [Vim-Plug] as the plug-in manager, which maintains plug-ins using [Git] \(so be sure to have it installed\).
 
 ## Installation
-1. Load [Vundle]
-	``
-	$ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-	``
+1. Load [Vim]
 
-2. Run `:PluginInstall` inside [Vim] to load all the bundles
+2. Run `:PlugInstall`
 
 3. Profit!
 
 [Git]:http://git-scm.com/
-[Vundle]:http://github.com/gmarik/vundle
+[Vim-Plug]:https://github.com/junegunn/vim-plug
 [Vim]:http://www.vim.org/

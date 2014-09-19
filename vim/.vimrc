@@ -1,27 +1,26 @@
-" Vundle plug-in manager
 set nocompatible
-filetype off
 
-set runtimepath+=~/.vim/bundle/vundle/
-call vundle#begin()
-Plugin 'gmarik/vundle'
+" Automatically load the plug-in manager
+if empty(glob('~/.vim/autoload/plug.vim')) && executable('curl')
+	silent !curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
 
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-vinegar'
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-surround'
-Plugin 'Raimondi/delimitMate'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/syntastic'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'mattn/emmet-vim'
-Plugin 'bling/vim-airline'
-Plugin 'altercation/vim-colors-solarized'
-call vundle#end()
-
-filetype plugin indent on
+" Plug-ins
+call plug#begin()
+Plug 'editorconfig/editorconfig-vim'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-surround'
+Plug 'Raimondi/delimitMate'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
+Plug 'Chiel92/vim-autoformat'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'mattn/emmet-vim'
+Plug 'bling/vim-airline'
+Plug 'altercation/vim-colors-solarized'
+call plug#end()
 
 " MatchIt plug-in
 runtime macros/matchit.vim
@@ -39,7 +38,6 @@ if has('gui_running')
 endif
 
 " Color scheme
-syntax enable
 set background=dark
 colorscheme solarized
 
