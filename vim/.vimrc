@@ -27,7 +27,7 @@ filetype plugin indent on
 runtime macros/matchit.vim
 
 " General settings
-set spell lazyredraw splitbelow splitright noswapfile backspace=indent,eol,start tags=./tags;/ pastetoggle=<F2>
+set spell lazyredraw splitbelow splitright nowritebackup noswapfile backspace=indent,eol,start tags=./tags;/ pastetoggle=<F2>
 if has('mouse')
 	set mouse=a ttymouse=xterm2
 endif
