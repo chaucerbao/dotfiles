@@ -10,14 +10,14 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish', { 'on' : 'S' }
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic'
 Plug 'Chiel92/vim-autoformat'
-Plug 'Lokaltog/vim-easymotion'
-Plug 'mattn/emmet-vim'
+Plug 'Lokaltog/vim-easymotion', { 'on' : '<Plug>(easymotion-s2)' }
+Plug 'mattn/emmet-vim', { 'on' : '<Plug>(emmet-expand-abbr)' }
 Plug 'bling/vim-airline'
 Plug 'altercation/vim-colors-solarized'
 call plug#end()
