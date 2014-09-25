@@ -14,7 +14,7 @@ Plug 'tpope/vim-abolish', { 'on' : 'S' }
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic', { 'on' : [] }
 Plug 'Chiel92/vim-autoformat'
 Plug 'Lokaltog/vim-easymotion', { 'on' : '<Plug>(easymotion-s2)' }
 Plug 'mattn/emmet-vim', { 'on' : '<Plug>(emmet-expand-abbr)' }
@@ -121,3 +121,9 @@ function! s:smart_tab_completion()
 endfunction
 imap <expr><Tab> <SID>smart_tab_completion()
 let g:user_emmet_mode='i'
+
+" On-demand loading for Syntastic
+augroup loadSyntastic
+	autocmd!
+	autocmd BufWritePre * call plug#load('syntastic') | autocmd! loadSyntastic
+augroup end
