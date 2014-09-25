@@ -87,8 +87,8 @@ noremap k gk
 
 " CtrlP
 let g:ctrlp_working_path_mode=0
-if executable('find')
-	let g:ctrlp_user_command='find -E %s -type f ! \( -iregex ".*\.(jpg|gif|png|ico|gz)$" -or -iregex ".*/(tags$|node_modules/.*|\..*)" \)'
+if executable('find') && executable('grep')
+	let g:ctrlp_user_command='find %s -type f | grep -v -E ".jpg$|.gif$|.png$|.ico$|.gz$|/tags$|/node_modules|/\."'
 endif
 
 " NERD Commenter
