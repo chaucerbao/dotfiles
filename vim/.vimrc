@@ -54,7 +54,7 @@ let php_folding=1
 let ruby_fold=1
 
 " Autocomplete
-set wildmenu wildmode=longest:full,full wildignore=*.jpg,*.gif,*.png,*.ico,*.gz,*/tags,*/node_modules
+set wildmenu wildmode=longest:full,full wildignore+=*.jpg,*.gif,*.png,*.ico,.git/,.vagrant/,.sass-cache/
 
 " Trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
@@ -88,7 +88,7 @@ noremap k gk
 " CtrlP
 let g:ctrlp_working_path_mode=0
 if executable('find') && executable('grep')
-	let g:ctrlp_user_command='find %s -type f | grep -v -E ".jpg$|.gif$|.png$|.ico$|.gz$|/tags$|/node_modules|/\."'
+	let g:ctrlp_user_command='find %s -type f | grep -Evi ".jpg$|.gif$|.png$|.ico$|.git/|.vagrant/|.sass-cache/"'
 endif
 
 " NERD Commenter
