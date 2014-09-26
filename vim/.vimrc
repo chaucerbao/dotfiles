@@ -1,7 +1,9 @@
 set nocompatible
 
 " Automatically load the plug-in manager
+let pluginsInstalled=1
 if empty(glob('~/.vim/autoload/plug.vim')) && executable('curl')
+	let pluginsInstalled=0
 	silent !curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
@@ -21,6 +23,12 @@ Plug 'mattn/emmet-vim', { 'on' : '<Plug>(emmet-expand-abbr)' }
 Plug 'bling/vim-airline'
 Plug 'altercation/vim-colors-solarized'
 call plug#end()
+
+" Install plug-ins if needed
+if pluginsInstalled == 0
+	:PlugInstall
+endif
+unlet pluginsInstalled
 
 " MatchIt plug-in
 runtime macros/matchit.vim
