@@ -25,9 +25,7 @@ Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 " Install plug-ins if needed
-if pluginsInstalled == 0
-	:PlugInstall
-endif
+if pluginsInstalled == 0 | :PlugInstall | endif
 unlet pluginsInstalled
 
 " MatchIt plug-in
@@ -35,15 +33,11 @@ runtime macros/matchit.vim
 
 " General settings
 set spell lazyredraw splitbelow splitright nowritebackup noswapfile backspace=indent,eol,start tags=./tags;/ pastetoggle=<F2>
-if has('mouse')
-	set mouse=a ttymouse=xterm2
-endif
+if has('mouse') | set mouse=a ttymouse=xterm2 | endif
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
-if has('gui_running')
-	set lines=40 columns=80 guioptions-=T
-endif
+if has('gui_running') | set lines=60 columns=120 guioptions-=T | endif
 
 " Color scheme
 set background=dark
