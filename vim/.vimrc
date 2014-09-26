@@ -97,10 +97,6 @@ endif
 let NERDSpaceDelims=1
 
 " Autoformat
-if executable('sass-convert')
-	let g:formatprg_scss="sass-convert"
-	let g:formatprg_args_expr_scss='"-F scss -T scss --indent " . (&expandtab ? &shiftwidth : "t")'
-endif
 nnoremap <Leader>gq :Autoformat<CR>
 
 " EasyMotion
