@@ -18,7 +18,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic', { 'on' : [] }
 Plug 'Chiel92/vim-autoformat'
-Plug 'Lokaltog/vim-easymotion', { 'on' : '<Plug>(easymotion-s2)' }
+Plug 'Lokaltog/vim-easymotion', { 'on' : ['<Plug>(easymotion-j)', '<Plug>(easymotion-k)', '<Plug>(easymotion-s2)'] }
 Plug 'mattn/emmet-vim', { 'on' : '<Plug>(emmet-expand-abbr)' }
 Plug 'bling/vim-airline'
 Plug 'altercation/vim-colors-solarized'
@@ -100,9 +100,14 @@ let NERDSpaceDelims=1
 nnoremap <Leader>gq :Autoformat<CR>
 
 " EasyMotion
+highlight link EasyMotionTarget Special
+highlight link EasyMotionTarget2First Special
+highlight link EasyMotionTarget2Second Special
+highlight link EasyMotionShade Comment
+let g:EasyMotion_do_mapping=0
 let g:EasyMotion_startofline=0
-highlight link EasyMotionTarget2First EasyMotionTarget
-highlight link EasyMotionTarget2Second EasyMotionTarget
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
 map s <Plug>(easymotion-s2)
 
 " Emmet
