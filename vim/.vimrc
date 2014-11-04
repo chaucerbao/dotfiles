@@ -32,7 +32,7 @@ unlet pluginsInstalled
 runtime macros/matchit.vim
 
 " General settings
-set spell lazyredraw splitbelow splitright nowritebackup noswapfile backspace=indent,eol,start tags=./tags;/ pastetoggle=<F2>
+set spell splitbelow splitright nowritebackup noswapfile backspace=indent,eol,start tags=./tags;/ pastetoggle=<F2>
 if has('mouse') | set mouse=a ttymouse=xterm2 | endif
 
 " User interface
@@ -88,10 +88,14 @@ noremap j gj
 noremap k gk
 
 " CtrlP
-let g:ctrlp_working_path_mode=0
-if executable('find') && executable('grep')
-	let g:ctrlp_user_command='find %s -type f | grep -Evi ".jpg$|.gif$|.png$|.ico$|.git/|.vagrant/|.sass-cache/"'
+if executable('grep') | let grep_filter=' | grep -Evi ".jpg$|.gif$|.png$|.ico$|.git/|.vagrant/|.sass-cache/"' | else | let grep_filter='' | endif
+if executable('ag')
+	set grepprg=ag\ --nogroup\ --nocolor
+	let g:ctrlp_user_command='ag --nocolor --hidden -lg "" %s' . grep_filter
+elseif executable('find')
+	let g:ctrlp_user_command='find %s -type f' . grep_filter
 endif
+let g:ctrlp_working_path_mode=0
 
 " NERD Commenter
 let NERDSpaceDelims=1
