@@ -88,7 +88,7 @@ noremap j gj
 noremap k gk
 
 " CtrlP
-if executable('grep') | let grep_filter=' | grep -Evi ".jpg$|.gif$|.png$|.ico$|.git/|.vagrant/|.sass-cache/"' | else | let grep_filter='' | endif
+if executable('grep') | let grep_filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let grep_filter='' | endif
 if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
 	let g:ctrlp_user_command='ag --nocolor --hidden -lg "" %s' . grep_filter
