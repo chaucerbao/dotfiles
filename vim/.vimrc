@@ -88,12 +88,12 @@ noremap j gj
 noremap k gk
 
 " CtrlP
-if executable('grep') | let grep_filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let grep_filter='' | endif
+if executable('grep') | let filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let filter='' | endif
 if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
-	let g:ctrlp_user_command='ag --nocolor --hidden -lg "" %s' . grep_filter
+	let g:ctrlp_user_command='ag --nocolor --hidden -lg "" %s' . filter
 elseif executable('find')
-	let g:ctrlp_user_command='find %s -type f' . grep_filter
+	let g:ctrlp_user_command='find %s -type f' . filter
 endif
 let g:ctrlp_working_path_mode=0
 
