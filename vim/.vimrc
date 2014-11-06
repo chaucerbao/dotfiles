@@ -90,7 +90,7 @@ noremap k gk
 " CtrlP
 if executable('grep') | let filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let filter='' | endif
 if executable('ag')
-	set grepprg=ag\ --nogroup\ --nocolor
+	set grepprg=ag\ --vimgrep\ $* grepformat=%f:%l:%c:%m
 	let g:ctrlp_user_command='ag --nocolor --hidden -lg "" %s' . filter
 elseif executable('find')
 	let g:ctrlp_user_command='find %s -type f' . filter
