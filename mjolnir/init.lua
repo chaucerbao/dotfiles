@@ -1,6 +1,6 @@
 local window = require 'mjolnir.window'
 local hotkey = require 'mjolnir.hotkey'
-local mods = {'cmd', 'alt'}
+local mods = {'ctrl', 'cmd'}
 
 function focused()
 	local window = window.focusedwindow()
@@ -57,7 +57,6 @@ hotkey.bind(mods, '4', function() moveTo(4) end)
 hotkey.bind(mods, 'C', function() moveTo('center') end)
 hotkey.bind(mods, '[', function() moveTo('screen-') end)
 hotkey.bind(mods, ']', function() moveTo('screen+') end)
-hotkey.bind(mods, 'F', function() focused().app:maximize() end)
 hotkey.bind(mods, 'Q', function() focused().app:movetounit({x = .25, y = .25, w = .5, h = .5}) end)
 hotkey.bind(mods, 'H', function() focused().app:movetounit({x = .25, y = 0, w = .5, h = 1}) end)
 hotkey.bind(mods, 'R', function() mjolnir.reload() end)
