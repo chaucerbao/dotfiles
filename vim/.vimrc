@@ -12,6 +12,7 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish', { 'on' : 'S' }
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
@@ -19,9 +20,12 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic', { 'on' : [] }
 Plug 'Chiel92/vim-autoformat'
 Plug 'Lokaltog/vim-easymotion', { 'on' : ['<Plug>(easymotion-j)', '<Plug>(easymotion-k)', '<Plug>(easymotion-s2)'] }
+Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
 Plug 'mattn/emmet-vim', { 'on' : '<Plug>(emmet-expand-abbr)' }
 Plug 'bling/vim-airline'
 Plug 'altercation/vim-colors-solarized'
+Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
+Plug 'wavded/vim-stylus', { 'for' : 'stylus' }
 call plug#end()
 
 " Install plug-ins if needed
@@ -128,6 +132,9 @@ function! s:smart_tab_completion()
 endfunction
 imap <expr><Tab> <SID>smart_tab_completion()
 let g:user_emmet_mode='i'
+
+" EasyAlign
+vmap <Enter> <Plug>(EasyAlign)
 
 " On-demand loading for Syntastic
 augroup loadSyntastic
