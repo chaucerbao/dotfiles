@@ -91,6 +91,10 @@ nnoremap <C-l> <C-w>l
 noremap j gj
 noremap k gk
 
+" Insert mode navigation
+inoremap <C-a> <ESC>I
+inoremap <C-e> <ESC>A
+
 " CtrlP
 if executable('grep') | let filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let filter='' | endif
 if executable('ag')
