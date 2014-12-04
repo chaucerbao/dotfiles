@@ -12,7 +12,6 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish', { 'on' : 'S' }
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
@@ -72,8 +71,7 @@ autocmd FileType php,python setlocal tabstop=4 shiftwidth=4
 let mapleader=','
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
-map ; :
-noremap ;; ;
+map ; : | noremap ;; ;
 
 " Tabs
 nnoremap <Leader>tn :tabnew<CR>
@@ -81,19 +79,25 @@ nnoremap <Leader>tm :tabmove<Space>
 nnoremap <Leader>to :tabonly!<CR>
 nnoremap <Leader>td :tabclose!<CR>
 
+" Navigate by displayed lines when wrapped
+noremap j gj
+noremap k gk
+
 " Split window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" Navigate by displayed lines when wrapped
-noremap j gj
-noremap k gk
-
 " Insert mode navigation
 inoremap <C-a> <ESC>I
 inoremap <C-e> <ESC>A
+
+" File list navigation
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+nnoremap [c :cprevious<CR>
+nnoremap ]c :cnext<CR>
 
 " CtrlP
 if executable('grep') | let filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let filter='' | endif
