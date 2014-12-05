@@ -144,6 +144,9 @@ let g:user_emmet_mode='i'
 " EasyAlign
 vmap <Enter> <Plug>(EasyAlign)
 
+" Airline
+let g:airline_powerline_fonts=1
+
 " On-demand loading for Syntastic
 augroup loadSyntastic
 	autocmd!
