@@ -54,9 +54,6 @@ set autoindent shiftround expandtab tabstop=2 shiftwidth=2
 
 " Folding
 set nofoldenable foldmethod=indent
-let javaScript_fold=1
-let php_folding=1
-let ruby_fold=1
 
 " Autocomplete
 set wildmenu wildmode=longest:full,full wildignore+=*.jpg,*.gif,*.png,*.ico,.git/,.vagrant/,.sass-cache/
