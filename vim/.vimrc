@@ -25,6 +25,8 @@ Plug 'bling/vim-airline'
 Plug 'altercation/vim-colors-solarized'
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
 Plug 'wavded/vim-stylus', { 'for' : 'stylus' }
+
+if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
 call plug#end()
 
 " Install plug-ins if needed
