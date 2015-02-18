@@ -37,7 +37,7 @@ unlet pluginsInstalled
 runtime macros/matchit.vim
 
 " General settings
-set spell splitbelow splitright nowritebackup noswapfile backspace=indent,eol,start tags=./tags;/ pastetoggle=<F2>
+set lazyredraw spell splitbelow splitright nowritebackup noswapfile backspace=indent,eol,start tags=./tags;/ pastetoggle=<F2>
 if has('mouse') | set mouse=a ttymouse=xterm2 | endif
 
 " User interface
