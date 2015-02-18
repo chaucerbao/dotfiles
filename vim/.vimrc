@@ -21,8 +21,9 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'Lokaltog/vim-easymotion', { 'on' : ['<Plug>(easymotion-j)', '<Plug>(easymotion-k)', '<Plug>(easymotion-s2)'] }
 Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
 Plug 'mattn/emmet-vim', { 'on' : '<Plug>(emmet-expand-abbr)' }
-Plug 'bling/vim-airline'
 Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+Plug 'Yggdroot/indentLine'
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
 Plug 'wavded/vim-stylus', { 'for' : 'stylus' }
 
@@ -42,6 +43,7 @@ if has('mouse') | set mouse=a ttymouse=xterm2 | endif
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
+let &colorcolumn="81,".join(range(121, 375), ",")
 if has('gui_running') | set lines=60 columns=120 guioptions-=T | endif
 
 " Color scheme
@@ -98,6 +100,11 @@ nnoremap ]b :bnext<CR>
 nnoremap [c :cprevious<CR>
 nnoremap ]c :cnext<CR>
 
+" Helpers
+if executable('curl')
+	nnoremap <Leader>html :read !curl -sS https://raw.githubusercontent.com/h5bp/html5-boilerplate/master/dist/index.html<CR>
+endif
+
 " CtrlP
 if executable('grep') | let filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let filter='' | endif
 if executable('ag')
@@ -145,6 +152,9 @@ vmap <Enter> <Plug>(EasyAlign)
 
 " Airline
 let g:airline_powerline_fonts=1
+
+" IndentLine
+let g:indentLine_char="│"
 
 " On-demand loading for Syntastic
 augroup loadSyntastic
