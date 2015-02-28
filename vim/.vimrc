@@ -24,6 +24,7 @@ Plug 'mattn/emmet-vim', { 'on' : '<Plug>(emmet-expand-abbr)' }
 Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
 Plug 'Yggdroot/indentLine'
+Plug 'pangloss/vim-javascript', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
 Plug 'wavded/vim-stylus', { 'for' : 'stylus' }
 
