@@ -9,23 +9,41 @@ endif
 
 " Plug-ins
 call plug#begin()
+
+" Vim behavior
 Plug 'editorconfig/editorconfig-vim'
-Plug 'kien/ctrlp.vim'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-abolish', { 'on' : 'S' }
-Plug 'tpope/vim-surround'
-Plug 'Raimondi/delimitMate'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic', { 'on' : [] }
-Plug 'Chiel92/vim-autoformat'
-Plug 'Lokaltog/vim-easymotion', { 'on' : ['<Plug>(easymotion-j)', '<Plug>(easymotion-k)', '<Plug>(easymotion-s2)'] }
-Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
-Plug 'mattn/emmet-vim', { 'on' : '<Plug>(emmet-expand-abbr)' }
+Plug 'ConradIrwin/vim-bracketed-paste'
+
+" Display
 Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
 Plug 'Yggdroot/indentLine'
+
+" File navigation
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-vinegar'
+Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+
+" Programming
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'Raimondi/delimitMate'
+Plug 'scrooloose/syntastic', { 'on' : [] }
+Plug 'Chiel92/vim-autoformat'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'Valloric/YouCompleteMe'
+
+" Helpers
+Plug 'tpope/vim-abolish', { 'on' : 'S' }
+Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
+Plug 'Lokaltog/vim-easymotion', { 'on' : ['<Plug>(easymotion-j)', '<Plug>(easymotion-k)', '<Plug>(easymotion-s2)'] }
+Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
+
+" File-types
 Plug 'pangloss/vim-javascript', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
+Plug 'groenewege/vim-less', { 'for' : 'less' }
 Plug 'wavded/vim-stylus', { 'for' : 'stylus' }
 
 if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
@@ -106,6 +124,12 @@ if executable('curl')
 	nnoremap <Leader>html :read !curl -sS https://raw.githubusercontent.com/h5bp/html5-boilerplate/master/dist/index.html<CR>
 endif
 
+" Airline
+let g:airline_powerline_fonts=1
+
+" IndentLine
+let g:indentLine_char="│"
+
 " CtrlP
 if executable('grep') | let filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let filter='' | endif
 if executable('ag')
@@ -116,11 +140,17 @@ elseif executable('find')
 endif
 let g:ctrlp_working_path_mode=0
 
-" NERD Commenter
-let NERDSpaceDelims=1
+" NERDTreeToggle
+nnoremap <Leader>t :NERDTreeToggle<CR>
 
 " Autoformat
 nnoremap <Leader>gq :Autoformat<CR>
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<C-j>"
+
+" Undntree
+nnoremap <Leader>u :UndotreeToggle<CR>
 
 " EasyMotion
 highlight link EasyMotionTarget Special
@@ -133,29 +163,8 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 map s <Plug>(easymotion-s2)
 
-" Emmet
-function! s:smart_tab_completion()
-	let line=getline('.')
-	let to_cursor=strpart(line, 0, col('.') - 1)
-	let previous_character=matchstr(to_cursor, '[^ \t">]$')
-
-	if (strlen(previous_character) > 0)
-		return "\<Plug>(emmet-expand-abbr)"
-	endif
-
-	return "\<Tab>"
-endfunction
-imap <expr><Tab> <SID>smart_tab_completion()
-let g:user_emmet_mode='i'
-
 " EasyAlign
 vmap <Enter> <Plug>(EasyAlign)
-
-" Airline
-let g:airline_powerline_fonts=1
-
-" IndentLine
-let g:indentLine_char="│"
 
 " On-demand loading for Syntastic
 augroup loadSyntastic
