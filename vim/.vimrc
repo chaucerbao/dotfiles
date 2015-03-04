@@ -62,7 +62,7 @@ if has('mouse') | set mouse=a ttymouse=xterm2 | endif
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
-let &colorcolumn="81,".join(range(121, 375), ",")
+let &colorcolumn='81,'.join(range(121, 375), ',')
 if has('gui_running') | set lines=60 columns=120 guioptions-=T | endif
 
 " Color scheme
@@ -128,7 +128,7 @@ endif
 let g:airline_powerline_fonts=1
 
 " IndentLine
-let g:indentLine_char="│"
+let g:indentLine_char='│'
 
 " CtrlP
 if executable('grep') | let filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let filter='' | endif
@@ -147,7 +147,12 @@ nnoremap <Leader>t :NERDTreeToggle<CR>
 nnoremap <Leader>gq :Autoformat<CR>
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger='<Tab>'
+let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
+
+" YouCompleteMe
+let g:ycm_key_list_select_completion = ['<Down>']
+let g:ycm_key_list_previous_completion = ['<Up>']
 
 " Undntree
 nnoremap <Leader>u :UndotreeToggle<CR>
