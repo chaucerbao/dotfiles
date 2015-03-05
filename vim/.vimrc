@@ -28,11 +28,12 @@ Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
-Plug 'scrooloose/syntastic', { 'on' : [] }
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Valloric/YouCompleteMe'
+Plug 'scrooloose/syntastic', { 'on' : [] }
 
 " Helpers
 Plug 'tpope/vim-abolish', { 'on' : 'S' }
