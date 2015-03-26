@@ -22,7 +22,7 @@ Plug 'Yggdroot/indentLine'
 " File navigation
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-vinegar'
-Plug 'scrooloose/nerdtree', { 'on' : 'NERDTreeToggle' }
+Plug 'troydm/easytree.vim', { 'on' : 'EasyTreeToggle' }
 
 " Programming
 Plug 'tpope/vim-commentary'
@@ -143,8 +143,9 @@ elseif executable('find')
 endif
 let g:ctrlp_working_path_mode=0
 
-" NERDTreeToggle
-nnoremap <Leader>t :NERDTreeToggle<CR>
+" EasyTree
+nnoremap <Leader>t :EasyTreeToggle<CR>
+let g:easytree_hijack_netrw=0
 
 " Autoformat
 nnoremap <Leader>gq :Autoformat<CR>
