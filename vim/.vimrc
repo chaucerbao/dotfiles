@@ -38,8 +38,9 @@ Plug 'scrooloose/syntastic', { 'on' : [] }
 " Helpers
 Plug 'tpope/vim-abolish', { 'on' : 'S' }
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
-Plug 'Lokaltog/vim-easymotion', { 'on' : ['<Plug>(easymotion-j)', '<Plug>(easymotion-k)', '<Plug>(easymotion-s2)'] }
+Plug 'justinmk/vim-sneak', { 'on' : ['<Plug>(SneakStreak)', '<Plug>(SneakStreakBackward)'] }
 Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
+Plug 'tpope/vim-repeat'
 
 " File-types
 Plug 'pangloss/vim-javascript', { 'for' : 'javascript' }
@@ -92,6 +93,7 @@ autocmd FileType php,python setlocal tabstop=4 shiftwidth=4
 let mapleader=','
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
+nnoremap <Leader>r :redraw!<CR>
 map ; : | noremap ;; ;
 
 " Tabs
@@ -158,16 +160,12 @@ let g:ycm_key_list_previous_completion = ['<Up>']
 " Undntree
 nnoremap <Leader>u :UndotreeToggle<CR>
 
-" EasyMotion
-highlight link EasyMotionTarget Special
-highlight link EasyMotionTarget2First Special
-highlight link EasyMotionTarget2Second Special
-highlight link EasyMotionShade Comment
-let g:EasyMotion_do_mapping=0
-let g:EasyMotion_startofline=0
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map s <Plug>(easymotion-s2)
+" Sneak
+nmap s <Plug>(SneakStreak)
+nmap S <Plug>(SneakStreakBackward)
+highlight link SneakPluginTarget Special
+highlight link SneakStreakTarget Special
+highlight link SneakStreakMask Comment
 
 " EasyAlign
 vmap <Enter> <Plug>(EasyAlign)
