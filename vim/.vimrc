@@ -32,7 +32,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'Valloric/YouCompleteMe'
 Plug 'scrooloose/syntastic', { 'on' : [] }
 
 " Helpers
@@ -97,10 +96,7 @@ nnoremap <Leader>r :redraw!<CR>
 map ; : | noremap ;; ;
 
 " Tabs
-nnoremap <Leader>tn :tabnew<CR>
-nnoremap <Leader>tm :tabmove<Space>
-nnoremap <Leader>to :tabonly!<CR>
-nnoremap <Leader>td :tabclose!<CR>
+nnoremap <Leader>T :tabnew<CR>
 
 " Navigate by displayed lines when wrapped
 noremap j gj
@@ -153,10 +149,6 @@ nnoremap <Leader>gq :Autoformat<CR>
 " UltiSnips
 let g:UltiSnipsJumpForwardTrigger='<Tab>'
 let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
-
-" YouCompleteMe
-let g:ycm_key_list_select_completion=['<Down>']
-let g:ycm_key_list_previous_completion=['<Up>']
 
 " Undntree
 nnoremap <Leader>u :UndotreeToggle<CR>
