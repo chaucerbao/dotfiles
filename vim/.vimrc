@@ -154,8 +154,8 @@ let g:UltiSnipsJumpForwardTrigger='<Tab>'
 let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 
 " YouCompleteMe
-let g:ycm_key_list_select_completion = ['<Down>']
-let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_key_list_select_completion=['<Down>']
+let g:ycm_key_list_previous_completion=['<Up>']
 
 " Undntree
 nnoremap <Leader>u :UndotreeToggle<CR>
@@ -169,6 +169,11 @@ highlight link SneakStreakMask Comment
 
 " EasyAlign
 vmap <Enter> <Plug>(EasyAlign)
+
+" Syntastic
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_wq=0
 
 " On-demand loading for Syntastic
 augroup loadSyntastic
