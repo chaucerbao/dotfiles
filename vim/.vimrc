@@ -130,6 +130,9 @@ let g:airline_powerline_fonts=1
 let g:indentLine_char='│'
 
 " CtrlP
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_switch_buffer='et'
+let g:ctrlp_tabpage_position='al'
 if executable('grep') | let filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let filter='' | endif
 if executable('ag')
 	set grepprg=ag\ --vimgrep\ $* grepformat=%f:%l:%c:%m
@@ -137,7 +140,6 @@ if executable('ag')
 elseif executable('find')
 	let g:ctrlp_user_command='find %s -type f' . filter
 endif
-let g:ctrlp_working_path_mode=0
 
 " EasyTree
 nnoremap <Leader>t :EasyTreeToggle<CR>
@@ -164,8 +166,6 @@ highlight link SneakStreakMask Comment
 vmap <Enter> <Plug>(EasyAlign)
 
 " Syntastic
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_wq=0
 
 " On-demand loading for Syntastic
