@@ -58,7 +58,7 @@ unlet pluginsInstalled
 runtime macros/matchit.vim
 
 " General settings
-set lazyredraw spell splitbelow splitright nowritebackup noswapfile backspace=indent,eol,start clipboard=unnamed tags=./tags;/ pastetoggle=<F2>
+set lazyredraw spell splitbelow splitright nowritebackup noswapfile backspace=indent,eol,start tags=./tags;/ pastetoggle=<F2>
 if has('mouse') | set mouse=a ttymouse=xterm2 | endif
 
 " User interface
@@ -94,6 +94,10 @@ nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
 map ; : | noremap ;; ;
+
+" Yank into the clipboard
+nnoremap <Leader>y "*y
+xnoremap <Leader>y "*y
 
 " Tabs
 nnoremap <Leader>T :tabnew<CR>
