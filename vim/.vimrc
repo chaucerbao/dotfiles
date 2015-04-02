@@ -32,7 +32,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'scrooloose/syntastic', { 'on' : [] }
 
 " Helpers
 Plug 'tpope/vim-abolish', { 'on' : 'S' }
@@ -168,12 +167,3 @@ highlight link SneakStreakMask Comment
 
 " EasyAlign
 vmap <Enter> <Plug>(EasyAlign)
-
-" Syntastic
-let g:syntastic_check_on_wq=0
-
-" On-demand loading for Syntastic
-augroup loadSyntastic
-	autocmd!
-	autocmd BufWritePre * call plug#load('syntastic') | autocmd! loadSyntastic
-augroup end
