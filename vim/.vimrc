@@ -43,6 +43,7 @@ Plug 'tpope/vim-repeat'
 " File-types
 Plug 'pangloss/vim-javascript', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
+Plug 'cakebaker/scss-syntax.vim', { 'for' : 'scss' }
 Plug 'groenewege/vim-less', { 'for' : 'less' }
 Plug 'wavded/vim-stylus', { 'for' : 'stylus' }
 
@@ -99,7 +100,7 @@ nnoremap <Leader>y "*y
 xnoremap <Leader>y "*y
 
 " Tabs
-nnoremap <Leader>T :tabnew<CR>
+nnoremap <Leader>t :tabnew<CR>
 
 " Navigate by displayed lines when wrapped
 noremap j gj
@@ -145,7 +146,7 @@ elseif executable('find')
 endif
 
 " EasyTree
-nnoremap <Leader>t :EasyTreeToggle<CR>
+nnoremap <Leader>T :EasyTreeToggle<CR>
 let g:easytree_hijack_netrw=0
 
 " Autoformat
