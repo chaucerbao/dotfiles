@@ -1,6 +1,9 @@
 -- Hotkey modifiers
 local mods = {'ctrl', 'cmd'}
 
+-- Disable animations by default
+hs.window.animationDuration = 0
+
 -- Get the focused window/frame/screen
 function focused()
   local window = hs.window.focusedWindow()
@@ -43,7 +46,7 @@ function moveTo(target)
     frame.y = screen.y + (screen.h - frame.h) / 2
   end
 
-  window:setFrame(frame)
+  window:setFrame(frame, .2)
 end
 
 -- Move the focused window to the previous/next screen
@@ -64,7 +67,7 @@ function moveToScreen(target)
   frame.x = toScreen.x + (toScreen.w - frame.w) / 2
   frame.y = toScreen.y + (toScreen.h - frame.h) / 2
 
-  window:setFrame(frame)
+  window:setFrame(frame, .2)
 end
 
 -- Hotkey bindings
