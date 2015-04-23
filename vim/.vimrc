@@ -17,7 +17,6 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 " Display
 Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
-Plug 'Yggdroot/indentLine'
 
 " File navigation
 Plug 'kien/ctrlp.vim'
@@ -27,7 +26,7 @@ Plug 'troydm/easytree.vim', { 'on' : 'EasyTreeToggle' }
 " Programming
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
@@ -42,12 +41,9 @@ Plug 'tpope/vim-repeat'
 
 " File-types
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
-Plug 'pangloss/vim-javascript', { 'for' : 'javascript' }
-Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
 Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'scss', 'html'] }
 Plug 'cakebaker/scss-syntax.vim', { 'for' : 'scss' }
-Plug 'groenewege/vim-less', { 'for' : 'less' }
-Plug 'wavded/vim-stylus', { 'for' : 'stylus' }
+Plug 'sheerun/vim-polyglot'
 
 if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
 call plug#end()
@@ -65,7 +61,6 @@ if has('mouse') | set mouse=a ttymouse=xterm2 | endif
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
-let &colorcolumn='81,'.join(range(121, 375), ',')
 if has('gui_running') | set lines=60 columns=120 guioptions-=T | endif
 
 " Color scheme
@@ -99,8 +94,7 @@ nnoremap <Leader>r :redraw!<CR>
 map ; : | noremap ;; ;
 
 " Yank into the clipboard
-nnoremap <Leader>y "*y
-xnoremap <Leader>y "*y
+nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
 
 " Tabs
 nnoremap <Leader>t :tabnew<CR>
@@ -132,9 +126,6 @@ endif
 
 " Airline
 let g:airline_powerline_fonts=1
-
-" IndentLine
-let g:indentLine_char='│'
 
 " CtrlP
 let g:ctrlp_working_path_mode=0
