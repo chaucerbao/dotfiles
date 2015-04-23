@@ -44,6 +44,7 @@ Plug 'tpope/vim-repeat'
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
+Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'scss', 'html'] }
 Plug 'cakebaker/scss-syntax.vim', { 'for' : 'scss' }
 Plug 'groenewege/vim-less', { 'for' : 'less' }
 Plug 'wavded/vim-stylus', { 'for' : 'stylus' }
