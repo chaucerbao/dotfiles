@@ -34,7 +34,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Helpers
-Plug 'tpope/vim-abolish', { 'on' : 'S' }
+Plug 'tpope/vim-abolish', { 'on' : ['S', '<Plug>Coerce'] }
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
 Plug 'justinmk/vim-sneak', { 'on' : ['<Plug>(SneakStreak)', '<Plug>(SneakStreakBackward)'] }
 Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
@@ -156,7 +156,10 @@ nnoremap <Leader>gq :Autoformat<CR>
 let g:UltiSnipsJumpForwardTrigger='<Tab>'
 let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 
-" Undntree
+" Abolish
+nmap cr <Plug>Coerce
+
+" Undotree
 nnoremap <Leader>u :UndotreeToggle<CR>
 
 " Sneak
