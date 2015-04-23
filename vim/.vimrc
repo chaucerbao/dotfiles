@@ -41,6 +41,7 @@ Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
 Plug 'tpope/vim-repeat'
 
 " File-types
+Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
 Plug 'cakebaker/scss-syntax.vim', { 'for' : 'scss' }
@@ -86,6 +87,7 @@ set wildmenu wildmode=longest:full,full wildignore+=*.jpg,*.gif,*.png,*.ico,.git
 autocmd BufWritePre * :%s/\s\+$//e
 
 " File-type dependent settings
+autocmd FileType javascript call JavaScriptFold()
 autocmd FileType php,python setlocal tabstop=4 shiftwidth=4
 
 " Mappings
