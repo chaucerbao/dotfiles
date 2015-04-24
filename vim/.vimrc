@@ -15,7 +15,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 
 " Display
-Plug 'altercation/vim-colors-solarized'
+Plug 'chriskempson/base16-vim'
 Plug 'bling/vim-airline'
 
 " File navigation
@@ -66,7 +66,7 @@ if has('gui_running') | set lines=60 columns=120 guioptions-=T | endif
 
 " Color scheme
 set background=dark
-colorscheme solarized
+colorscheme base16-tomorrow
 
 " Search and replace
 set ignorecase smartcase incsearch hlsearch
