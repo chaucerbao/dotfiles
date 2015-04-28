@@ -12,7 +12,7 @@ unset GREP_COLOR
 
 # Aliases
 alias ag='ag --ignore-case --color-match 0\;31 --color-line-number 0\;32 --color-path 0\;34'
-alias c='pygmentize -g -f 256 -O style=solarized256'
+alias c='pygmentize -g'
 alias l='ls -l'
 alias ll='ls -lA'
 alias ls='ls -hFG'
