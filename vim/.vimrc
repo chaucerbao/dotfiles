@@ -36,8 +36,8 @@ Plug 'honza/vim-snippets'
 " Helpers
 Plug 'tpope/vim-abolish', { 'on' : ['S', '<Plug>Coerce'] }
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
-Plug 'justinmk/vim-sneak', { 'on' : ['<Plug>(SneakStreak)', '<Plug>(SneakStreakBackward)', '<Plug>Sneak_f', '<Plug>Sneak_F', '<Plug>Sneak_t', '<Plug>Sneak_T'] }
 Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
+Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
 
 " File-types
