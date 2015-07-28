@@ -37,6 +37,7 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-abolish', { 'on' : ['S', '<Plug>Coerce'] }
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
 Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
+Plug 'bronson/vim-visual-star-search'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
 
