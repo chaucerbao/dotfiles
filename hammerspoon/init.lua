@@ -4,6 +4,16 @@ local mods = {'ctrl', 'cmd'}
 -- Disable animations by default
 hs.window.animationDuration = 0
 
+-- Set grid options
+hs.grid.setGrid({4, 3})
+hs.grid.setMargins({0, 0})
+hs.grid.ui.cellColor = {0, 0, 0, .65}
+hs.grid.ui.highlightColor = {.5, .85, 1, .35}
+hs.grid.ui.highlightStrokeColor = {0, .5, .85}
+hs.grid.ui.highlightStrokeWidth = 1
+hs.grid.ui.cellStrokeWidth = 4
+hs.grid.ui.showExtraKeys = false
+
 -- Get the focused window/frame/screen
 function focused()
   local window = hs.window.focusedWindow()
@@ -81,4 +91,5 @@ hs.hotkey.bind(mods, 'N', function() focused().window:moveToUnit({ x = .25, y = 
 hs.hotkey.bind(mods, 'H', function() focused().window:moveToUnit({ x = .25, y = 0, w = .5, h = 1 }) end)
 hs.hotkey.bind(mods, '[', function() moveToScreen('-') end)
 hs.hotkey.bind(mods, ']', function() moveToScreen('+') end)
+hs.hotkey.bind(mods, '`', function() hs.grid.toggleShow() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
