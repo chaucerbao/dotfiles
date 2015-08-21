@@ -5,7 +5,7 @@ local mods = {'ctrl', 'cmd'}
 hs.window.animationDuration = 0
 
 -- Set grid options
-hs.grid.setGrid({4, 3})
+hs.grid.setGrid({4, 4})
 hs.grid.setMargins({0, 0})
 hs.grid.ui.cellColor = {0, 0, 0, .65}
 hs.grid.ui.highlightColor = {.5, .85, 1, .35}
