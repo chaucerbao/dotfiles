@@ -12,7 +12,6 @@ call plug#begin()
 
 " Vim behavior
 Plug 'editorconfig/editorconfig-vim'
-Plug 'ConradIrwin/vim-bracketed-paste'
 
 " Display
 Plug 'chriskempson/base16-vim'
@@ -96,8 +95,13 @@ nnoremap <Leader>r :redraw!<CR>
 nnoremap <Space> za
 map ; : | noremap ;; ;
 
-" Yank into the clipboard
+" Yank/paste using the system clipboard
 nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
+nnoremap <Leader>p "*p | xnoremap <Leader>p "*p
+nnoremap <Leader>P "*P | xnoremap <Leader>P "*P
+
+" Delete to black hole register
+nnoremap <Leader>d "_d | xnoremap <Leader>d "_d
 
 " Tabs
 nnoremap <Leader>t :tabnew<CR>
