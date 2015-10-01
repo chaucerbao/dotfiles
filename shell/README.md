@@ -2,7 +2,7 @@
 I'm using [Oh-My-Zsh] to manage the ZSH configuration.
 
 ## Installation
-Create `~/.zshrc` and `~/.zshenv` to source the configuration files.
+Create `~/.zshrc` and `~/.zprofile` to source the configuration files.
 
 ```sh
 # ~/.zshrc
@@ -11,8 +11,8 @@ source $HOME/.dotfiles/shell/.zshrc
 ```
 
 ```sh
-# ~/.zshenv
-source $HOME/.dotfiles/shell/.zshenv
+# ~/.zprofile
+source $HOME/.dotfiles/shell/.zprofile
 ```
 
 _Note: ZSH configuration includes the [zsh-syntax-highlighting] plugin and will attempt to automatically install it if missing._
