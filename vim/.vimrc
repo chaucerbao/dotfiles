@@ -18,8 +18,8 @@ Plug 'chriskempson/base16-vim'
 Plug 'bling/vim-airline'
 
 " File navigation
-Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-vinegar'
+Plug 'junegunn/fzf', { 'on' : 'FZF', 'dir' : '~/.fzf', 'do' : 'yes \| ./install' }
 Plug 'troydm/easytree.vim', { 'on' : 'EasyTreeToggle' }
 
 " Programming
@@ -59,6 +59,7 @@ runtime macros/matchit.vim
 " General settings
 set lazyredraw spell splitbelow splitright nowritebackup noswapfile backspace=indent,eol,start tags=./tags;/ pastetoggle=<F2>
 if has('mouse') | set mouse=a ttymouse=xterm2 | endif
+if executable('ag') | set grepprg=ag\ --vimgrep\ $* grepformat=%f:%l:%c:%m | endif
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
@@ -134,17 +135,8 @@ endif
 " Airline
 let g:airline_powerline_fonts=1
 
-" CtrlP
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_switch_buffer='et'
-let g:ctrlp_tabpage_position='al'
-if executable('grep') | let filter=' | grep -Evi "\.jpg$|\.gif$|\.png$|\.ico$|\.git/|\.vagrant/|\.sass-cache/"' | else | let filter='' | endif
-if executable('ag')
-	set grepprg=ag\ --vimgrep\ $* grepformat=%f:%l:%c:%m
-	let g:ctrlp_user_command='ag --nocolor --hidden -lg "" %s' . filter
-elseif executable('find')
-	let g:ctrlp_user_command='find %s -type f' . filter
-endif
+" FZF Fuzzy Finder
+nnoremap <Leader>f :FZF -m<CR>
 
 " EasyTree
 nnoremap <Leader>T :EasyTreeToggle<CR>
