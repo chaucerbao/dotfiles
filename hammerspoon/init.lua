@@ -56,7 +56,7 @@ function moveTo(target)
     frame.y = screen.y + (screen.h - frame.h) / 2
   end
 
-  window:setFrame(frame, .2)
+  window:setFrame(frame)
 end
 
 -- Move the focused window to the previous/next screen
@@ -77,7 +77,7 @@ function moveToScreen(target)
   frame.x = toScreen.x + (toScreen.w - frame.w) / 2
   frame.y = toScreen.y + (toScreen.h - frame.h) / 2
 
-  window:setFrame(frame, .2)
+  window:setFrame(frame)
 end
 
 -- Hotkey bindings
@@ -86,10 +86,16 @@ hs.hotkey.bind(mods, '2', function() moveTo(2) end)
 hs.hotkey.bind(mods, '3', function() moveTo(3) end)
 hs.hotkey.bind(mods, '4', function() moveTo(4) end)
 hs.hotkey.bind(mods, 'C', function() moveTo('center') end)
+
 hs.hotkey.bind(mods, 'M', function() focused().window:maximize() end)
 hs.hotkey.bind(mods, 'N', function() focused().window:moveToUnit({ x = .25, y = .25, w = .5, h = .5 }) end)
-hs.hotkey.bind(mods, 'H', function() focused().window:moveToUnit({ x = .25, y = 0, w = .5, h = 1 }) end)
+hs.hotkey.bind(mods, 'H', function() focused().window:moveToUnit(hs.layout.left50) end)
+hs.hotkey.bind(mods, 'L', function() focused().window:moveToUnit(hs.layout.right50) end)
+
 hs.hotkey.bind(mods, '[', function() moveToScreen('-') end)
 hs.hotkey.bind(mods, ']', function() moveToScreen('+') end)
+
 hs.hotkey.bind(mods, '`', function() hs.grid.toggleShow() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
+
+hs.hotkey.bind({'alt'}, 'L', function() hs.caffeinate.lockScreen() end)
