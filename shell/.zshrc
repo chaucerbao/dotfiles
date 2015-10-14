@@ -11,7 +11,7 @@ unset LSCOLORS
 
 # Aliases
 alias ag='ag --ignore-case --color-match 0\;31 --color-line-number 0\;32 --color-path 0\;34'
-alias c='pygmentize -g'
+alias c='source-highlight --failsafe --line-number --out-format=esc256 --output=STDOUT -i'
 alias l='ls -l'
 alias ll='ls -lA'
 alias ls='ls -hFG'
