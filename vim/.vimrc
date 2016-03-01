@@ -93,7 +93,6 @@ let mapleader=','
 nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
-nnoremap <Space> za
 map ; : | noremap ;; ;
 
 " Yank/paste using the system clipboard
