@@ -16,6 +16,7 @@ Plug 'editorconfig/editorconfig-vim'
 " Display
 Plug 'chriskempson/base16-vim'
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " File navigation
 Plug 'tpope/vim-vinegar'
@@ -131,7 +132,9 @@ if executable('curl')
 endif
 
 " Airline
+let g:airline_extensions=[]
 let g:airline_powerline_fonts=1
+let g:airline_theme='base16'
 
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
