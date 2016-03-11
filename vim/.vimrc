@@ -100,7 +100,8 @@ nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
 nnoremap <Leader>p "*p | xnoremap <Leader>p "*p
 nnoremap <Leader>P "*P | xnoremap <Leader>P "*P
 
-" Delete to black hole register
+" Change/delete to black hole register
+nnoremap <Leader>c "_c | xnoremap <Leader>c "_c
 nnoremap <Leader>d "_d | xnoremap <Leader>d "_d
 
 " Tabs
