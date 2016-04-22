@@ -31,6 +31,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'diepm/vim-rest-console', { 'for' : 'rest' }
 
 " Helpers
 Plug 'tpope/vim-abolish', { 'on' : ['S', '<Plug>Coerce'] }
