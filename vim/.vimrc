@@ -152,6 +152,9 @@ nnoremap <Leader>gq :Autoformat<CR>
 let g:UltiSnipsJumpForwardTrigger='<Tab>'
 let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 
+" REST Console
+let g:vrc_follow_redirects=1
+
 " Abolish
 nmap cr <Plug>Coerce
 
