@@ -146,7 +146,7 @@ nnoremap <Leader>T :EasyTreeToggle<CR>
 let g:easytree_hijack_netrw=0
 
 " Autoformat
-nnoremap <Leader>gq :Autoformat<CR>
+noremap <Leader>gq :Autoformat<CR>
 
 " UltiSnips
 let g:UltiSnipsJumpForwardTrigger='<Tab>'
