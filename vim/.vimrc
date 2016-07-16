@@ -148,10 +148,6 @@ let g:easytree_hijack_netrw=0
 " Autoformat
 noremap <Leader>gq :Autoformat<CR>
 
-" UltiSnips
-let g:UltiSnipsJumpForwardTrigger='<Tab>'
-let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
-
 " REST Console
 let g:vrc_follow_redirects=1
 
