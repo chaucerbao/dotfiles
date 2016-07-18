@@ -86,7 +86,6 @@ set wildmenu wildmode=longest:full,full wildignore+=*.jpg,*.gif,*.png,*.ico,.git
 autocmd BufWritePre * :%s/\s\+$//e
 
 " File-type dependent settings
-autocmd FileType javascript call JavaScriptFold()
 autocmd FileType php,python setlocal tabstop=4 shiftwidth=4
 
 " Mappings
