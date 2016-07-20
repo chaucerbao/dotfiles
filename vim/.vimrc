@@ -58,7 +58,7 @@ unlet pluginsInstalled
 runtime macros/matchit.vim
 
 " General settings
-set lazyredraw spell splitbelow splitright nowritebackup noswapfile backspace=indent,eol,start tags=./tags;/ pastetoggle=<F2>
+set lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· pastetoggle=<F2> tags=./tags;/
 if has('mouse') | set mouse=a ttymouse=xterm2 | endif
 if executable('ag') | set grepprg=ag\ --vimgrep\ $* grepformat=%f:%l:%c:%m | endif
 
@@ -80,7 +80,7 @@ set autoindent shiftround expandtab tabstop=2 shiftwidth=2
 set nofoldenable foldmethod=indent
 
 " Autocomplete
-set wildmenu wildmode=longest:full,full wildignore+=*.jpg,*.gif,*.png,*.ico,.git/,.vagrant/,.sass-cache/
+set wildmenu wildmode=longest:full,full
 
 " Trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
