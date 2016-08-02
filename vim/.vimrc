@@ -165,6 +165,3 @@ nmap t <Plug>Sneak_t| nmap T <Plug>Sneak_T| xmap t <Plug>Sneak_t| xmap T <Plug>S
 nmap s <Plug>(SneakStreak)| nmap S <Plug>(SneakStreakBackward)
 highlight link SneakPluginTarget Identifier | highlight link SneakStreakTarget Identifier | highlight link SneakStreakMask Comment
 let g:sneak#s_next=1
-
-" File-type options
-let g:jsx_ext_required=0
