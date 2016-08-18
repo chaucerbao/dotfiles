@@ -58,8 +58,8 @@ unlet pluginsInstalled
 runtime macros/matchit.vim
 
 " General settings
-set lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· pastetoggle=<F2> tags=./tags;/
-if has('mouse') | set mouse=a ttymouse=xterm2 | endif
+set lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· pastetoggle=<F2> tags=./tags;,tags
+if has('mouse') && !has('nvim') | set mouse=a ttymouse=xterm2 | endif
 if executable('ag') | set grepprg=ag\ --vimgrep\ $* grepformat=%f:%l:%c:%m | endif
 
 " User interface
