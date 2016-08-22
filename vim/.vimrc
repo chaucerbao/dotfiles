@@ -1,5 +1,3 @@
-set nocompatible
-
 " Automatically load the plug-in manager
 let pluginsInstalled=1
 if empty(glob('~/.vim/autoload/plug.vim')) && executable('curl')
