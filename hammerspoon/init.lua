@@ -1,6 +1,3 @@
--- Hotkey modifiers
-local mods = {'ctrl', 'cmd'}
-
 -- Disable animations by default
 hs.window.animationDuration = 0
 
@@ -45,7 +42,23 @@ function moveTo(target)
   window:setFrame(frame)
 end
 
+-- Automatically left-click at an interval
+local autoClickActive = false
+function autoClick()
+  autoClickActive = not autoClickActive
+
+  if (autoClickActive) then
+    hs.timer.doWhile(
+      function () return autoClickActive end,
+      function () hs.eventtap.leftClick(hs.mouse.getAbsolutePosition()) end,
+      .1
+      )
+  end
+end
+
 -- Hotkey bindings
+local mods = {'ctrl', 'cmd'}
+
 hs.hotkey.bind(mods, '1', function() moveTo(1) end)
 hs.hotkey.bind(mods, '2', function() moveTo(2) end)
 hs.hotkey.bind(mods, '3', function() moveTo(3) end)
@@ -63,5 +76,6 @@ hs.hotkey.bind(mods, ']', function() hs.window.focusedWindow():moveOneScreenEast
 
 hs.hotkey.bind(mods, '`', function() hs.grid.toggleShow() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
+hs.hotkey.bind(mods, 'A', function() autoClick() end)
 
 hs.hotkey.bind({'alt'}, 'L', function() hs.caffeinate.lockScreen() end)
