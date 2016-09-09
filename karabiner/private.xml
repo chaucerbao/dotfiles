@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<root>
+  <item>
+    <name>Change F19 to Fn</name>
+    <identifier>private.f19_to_fn</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::F19,
+      KeyCode::FN,
+    </autogen>
+  </item>
+  <item>
+    <name>Right-handed Numpad</name>
+    <identifier>private.right_num_pad</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::SPACE, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_0
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::M, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_1
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::COMMA, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_2
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::DOT, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_3
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::J, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_4
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::K, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_5
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::L, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_6
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::U, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_7
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::I, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_8
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::O, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_9
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::8, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_SLASH
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::9, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_MULTIPLY
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::0, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_MINUS
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::P, ModifierFlag::CONTROL_L | ModifierFlag::FN,
+      KeyCode::KEYPAD_PLUS
+    </autogen>
+  </item>
+  <item>
+    <name>IJKL arrow keys</name>
+    <identifier>private.ijkl_arrows</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::I, ModifierFlag::FN,
+      KeyCode::CURSOR_UP
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::J, ModifierFlag::FN,
+      KeyCode::CURSOR_LEFT
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::K, ModifierFlag::FN,
+      KeyCode::CURSOR_DOWN
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::L, ModifierFlag::FN,
+      KeyCode::CURSOR_RIGHT
+    </autogen>
+  </item>
+  <item>
+    <name>Home/end/pgup/pgdn keys</name>
+    <identifier>private.home_end_pgup_pgdn</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::H, ModifierFlag::FN,
+      KeyCode::HOME
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::N, ModifierFlag::FN,
+      KeyCode::END
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::U, ModifierFlag::FN,
+      KeyCode::PAGEUP
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::O, ModifierFlag::FN,
+      KeyCode::PAGEDOWN
+    </autogen>
+  </item>
+  <item>
+    <name>Shift_L + Shift_R to Caps Lock</name>
+    <identifier>private.shift_caps_lock</identifier>
+    <autogen>
+      __KeyToKey__
+      KeyCode::SHIFT_L, ModifierFlag::SHIFT_R,
+      KeyCode::CAPSLOCK
+    </autogen>
+    <autogen>
+      __KeyToKey__
+      KeyCode::SHIFT_R, ModifierFlag::SHIFT_L,
+      KeyCode::CAPSLOCK
+    </autogen>
+  </item>
+</root>
