@@ -1,9 +1,9 @@
-# Oh-My-Zsh
+# Oh My Zsh
 if [ ! -d "$ZSH/custom/plugins/zsh-syntax-highlighting" ]; then
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH/custom/plugins/zsh-syntax-highlighting
 fi
 if [ "$ZSH_THEME" = "" ]; then ZSH_THEME="gallois" fi
-if [ "$plugins" = "" ]; then plugins=(git git-flow zsh-syntax-highlighting) fi
+if [ "$plugins" = "" ]; then plugins=(git zsh-syntax-highlighting) fi
 source $ZSH/oh-my-zsh.sh
 
 # Environment
