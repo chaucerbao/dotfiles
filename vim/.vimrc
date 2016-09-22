@@ -27,7 +27,9 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
-Plug 'SirVer/ultisnips'
+Plug 'marcweber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'diepm/vim-rest-console', { 'for' : 'rest' }
 
