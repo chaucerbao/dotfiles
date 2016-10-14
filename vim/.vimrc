@@ -60,7 +60,8 @@ runtime macros/matchit.vim
 " General settings
 set lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· pastetoggle=<F2> tags=./tags;,tags
 if has('mouse') && !has('nvim') | set mouse=a ttymouse=xterm2 | endif
-if executable('rg') | set grepprg=rg\ --vimgrep grepformat=%f:%l:%c:%m | endif
+if executable('rg') | let grepCommand='rg' | elseif executable('ag') | let grepCommand='ag' | endif
+if exists('grepCommand') | let &grepprg=grepCommand.' --vimgrep' | set grepformat=%f:%l:%c:%m | unlet grepCommand | endif
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
