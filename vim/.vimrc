@@ -125,8 +125,12 @@ inoremap <C-e> <ESC>A
 " File list navigation
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
-nnoremap [c :cprevious<CR>
-nnoremap ]c :cnext<CR>
+nnoremap [B :bfirst<CR>
+nnoremap ]B :blast<CR>
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
 
 " Helpers
 if executable('curl')
