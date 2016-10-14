@@ -12,7 +12,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 unset LSCOLORS
 
 # Aliases
-alias ag='ag --ignore-case --color-match 0\;31 --color-line-number 0\;32 --color-path 0\;34'
 alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
 alias c='source-highlight --failsafe --line-number --out-format=esc256 --output=STDOUT -i'
 alias j='jump'
@@ -21,6 +20,7 @@ alias ll='ls -lA'
 alias ls='ls -hFG'
 alias npmD="npm i -D "
 alias npmS="npm i -S "
+alias rg='rg --smart-case'
 alias t='tmux'
 alias ts='tmux new-session -s'
 alias v='vim'
