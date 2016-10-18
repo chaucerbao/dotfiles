@@ -68,8 +68,7 @@ set number nowrap scrolloff=1 laststatus=2
 if has('gui_running') | set lines=60 columns=120 guioptions-=T | endif
 
 " Color scheme
-set background=dark
-colorscheme base16-tomorrow
+colorscheme base16-default-dark
 
 " Search and replace
 set ignorecase smartcase incsearch hlsearch
