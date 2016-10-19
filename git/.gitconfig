@@ -1,0 +1,35 @@
+[alias]
+	a = add
+	b = branch
+	c = commit --verbose
+	ca = commit --verbose --amend
+	cd = checkout develop
+	cl = clean --force -d
+	cm = checkout master
+	co = checkout
+	cp = cherry-pick
+	cpa = cherry-pick --abort
+	cpc = cherry-pick --continue
+	current-branch = rev-parse --abbrev-ref HEAD
+	d = diff
+	dc = diff --cached
+	dw = diff --word-diff
+	fa = fetch --all --prune
+	gp = !git push origin $(git current-branch)
+	gu = !git pull --rebase origin $(git current-branch)
+	lo = log --pretty='%C(bold white)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset'
+	m = merge
+	mt = mergetool
+	rb = rebase
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbi = rebase --interactive
+	rbm = rebase master
+	rbs = rebase --skip
+	rh = reset HEAD
+	rhh = reset HEAD --hard
+	st = status
+	sta = stash save
+	stp = stash pop
+[mergetool]
+	keepBackup = false
