@@ -1,10 +1,18 @@
-# Antibody
+# Antibody plugin manager
 source <(antibody init)
 antibody bundle <<PLUGINS
 	subnixr/minimal
 	rupa/z
 	zsh-users/zsh-syntax-highlighting
 PLUGINS
+
+# Ruby version manager
+RBENV_ROOT=/usr/local/var/rbenv
+source <(rbenv init -)
+
+# Node version manager
+NVM_DIR=/usr/local/var/nvm
+source $(brew --prefix nvm)/nvm.sh
 
 # Changing directories
 DIRSTACKSIZE=10
@@ -17,10 +25,14 @@ SAVEHIST=$HISTSIZE
 setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_SAVE_NO_DUPS INC_APPEND_HISTORY
 
 # Environment
+PATH=node_modules/.bin:vendor/bin:~/.composer/vendor/bin:$PATH
 FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/"'
 FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 autoload -U compinit; compinit
 autoload -U edit-command-line; zle -N edit-command-line; bindkey '\C-x\C-e' edit-command-line
+
+# Disable START/STOP flow control to reclaim CTRL-S and CTRL-Q
+/bin/stty -ixon
 
 # Aliases
 alias -g ...='../..'
@@ -68,6 +80,3 @@ alias rg='rg --smart-case --glob "!.git/"'
 alias t='tmux'
 alias ts='tmux new-session -s'
 alias v='vim'
-
-# Disable START/STOP flow control to reclaim CTRL-S and CTRL-Q
-/bin/stty -ixon

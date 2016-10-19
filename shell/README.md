@@ -1,21 +1,11 @@
 # Shell Settings
-I'm using [Oh-My-Zsh] to manage the ZSH configuration.
+I'm using [Antibody] to manage Zsh plugins.
 
 ## Installation
-Create `~/.zshrc` and `~/.zprofile` to source the configuration files.
+Create `~/.zshrc` to source the configuration file.
 
 ```sh
-# ~/.zshrc
-export ZSH=$HOME/.oh-my-zsh
 source $HOME/.dotfiles/shell/.zshrc
 ```
 
-```sh
-# ~/.zprofile
-source $HOME/.dotfiles/shell/.zprofile
-```
-
-_Note: ZSH configuration includes the [zsh-syntax-highlighting] plugin and will attempt to automatically install it if missing._
-
-[Oh-My-Zsh]:http://ohmyz.sh/
-[zsh-syntax-highlighting]:https://github.com/zsh-users/zsh-syntax-highlighting
+[Antibody]:http://getantibody.github.io/
