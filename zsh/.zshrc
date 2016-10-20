@@ -1,6 +1,6 @@
 # Antibody plugin manager
 source <(antibody init)
-antibody bundle <<PLUGINS
+antibody bundle <<-PLUGINS
 	subnixr/minimal
 	rupa/z
 	zsh-users/zsh-syntax-highlighting
