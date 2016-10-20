@@ -1,21 +1,21 @@
-#! /bin/sh
+#!/bin/sh
 
-DIR="~${PWD#$HOME}"
+DOTFILES="~${PWD#$HOME}"
 
 case "$1" in
-  git )
-    git config --global include.path "$DIR/git/.gitconfig"
-    ;;
-  tmux )
-    echo "source-file $DIR/tmux/.tmux.conf" >> ~/.tmux.conf
-    ;;
-  vim )
-    echo "source $DIR/vim/.vimrc" >> ~/.vimrc
-    ;;
-  zsh )
-    echo "source $DIR/zsh/.zshrc" >> ~/.zshrc
-    ;;
-  * )
-    echo 'Usage: init [git|tmux|vim|zsh]'
-    ;;
+	git )
+		git config --global include.path "$DOTFILES/git/.gitconfig"
+		;;
+	tmux )
+		echo "source-file $DOTFILES/tmux/.tmux.conf" >> $HOME/.tmux.conf
+		;;
+	vim )
+		echo "source $DOTFILES/vim/.vimrc" >> $HOME/.vimrc
+		;;
+	zsh )
+		echo "source $DOTFILES/zsh/.zshrc" >> $HOME/.zshrc
+		;;
+	* )
+		echo 'Usage: init [git|tmux|vim|zsh]'
+		;;
 esac
