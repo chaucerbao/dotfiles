@@ -3,15 +3,16 @@ source <(antibody init)
 antibody bundle <<-PLUGINS
 	subnixr/minimal
 	rupa/z
+	zsh-users/zsh-completions
 	zsh-users/zsh-syntax-highlighting
 PLUGINS
 
 # Ruby version manager
-RBENV_ROOT=/usr/local/var/rbenv
+export RBENV_ROOT=/usr/local/var/rbenv
 source <(rbenv init -)
 
 # Node version manager
-NVM_DIR=/usr/local/var/nvm
+export NVM_DIR=/usr/local/var/nvm
 source $(brew --prefix nvm)/nvm.sh
 
 # Changing directories
@@ -25,9 +26,9 @@ SAVEHIST=$HISTSIZE
 setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_SAVE_NO_DUPS INC_APPEND_HISTORY
 
 # Environment
-PATH=node_modules/.bin:vendor/bin:~/.composer/vendor/bin:$PATH
-FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/"'
-FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export PATH=node_modules/.bin:vendor/bin:~/.composer/vendor/bin:$PATH
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/"'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 autoload -U compinit; compinit
 autoload -U edit-command-line; zle -N edit-command-line; bindkey '\C-x\C-e' edit-command-line
 
@@ -80,3 +81,4 @@ alias rg='rg --smart-case --glob "!.git/"'
 alias t='tmux'
 alias ts='tmux new-session -s'
 alias v='vim'
+alias vag='vagrant'
