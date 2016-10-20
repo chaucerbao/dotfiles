@@ -1,0 +1,21 @@
+#! /bin/sh
+
+DIR="~${PWD#$HOME}"
+
+case "$1" in
+  git )
+    git config --global include.path "$DIR/git/.gitconfig"
+    ;;
+  tmux )
+    echo "source-file $DIR/tmux/.tmux.conf" >> ~/.tmux.conf
+    ;;
+  vim )
+    echo "source $DIR/vim/.vimrc" >> ~/.vimrc
+    ;;
+  zsh )
+    echo "source $DIR/zsh/.zshrc" >> ~/.zshrc
+    ;;
+  * )
+    echo 'Usage: init [git|zsh|tmux|vim]'
+    ;;
+esac
