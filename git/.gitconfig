@@ -31,5 +31,9 @@
 	sta = stash save
 	stp = stash pop
 	undo = reset HEAD~1
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
 [mergetool]
 	keepBackup = false
