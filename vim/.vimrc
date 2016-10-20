@@ -17,7 +17,7 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " File navigation
-Plug 'tpope/vim-vinegar'
+Plug 'justinmk/vim-dirvish'
 Plug 'junegunn/fzf', { 'on' : 'FZF', 'dir' : '~/.fzf', 'do' : 'yes \| ./install' }
 Plug 'troydm/easytree.vim', { 'on' : 'EasyTreeToggle' }
 
