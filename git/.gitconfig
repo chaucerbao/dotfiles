@@ -4,7 +4,6 @@
 	c = commit --verbose
 	ca = commit --verbose --amend
 	cd = checkout develop
-	cl = clean --force -d
 	cm = checkout master
 	co = checkout
 	cp = cherry-pick
@@ -31,6 +30,7 @@
 	sta = stash save
 	stp = stash pop
 	undo = reset HEAD~1
+	wipe = clean --force -dx
 [core]
 	editor = vim
 [merge]
