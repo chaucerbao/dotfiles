@@ -31,6 +31,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 autoload -U compinit; compinit
 autoload -U edit-command-line; zle -N edit-command-line; bindkey '\C-x\C-e' edit-command-line
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|=*' 'l:|=* r:|=*'
 
 # Disable START/STOP flow control to reclaim CTRL-S and CTRL-Q
 /bin/stty -ixon
