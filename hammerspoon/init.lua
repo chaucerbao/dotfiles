@@ -74,6 +74,13 @@ hs.hotkey.bind(mods, 'L', function() hs.window.focusedWindow():moveToUnit(hs.lay
 hs.hotkey.bind(mods, '[', function() hs.window.focusedWindow():moveOneScreenWest() end)
 hs.hotkey.bind(mods, ']', function() hs.window.focusedWindow():moveOneScreenEast() end)
 
+hs.hotkey.bind(mods, '0', function()
+  local audioDevice = hs.audiodevice.defaultOutputDevice()
+  audioDevice:setMuted(not audioDevice:muted())
+end)
+hs.hotkey.bind(mods, '-', function() hs.audiodevice.defaultOutputDevice():setVolume(25/2) end)
+hs.hotkey.bind(mods, '=', function() hs.audiodevice.defaultOutputDevice():setVolume(100) end)
+
 hs.hotkey.bind(mods, '`', function() hs.grid.toggleShow() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 hs.hotkey.bind(mods, 'A', function() autoClick() end)
