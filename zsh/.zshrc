@@ -7,14 +7,6 @@ antibody bundle <<-PLUGINS
 	zsh-users/zsh-syntax-highlighting
 PLUGINS
 
-# Ruby version manager
-export RBENV_ROOT=/usr/local/var/rbenv
-source <(rbenv init -)
-
-# Node version manager
-export NVM_DIR=/usr/local/var/nvm
-source $(brew --prefix nvm)/nvm.sh
-
 # Changing directories
 DIRSTACKSIZE=10
 setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS
@@ -26,7 +18,7 @@ SAVEHIST=$HISTSIZE
 setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_SAVE_NO_DUPS INC_APPEND_HISTORY
 
 # Environment
-export PATH=node_modules/.bin:vendor/bin:~/.composer/vendor/bin:$PATH
+export PATH=node_modules/.bin:vendor/bin:$HOME/.composer/vendor/bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 autoload -U compinit; compinit
