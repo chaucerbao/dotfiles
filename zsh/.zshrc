@@ -75,3 +75,5 @@ alias t='tmux'
 alias ts='tmux new-session -s'
 alias v='vim'
 alias vag='vagrant'
+
+rgf() { rg --files --glob "*$1*" }
