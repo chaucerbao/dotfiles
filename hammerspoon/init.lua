@@ -56,6 +56,20 @@ function autoClick()
   end
 end
 
+-- Caffeine
+local caffeine = hs.menubar.new()
+function toggleCaffeine()
+  if (hs.caffeinate.toggle('displayIdle')) then
+    caffeine:setTitle('\u{2615}')
+  else
+    caffeine:setTitle(nil)
+  end
+end
+
+if caffeine then
+  caffeine:setClickCallback(toggleCaffeine)
+end
+
 -- Hotkey bindings
 local mods = {'ctrl', 'cmd'}
 
@@ -84,5 +98,6 @@ hs.hotkey.bind(mods, '=', function() hs.audiodevice.defaultOutputDevice():setVol
 hs.hotkey.bind(mods, '`', function() hs.grid.toggleShow() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 hs.hotkey.bind(mods, 'A', function() autoClick() end)
+hs.hotkey.bind(mods, 'Z', function() toggleCaffeine() end)
 
 hs.hotkey.bind({'alt'}, 'L', function() hs.caffeinate.lockScreen() end)
