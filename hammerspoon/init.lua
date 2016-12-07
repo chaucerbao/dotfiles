@@ -1,16 +1,6 @@
 -- Disable animations by default
 hs.window.animationDuration = 0
 
--- Set grid options
-hs.grid.setGrid('4x4')
-hs.grid.setMargins({0, 0})
-hs.grid.ui.cellColor = {0, 0, 0, .65}
-hs.grid.ui.highlightColor = {.5, .85, 1, .35}
-hs.grid.ui.highlightStrokeColor = {0, .5, .85}
-hs.grid.ui.highlightStrokeWidth = 1
-hs.grid.ui.cellStrokeWidth = 4
-hs.grid.ui.showExtraKeys = false
-
 -- Move the focused window to a target position on the current screen
 function moveTo(target)
   local window = hs.window.focusedWindow()
@@ -95,9 +85,8 @@ end)
 hs.hotkey.bind(mods, '-', function() hs.audiodevice.defaultOutputDevice():setVolume(25/2) end)
 hs.hotkey.bind(mods, '=', function() hs.audiodevice.defaultOutputDevice():setVolume(100) end)
 
-hs.hotkey.bind(mods, '`', function() hs.grid.toggleShow() end)
-hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 hs.hotkey.bind(mods, 'A', function() autoClick() end)
 hs.hotkey.bind(mods, 'Z', function() toggleCaffeine() end)
+hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
 hs.hotkey.bind({'alt'}, 'L', function() hs.caffeinate.lockScreen() end)
