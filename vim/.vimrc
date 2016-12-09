@@ -112,6 +112,10 @@ nnoremap <Leader>t :tabnew<CR>
 noremap j gj
 noremap k gk
 
+" Tab navigation
+nnoremap <Tab> <C-PageDown>
+nnoremap <S-Tab> <C-PageUp>
+
 " Split window navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
