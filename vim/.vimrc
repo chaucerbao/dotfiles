@@ -105,14 +105,12 @@ nnoremap <Leader>P "*P | xnoremap <Leader>P "*P
 nnoremap <Leader>c "_c | xnoremap <Leader>c "_c
 nnoremap <Leader>d "_d | xnoremap <Leader>d "_d
 
-" Tabs
-nnoremap <Leader><Tab> :$tabnew<CR>
-
 " Navigate by displayed lines when wrapped
 noremap j gj
 noremap k gk
 
 " Tab navigation
+nnoremap <Leader><Tab> :$tabnew<CR>
 nnoremap <Tab> <C-PageDown>
 nnoremap <S-Tab> <C-PageUp>
 
