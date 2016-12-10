@@ -33,6 +33,7 @@
 	wipe = clean --force -dx
 [core]
 	editor = vim
+	pager = less -+FX
 [merge]
 	tool = vimdiff
 [mergetool]
