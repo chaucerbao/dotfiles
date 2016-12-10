@@ -106,7 +106,7 @@ nnoremap <Leader>c "_c | xnoremap <Leader>c "_c
 nnoremap <Leader>d "_d | xnoremap <Leader>d "_d
 
 " Tabs
-nnoremap <Leader>t :tabnew<CR>
+nnoremap <Leader><Tab> :$tabnew<CR>
 
 " Navigate by displayed lines when wrapped
 noremap j gj
@@ -150,7 +150,7 @@ let g:airline_theme='base16'
 nnoremap <Leader>f :FZF -m<CR>
 
 " EasyTree
-nnoremap <Leader>T :EasyTreeToggle<CR>
+nnoremap <Leader>t :EasyTreeToggle<CR>
 let g:easytree_hijack_netrw=0
 
 " Autoformat
