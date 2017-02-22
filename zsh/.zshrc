@@ -19,7 +19,7 @@ setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_SAVE_NO_DUPS INC_APPEND_HISTORY
 
 # Environment
 export PATH=node_modules/.bin:vendor/bin:$HOME/.composer/vendor/bin:$PATH
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 autoload -U compinit; compinit
 autoload -U edit-command-line; zle -N edit-command-line; bindkey '\C-x\C-e' edit-command-line
@@ -65,6 +65,7 @@ alias gstp='git stp'
 
 alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
 alias c='source-highlight --failsafe --line-number --out-format=esc256 --output=STDOUT -i'
+alias ds='rg --null --files --no-ignore --glob "*.DS_Store" ~/ | xargs -0 rm --'
 alias l='ls -l'
 alias ll='ls -lA'
 alias ls='ls -hFG'
