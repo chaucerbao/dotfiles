@@ -1,12 +1,3 @@
-# Antibody plugin manager
-source <(antibody init)
-antibody bundle <<-PLUGINS
-	subnixr/minimal
-	rupa/z
-	zsh-users/zsh-completions
-	zsh-users/zsh-syntax-highlighting
-PLUGINS
-
 # Changing directories
 DIRSTACKSIZE=10
 setopt AUTO_CD AUTO_PUSHD PUSHD_IGNORE_DUPS
@@ -28,6 +19,15 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|=*' 'l:|=* r
 
 # Disable START/STOP flow control to reclaim CTRL-S and CTRL-Q
 /bin/stty -ixon
+
+# Antibody plugin manager
+source <(antibody init)
+antibody bundle <<-PLUGINS
+	subnixr/minimal
+	rupa/z
+	zsh-users/zsh-completions
+	zsh-users/zsh-syntax-highlighting
+PLUGINS
 
 # Aliases
 alias -g ...='../..'
