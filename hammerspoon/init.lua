@@ -3,7 +3,7 @@ hs.window.animationDuration = 0
 
 -- Move the focused window to a target position on the current screen
 function moveTo(target)
-  local window = hs.window.focusedWindow()
+  local window = hs.window.frontmostWindow()
   local frame = window:frame()
   local screen = window:screen():frame()
 
@@ -71,14 +71,14 @@ hs.hotkey.bind(mods, '3', function() moveTo(3) end)
 hs.hotkey.bind(mods, '4', function() moveTo(4) end)
 hs.hotkey.bind(mods, 'C', function() moveTo('center') end)
 
-hs.hotkey.bind(mods, 'M', function() hs.window.focusedWindow():maximize() end)
-hs.hotkey.bind(mods, 'N', function() hs.window.focusedWindow():moveToUnit({ x = 1/4, y = 1/4, w = 1/2, h = 1/2 }) end)
-hs.hotkey.bind(mods, 'B', function() hs.window.focusedWindow():moveToUnit({ x = 1/8, y = 1/8, w = 3/4, h = 3/4 }) end)
-hs.hotkey.bind(mods, 'H', function() hs.window.focusedWindow():moveToUnit(hs.layout.left50) end)
-hs.hotkey.bind(mods, 'L', function() hs.window.focusedWindow():moveToUnit(hs.layout.right50) end)
+hs.hotkey.bind(mods, 'M', function() hs.window.frontmostWindow():maximize() end)
+hs.hotkey.bind(mods, 'N', function() hs.window.frontmostWindow():moveToUnit({ x = 1/4, y = 1/4, w = 1/2, h = 1/2 }) end)
+hs.hotkey.bind(mods, 'B', function() hs.window.frontmostWindow():moveToUnit({ x = 1/8, y = 1/8, w = 3/4, h = 3/4 }) end)
+hs.hotkey.bind(mods, 'H', function() hs.window.frontmostWindow():moveToUnit(hs.layout.left50) end)
+hs.hotkey.bind(mods, 'L', function() hs.window.frontmostWindow():moveToUnit(hs.layout.right50) end)
 
-hs.hotkey.bind(mods, '[', function() hs.window.focusedWindow():moveOneScreenWest() end)
-hs.hotkey.bind(mods, ']', function() hs.window.focusedWindow():moveOneScreenEast() end)
+hs.hotkey.bind(mods, '[', function() hs.window.frontmostWindow():moveOneScreenWest() end)
+hs.hotkey.bind(mods, ']', function() hs.window.frontmostWindow():moveOneScreenEast() end)
 
 hs.hotkey.bind(mods, '0', function()
   local audioDevice = hs.audiodevice.defaultOutputDevice()
