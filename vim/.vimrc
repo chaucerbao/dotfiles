@@ -31,6 +31,7 @@ Plug 'marcweber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'diepm/vim-rest-console', { 'for' : 'rest' }
 
 " Helpers
