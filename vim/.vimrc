@@ -56,7 +56,7 @@ if pluginsInstalled == 0 | :PlugInstall | endif
 unlet pluginsInstalled
 
 " MatchIt plug-in
-runtime macros/matchit.vim
+packadd! matchit
 
 " General settings
 set lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· pastetoggle=<F2> tags=./tags;,tags
