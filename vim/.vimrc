@@ -45,7 +45,6 @@ Plug 'tpope/vim-repeat'
 " File-types
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'scss', 'html'] }
-Plug 'cakebaker/scss-syntax.vim', { 'for' : 'scss' }
 Plug 'sheerun/vim-polyglot'
 
 if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
