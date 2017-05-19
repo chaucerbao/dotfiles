@@ -22,6 +22,7 @@ Plug 'junegunn/fzf', { 'on' : 'FZF', 'dir' : '~/.fzf', 'do' : 'yes \| ./install'
 Plug 'troydm/easytree.vim', { 'on' : 'EasyTreeToggle' }
 
 " Programming
+Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
