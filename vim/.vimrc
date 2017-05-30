@@ -156,7 +156,7 @@ let g:easytree_hijack_netrw=0
 noremap <Leader>gq :Autoformat<CR>
 
 " REST Console
-let g:vrc_follow_redirects=1
+let g:vrc_curl_opts={ '-L': '' }
 
 " Abolish
 nmap cr <Plug>Coerce
