@@ -49,6 +49,7 @@ alias 9='cd +9'
 
 alias g='git'
 alias ga='git a'
+alias ga.='git a .'
 alias gb='git b'
 alias gc='git c'
 alias gcd='git cd'
