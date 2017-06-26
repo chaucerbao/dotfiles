@@ -65,6 +65,10 @@ alias gst='git st'
 alias gsta='git sta'
 alias gstp='git stp'
 
+alias dcbuild='docker-compose build --force-rm --no-cache'
+alias dclean='docker rmi $(docker images --all --quiet --filter "dangling=true")'
+alias drun='docker run --rm --interactive --tty'
+
 alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
 alias c='source-highlight --failsafe --line-number --out-format=esc256 --output=STDOUT -i'
 alias ds='rg --null --files --no-ignore --glob "*.DS_Store" ~/ | xargs -0 rm --'
