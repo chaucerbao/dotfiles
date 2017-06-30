@@ -28,9 +28,7 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
-Plug 'marcweber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'diepm/vim-rest-console', { 'for' : 'rest' }
@@ -96,10 +94,10 @@ nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
 nnoremap K i<CR><Esc>d^==kg_lD
-imap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"
-imap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<Plug>snipMateNextOrTrigger"
-imap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-map ; : | noremap ;; ;
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+map ; :
 
 " Yank/paste using the system clipboard
 nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
@@ -158,6 +156,9 @@ let g:easytree_hijack_netrw=0
 
 " Autoformat
 noremap <Leader>gq :Autoformat<CR>
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<S-Tab>"
 
 " REST Console
 let g:vrc_curl_opts={
