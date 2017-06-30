@@ -27,7 +27,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Chiel92/vim-autoformat'
+Plug 'sbdchd/neoformat'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'ludovicchabant/vim-gutentags'
@@ -154,8 +154,11 @@ nnoremap <Leader>f :FZF -m<CR>
 nnoremap <Leader>t :EasyTreeToggle<CR>
 let g:easytree_hijack_netrw=0
 
-" Autoformat
-noremap <Leader>gq :Autoformat<CR>
+" Neoformat
+noremap <Leader>gq :Neoformat<CR>
+let g:neoformat_enabled_javascript = ['prettiereslint', 'prettier',  'jsbeautify']
+let g:neoformat_enabled_css = ['stylefmt', 'cssbeautify']
+let g:neoformat_enabled_scss = ['stylefmt', 'sassconvert']
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<S-Tab>"
