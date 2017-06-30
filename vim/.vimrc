@@ -78,7 +78,7 @@ set autoindent shiftround expandtab tabstop=2 shiftwidth=2
 " Folding
 set nofoldenable foldmethod=indent
 
-" Autocomplete
+" Autocompletion
 set completeopt=longest,menuone
 set wildmenu wildmode=longest:full,full
 
@@ -94,10 +94,12 @@ nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
 nnoremap K i<CR><Esc>d^==kg_lD
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 map ; :
+
+" Popup Menu
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"
+imap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+imap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " Yank/paste using the system clipboard
 nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
@@ -124,8 +126,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Insert mode navigation
-inoremap <C-a> <ESC>I
-inoremap <C-e> <ESC>A
+inoremap <C-a> <Esc>I
+inoremap <C-e> <Esc>A
 
 " File list navigation
 nnoremap [b :bprevious<CR>
