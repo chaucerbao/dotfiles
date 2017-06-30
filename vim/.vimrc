@@ -81,6 +81,7 @@ set autoindent shiftround expandtab tabstop=2 shiftwidth=2
 set nofoldenable foldmethod=indent
 
 " Autocomplete
+set completeopt=longest,menuone
 set wildmenu wildmode=longest:full,full
 
 " Trim trailing whitespace on save
