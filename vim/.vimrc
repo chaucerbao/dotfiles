@@ -116,8 +116,6 @@ noremap k gk
 
 " Tab navigation
 nnoremap <Leader><Tab> :$tabnew<CR>
-nnoremap <Tab> <C-PageDown>
-nnoremap <S-Tab> <C-PageUp>
 
 " Split window navigation
 nnoremap <C-h> <C-w>h
