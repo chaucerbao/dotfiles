@@ -96,7 +96,9 @@ nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
 nnoremap K i<CR><Esc>d^==kg_lD
-inoremap <Tab> <C-x><C-o>
+imap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"
+imap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<Plug>snipMateNextOrTrigger"
+imap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 map ; : | noremap ;; ;
 
 " Yank/paste using the system clipboard
@@ -156,9 +158,6 @@ let g:easytree_hijack_netrw=0
 
 " Autoformat
 noremap <Leader>gq :Autoformat<CR>
-
-" SnipMate
-imap <S-Tab> <Plug>snipMateNextOrTrigger
 
 " REST Console
 let g:vrc_curl_opts={
