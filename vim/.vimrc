@@ -25,6 +25,7 @@ Plug 'troydm/easytree.vim', { 'on' : 'EasyTreeToggle' }
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'alvan/vim-closetag'
 Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'sbdchd/neoformat'
@@ -154,6 +155,9 @@ nnoremap <Leader>f :FZF -m<CR>
 nnoremap <Leader>t :EasyTreeToggle<CR>
 let g:easytree_hijack_netrw=0
 
+" Close Tags
+let g:closetag_filenames='*.html,*.jsx'
+
 " Neoformat
 noremap <Leader>gq :Neoformat<CR>
 let g:neoformat_enabled_javascript = ['prettiereslint', 'prettier',  'jsbeautify']
@@ -161,7 +165,7 @@ let g:neoformat_enabled_css = ['stylefmt', 'cssbeautify']
 let g:neoformat_enabled_scss = ['stylefmt', 'sassconvert']
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<S-Tab>"
+let g:UltiSnipsExpandTrigger='<S-Tab>'
 
 " REST Console
 let g:vrc_curl_opts={
