@@ -169,6 +169,9 @@ let g:neoformat_enabled_scss = ['stylefmt', 'sassconvert']
 " UltiSnips
 let g:UltiSnipsExpandTrigger='<S-Tab>'
 
+" Gutentags
+let g:gutentags_cache_dir='/tmp/gutentags'
+
 " REST Console
 let g:vrc_curl_opts={
 	\'--include': '',
