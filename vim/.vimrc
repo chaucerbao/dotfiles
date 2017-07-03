@@ -43,7 +43,9 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
 
 " File-types
+Plug 'ternjs/tern_for_vim', { 'for' : 'javascript', 'dir' : '~/.vim/plugged/tern_for_vim/', 'do' : 'npm install' }
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
+Plug 'Quramy/tsuquyomi', { 'for' : 'typescript' }
 Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'scss', 'html'] }
 Plug 'sheerun/vim-polyglot'
 
@@ -190,3 +192,6 @@ nmap t <Plug>Sneak_t| nmap T <Plug>Sneak_T| xmap t <Plug>Sneak_t| xmap T <Plug>S
 nmap s <Plug>(SneakStreak)| nmap S <Plug>(SneakStreakBackward)
 highlight link SneakPluginTarget Identifier | highlight link SneakStreakTarget Identifier | highlight link SneakStreakMask Comment
 let g:sneak#s_next=1
+
+" Tern.js
+let g:tern_show_signature_in_pum=1
