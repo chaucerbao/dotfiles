@@ -8,9 +8,6 @@ endif
 " Plug-ins
 call plug#begin()
 
-" Vim behavior
-Plug 'editorconfig/editorconfig-vim'
-
 " Display
 Plug 'chriskempson/base16-vim'
 Plug 'bling/vim-airline'
@@ -38,6 +35,7 @@ Plug 'diepm/vim-rest-console', { 'for' : 'rest' }
 Plug 'tpope/vim-abolish', { 'on' : ['S', '<Plug>Coerce'] }
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
 Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
+Plug 'neitanod/vim-clevertab'
 Plug 'bronson/vim-visual-star-search'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
@@ -93,16 +91,11 @@ autocmd FileType php,python setlocal tabstop=4 shiftwidth=4
 
 " Mappings
 let mapleader=' '
-nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
 nnoremap K i<CR><Esc>d^==kg_lD
 map ; :
-
-" Popup Menu
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"
-imap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-imap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " Yank/paste using the system clipboard
 nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
@@ -188,6 +181,9 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 
 " EasyAlign
 vmap <Enter> <Plug>(EasyAlign)
+
+" CleverTab
+call CleverTab#OmniFirst()
 
 " Sneak
 nmap f <Plug>Sneak_f| nmap F <Plug>Sneak_F| xmap f <Plug>Sneak_f| xmap F <Plug>Sneak_F| omap f <Plug>Sneak_f| omap F <Plug>Sneak_F
