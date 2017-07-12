@@ -155,9 +155,9 @@ let g:closetag_filenames='*.html,*.jsx'
 
 " Neoformat
 noremap <Leader>gq :Neoformat<CR>
-let g:neoformat_enabled_javascript = ['prettiereslint', 'prettier',  'jsbeautify']
-let g:neoformat_enabled_css = ['stylefmt', 'cssbeautify']
-let g:neoformat_enabled_scss = ['stylefmt', 'sassconvert']
+let g:neoformat_enabled_javascript = ['prettiereslint', 'prettier']
+let g:neoformat_enabled_css = ['stylefmt', 'prettier']
+let g:neoformat_enabled_scss = ['stylefmt', 'prettier']
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger='<S-Tab>'
