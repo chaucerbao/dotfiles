@@ -35,7 +35,7 @@ Plug 'diepm/vim-rest-console', { 'for' : 'rest' }
 Plug 'tpope/vim-abolish', { 'on' : ['S', '<Plug>Coerce'] }
 Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
 Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
-Plug 'neitanod/vim-clevertab'
+Plug 'chaucerbao/vim-clevertab'
 Plug 'bronson/vim-visual-star-search'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
@@ -160,7 +160,7 @@ let g:neoformat_enabled_css = ['stylefmt', 'prettier']
 let g:neoformat_enabled_scss = ['stylefmt', 'prettier']
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger='<S-Tab>'
+let g:UltiSnipsExpandTrigger='<Nop>'
 
 " Gutentags
 let g:gutentags_cache_dir='/tmp/gutentags'
@@ -183,7 +183,13 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 vmap <Enter> <Plug>(EasyAlign)
 
 " CleverTab
-call CleverTab#OmniFirst()
+inoremap <silent><Tab> <C-r>=CleverTab#Complete('start')<CR>
+	\<C-r>=CleverTab#Complete('tab')<CR>
+	\<C-r>=CleverTab#Complete('ultisnips')<CR>
+	\<C-r>=CleverTab#Complete('omni')<CR>
+	\<C-r>=CleverTab#Complete('file')<CR>
+	\<C-r>=CleverTab#Complete('stop')<CR>
+inoremap <silent><S-Tab> <C-r>=CleverTab#Complete('prev')<CR>
 
 " Sneak
 nmap f <Plug>Sneak_f| nmap F <Plug>Sneak_F| xmap f <Plug>Sneak_f| xmap F <Plug>Sneak_F| omap f <Plug>Sneak_f| omap F <Plug>Sneak_F
