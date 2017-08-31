@@ -21,6 +21,7 @@ Plug 'troydm/easytree.vim', { 'on' : 'EasyTreeToggle' }
 " Programming
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'alvan/vim-closetag'
 Plug 'jiangmiao/auto-pairs'
