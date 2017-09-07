@@ -33,6 +33,9 @@
 	stp = stash pop
 	undo = reset HEAD~1
 	wipe = clean --force -dx
+[color "grep"]
+	filename = blue
+	linenumber = yellow
 [core]
 	editor = vim
 	pager = less -+FX
