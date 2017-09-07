@@ -14,6 +14,7 @@
 	dc = diff --cached
 	dw = diff --word-diff
 	fa = fetch --all --prune
+	g = grep --fixed-strings --ignore-case
 	gp = !git push origin $(git current-branch)
 	gu = !git pull --rebase origin $(git current-branch)
 	lo = log --pretty='%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset'
