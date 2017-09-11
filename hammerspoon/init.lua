@@ -32,6 +32,17 @@ function moveTo(target)
   window:setFrame(frame)
 end
 
+-- Bind back/forward navigation on the mouse
+hs.eventtap.new({hs.eventtap.event.types.otherMouseDown}, function(event)
+  local mouseButton = event:getProperty(hs.eventtap.event.properties.mouseEventButtonNumber)
+
+  if mouseButton == 3 then
+    return true, {hs.eventtap.event.newKeyEvent({'cmd'}, '[', true)}
+  elseif mouseButton == 4 then
+    return true, {hs.eventtap.event.newKeyEvent({'cmd'}, ']', true)}
+  end
+end):start()
+
 -- Automatically left-click at an interval
 local autoClickActive = false
 function autoClick()
