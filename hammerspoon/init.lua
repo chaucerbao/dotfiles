@@ -62,13 +62,13 @@ local caffeine = hs.menubar.new()
 function toggleCaffeine()
   if (hs.caffeinate.toggle('displayIdle')) then
     caffeine:returnToMenuBar()
-    caffeine:setTitle('\u{2615}')
   else
     caffeine:removeFromMenuBar()
   end
 end
 
 if caffeine then
+  caffeine:setTitle('\u{2615}')
   caffeine:setClickCallback(toggleCaffeine)
   caffeine:removeFromMenuBar()
 end
