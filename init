@@ -6,6 +6,10 @@ case "$1" in
 	git )
 		git config --global include.path "$DOTFILES/git/.gitconfig"
 		;;
+	hammerspoon )
+		mkdir -p $HOME/.hammerspoon/
+		echo "dofile('..${PWD#$HOME}/hammerspoon/init.lua')" >> $HOME/.hammerspoon/init.lua
+		;;
 	tmux )
 		echo "source-file $DOTFILES/tmux/.tmux.conf" >> $HOME/.tmux.conf
 		;;
@@ -16,6 +20,6 @@ case "$1" in
 		echo "source $DOTFILES/zsh/.zshrc" >> $HOME/.zshrc
 		;;
 	* )
-		echo 'Usage: init [git|tmux|vim|zsh]'
+		echo 'Usage: init [git|hammerspoon|tmux|vim|zsh]'
 		;;
 esac
