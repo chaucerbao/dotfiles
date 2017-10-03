@@ -10,6 +10,9 @@ case "$1" in
 		mkdir -p $HOME/.hammerspoon/
 		echo "dofile('..${PWD#$HOME}/hammerspoon/init.lua')" >> $HOME/.hammerspoon/init.lua
 		;;
+	prettier )
+		cp $PWD/prettier/.prettierrc $HOME
+		;;
 	tmux )
 		echo "source-file $DOTFILES/tmux/.tmux.conf" >> $HOME/.tmux.conf
 		;;
@@ -20,6 +23,6 @@ case "$1" in
 		echo "source $DOTFILES/zsh/.zshrc" >> $HOME/.zshrc
 		;;
 	* )
-		echo 'Usage: init [git|hammerspoon|tmux|vim|zsh]'
+		echo 'Usage: init [git|hammerspoon|prettier|tmux|vim|zsh]'
 		;;
 esac
