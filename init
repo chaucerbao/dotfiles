@@ -1,28 +1,33 @@
 #!/bin/sh
 
-DOTFILES="~${PWD#$HOME}"
-
-case "$1" in
-	git )
-		git config --global include.path "$DOTFILES/git/.gitconfig"
-		;;
-	hammerspoon )
-		mkdir -p $HOME/.hammerspoon/
-		echo "dofile('..${PWD#$HOME}/hammerspoon/init.lua')" >> $HOME/.hammerspoon/init.lua
-		;;
-	prettier )
-		cp $PWD/prettier/.prettierrc $HOME
-		;;
-	tmux )
-		echo "source-file $DOTFILES/tmux/.tmux.conf" >> $HOME/.tmux.conf
-		;;
-	vim )
-		echo "source $DOTFILES/vim/.vimrc" >> $HOME/.vimrc
-		;;
-	zsh )
-		echo "source $DOTFILES/zsh/.zshrc" >> $HOME/.zshrc
-		;;
-	* )
-		echo 'Usage: init [git|hammerspoon|prettier|tmux|vim|zsh]'
-		;;
-esac
+if [ $# -eq 0 ]; then
+	echo 'Usage: init [git|hammerspoon|prettier|tmux|vim|zsh] ...'
+else
+	DOTFILES="~${PWD#$HOME}"
+	for i do
+		case "$i" in
+			git )
+				git config --global include.path "$DOTFILES/git/.gitconfig"
+				;;
+			hammerspoon )
+				mkdir -p $HOME/.hammerspoon/
+				echo "dofile('..${PWD#$HOME}/hammerspoon/init.lua')" >> $HOME/.hammerspoon/init.lua
+				;;
+			prettier )
+				cp $PWD/prettier/.prettierrc $HOME
+				;;
+			tmux )
+				echo "source-file $DOTFILES/tmux/.tmux.conf" >> $HOME/.tmux.conf
+				;;
+			vim )
+				echo "source $DOTFILES/vim/.vimrc" >> $HOME/.vimrc
+				;;
+			zsh )
+				echo "source $DOTFILES/zsh/.zshrc" >> $HOME/.zshrc
+				;;
+			* )
+				echo "Unrecognized: $i"
+				;;
+		esac
+	done
+fi
