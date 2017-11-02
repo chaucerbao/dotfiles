@@ -8,9 +8,9 @@ endif
 " Plug-ins
 call plug#begin()
 
-" Display
+" Themes
 Plug 'chriskempson/base16-vim'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " File navigation
