@@ -152,7 +152,7 @@ nnoremap <Leader>t :EasyTreeToggle<CR>
 let g:easytree_hijack_netrw=0
 
 " Close Tags
-let g:closetag_filenames='*.html,*.jsx'
+let g:closetag_filenames='*.html,*.jsx,*.tsx'
 
 " Neoformat
 noremap <Leader>gq :Neoformat<CR>
