@@ -66,7 +66,6 @@ if exists('grepCommand') | let &grepprg=grepCommand.' --vimgrep' | set grepforma
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
-if has('gui_running') | set lines=60 columns=120 guioptions-=T | endif
 
 " Color scheme
 colorscheme base16-default-dark
