@@ -43,9 +43,7 @@ Plug 'tpope/vim-repeat'
 
 " File-types
 Plug 'ternjs/tern_for_vim', { 'for' : 'javascript', 'dir' : '~/.vim/plugged/tern_for_vim/', 'do' : 'npm install' }
-Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'Quramy/tsuquyomi', { 'for' : 'typescript' }
-Plug 'hail2u/vim-css3-syntax', { 'for' : ['css', 'scss', 'html'] }
 Plug 'sheerun/vim-polyglot'
 
 if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
