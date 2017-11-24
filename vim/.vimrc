@@ -78,6 +78,7 @@ set autoindent shiftround expandtab tabstop=2 shiftwidth=2
 set nofoldenable foldmethod=indent
 
 " Autocompletion
+set complete-=t,i
 set completeopt=longest,menuone
 set wildmenu wildmode=longest:full,full
 
