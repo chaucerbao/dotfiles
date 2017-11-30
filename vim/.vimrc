@@ -27,8 +27,6 @@ Plug 'alvan/vim-closetag'
 Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'sbdchd/neoformat'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'diepm/vim-rest-console', { 'for' : 'rest' }
 
@@ -158,9 +156,6 @@ let g:neoformat_enabled_javascript = ['prettiereslint', 'prettier']
 let g:neoformat_enabled_css = ['stylefmt', 'prettier']
 let g:neoformat_enabled_scss = ['stylefmt', 'prettier']
 
-" UltiSnips
-let g:UltiSnipsExpandTrigger='<Nop>'
-
 " Gutentags
 let g:gutentags_cache_dir='/tmp/gutentags'
 
@@ -184,9 +179,10 @@ vmap <Enter> <Plug>(EasyAlign)
 " CleverTab
 inoremap <silent><Tab> <C-r>=CleverTab#Complete('start')<CR>
 	\<C-r>=CleverTab#Complete('tab')<CR>
-	\<C-r>=CleverTab#Complete('ultisnips')<CR>
+	\<C-r>=CleverTab#Complete('user')<CR>
 	\<C-r>=CleverTab#Complete('omni')<CR>
 	\<C-r>=CleverTab#Complete('file')<CR>
+	\<C-r>=CleverTab#Complete('keyword')<CR>
 	\<C-r>=CleverTab#Complete('dictionary')<CR>
 	\<C-r>=CleverTab#Complete('stop')<CR>
 inoremap <silent><S-Tab> <C-r>=CleverTab#Complete('prev')<CR>
