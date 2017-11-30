@@ -199,3 +199,4 @@ let g:tern_show_signature_in_pum=1
 
 " Tsuquyomi
 let g:tsuquyomi_completion_detail=1
+let g:tsuquyomi_disable_quickfix=1
