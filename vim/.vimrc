@@ -120,15 +120,19 @@ nnoremap <C-l> <C-w>l
 inoremap <C-a> <Esc>I
 inoremap <C-e> <Esc>A
 
-" File list navigation
+" Buffer/Quickfix/Location list navigation
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
 nnoremap [B :bfirst<CR>
 nnoremap ]B :blast<CR>
-nnoremap [q :cprevious<CR>
-nnoremap ]q :cnext<CR>
-nnoremap [Q :cfirst<CR>
-nnoremap ]Q :clast<CR>
+nnoremap [q :cprevious<CR>zz
+nnoremap ]q :cnext<CR>zz
+nnoremap [Q :cfirst<CR>zz
+nnoremap ]Q :clast<CR>zz
+nnoremap [l :lprevious<CR>zz
+nnoremap ]l :lnext<CR>zz
+nnoremap [L :lfirst<CR>zz
+nnoremap ]L :llast<CR>zz
 
 " Helpers
 if executable('curl')
