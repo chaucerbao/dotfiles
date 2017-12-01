@@ -27,6 +27,7 @@ Plug 'alvan/vim-closetag'
 Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'sbdchd/neoformat'
+Plug 'joereynolds/vim-minisnip'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'diepm/vim-rest-console', { 'for' : 'rest' }
 
@@ -160,6 +161,9 @@ let g:neoformat_enabled_javascript = ['prettiereslint', 'prettier']
 let g:neoformat_enabled_css = ['stylefmt', 'prettier']
 let g:neoformat_enabled_scss = ['stylefmt', 'prettier']
 
+" Minisnip
+let g:minisnip_trigger='<NOP>'
+
 " Gutentags
 let g:gutentags_cache_dir='/tmp/gutentags'
 
@@ -184,6 +188,7 @@ vmap <Enter> <Plug>(EasyAlign)
 inoremap <silent><Tab> <C-r>=CleverTab#Complete('start')<CR>
 	\<C-r>=CleverTab#Complete('tab')<CR>
 	\<C-r>=CleverTab#Complete('user')<CR>
+	\<C-r>=CleverTab#Complete('minisnip')<CR>
 	\<C-r>=CleverTab#Complete('omni')<CR>
 	\<C-r>=CleverTab#Complete('file')<CR>
 	\<C-r>=CleverTab#Complete('keyword')<CR>
