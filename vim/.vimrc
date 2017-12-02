@@ -162,7 +162,7 @@ let g:neoformat_enabled_css = ['stylefmt', 'prettier']
 let g:neoformat_enabled_scss = ['stylefmt', 'prettier']
 
 " Minisnip
-let g:minisnip_trigger='<NOP>'
+smap <Tab> <Plug>Minisnip
 
 " Gutentags
 let g:gutentags_cache_dir='/tmp/gutentags'
