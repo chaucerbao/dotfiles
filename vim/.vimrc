@@ -162,7 +162,7 @@ let g:neoformat_enabled_css=['stylefmt', 'prettier']
 let g:neoformat_enabled_scss=['stylefmt', 'prettier']
 
 " Minisnip
-let g:minisnip_trigger='<C-j>'
+let g:minisnip_trigger='<Nop>'
 
 " Gutentags
 let g:gutentags_cache_dir='/tmp/gutentags'
@@ -185,7 +185,16 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 vmap <Enter> <Plug>(EasyAlign)
 
 " CleverTab
-call CleverTab#OmniFirst()
+inoremap <silent><Tab> <C-r>=CleverTab#Complete('start')<CR>
+	\<C-r>=CleverTab#Complete('tab')<CR>
+	\<C-r>=CleverTab#Complete('user')<CR>
+	\<C-r>=CleverTab#Complete('minisnip')<CR>
+	\<C-r>=CleverTab#Complete('omni')<CR>
+	\<C-r>=CleverTab#Complete('file')<CR>
+	\<C-r>=CleverTab#Complete('keyword')<CR>
+	\<C-r>=CleverTab#Complete('dictionary')<CR>
+	\<C-r>=CleverTab#Complete('stop')<CR>
+inoremap <silent><S-Tab> <C-r>=CleverTab#Complete('prev')<CR>
 
 " Sneak
 map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
