@@ -157,12 +157,12 @@ let g:closetag_filenames='*.html,*.jsx,*.tsx'
 
 " Neoformat
 noremap <Leader>gq :Neoformat<CR>
-let g:neoformat_enabled_javascript = ['prettiereslint', 'prettier']
-let g:neoformat_enabled_css = ['stylefmt', 'prettier']
-let g:neoformat_enabled_scss = ['stylefmt', 'prettier']
+let g:neoformat_enabled_javascript=['prettiereslint', 'prettier']
+let g:neoformat_enabled_css=['stylefmt', 'prettier']
+let g:neoformat_enabled_scss=['stylefmt', 'prettier']
 
 " Minisnip
-let g:minisnip_trigger = '<Nop>'
+let g:minisnip_trigger='<C-j>'
 
 " Gutentags
 let g:gutentags_cache_dir='/tmp/gutentags'
@@ -185,16 +185,7 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 vmap <Enter> <Plug>(EasyAlign)
 
 " CleverTab
-inoremap <silent><Tab> <C-r>=CleverTab#Complete('start')<CR>
-	\<C-r>=CleverTab#Complete('tab')<CR>
-	\<C-r>=CleverTab#Complete('user')<CR>
-	\<C-r>=CleverTab#Complete('minisnip')<CR>
-	\<C-r>=CleverTab#Complete('omni')<CR>
-	\<C-r>=CleverTab#Complete('file')<CR>
-	\<C-r>=CleverTab#Complete('keyword')<CR>
-	\<C-r>=CleverTab#Complete('dictionary')<CR>
-	\<C-r>=CleverTab#Complete('stop')<CR>
-inoremap <silent><S-Tab> <C-r>=CleverTab#Complete('prev')<CR>
+call CleverTab#OmniFirst()
 
 " Sneak
 nmap f <Plug>Sneak_f| nmap F <Plug>Sneak_F| xmap f <Plug>Sneak_f| xmap F <Plug>Sneak_F| omap f <Plug>Sneak_f| omap F <Plug>Sneak_F
