@@ -93,7 +93,7 @@ nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
 nnoremap K i<CR><Esc>d^==kg_lD
-map ; :
+nnoremap ; : | nnoremap : ; | vnoremap ; : | vnoremap : ;
 
 " Yank/paste using the system clipboard
 nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
@@ -190,6 +190,7 @@ call CleverTab#OmniFirst()
 " Sneak
 nmap f <Plug>Sneak_f| nmap F <Plug>Sneak_F| xmap f <Plug>Sneak_f| xmap F <Plug>Sneak_F| omap f <Plug>Sneak_f| omap F <Plug>Sneak_F
 nmap t <Plug>Sneak_t| nmap T <Plug>Sneak_T| xmap t <Plug>Sneak_t| xmap T <Plug>Sneak_T| omap t <Plug>Sneak_t| omap T <Plug>Sneak_T
+map : <Plug>Sneak_;
 let g:sneak#label=1
 let g:sneak#s_next=1
 
