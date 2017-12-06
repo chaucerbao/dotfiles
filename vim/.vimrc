@@ -84,9 +84,6 @@ set wildmenu wildmode=longest:full,full
 " Trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-" File-type dependent settings
-autocmd FileType php,python setlocal tabstop=4 shiftwidth=4
-
 " Mappings
 let mapleader=' '
 nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
