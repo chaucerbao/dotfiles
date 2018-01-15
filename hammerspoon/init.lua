@@ -96,7 +96,7 @@ hs.hotkey.bind(mods, '0', function()
   audioDevice:setMuted(not audioDevice:muted())
 end)
 hs.hotkey.bind(mods, '-', function() hs.audiodevice.defaultOutputDevice():setVolume(25/2) end)
-hs.hotkey.bind(mods, '=', function() hs.audiodevice.defaultOutputDevice():setVolume(100) end)
+hs.hotkey.bind(mods, '=', function() hs.audiodevice.defaultOutputDevice():setVolume(75/2) end)
 
 hs.hotkey.bind(mods, 'A', function() autoClick() end)
 hs.hotkey.bind(mods, 'Z', function() toggleCaffeine() end)
