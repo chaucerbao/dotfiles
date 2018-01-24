@@ -9,7 +9,7 @@ SAVEHIST=$HISTSIZE
 setopt HIST_IGNORE_SPACE HIST_REDUCE_BLANKS HIST_SAVE_NO_DUPS INC_APPEND_HISTORY
 
 # Environment
-export PATH=node_modules/.bin:vendor/bin:$HOME/.composer/vendor/bin:$PATH
+export PATH=node_modules/.bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 autoload -U compinit; compinit
