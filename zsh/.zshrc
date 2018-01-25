@@ -74,7 +74,7 @@ alias dclean='docker rmi $(docker images --all --quiet --filter "dangling=true")
 alias drun='docker run --rm --interactive --tty'
 
 alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
-alias c='source-highlight --failsafe --line-number --out-format=esc256 --output=STDOUT -i'
+alias c='cat'
 alias ds='rg --null --files --no-ignore --glob "*.DS_Store" ~/ | xargs -0 rm --'
 alias l='ls -l'
 alias ll='ls --almost-all -l'
