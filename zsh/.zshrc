@@ -83,7 +83,9 @@ alias npmD='npm install --save-dev'
 alias npmS='npm install --save'
 alias rg='rg --fixed-strings --smart-case --colors "path:fg:blue" --colors "line:fg:yellow"'
 alias t='tmux'
-alias ts='tmux new-session -s'
+alias ta='tmux attach-session'
+alias tls='tmux list-sessions'
+alias ts='tmux new-session -A -s'
 alias v='vim'
 
 rgf() { rg --files --glob "*$1*" }
