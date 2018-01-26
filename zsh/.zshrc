@@ -83,11 +83,14 @@ alias ts='tmux new-session -A -s'
 
 alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
 alias c='cat'
-alias ds='rg --null --files --no-ignore --glob "*.DS_Store" ~/ | xargs -0 rm --'
 alias l='ls -l'
 alias ll='ls --almost-all -l'
 alias ls='ls --color --classify --group-directories-first --human-readable --literal'
 alias rg='rg --fixed-strings --smart-case --colors "path:fg:blue" --colors "line:fg:yellow"'
 alias v='vim'
 
+clean() {
+	rg --null --files --no-ignore --glob "*.DS_Store" $HOME/ | xargs -0 rm --
+	rm --force $HOME/.bashrc $HOME/.fzf.bash
+}
 rgf() { rg --files --glob "*$1*" }
