@@ -198,8 +198,8 @@ inoremap <silent><Tab> <C-r>=CleverTab#Complete('start')<CR>
 inoremap <silent><S-Tab> <C-r>=CleverTab#Complete('prev')<CR>
 
 " Visual Star Search
-nnoremap <Leader>* :silent execute 'lgrep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>:redraw!<CR>
-vnoremap <Leader>* :<C-u>call VisualStarSearchSet('/')<CR>:silent execute 'lgrep "' . @/ . '"'<CR>:redraw!<CR>
+nnoremap <Leader>* :silent execute 'grep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>:redraw!<CR>
+vnoremap <Leader>* :<C-u>call VisualStarSearchSet('/')<CR>:silent execute 'grep "' . @/ . '"'<CR>:redraw!<CR>
 
 " Sneak
 map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
