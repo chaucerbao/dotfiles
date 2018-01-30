@@ -84,6 +84,10 @@ set wildmenu wildmode=longest:full,full
 " Trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+" Open QuickFix/Location List automatically
+autocmd QuickFixCmdPost [^l]* cwindow
+autocmd QuickFixCmdPost l* lwindow
+
 " Mappings
 let mapleader=' '
 nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
@@ -194,8 +198,8 @@ inoremap <silent><Tab> <C-r>=CleverTab#Complete('start')<CR>
 inoremap <silent><S-Tab> <C-r>=CleverTab#Complete('prev')<CR>
 
 " Visual Star Search
-nnoremap <Leader>* :execute 'noautocmd grep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>
-vnoremap <Leader>* :<C-u>call VisualStarSearchSet('/')<CR>:execute 'noautocmd grep "' . @/ . '"'<CR>
+nnoremap <Leader>* :execute 'lgrep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>
+vnoremap <Leader>* :<C-u>call VisualStarSearchSet('/')<CR>:execute 'lgrep "' . @/ . '"'<CR>
 
 " Sneak
 map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
