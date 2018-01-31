@@ -41,8 +41,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
 
 " File-types
-Plug 'ternjs/tern_for_vim', { 'for' : 'javascript', 'dir' : '~/.vim/plugged/tern_for_vim/', 'do' : 'npm install' }
-Plug 'Quramy/tsuquyomi', { 'for' : 'typescript' }
+Plug 'Quramy/tsuquyomi', { 'for' : ['javascript', 'typescript'] }
 Plug 'sheerun/vim-polyglot'
 
 if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
@@ -208,9 +207,7 @@ map : <Plug>Sneak_;| sunmap :
 let g:sneak#label=1
 let g:sneak#s_next=1
 
-" Tern.js
-let g:tern_show_signature_in_pum=1
-
 " Tsuquyomi
 let g:tsuquyomi_completion_detail=1
 let g:tsuquyomi_disable_quickfix=1
+let g:tsuquyomi_javascript_support=1
