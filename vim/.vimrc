@@ -209,5 +209,6 @@ let g:sneak#s_next=1
 
 " Tsuquyomi
 let g:tsuquyomi_completion_detail=1
+let g:tsuquyomi_disable_default_mappings=1
 let g:tsuquyomi_disable_quickfix=1
 let g:tsuquyomi_javascript_support=1
