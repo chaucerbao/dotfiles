@@ -1,34 +1,6 @@
-#!/bin/sh
+This is william, you are a hard man to get ahold of, call me! :D
 
-if [ $# -eq 0 ]; then
-	echo 'Usage: init [git|hammerspoon|prettier|tmux|vim|zsh] ...'
-else
-	DOTFILES="~${PWD#$HOME}"
-	for i do
-		case "$i" in
-			git )
-				git config --global include.path "$DOTFILES/git/.gitconfig"
-				;;
-			hammerspoon )
-				mkdir -p $HOME/.hammerspoon/
-				echo "dofile('..${PWD#$HOME}/hammerspoon/init.lua')" >> $HOME/.hammerspoon/init.lua
-				;;
-			prettier )
-				cp $PWD/prettier/.prettierrc $HOME
-				;;
-			tmux )
-				git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
-				echo "source-file $DOTFILES/tmux/.tmux.conf" >> $HOME/.tmux.conf
-				;;
-			vim )
-				echo "source $DOTFILES/vim/.vimrc" >> $HOME/.vimrc
-				;;
-			zsh )
-				echo "source $DOTFILES/zsh/.zshrc" >> $HOME/.zshrc
-				;;
-			* )
-				echo "Unrecognized: $i"
-				;;
-		esac
-	done
-fi
+DES/CBC - Key is lowercase hero name of what I used to main in HOTS
+ghJw2tF42Z8iHGE0JgTzV/rQ71rpFmqV9uMkVUJ6xE7LYwjez0OYvMhBrcohUFext3lDh72W39pxXxhLJciIj2KkLW1TINbq+QWJ2xZd6Y8sQKFgTE9/Kd54bbamOTykW8AdsS2SYvTTmzLnuryzvqT4nREY/84Iz0WsGN9K3Lygvst3nik/+g==
+
+https://www.tools4noobs.com/online_tools/decrypt/
