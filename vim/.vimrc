@@ -58,7 +58,7 @@ packadd! matchit
 set lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· pastetoggle=<F2> tags=./tags;,tags
 if has('mouse') && !has('nvim') | set mouse=a ttymouse=xterm2 | endif
 if executable('rg') | let grepCommand='rg' | elseif executable('ag') | let grepCommand='ag' | endif
-if exists('grepCommand') | let &grepprg=grepCommand.' --vimgrep' | set grepformat=%f:%l:%c:%m | unlet grepCommand | endif
+if exists('grepCommand') | let &grepprg=grepCommand.' --smart-case --vimgrep' | set grepformat=%f:%l:%c:%m | unlet grepCommand | endif
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
@@ -209,6 +209,5 @@ let g:sneak#s_next=1
 
 " Tsuquyomi
 let g:tsuquyomi_completion_detail=1
-let g:tsuquyomi_disable_default_mappings=1
 let g:tsuquyomi_disable_quickfix=1
 let g:tsuquyomi_javascript_support=1
