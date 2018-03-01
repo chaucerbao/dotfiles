@@ -1,4 +1,6 @@
--- Disable animations by default
+-- Style options
+hs.alert.defaultStyle.radius = 5
+hs.alert.defaultStyle.strokeColor.alpha = 0
 hs.window.animationDuration = 0
 
 -- Move the focused window to a target position on the current screen
@@ -30,6 +32,24 @@ function moveTo(target)
   end
 
   window:setFrame(frame)
+end
+
+-- Control the volume of the active audio device
+function setVolume(target)
+  local audioDevice = hs.audiodevice.defaultOutputDevice()
+
+  if target == 'toggle' then
+    audioDevice:setMuted(not audioDevice:muted())
+    hs.alert.show(audioDevice:muted() and 'Mute' or 'Unmute')
+  elseif target == 'low' then
+    audioDevice:setVolume(2/16 * 100)
+    audioDevice:setMuted(false)
+    hs.alert.show('Volume low')
+  elseif target == 'normal' then
+    audioDevice:setVolume(6/16 * 100)
+    audioDevice:setMuted(false)
+    hs.alert.show('Volume normal')
+  end
 end
 
 -- Bind back/forward navigation on the mouse
@@ -91,12 +111,9 @@ hs.hotkey.bind(mods, 'L', function() hs.window.frontmostWindow():moveToUnit(hs.l
 hs.hotkey.bind(mods, '[', function() hs.window.frontmostWindow():moveOneScreenWest() end)
 hs.hotkey.bind(mods, ']', function() hs.window.frontmostWindow():moveOneScreenEast() end)
 
-hs.hotkey.bind(mods, '0', function()
-  local audioDevice = hs.audiodevice.defaultOutputDevice()
-  audioDevice:setMuted(not audioDevice:muted())
-end)
-hs.hotkey.bind(mods, '-', function() hs.audiodevice.defaultOutputDevice():setVolume(25/2) end)
-hs.hotkey.bind(mods, '=', function() hs.audiodevice.defaultOutputDevice():setVolume(75/2) end)
+hs.hotkey.bind(mods, '0', function() setVolume('toggle') end)
+hs.hotkey.bind(mods, '-', function() setVolume('low') end)
+hs.hotkey.bind(mods, '=', function() setVolume('normal') end)
 
 hs.hotkey.bind(mods, 'A', function() autoClick() end)
 hs.hotkey.bind(mods, 'Z', function() toggleCaffeine() end)
