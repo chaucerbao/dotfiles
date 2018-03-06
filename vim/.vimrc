@@ -16,7 +16,6 @@ Plug 'vim-airline/vim-airline-themes'
 " File navigation
 Plug 'justinmk/vim-dirvish'
 Plug 'junegunn/fzf', { 'on' : 'FZF', 'dir' : '~/.fzf', 'do' : 'yes \| ./install' }
-Plug 'troydm/easytree.vim', { 'on' : 'EasyTreeToggle' }
 
 " Programming
 Plug 'w0rp/ale'
@@ -147,10 +146,6 @@ let g:airline_theme='base16'
 
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
-
-" EasyTree
-nnoremap <Leader>t :EasyTreeToggle<CR>
-let g:easytree_hijack_netrw=0
 
 " Close Tags
 let g:closetag_filenames='*.html,*.jsx,*.tsx'
