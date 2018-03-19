@@ -25,10 +25,6 @@ function moveTo(target)
     -- Quadrant 4 (Bottom-left)
     frame.x = screen.x
     frame.y = screen.y + screen.h - frame.h
-  elseif target == 'center' then
-    -- Center
-    frame.x = screen.x + (screen.w - frame.w) / 2
-    frame.y = screen.y + (screen.h - frame.h) / 2
   end
 
   window:setFrame(frame)
@@ -86,7 +82,6 @@ function toggleCaffeine()
     caffeine:removeFromMenuBar()
   end
 end
-
 if caffeine then
   caffeine:setTitle('\u{2615}')
   caffeine:setClickCallback(toggleCaffeine)
@@ -100,7 +95,7 @@ hs.hotkey.bind(mods, '1', function() moveTo(1) end)
 hs.hotkey.bind(mods, '2', function() moveTo(2) end)
 hs.hotkey.bind(mods, '3', function() moveTo(3) end)
 hs.hotkey.bind(mods, '4', function() moveTo(4) end)
-hs.hotkey.bind(mods, 'C', function() moveTo('center') end)
+hs.hotkey.bind(mods, 'C', function() hs.window.frontmostWindow():centerOnScreen() end)
 
 hs.hotkey.bind(mods, 'M', function() hs.window.frontmostWindow():maximize() end)
 hs.hotkey.bind(mods, 'N', function() hs.window.frontmostWindow():moveToUnit({ x = 1/4, y = 1/4, w = 1/2, h = 1/2 }) end)
