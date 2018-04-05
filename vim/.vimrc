@@ -140,6 +140,7 @@ endif
 
 " Lightline
 let g:lightline={
+	\'colorscheme': 'onedark',
 	\'active': { 'left': [['mode', 'paste'], ['gitbranch', 'filename', 'readonly', 'modified']] },
 	\'component': { 'lineinfo': '%3l:%-2v' },
 	\'component_function': { 'gitbranch': 'fugitive#head' },
