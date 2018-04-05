@@ -14,7 +14,7 @@ Plug 'itchyny/lightline.vim'
 
 " File navigation
 Plug 'justinmk/vim-dirvish'
-Plug 'junegunn/fzf', { 'on' : 'FZF', 'dir' : '~/.fzf', 'do' : 'yes \| ./install' }
+Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
 " Programming
 Plug 'w0rp/ale'
@@ -27,19 +27,19 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'sbdchd/neoformat'
 Plug 'joereynolds/vim-minisnip'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'diepm/vim-rest-console', { 'for' : 'rest' }
+Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 
 " Helpers
-Plug 'tpope/vim-abolish', { 'on' : ['S', '<Plug>Coerce'] }
-Plug 'mbbill/undotree', { 'on' : 'UndotreeToggle' }
-Plug 'junegunn/vim-easy-align', { 'on' : '<Plug>(EasyAlign)' }
+Plug 'tpope/vim-abolish', { 'on': ['S', '<Plug>Coerce'] }
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'chaucerbao/vim-clevertab'
 Plug 'bronson/vim-visual-star-search'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
 
 " File-types
-Plug 'Quramy/tsuquyomi', { 'for' : ['javascript', 'typescript'] }
+Plug 'Quramy/tsuquyomi', { 'for': ['javascript', 'typescript'] }
 Plug 'sheerun/vim-polyglot'
 
 if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
