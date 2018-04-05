@@ -9,9 +9,8 @@ endif
 call plug#begin()
 
 " Themes
-Plug 'chriskempson/base16-vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'joshdick/onedark.vim'
+Plug 'itchyny/lightline.vim'
 
 " File navigation
 Plug 'justinmk/vim-dirvish'
@@ -63,7 +62,7 @@ if exists('grepCommand') | let &grepprg=grepCommand.' --smart-case --vimgrep' | 
 set number nowrap scrolloff=1 laststatus=2
 
 " Color scheme
-colorscheme base16-default-dark
+colorscheme onedark
 
 " Search and replace
 set ignorecase smartcase incsearch hlsearch
@@ -139,10 +138,14 @@ if executable('curl')
 	nnoremap <Leader>html :read !curl -sS https://raw.githubusercontent.com/h5bp/html5-boilerplate/master/dist/index.html<CR>
 endif
 
-" Airline
-let g:airline_extensions=[]
-let g:airline_powerline_fonts=1
-let g:airline_theme='base16'
+" Lightline
+let g:lightline={
+	\'active': { 'left': [['mode', 'paste'], ['gitbranch', 'filename', 'readonly', 'modified']] },
+	\'component': { 'lineinfo': '%3l:%-2v' },
+	\'component_function': { 'gitbranch': 'fugitive#head' },
+	\'separator': { 'left': '', 'right': '' },
+	\'subseparator': { 'left': '', 'right': '' }
+\}
 
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
