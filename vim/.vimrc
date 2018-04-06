@@ -14,7 +14,7 @@ Plug 'itchyny/lightline.vim'
 
 " File navigation
 Plug 'justinmk/vim-dirvish'
-Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': './install --all' }
 
 " Programming
 Plug 'w0rp/ale'
