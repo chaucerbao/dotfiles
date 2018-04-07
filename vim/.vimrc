@@ -14,7 +14,7 @@ Plug 'itchyny/lightline.vim'
 
 " File navigation
 Plug 'justinmk/vim-dirvish'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': './install --all' }
 
 " Programming
 Plug 'w0rp/ale'
@@ -106,6 +106,9 @@ nnoremap <Leader>d "_d | xnoremap <Leader>d "_d
 noremap j gj
 noremap k gk
 
+" Buffer navigation
+nnoremap <Leader>b :buffers<CR>:buffer<Space>
+
 " Tab navigation
 nnoremap <Leader><Tab> :$tabnew<CR>
 
@@ -150,7 +153,6 @@ let g:lightline={
 
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
-nnoremap <Leader>b :call fzf#run(fzf#wrap({ 'source': map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'), 'down': '~40%' }))<CR>
 
 " Close Tags
 let g:closetag_filenames='*.html,*.jsx,*.tsx'
