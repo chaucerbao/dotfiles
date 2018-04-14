@@ -20,9 +20,9 @@ Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'alvan/vim-closetag'
+Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'sbdchd/neoformat'
 Plug 'joereynolds/vim-minisnip'
@@ -153,6 +153,9 @@ let g:lightline={
 
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
+
+" Sandwich
+runtime macros/sandwich/keymap/surround.vim
 
 " Close Tags
 let g:closetag_filenames='*.html,*.jsx,*.tsx'
