@@ -187,7 +187,7 @@ nmap cr <Plug>Coerce
 nnoremap <Leader>u :UndotreeToggle<CR>
 
 " EasyAlign
-vmap <Enter> <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
 
 " CleverTab
 inoremap <silent><Tab> <C-r>=CleverTab#Complete('start')<CR>
