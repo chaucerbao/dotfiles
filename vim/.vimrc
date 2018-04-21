@@ -154,6 +154,17 @@ let g:lightline={
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
 
+" Asynchronous Lint Engine
+nmap <Leader>af <Plug>(ale_fix)
+let g:ale_fixers={
+	\'css': ['prettier', 'stylelint'],
+	\'javascript': ['prettier', 'eslint'],
+	\'json': ['prettier'],
+	\'markdown': ['prettier'],
+	\'scss': ['prettier', 'stylelint'],
+	\'typescript': ['prettier', 'tslint']
+\}
+
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
 
