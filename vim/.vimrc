@@ -151,6 +151,9 @@ let g:lightline={
 	\'subseparator': { 'left': '', 'right': '' }
 \}
 
+" Dirvish
+autocmd FileType dirvish setlocal nospell
+
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
 
