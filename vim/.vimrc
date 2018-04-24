@@ -62,6 +62,7 @@ if exists('grepCommand') | let &grepprg=grepCommand.' --smart-case --vimgrep' | 
 set number nowrap scrolloff=1 laststatus=2
 
 " Color scheme
+let g:onedark_termcolors=16
 colorscheme onedark
 
 " Search and replace
