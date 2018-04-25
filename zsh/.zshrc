@@ -78,6 +78,7 @@ alias npmS='npm install --save'
 
 alias t='tmux'
 alias ta='tmux attach-session'
+alias tks='tmux kill-server'
 alias tls='tmux list-sessions'
 alias ts='tmux new-session -A -s'
 
