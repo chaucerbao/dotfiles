@@ -75,6 +75,7 @@ alias gstp='git stp'
 
 alias npmD='npm install --save-dev'
 alias npmS='npm install --save'
+alias npmR='rm --force --recursive node_modules && npm install'
 
 alias t='tmux'
 alias ta='tmux attach-session'
