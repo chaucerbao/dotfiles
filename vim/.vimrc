@@ -69,7 +69,7 @@ colorscheme onedark
 set ignorecase smartcase incsearch hlsearch
 
 " Indentation
-set autoindent shiftround expandtab tabstop=2 shiftwidth=2
+set autoindent smarttab shiftround expandtab tabstop=2 shiftwidth=2
 
 " Folding
 set nofoldenable foldmethod=indent
