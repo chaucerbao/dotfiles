@@ -62,7 +62,6 @@ if exists('grepCommand') | let &grepprg=grepCommand.' --vimgrep' | set grepforma
 set number nowrap scrolloff=1 laststatus=2
 
 " Color scheme
-let g:onedark_termcolors=16
 colorscheme onedark
 
 " Search and replace
