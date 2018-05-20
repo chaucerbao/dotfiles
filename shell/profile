@@ -5,11 +5,11 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
 # Docker
+alias d='docker'
 alias dcbuild='docker-compose build --force-rm --no-cache'
 alias dclean='docker rmi $(docker images --all --quiet --filter "dangling=true")'
-alias dimg='docker images'
 alias drun='docker run --rm --interactive --tty'
-alias drunv='drun --volume=$(pwd):/mnt/host'
+alias drunV='drun --volume=$(pwd):/mnt/host'
 
 # Git
 alias g='git'
