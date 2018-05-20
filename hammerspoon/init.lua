@@ -113,3 +113,5 @@ hs.hotkey.bind(mods, '=', function() setVolume('normal') end)
 hs.hotkey.bind(mods, 'A', function() autoClick() end)
 hs.hotkey.bind(mods, 'Z', function() toggleCaffeine() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
+
+hs.hotkey.bind('cmd', 'escape', function() hs.application.launchOrFocusByBundleID('com.apple.Terminal') end)
