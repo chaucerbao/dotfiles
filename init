@@ -24,7 +24,7 @@ else
 				echo "source $DOTFILES/vim/.vimrc" >> $HOME/.vimrc
 				;;
 			zsh )
-				echo "source $DOTFILES/zsh/.zshrc" >> $HOME/.zshrc
+				echo "source $DOTFILES/shell/.zshrc" >> $HOME/.zshrc
 				;;
 			* )
 				echo "Unrecognized: $i"
