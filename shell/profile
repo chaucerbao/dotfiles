@@ -1,3 +1,9 @@
+# Exports
+export N_PREFIX=$HOME/.n
+export PATH=$N_PREFIX/bin:node_modules/.bin:$PATH
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+
 # Docker
 alias dcbuild='docker-compose build --force-rm --no-cache'
 alias dclean='docker rmi $(docker images --all --quiet --filter "dangling=true")'
