@@ -9,7 +9,7 @@ alias d='docker'
 alias dcbuild='docker-compose build --force-rm --no-cache'
 alias dclean='docker rmi $(docker images --all --quiet --filter "dangling=true")'
 alias drun='docker run --rm --interactive --tty'
-alias drunV='drun --volume=$(pwd):/mnt/host'
+alias drunV='drun --volume=$PWD:/mnt/host'
 
 # Git
 alias g='git'
