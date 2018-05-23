@@ -69,7 +69,7 @@ function autoClick()
       function () return autoClickActive end,
       function () hs.eventtap.leftClick(hs.mouse.getAbsolutePosition()) end,
       .1
-      )
+    )
   end
 end
 
