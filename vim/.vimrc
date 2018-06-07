@@ -159,6 +159,8 @@ nnoremap <Leader>f :FZF -m<CR>
 
 " Asynchronous Lint Engine
 nmap <Leader>af <Plug>(ale_fix)
+nnoremap <Leader>ad :ALEDetail<CR>
+nnoremap <Leader>ar :ALEResetBuffer<CR>:ALELint<CR>
 let g:ale_fixers={
 	\'css': ['prettier', 'stylelint'],
 	\'javascript': ['prettier', 'eslint'],
