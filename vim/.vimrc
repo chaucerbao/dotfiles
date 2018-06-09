@@ -101,6 +101,7 @@ nnoremap <Leader>P "*P | xnoremap <Leader>P "*P
 " Change/delete to black hole register
 nnoremap <Leader>c "_c | xnoremap <Leader>c "_c
 nnoremap <Leader>d "_d | xnoremap <Leader>d "_d
+nnoremap <Leader>x "_x | xnoremap <Leader>x "_x
 
 " Navigate by displayed lines when wrapped
 noremap j gj
@@ -222,7 +223,6 @@ vnoremap <Leader>* :<C-u>call VisualStarSearchSet('/')<CR>:silent execute 'grep 
 " Sneak
 map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
 map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
-map : <Plug>Sneak_;| sunmap :
 let g:sneak#label=1
 let g:sneak#s_next=1
 
