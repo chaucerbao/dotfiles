@@ -50,11 +50,11 @@ if pluginsInstalled == 0 | :PlugInstall | endif
 unlet pluginsInstalled
 
 " MatchIt plug-in
-packadd! matchit
+if !has('nvim') | packadd! matchit | endif
 
 " General settings
-set confirm hidden lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· pastetoggle=<F2> tags=./tags;,tags
-if has('mouse') && !has('nvim') | set mouse=a ttymouse=xterm2 | endif
+set confirm hidden lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· mouse=a pastetoggle=<F2> tags=./tags;,tags
+if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
 if executable('rg') | let grepCommand='rg' | elseif executable('ag') | let grepCommand='ag' | endif
 if exists('grepCommand') | let &grepprg=grepCommand.' --vimgrep' | set grepformat=%f:%l:%c:%m | unlet grepCommand | endif
 
