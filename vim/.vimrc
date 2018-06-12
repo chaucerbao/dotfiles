@@ -1,7 +1,7 @@
 " Automatically load the plug-in manager
-let pluginsInstalled=1
+let s:pluginsInstalled=1
 if empty(glob('~/.vim/autoload/plug.vim')) && executable('curl')
-	let pluginsInstalled=0
+	let s:pluginsInstalled=0
 	silent !curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
@@ -46,8 +46,8 @@ if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
 call plug#end()
 
 " Install plug-ins if needed
-if pluginsInstalled == 0 | :PlugInstall | endif
-unlet pluginsInstalled
+if s:pluginsInstalled == 0 | :PlugInstall | endif
+unlet s:pluginsInstalled
 
 " MatchIt plug-in
 if !has('nvim') | packadd! matchit | endif
@@ -55,8 +55,8 @@ if !has('nvim') | packadd! matchit | endif
 " General settings
 set confirm hidden lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· mouse=a pastetoggle=<F2> tags=./tags;,tags
 if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
-if executable('rg') | let grepCommand='rg' | elseif executable('ag') | let grepCommand='ag' | endif
-if exists('grepCommand') | let &grepprg=grepCommand.' --vimgrep' | set grepformat=%f:%l:%c:%m | unlet grepCommand | endif
+if executable('rg') | let s:grepCommand='rg' | elseif executable('ag') | let s:grepCommand='ag' | endif
+if exists('s:grepCommand') | let &grepprg=s:grepCommand.' --vimgrep' | set grepformat=%f:%l:%c:%m | unlet s:grepCommand | endif
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
