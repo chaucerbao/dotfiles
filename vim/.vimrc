@@ -175,7 +175,7 @@ let g:ale_fixers={
 runtime macros/sandwich/keymap/surround.vim
 
 " Close Tags
-let g:closetag_filenames='*.html,*.jsx,*.tsx'
+let g:closetag_filetypes='html,javascript.jsx,typescript.jsx'
 
 " Neoformat
 noremap <Leader>gq :Neoformat<CR>
