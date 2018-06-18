@@ -24,7 +24,6 @@ Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'sbdchd/neoformat'
 Plug 'joereynolds/vim-minisnip'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
@@ -159,7 +158,7 @@ autocmd FileType dirvish setlocal nospell
 nnoremap <Leader>f :FZF -m<CR>
 
 " Asynchronous Lint Engine
-nmap <Leader>af <Plug>(ale_fix)
+nmap <Leader>gq <Plug>(ale_fix)
 nnoremap <Leader>ad :ALEDetail<CR>
 nnoremap <Leader>ar :ALEResetBuffer<CR>:ALELint<CR>
 let g:ale_fixers={
@@ -176,12 +175,6 @@ runtime macros/sandwich/keymap/surround.vim
 
 " Close Tags
 let g:closetag_filetypes='html,javascript.jsx,typescript.jsx'
-
-" Neoformat
-noremap <Leader>gq :Neoformat<CR>
-let g:neoformat_enabled_javascript=['prettiereslint', 'prettier']
-let g:neoformat_enabled_css=['stylefmt', 'prettier']
-let g:neoformat_enabled_scss=['stylefmt', 'prettier']
 
 " Minisnip
 let g:minisnip_trigger='<Nop>'
