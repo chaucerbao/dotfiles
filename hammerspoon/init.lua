@@ -59,18 +59,6 @@ hs.eventtap.new({hs.eventtap.event.types.otherMouseDown}, function(event)
   end
 end):start()
 
--- Automatically left-click at an interval
-local autoClickTimer = hs.timer.new(.1, function() hs.eventtap.leftClick(hs.mouse.getAbsolutePosition(), 1000) end)
-function toggleAutoClick()
-  if autoClickTimer:running() then
-    autoClickTimer:stop()
-    hs.alert.show('Auto-click off')
-  else
-    autoClickTimer:start()
-    hs.alert.show('Auto-click on')
-  end
-end
-
 -- Caffeine
 local caffeine = hs.menubar.new()
 function toggleCaffeine()
@@ -108,8 +96,14 @@ hs.hotkey.bind(mods, '0', function() setVolume('toggle') end)
 hs.hotkey.bind(mods, '-', function() setVolume('low') end)
 hs.hotkey.bind(mods, '=', function() setVolume('normal') end)
 
-hs.hotkey.bind(mods, 'A', function() toggleAutoClick() end)
 hs.hotkey.bind(mods, 'Z', function() toggleCaffeine() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
 hs.hotkey.bind('cmd', 'escape', function() hs.application.launchOrFocusByBundleID('com.apple.Terminal') end)
+
+-- AutoClicker
+local autoClicker = hs.timer.new(.1, function() hs.eventtap.leftClick(hs.mouse.getAbsolutePosition(), 1000) end)
+local autoClickerModal = hs.hotkey.modal.new(mods, 'A')
+autoClickerModal:bind('', 'escape', nil, function() autoClickerModal:exit() end)
+function autoClickerModal:entered() autoClicker:start(); hs.alert.show('AutoClicker started') end
+function autoClickerModal:exited() autoClicker:stop(); hs.alert.show('AutoClicker stopped') end
