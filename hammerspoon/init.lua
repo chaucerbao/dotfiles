@@ -60,16 +60,14 @@ hs.eventtap.new({hs.eventtap.event.types.otherMouseDown}, function(event)
 end):start()
 
 -- Automatically left-click at an interval
-local autoClickActive = false
-function autoClick()
-  autoClickActive = not autoClickActive
-
-  if (autoClickActive) then
-    hs.timer.doWhile(
-      function () return autoClickActive end,
-      function () hs.eventtap.leftClick(hs.mouse.getAbsolutePosition()) end,
-      .1
-    )
+local autoClickTimer = hs.timer.new(.1, function() hs.eventtap.leftClick(hs.mouse.getAbsolutePosition(), 1000) end)
+function toggleAutoClick()
+  if autoClickTimer:running() then
+    autoClickTimer:stop()
+    hs.alert.show('Auto-click off')
+  else
+    autoClickTimer:start()
+    hs.alert.show('Auto-click on')
   end
 end
 
@@ -110,7 +108,7 @@ hs.hotkey.bind(mods, '0', function() setVolume('toggle') end)
 hs.hotkey.bind(mods, '-', function() setVolume('low') end)
 hs.hotkey.bind(mods, '=', function() setVolume('normal') end)
 
-hs.hotkey.bind(mods, 'A', function() autoClick() end)
+hs.hotkey.bind(mods, 'A', function() toggleAutoClick() end)
 hs.hotkey.bind(mods, 'Z', function() toggleCaffeine() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
