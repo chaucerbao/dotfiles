@@ -32,7 +32,7 @@ Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 Plug 'tpope/vim-abolish', { 'on': ['S', '<Plug>Coerce'] }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
-Plug 'chaucerbao/vim-clevertab'
+Plug 'chaucerbao/vim-onetab'
 Plug 'bronson/vim-visual-star-search'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
@@ -177,7 +177,7 @@ runtime macros/sandwich/keymap/surround.vim
 let g:closetag_filetypes='html,javascript.jsx,typescript.jsx'
 
 " Minisnip
-let g:minisnip_trigger='<Nop>'
+let g:minisnip_trigger='<C-y>'
 
 " Gutentags
 let g:gutentags_cache_dir='/tmp/gutentags'
@@ -198,16 +198,6 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 
 " EasyAlign
 nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
-
-" CleverTab
-inoremap <silent><Tab> <C-r>=CleverTab#Complete('start')<CR>
-	\<C-r>=CleverTab#Complete('tab')<CR>
-	\<C-r>=CleverTab#Complete('minisnip')<CR>
-	\<C-r>=CleverTab#Complete('omni')<CR>
-	\<C-r>=CleverTab#Complete('file')<CR>
-	\<C-r>=CleverTab#Complete('keyword')<CR>
-	\<C-r>=CleverTab#Complete('stop')<CR>
-inoremap <silent><S-Tab> <C-r>=CleverTab#Complete('prev')<CR>
 
 " Visual Star Search
 nnoremap <Leader>* :silent execute 'grep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>:redraw!<CR>
