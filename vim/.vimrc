@@ -121,6 +121,8 @@ nnoremap <C-l> <C-w>l
 " Insert mode navigation
 inoremap <C-a> <Esc>I
 inoremap <C-e> <Esc>A
+inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <Enter> pumvisible() ? "\<C-y>" : "\<Enter>"
 
 " Buffer/Quickfix/Location list navigation
 nnoremap [b :bprevious<CR>
