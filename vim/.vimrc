@@ -138,11 +138,6 @@ nnoremap ]l :lnext<CR>zz
 nnoremap [L :lfirst<CR>zz
 nnoremap ]L :llast<CR>zz
 
-" Helpers
-if executable('curl')
-	nnoremap <Leader>html :read !curl -sS https://raw.githubusercontent.com/h5bp/html5-boilerplate/master/dist/index.html<CR>
-endif
-
 " Lightline
 let g:lightline={
 	\'colorscheme': 'onedark',
