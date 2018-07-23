@@ -9,7 +9,7 @@ endif
 call plug#begin()
 
 " Themes
-Plug 'joshdick/onedark.vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
 
 " File navigation
@@ -61,7 +61,8 @@ if exists('s:grepCommand') | let &grepprg=s:grepCommand.' --vimgrep' | set grepf
 set number nowrap scrolloff=1 laststatus=2
 
 " Color scheme
-colorscheme onedark
+let g:nord_uniform_diff_background=1
+colorscheme nord
 
 " Search and replace
 set ignorecase smartcase incsearch hlsearch
@@ -140,7 +141,7 @@ nnoremap ]L :llast<CR>zz
 
 " Lightline
 let g:lightline={
-	\'colorscheme': 'onedark',
+	\'colorscheme': 'nord',
 	\'active': { 'left': [['mode', 'paste'], ['gitbranch', 'filename', 'readonly', 'modified']] },
 	\'component': { 'lineinfo': '%3l:%-2v' },
 	\'component_function': { 'gitbranch': 'fugitive#head' },
