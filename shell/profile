@@ -57,4 +57,6 @@ alias rg='rg --fixed-strings --smart-case --colors "path:fg:blue" --colors "line
 alias v='vim'
 
 # Functions
-rgf() { rg --files --glob "*$1*"; }
+gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
+gbh() { if [ -n "$1" ]; then git checkout -b "hotfix/$1" "${2:-master}"; fi; }
+rgf() { if [ -n "$1" ]; then rg --files --glob "*$1*"; fi; }
