@@ -92,7 +92,6 @@ nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
 nnoremap K i<CR><Esc>d^==kg_lD
 nnoremap ; : | nnoremap : ; | vnoremap ; : | vnoremap : ;
-cnoremap rg grep
 
 " Yank/paste using the system clipboard
 nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
