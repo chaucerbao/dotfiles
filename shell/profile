@@ -6,7 +6,7 @@ export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
 # Docker
 alias d='docker'
-alias dcbuild='docker-compose build --force-rm --no-cache'
+alias dc='docker-compose'
 alias dclean='docker rmi $(docker images --all --quiet --filter "dangling=true")'
 alias drun='docker run --rm --interactive --tty'
 alias drunV='drun --volume=$PWD:/mnt/host'
