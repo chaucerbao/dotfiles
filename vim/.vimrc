@@ -25,7 +25,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'joereynolds/vim-minisnip'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 
 " Helpers
@@ -176,9 +175,6 @@ let g:closetag_filetypes='html,javascript.jsx,typescript.jsx'
 
 " Minisnip
 let g:minisnip_trigger='<C-y>'
-
-" Gutentags
-let g:gutentags_cache_dir='/tmp/gutentags'
 
 " REST Console
 let g:vrc_curl_opts={
