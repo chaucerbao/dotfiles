@@ -36,7 +36,7 @@ Plug 'bronson/vim-visual-star-search'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
 
-" File-types
+" File types
 Plug 'Quramy/tsuquyomi', { 'for': ['javascript', 'typescript'] }
 Plug 'sheerun/vim-polyglot'
 
@@ -204,6 +204,7 @@ let g:sneak#label=1
 let g:sneak#s_next=1
 
 " Tsuquyomi
-let g:tsuquyomi_completion_detail=1
 let g:tsuquyomi_disable_quickfix=1
 let g:tsuquyomi_javascript_support=1
+autocmd BufNewFile,BufRead *.js,*.jsx setlocal omnifunc=tsuquyomi#complete
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx
