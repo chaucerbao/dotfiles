@@ -159,6 +159,7 @@ nmap <Leader>gq <Plug>(ale_fix)
 nnoremap <Leader>ad :ALEDetail<CR>
 nnoremap <Leader>ar :ALEResetBuffer<CR>:ALELint<CR>
 let g:ale_fixers={
+	\'*': ['remove_trailing_lines', 'trim_whitespace'],
 	\'css': ['prettier', 'stylelint'],
 	\'javascript': ['prettier', 'eslint'],
 	\'json': ['prettier'],
