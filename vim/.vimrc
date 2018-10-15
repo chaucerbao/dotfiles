@@ -193,6 +193,9 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 " EasyAlign
 nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
 
+" OneTab
+let g:onetab=['tab', 'minisnip', 'omnifunc', 'file', 'keyword', 'dictionary']
+
 " Visual Star Search
 nnoremap <Leader>* :silent execute 'grep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>:redraw!<CR>
 vnoremap <Leader>* :<C-u>call VisualStarSearchSet('/')<CR>:silent execute 'grep "' . @/ . '"'<CR>:redraw!<CR>
