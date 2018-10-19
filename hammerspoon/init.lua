@@ -48,6 +48,31 @@ function setVolume(target)
   end
 end
 
+-- Select audio input/output devices
+function audioDeviceChoices(findDevices)
+  local choices = {}
+
+  for _, device in ipairs(hs.audiodevice[findDevices]()) do
+    table.insert(choices, { ['text'] = device:name(), ['uid'] = device:uid() })
+  end
+
+  return choices
+end
+
+function selectAudioDevice(uid, findDevice, setDevice)
+  local device = hs.audiodevice[findDevice](uid)
+
+  device[setDevice](device)
+end
+
+local audioInputChooser = hs.chooser.new(function(choice)
+  if choice then selectAudioDevice(choice.uid, 'findInputByUID', 'setDefaultInputDevice') end
+end):choices(function() return audioDeviceChoices('allInputDevices') end)
+
+local audioOutputChooser = hs.chooser.new(function(choice)
+  if choice then selectAudioDevice(choice.uid, 'findOutputByUID', 'setDefaultOutputDevice') end
+end):choices(function() return audioDeviceChoices('allOutputDevices') end)
+
 -- Bind back/forward navigation on the mouse
 hs.eventtap.new({hs.eventtap.event.types.otherMouseDown}, function(event)
   local mouseButton = event:getProperty(hs.eventtap.event.properties.mouseEventButtonNumber)
@@ -100,6 +125,12 @@ hs.hotkey.bind(mods, 'Z', function() toggleCaffeine() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
 hs.hotkey.bind('cmd', 'escape', function() hs.application.launchOrFocusByBundleID('com.apple.Terminal') end)
+
+-- Shift-mod bindings
+local shift_mods = {'shift', 'ctrl', 'cmd'}
+
+hs.hotkey.bind(shift_mods, '-', function() audioInputChooser:show() end)
+hs.hotkey.bind(shift_mods, '=', function() audioOutputChooser:show() end)
 
 -- Hyper bindings
 local hyper = {'shift', 'ctrl', 'alt', 'cmd'}
