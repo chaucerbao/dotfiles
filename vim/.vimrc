@@ -37,7 +37,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
 
 " File types
-Plug 'Quramy/tsuquyomi', { 'for': ['javascript', 'typescript'] }
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'sheerun/vim-polyglot'
 
 if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
@@ -51,7 +51,7 @@ unlet s:pluginsInstalled
 if !has('nvim') | packadd! matchit | endif
 
 " General settings
-set confirm hidden lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· mouse=a pastetoggle=<F2> tags=./tags;,tags
+set confirm hidden lazyredraw spell splitbelow splitright noswapfile nowritebackup backspace=indent,eol,start list listchars=tab:»·,trail:· mouse=a tags=./tags;,tags
 if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
 if executable('rg') | let s:grepCommand='rg' | elseif executable('ag') | let s:grepCommand='ag' | endif
 if exists('s:grepCommand') | let &grepprg=s:grepCommand.' --vimgrep' | set grepformat=%f:%l:%c:%m | unlet s:grepCommand | endif
@@ -89,7 +89,6 @@ let mapleader=' '
 nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
-nnoremap K i<CR><Esc>d^==kg_lD
 nnoremap ; : | nnoremap : ; | vnoremap ; : | vnoremap : ;
 
 " Yank/paste using the system clipboard
@@ -206,8 +205,15 @@ map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
 let g:sneak#label=1
 let g:sneak#s_next=1
 
-" Tsuquyomi
-let g:tsuquyomi_disable_quickfix=1
-let g:tsuquyomi_javascript_support=1
-autocmd BufNewFile,BufRead *.js,*.jsx setlocal omnifunc=tsuquyomi#complete
+" LanguageClient
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gD :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+let g:LanguageClient_serverCommands={
+	\'javascript': ['typescript-language-server', '--stdio'],
+	\'javascript.jsx': ['typescript-language-server', '--stdio'],
+	\'typescript': ['typescript-language-server', '--stdio'],
+	\'typescript.jsx': ['typescript-language-server', '--stdio']
+\}
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx
