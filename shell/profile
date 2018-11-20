@@ -1,6 +1,6 @@
 # Exports
 export N_PREFIX=$HOME/.n
-export PATH=node_modules/.bin:$N_PREFIX/bin:$PATH
+export PATH=node_modules/.bin:$N_PREFIX/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
@@ -59,4 +59,4 @@ alias v='vim'
 # Functions
 gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
 gbh() { if [ -n "$1" ]; then git checkout -b "hotfix/$1" "${2:-master}"; fi; }
-rgf() { if [ -n "$1" ]; then rg --files --glob "*$1*"; fi; }
+fd() { if [ -n "$1" ]; then rg --files --glob "*$1*"; fi; }
