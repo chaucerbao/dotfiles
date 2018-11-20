@@ -53,7 +53,6 @@ alias clean='rg --null --files --no-ignore --glob "*.DS_Store" $HOME/ | xargs -0
 alias l='ls -l'
 alias ll='ls --almost-all -l'
 alias ls='ls --color --classify --group-directories-first --human-readable --literal'
-alias rg='rg --fixed-strings --smart-case --colors "path:fg:blue" --colors "line:fg:yellow"'
 alias v='vim'
 
 # Functions

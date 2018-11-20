@@ -1,17 +1,19 @@
 #!/bin/sh
 
 if [ $# -eq 0 ]; then
-	echo 'Usage: init [bash|bat|git|hammerspoon|prettier|tmux|vim|zsh] ...'
+	echo 'Usage: init [bash|bat|git|hammerspoon|prettier|ripgrep|tmux|vim|zsh] ...'
 else
 	DOTFILES="~${PWD#$HOME}"
+	SHELL_CONFIGS=".bashrc .zshrc"
 	for i do
 		case "$i" in
 			bash )
 				echo "source $DOTFILES/.bashrc" >> $HOME/.bashrc
 				;;
 			bat )
-				mkdir -p $(dirname $(bat --config-file))
-				cp $PWD/bat/bat.conf $(bat --config-file)
+				for SHELL_CONFIG in $SHELL_CONFIGS; do
+					if [ -f $HOME/$SHELL_CONFIG ]; then echo "export BAT_CONFIG_PATH=$DOTFILES/bat.conf" >> $HOME/$SHELL_CONFIG; fi
+				done
 				;;
 			git )
 				git config --global include.path "$DOTFILES/.gitconfig"
@@ -21,10 +23,15 @@ else
 				echo "dofile('..${PWD#$HOME}/hammerspoon.lua')" >> $HOME/.hammerspoon/init.lua
 				;;
 			prettier )
-				cp $PWD/.prettierrc $HOME
+				cp $DOTFILES/.prettierrc $HOME
+				;;
+			ripgrep )
+				for SHELL_CONFIG in $SHELL_CONFIGS; do
+					if [ -f $HOME/$SHELL_CONFIG ]; then echo "export RIPGREP_CONFIG_PATH=$DOTFILES/.ripgreprc" >> $HOME/$SHELL_CONFIG; fi
+				done
 				;;
 			tmux )
-				[ ! -d $HOME/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+				if [ ! -d $HOME/.tmux/plugins/tpm ]; then git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm; fi
 				echo "source-file $DOTFILES/.tmux.conf" >> $HOME/.tmux.conf
 				;;
 			vim )
