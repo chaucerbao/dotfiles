@@ -128,6 +128,14 @@ hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com
 hs.hotkey.bind(mods, 'O', function() hs.application.launchOrFocusByBundleID('com.google.Chrome') end)
 hs.hotkey.bind('cmd', 'escape', function() hs.application.launchOrFocusByBundleID('com.apple.Terminal') end)
 
+hs.hotkey.bind(mods, '\\', function()
+  if (type(quickLaunch) == 'table') then
+    for i, bundleID in ipairs(quickLaunch) do
+      hs.application.launchOrFocusByBundleID(bundleID)
+    end
+  end
+end)
+
 -- Shift-mod bindings
 local shift_mods = {'shift', 'ctrl', 'cmd'}
 
