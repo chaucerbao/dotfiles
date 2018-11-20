@@ -124,6 +124,8 @@ hs.hotkey.bind(mods, '=', function() setVolume('normal') end)
 hs.hotkey.bind(mods, 'Z', function() toggleCaffeine() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
+hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com.apple.Safari') end)
+hs.hotkey.bind(mods, 'O', function() hs.application.launchOrFocusByBundleID('com.google.Chrome') end)
 hs.hotkey.bind('cmd', 'escape', function() hs.application.launchOrFocusByBundleID('com.apple.Terminal') end)
 
 -- Shift-mod bindings
