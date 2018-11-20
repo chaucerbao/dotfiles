@@ -1,13 +1,17 @@
 #!/bin/sh
 
 if [ $# -eq 0 ]; then
-	echo 'Usage: init [bash|git|hammerspoon|prettier|tmux|vim|zsh] ...'
+	echo 'Usage: init [bash|bat|git|hammerspoon|prettier|tmux|vim|zsh] ...'
 else
 	DOTFILES="~${PWD#$HOME}"
 	for i do
 		case "$i" in
 			bash )
 				echo "source $DOTFILES/shell/.bashrc" >> $HOME/.bashrc
+				;;
+			bat )
+				mkdir -p $(dirname $(bat --config-file))
+				cp $PWD/bat/bat.conf $(bat --config-file)
 				;;
 			git )
 				git config --global include.path "$DOTFILES/git/.gitconfig"
