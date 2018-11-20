@@ -7,31 +7,31 @@ else
 	for i do
 		case "$i" in
 			bash )
-				echo "source $DOTFILES/shell/.bashrc" >> $HOME/.bashrc
+				echo "source $DOTFILES/.bashrc" >> $HOME/.bashrc
 				;;
 			bat )
 				mkdir -p $(dirname $(bat --config-file))
 				cp $PWD/bat/bat.conf $(bat --config-file)
 				;;
 			git )
-				git config --global include.path "$DOTFILES/git/.gitconfig"
+				git config --global include.path "$DOTFILES/.gitconfig"
 				;;
 			hammerspoon )
 				mkdir -p $HOME/.hammerspoon/
-				echo "dofile('..${PWD#$HOME}/hammerspoon/init.lua')" >> $HOME/.hammerspoon/init.lua
+				echo "dofile('..${PWD#$HOME}/hammerspoon.lua')" >> $HOME/.hammerspoon/init.lua
 				;;
 			prettier )
-				cp $PWD/prettier/.prettierrc $HOME
+				cp $PWD/.prettierrc $HOME
 				;;
 			tmux )
-				git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
-				echo "source-file $DOTFILES/tmux/.tmux.conf" >> $HOME/.tmux.conf
+				[ ! -d $HOME/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+				echo "source-file $DOTFILES/.tmux.conf" >> $HOME/.tmux.conf
 				;;
 			vim )
-				echo "source $DOTFILES/vim/.vimrc" >> $HOME/.vimrc
+				echo "source $DOTFILES/.vimrc" >> $HOME/.vimrc
 				;;
 			zsh )
-				echo "source $DOTFILES/shell/.zshrc" >> $HOME/.zshrc
+				echo "source $DOTFILES/.zshrc" >> $HOME/.zshrc
 				;;
 			* )
 				echo "Unrecognized: $i"

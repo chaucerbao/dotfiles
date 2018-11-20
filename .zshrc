@@ -44,4 +44,4 @@ alias 8='cd +8'
 alias 9='cd +9'
 
 # Profile
-source ${0:a:h}/profile
+source ${0:a:h}/.profile
