@@ -3,8 +3,13 @@
 if [ $# -eq 0 ]; then
 	echo 'Usage: init [bash|bat|git|hammerspoon|prettier|ripgrep|tmux|vim|zsh] ...'
 else
-	DOTFILES="~${PWD#$HOME}"
 	SHELL_CONFIGS=".bashrc .zshrc"
+
+	DOTFILES="$(cd $(dirname $0); pwd -P)"
+	if [[ "$DOTFILES" == "$HOME"* ]]; then
+		DOTFILES="~${DOTFILES#$HOME}"
+	fi
+
 	for i do
 		case "$i" in
 			bash )
