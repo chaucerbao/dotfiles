@@ -58,4 +58,4 @@ alias v='vim'
 # Functions
 gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
 gbh() { if [ -n "$1" ]; then git checkout -b "hotfix/$1" "${2:-master}"; fi; }
-fd() { if [ -n "$1" ]; then rg --files --glob "*$1*"; fi; }
+fd() { if [ -n "$1" ]; then rg --files --glob "*$1*" "${2:-.}"; fi; }
