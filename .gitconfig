@@ -33,6 +33,8 @@
 	stp = stash pop
 	undo = reset HEAD~1
 	wipe = clean --interactive --force -dx
+[color "diff"]
+	meta = cyan
 [color "grep"]
 	filename = blue
 	linenumber = yellow
