@@ -5,10 +5,11 @@ if [ $# -eq 0 ]; then
 else
 	SHELL_CONFIGS=".bashrc .zshrc"
 
-	DOTFILES="$(cd $(dirname $0); pwd -P)"
-	if [[ "$DOTFILES" == "$HOME"* ]]; then
-		DOTFILES="~${DOTFILES#$HOME}"
-	fi
+	DOTFILES_ABS="$(cd $(dirname $0); pwd -P)"
+	DOTFILES="$DOTFILES_ABS"
+	case "$DOTFILES" in
+		$HOME* ) DOTFILES="~${DOTFILES#$HOME}" ;;
+	esac
 
 	for i do
 		case "$i" in
@@ -25,10 +26,10 @@ else
 				;;
 			hammerspoon )
 				mkdir -p $HOME/.hammerspoon/
-				echo "dofile('..${PWD#$HOME}/hammerspoon.lua')" >> $HOME/.hammerspoon/init.lua
+				echo "dofile('$DOTFILES_ABS/hammerspoon.lua')" >> $HOME/.hammerspoon/init.lua
 				;;
 			prettier )
-				cp $DOTFILES/.prettierrc $HOME
+				cp $DOTFILES_ABS/.prettierrc $HOME
 				;;
 			ripgrep )
 				for SHELL_CONFIG in $SHELL_CONFIGS; do
