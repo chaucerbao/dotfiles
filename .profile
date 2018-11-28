@@ -4,6 +4,16 @@ export PATH=node_modules/.bin:$N_PREFIX/bin:/usr/local/opt/coreutils/libexec/gnu
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
+# History
+HISTSIZE=5000
+
+# Navigation
+alias -- -='cd -'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
 # Docker
 alias d='docker'
 alias dc='docker-compose'
