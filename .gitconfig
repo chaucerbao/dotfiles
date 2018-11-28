@@ -36,8 +36,9 @@
 [color "diff"]
 	meta = cyan
 [color "grep"]
-	filename = blue
+	filename = cyan
 	linenumber = yellow
+	separator = yellow
 [core]
 	editor = vim
 	pager = less -+FX
