@@ -147,6 +147,7 @@ let g:lightline={
 \}
 
 " Dirvish
+let g:dirvish_relative_paths=1
 autocmd FileType dirvish setlocal nospell
 
 " FZF Fuzzy Finder
