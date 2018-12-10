@@ -159,6 +159,7 @@ nnoremap <Leader>ar :ALEResetBuffer<CR>:ALELint<CR>
 let g:ale_fixers={
 	\'*': ['remove_trailing_lines', 'trim_whitespace'],
 	\'css': ['prettier', 'stylelint'],
+	\'html': ['prettier'],
 	\'javascript': ['prettier', 'eslint'],
 	\'json': ['prettier'],
 	\'markdown': ['prettier'],
