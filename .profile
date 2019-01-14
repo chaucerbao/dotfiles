@@ -64,7 +64,7 @@ alias l='ls -l'
 alias ll='ls --almost-all -l'
 alias ls='ls --color --classify --group-directories-first --human-readable --literal'
 alias v='vim'
-alias vup='vim +PlugUpgrade +PlugUpdate +qall'
+alias vup='vim +PlugUpgrade +PlugUpdate +only +"normal D" +"nnoremap <silent> <buffer> q :qall<CR>"'
 
 # Functions
 gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
