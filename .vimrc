@@ -37,7 +37,6 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
 
 " File types
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'sheerun/vim-polyglot'
 
 if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
@@ -154,9 +153,13 @@ autocmd FileType dirvish setlocal nospell
 nnoremap <Leader>f :FZF -m<CR>
 
 " Asynchronous Lint Engine
-nmap <Leader>gq <Plug>(ale_fix)
-nnoremap <Leader>ad :ALEDetail<CR>
-nnoremap <Leader>ar :ALEResetBuffer<CR>:ALELint<CR>
+nnoremap <Leader>gq :ALEFix<CR>
+nnoremap K :ALEHover<CR>
+nnoremap gD :ALEFindReferences<CR>
+nnoremap gd :ALEGoToDefinition<CR>
+inoremap <C-f> <C-\><C-o>:ALEComplete<CR>
+let g:ale_sign_error='✖'
+let g:ale_sign_warning='▵'
 let g:ale_fixers={
 	\'*': ['remove_trailing_lines', 'trim_whitespace'],
 	\'css': ['prettier', 'stylelint'],
@@ -207,15 +210,5 @@ map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
 let g:sneak#label=1
 let g:sneak#s_next=1
 
-" LanguageClient
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> gD :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-let g:LanguageClient_serverCommands={
-	\'javascript': ['typescript-language-server', '--stdio'],
-	\'javascript.jsx': ['typescript-language-server', '--stdio'],
-	\'typescript': ['typescript-language-server', '--stdio'],
-	\'typescript.jsx': ['typescript-language-server', '--stdio']
-\}
+" File types
 autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx
