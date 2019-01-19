@@ -178,7 +178,7 @@ runtime macros/sandwich/keymap/surround.vim
 let g:closetag_filetypes='html,javascript.jsx,typescript.jsx'
 
 " Minisnip
-let g:minisnip_trigger='<C-y>'
+let g:minisnip_trigger='<C-]>'
 
 " REST Console
 let g:vrc_curl_opts={
