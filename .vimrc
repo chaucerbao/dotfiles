@@ -155,7 +155,7 @@ nnoremap <Leader>f :FZF -m<CR>
 " Asynchronous Lint Engine
 nnoremap <Leader>gq :ALEFix<CR>
 nnoremap K :ALEHover<CR>
-nnoremap gD :ALEFindReferences<CR>
+nnoremap gD :ALEFindReferences -relative<CR>
 nnoremap gd :ALEGoToDefinition<CR>
 inoremap <C-f> <C-\><C-o>:ALEComplete<CR>
 let g:ale_sign_error='✖'
