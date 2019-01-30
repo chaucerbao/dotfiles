@@ -170,6 +170,9 @@ let g:ale_fixers={
 	\'scss': ['prettier', 'stylelint'],
 	\'typescript': ['prettier', 'tslint']
 \}
+let g:ale_linter_aliases={
+	\'jsx': ['css', 'javascript', 'typescript']
+\}
 
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
