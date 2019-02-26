@@ -17,7 +17,7 @@ alias .....='cd ../../../..'
 # Docker
 alias d='docker'
 alias dc='docker-compose'
-alias dclean='docker rmi $(docker images --all --quiet --filter "dangling=true")'
+alias dprune='docker system prune --volumes'
 alias drun='docker run --rm --interactive --tty'
 alias drunV='drun --volume=$PWD:/mnt/host'
 
