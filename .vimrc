@@ -76,6 +76,9 @@ set complete-=t,i
 set completeopt=longest,menuone
 set wildmenu wildmode=longest:full,full
 
+" Diff
+set diffopt+=hiddenoff,vertical
+
 " Trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
