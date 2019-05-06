@@ -39,7 +39,6 @@ Plug 'tpope/vim-repeat'
 " File types
 Plug 'sheerun/vim-polyglot'
 
-if filereadable(expand('~/.vimrc.plugins')) | source ~/.vimrc.plugins | endif
 call plug#end()
 
 " Install plug-ins if needed
