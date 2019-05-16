@@ -24,7 +24,6 @@ Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'joereynolds/vim-minisnip'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 
 " Helpers
@@ -182,9 +181,6 @@ runtime macros/sandwich/keymap/surround.vim
 " Close Tags
 let g:closetag_filetypes='html,javascript.jsx,typescript.jsx'
 
-" Minisnip
-let g:minisnip_trigger='<C-]>'
-
 " REST Console
 let g:vrc_curl_opts={
 	\'--include': '',
@@ -203,7 +199,7 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
 
 " OneTab
-let g:onetab=['tab', 'minisnip', 'omnifunc', 'file', 'keyword', 'dictionary']
+let g:onetab=['tab', 'abbrev', 'omnifunc', 'file', 'keyword', 'dictionary']
 
 " Visual Star Search
 nnoremap <Leader>* :silent execute 'grep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>:redraw!<CR>
