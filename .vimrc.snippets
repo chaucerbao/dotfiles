@@ -1,0 +1,7 @@
+augroup abbreviation_snippets
+	autocmd!
+	autocmd FileType javascript,javascript.jsx,typescript,typescript.jsx inoreabbrev <buffer> cl console.log('--', +)<C-[>F+"_s
+	autocmd FileType javascript,javascript.jsx,typescript,typescript.jsx inoreabbrev <buffer> iife ;(function() {<CR>})()<C-[>O
+	autocmd FileType javascript,javascript.jsx,typescript,typescript.jsx inoreabbrev <buffer> im import from '+'<C-[>F+"_s
+	autocmd FileType typescript,typescript.jsx inoreabbrev <buffer> in interface + {<CR>}<C-[>kf+"_s
+augroup END

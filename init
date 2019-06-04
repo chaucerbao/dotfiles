@@ -42,6 +42,7 @@ else
 				;;
 			vim )
 				echo "source $DOTFILES/.vimrc" >> $HOME/.vimrc
+				echo "source $DOTFILES/.vimrc.snippets" >> $HOME/.vimrc
 				;;
 			zsh )
 				echo "source $DOTFILES/.zshrc" >> $HOME/.zshrc
