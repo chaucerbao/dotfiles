@@ -171,15 +171,12 @@ let g:ale_fixers={
 	\'scss': ['prettier', 'stylelint'],
 	\'typescript': ['prettier', 'tslint']
 \}
-let g:ale_linter_aliases={
-	\'jsx': ['css', 'javascript', 'typescript']
-\}
 
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
 
 " Close Tags
-let g:closetag_filetypes='html,javascript.jsx,typescript.jsx'
+let g:closetag_filetypes='html,javascript,typescript.tsx'
 
 " REST Console
 let g:vrc_curl_opts={
