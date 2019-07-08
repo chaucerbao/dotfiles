@@ -27,7 +27,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 
 " Helpers
-Plug 'tpope/vim-abolish', { 'on': ['S', '<Plug>Coerce'] }
+Plug 'tpope/vim-abolish', { 'on': ['S', '<Plug>(abolish-coerce-word)'] }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'chaucerbao/vim-onetab'
@@ -187,7 +187,7 @@ let g:vrc_curl_opts={
 \}
 
 " Abolish
-nmap cr <Plug>Coerce
+nmap cr <Plug>(abolish-coerce-word)
 
 " Undotree
 nnoremap <Leader>u :UndotreeToggle<CR>
