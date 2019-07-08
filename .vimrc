@@ -38,6 +38,9 @@ Plug 'tpope/vim-repeat'
 " File types
 Plug 'sheerun/vim-polyglot'
 
+" Tools
+Plug 'vimwiki/vimwiki', { 'on': ['<Plug>VimwikiIndex', '<Plug>VimwikiTabIndex', '<Plug>VimwikiUISelect'] }
+
 call plug#end()
 
 " Install plug-ins if needed
@@ -207,3 +210,8 @@ map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
 map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
 let g:sneak#label=1
 let g:sneak#s_next=1
+
+" VimWiki
+nmap <silent><unique> <Leader>ww <Plug>VimwikiIndex
+nmap <silent><unique> <Leader>wt <Plug>VimwikiTabIndex
+nmap <silent><unique> <Leader>ws <Plug>VimwikiUISelect
