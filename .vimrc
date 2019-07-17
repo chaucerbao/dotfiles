@@ -162,6 +162,7 @@ nnoremap <Leader>K :ALEDetail<CR>
 nnoremap K :ALEHover<CR>
 nnoremap gD :ALEFindReferences -relative<CR>
 nnoremap gd :ALEGoToDefinition<CR>
+let g:ale_completion_enabled=1
 let g:ale_sign_error='✖'
 let g:ale_sign_warning='▵'
 let g:ale_fixers={
@@ -199,7 +200,7 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
 
 " OneTab
-let g:onetab=['tab', 'abbrev', 'omnifunc', 'file', 'keyword', 'dictionary']
+let g:onetab=['tab', 'abbrev', 'file', 'keyword', 'dictionary']
 
 " Visual Star Search
 nnoremap <Leader>* :silent execute 'grep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>:redraw!<CR>
