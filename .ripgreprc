@@ -1,4 +1,3 @@
 --fixed-strings
---smart-case
 --colors=path:fg:blue
 --colors=line:fg:yellow
