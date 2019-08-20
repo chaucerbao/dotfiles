@@ -17,7 +17,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': './install --all' }
 
 " Programming
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'machakann/vim-sandwich'
