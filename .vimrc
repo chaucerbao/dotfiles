@@ -31,7 +31,6 @@ Plug 'tpope/vim-abolish', { 'on': ['S', '<Plug>(abolish-coerce-word)'] }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'chaucerbao/vim-onetab'
-Plug 'bronson/vim-visual-star-search'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
 
@@ -107,6 +106,14 @@ nnoremap <Leader>x "_x | xnoremap <Leader>x "_x
 " Navigate by displayed lines when wrapped
 noremap j gj
 noremap k gk
+
+" Star search
+nnoremap * /\<<C-r>=expand('<cword>')<CR>\>\C<CR>
+nnoremap # ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>
+vnoremap * "9y/\V<C-r>=escape(@9, '/\')<CR>\C<CR>
+vnoremap # "9y?\V<C-r>=escape(@9, '/\')<CR>\C<CR>
+nnoremap <Leader>* :silent execute 'grep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>:redraw!<CR>
+vnoremap <Leader>* "9y:silent execute 'grep "' . @9 . '"'<CR>:redraw!<CR>
 
 " Buffer navigation
 nnoremap <Leader>b :buffers<CR>:buffer<Space>
@@ -201,10 +208,6 @@ nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
 
 " OneTab
 let g:onetab=['tab', 'abbrev', 'file', 'keyword', 'dictionary']
-
-" Visual Star Search
-nnoremap <Leader>* :silent execute 'grep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>:redraw!<CR>
-vnoremap <Leader>* :<C-u>call VisualStarSearchSet('/')<CR>:silent execute 'grep "' . @/ . '"'<CR>:redraw!<CR>
 
 " Sneak
 map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
