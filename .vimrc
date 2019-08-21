@@ -108,8 +108,8 @@ noremap j gj
 noremap k gk
 
 " Star search
-nnoremap * /\<<C-r>=expand('<cword>')<CR>\>\C<CR>
-nnoremap # ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>
+nnoremap * /\V\<<C-r>=expand('<cword>')<CR>\>\C<CR>
+nnoremap # ?\V\<<C-r>=expand('<cword>')<CR>\>\C<CR>
 vnoremap * "9y/\V<C-r>=escape(@9, '/\')<CR>\C<CR>
 vnoremap # "9y?\V<C-r>=escape(@9, '/\')<CR>\C<CR>
 nnoremap <Leader>* :silent execute 'grep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>:redraw!<CR>
