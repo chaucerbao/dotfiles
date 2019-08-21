@@ -112,8 +112,8 @@ nnoremap * /\V\<<C-r>=expand('<cword>')<CR>\>\C<CR>
 nnoremap # ?\V\<<C-r>=expand('<cword>')<CR>\>\C<CR>
 vnoremap * "9y/\V<C-r>=escape(@9, '/\')<CR>\C<CR>
 vnoremap # "9y?\V<C-r>=escape(@9, '/\')<CR>\C<CR>
-nnoremap <Leader>* :silent execute 'grep "' . substitute(escape(expand('<cword>'), '\'), '\n', '\\n', 'g') . '"'<CR>:redraw!<CR>
-vnoremap <Leader>* "9y:silent execute 'grep "' . @9 . '"'<CR>:redraw!<CR>
+nnoremap <Leader>* :let @/=expand('<cword>')<CR>:silent execute 'grep -F "'.expand('<cword>').'"'<CR>:set hlsearch<CR>:redraw!<CR>
+vnoremap <Leader>* "9y:let @/=@9<CR>:silent execute 'grep -F "'.@9.'"'<CR>:set hlsearch<CR>:redraw!<CR>
 
 " Buffer navigation
 nnoremap <Leader>b :buffers<CR>:buffer<Space>
