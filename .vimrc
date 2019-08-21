@@ -132,11 +132,7 @@ inoremap <C-a> <Esc>I
 inoremap <expr> <C-e> pumvisible() ? "\<C-e>" : "\<Esc>A"
 inoremap <expr> <Enter> pumvisible() ? "\<C-y>" : "\<Enter>"
 
-" Buffer/Quickfix/Location list navigation
-nnoremap [b :bprevious<CR>
-nnoremap ]b :bnext<CR>
-nnoremap [B :bfirst<CR>
-nnoremap ]B :blast<CR>
+" Quickfix/Location list navigation
 nnoremap [q :cprevious<CR>zz
 nnoremap ]q :cnext<CR>zz
 nnoremap [Q :cfirst<CR>zz
