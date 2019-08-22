@@ -49,6 +49,10 @@ unlet s:pluginsInstalled
 " MatchIt plug-in
 if !has('nvim') | packadd! matchit | endif
 
+" Color scheme
+let g:nord_uniform_diff_background=1
+colorscheme nord
+
 " General settings
 set confirm hidden lazyredraw spell splitbelow splitright noswapfile nowritebackup encoding=utf-8 backspace=indent,eol,start list listchars=tab:»·,trail:· mouse=a tags=./tags;,tags
 if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
@@ -58,18 +62,14 @@ if exists('s:grepCommand') | let &grepprg=s:grepCommand.' --vimgrep' | set grepf
 " User interface
 set number nowrap scrolloff=1 laststatus=2
 
-" Color scheme
-let g:nord_uniform_diff_background=1
-colorscheme nord
-
-" Search and replace
-set ignorecase smartcase incsearch hlsearch
+" Folding
+set nofoldenable foldmethod=indent
 
 " Indentation
 set autoindent smarttab shiftround expandtab tabstop=2 shiftwidth=2
 
-" Folding
-set nofoldenable foldmethod=indent
+" Search and replace
+set ignorecase smartcase incsearch hlsearch
 
 " Autocompletion
 set complete-=t,i
@@ -103,10 +103,6 @@ nnoremap <Leader>c "_c | xnoremap <Leader>c "_c
 nnoremap <Leader>d "_d | xnoremap <Leader>d "_d
 nnoremap <Leader>x "_x | xnoremap <Leader>x "_x
 
-" Navigate by displayed lines when wrapped
-noremap j gj
-noremap k gk
-
 " Star search
 nnoremap * /\V\<<C-r>=expand('<cword>')<CR>\>\C<CR>
 nnoremap # ?\V\<<C-r>=expand('<cword>')<CR>\>\C<CR>
@@ -114,6 +110,10 @@ vnoremap * "9y/\V<C-r>=escape(@9, '/\')<CR>\C<CR>
 vnoremap # "9y?\V<C-r>=escape(@9, '/\')<CR>\C<CR>
 nnoremap <Leader>* :let @/=expand('<cword>')<CR>:silent execute 'grep -F "'.expand('<cword>').'"'<CR>:set hlsearch<CR>:redraw!<CR>
 vnoremap <Leader>* "9y:let @/=@9<CR>:silent execute 'grep -F "'.@9.'"'<CR>:set hlsearch<CR>:redraw!<CR>
+
+" Navigate by displayed lines when wrapped
+noremap j gj
+noremap k gk
 
 " Buffer navigation
 nnoremap <Leader>b :buffers<CR>:buffer<Space>
