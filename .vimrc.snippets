@@ -1,6 +1,6 @@
 augroup abbreviation_snippets
 	autocmd!
+	autocmd FileType javascript,typescript,typescript.tsx inoreabbrev <buffer> clg console.log({ + })<C-[>F+"_s
 	autocmd FileType javascript,typescript,typescript.tsx inoreabbrev <buffer> iife ;(function() {<CR>})()<C-[>O
 	autocmd FileType javascript,typescript,typescript.tsx inoreabbrev <buffer> im import {} from '+'<C-[>F+"_s
-	autocmd FileType javascript,typescript,typescript.tsx inoreabbrev <buffer> log console.log('--', +)<C-[>F+"_s
 augroup END
