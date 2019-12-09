@@ -178,14 +178,15 @@ let g:ale_fixers={
 	\'json': ['prettier'],
 	\'markdown': ['prettier'],
 	\'scss': ['prettier', 'stylelint'],
-	\'typescript': ['prettier', 'tslint']
+	\'typescript': ['prettier', 'tslint'],
+	\'typescriptreact': ['prettier', 'tslint']
 \}
 
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
 
 " Close Tags
-let g:closetag_filetypes='html,javascript,typescript.tsx'
+let g:closetag_filetypes='html,javascript,typescriptreact'
 
 " REST Console
 let g:vrc_curl_opts={
