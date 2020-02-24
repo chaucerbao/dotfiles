@@ -142,23 +142,6 @@ local shift_mods = {'shift', 'ctrl', 'cmd'}
 hs.hotkey.bind(shift_mods, '-', function() audioInputChooser:show() end)
 hs.hotkey.bind(shift_mods, '=', function() audioOutputChooser:show() end)
 
--- Hyper bindings
-local hyper = {'shift', 'ctrl', 'alt', 'cmd'}
-local hyperBindings = {
-  i = 'up',
-  l = 'right',
-  k = 'down',
-  j = 'left',
-  h = 'home',
-  n = 'end',
-  u = 'pageup',
-  o = 'pagedown'
-}
-
-for from, to in pairs(hyperBindings) do
-  hs.hotkey.bind(hyper, from, function() hs.eventtap.keyStroke({}, to, 50000) end)
-end
-
 -- AutoClicker
 local autoClicker = hs.timer.new(.1, function() hs.eventtap.leftClick(hs.mouse.getAbsolutePosition(), 1000) end)
 local autoClickerModal = hs.hotkey.modal.new(mods, 'A')
