@@ -133,14 +133,8 @@ inoremap <expr> <C-e> pumvisible() ? "\<C-e>" : "\<Esc>A"
 inoremap <expr> <Enter> pumvisible() ? "\<C-y>" : "\<Enter>"
 
 " Quickfix/Location list navigation
-nnoremap [q :cprevious<CR>zz
-nnoremap ]q :cnext<CR>zz
-nnoremap [Q :cfirst<CR>zz
-nnoremap ]Q :clast<CR>zz
-nnoremap [l :lprevious<CR>zz
-nnoremap ]l :lnext<CR>zz
-nnoremap [L :lfirst<CR>zz
-nnoremap ]L :llast<CR>zz
+nnoremap [q :cprevious<CR>zz| nnoremap ]q :cnext<CR>zz| nnoremap [Q :cfirst<CR>zz| nnoremap ]Q :clast<CR>zz
+nnoremap [l :lprevious<CR>zz| nnoremap ]l :lnext<CR>zz| nnoremap [L :lfirst<CR>zz| nnoremap ]L :llast<CR>zz
 
 " Lightline
 let g:lightline={
@@ -167,6 +161,7 @@ nnoremap K :ALEHover<CR>
 nnoremap gD :ALEFindReferences -relative<CR>
 nnoremap gd :ALEGoToDefinition<CR>
 nnoremap <F2> :ALERename<CR>
+nnoremap [e :ALEPreviousWrap<CR>zz| nnoremap ]e :ALENextWrap<CR>zz| nnoremap [E :ALEFirst<CR>zz| nnoremap ]E :ALELast<CR>zz
 let g:ale_completion_enabled=1
 let g:ale_completion_tsserver_autoimport=1
 let g:ale_sign_error='✖'
