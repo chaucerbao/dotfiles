@@ -116,7 +116,7 @@ noremap j gj
 noremap k gk
 
 " Buffer navigation
-nnoremap <Leader>b :buffers<CR>:buffer<Space>
+nnoremap gb :buffers<CR>:buffer<Space>
 
 " Tab navigation
 nnoremap <Leader><Tab> :$tabnew<CR>
