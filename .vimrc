@@ -13,7 +13,6 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
 
 " File navigation
-Plug 'justinmk/vim-dirvish'
 Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': './install --all' }
 
 " Programming
@@ -115,6 +114,11 @@ vnoremap <Leader>* "9y:let @/=@9<CR>:silent execute 'grep -F "'.@9.'"'<CR>:set h
 noremap j gj
 noremap k gk
 
+" Directory navigation
+let g:netrw_banner=0
+let g:netrw_bufsettings='number'
+nnoremap - :Explore<CR>
+
 " Buffer navigation
 nnoremap gb :buffers<CR>:buffer<Space>
 
@@ -145,10 +149,6 @@ let g:lightline={
 	\'separator': { 'left': '', 'right': '' },
 	\'subseparator': { 'left': '', 'right': '' }
 \}
-
-" Dirvish
-let g:dirvish_relative_paths=1
-autocmd FileType dirvish setlocal nospell
 
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
