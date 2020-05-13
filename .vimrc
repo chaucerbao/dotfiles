@@ -174,8 +174,8 @@ let g:ale_fixers={
 	\'json': ['prettier'],
 	\'markdown': ['prettier'],
 	\'scss': ['prettier', 'stylelint'],
-	\'typescript': ['prettier', 'tslint'],
-	\'typescriptreact': ['prettier', 'tslint']
+	\'typescript': ['prettier', 'eslint'],
+	\'typescriptreact': ['prettier', 'eslint']
 \}
 
 " Sandwich
