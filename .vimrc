@@ -117,6 +117,8 @@ noremap k gk
 " Directory navigation
 let g:netrw_banner=0
 let g:netrw_bufsettings='number'
+let g:netrw_preview=1
+let g:netrw_alto=0
 nnoremap - :Explore<CR>
 
 " Buffer navigation
