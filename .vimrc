@@ -161,7 +161,7 @@ nmap <silent> <Leader><Enter> <Plug>(coc-codeaction)| xmap <silent> <Leader><Ent
 nmap <silent> <Leader>gq <Plug>(coc-format)| xmap <silent> <Leader>gq <Plug>(coc-format-selected)
 nmap [g <Plug>(coc-diagnostic-prev)| nmap ]g <Plug>(coc-diagnostic-next)
 nmap gd <Plug>(coc-definition)| nmap gD <Plug>(coc-references)
-nnoremap K :call CocAction('doHover')<CR>
+nnoremap <silent> K :call CocAction('doHover')<CR>
 
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
