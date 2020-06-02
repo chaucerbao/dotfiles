@@ -29,7 +29,6 @@ Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 Plug 'tpope/vim-abolish', { 'on': ['S', '<Plug>(abolish-coerce-word)'] }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
-Plug 'chaucerbao/vim-onetab'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-repeat'
 
@@ -91,6 +90,7 @@ nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
 nnoremap ; : | nnoremap : ; | vnoremap ; : | vnoremap : ;
+inoremap <expr> <Tab> strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$' ? '<Tab>' : '<C-]>'
 
 " Yank/paste using the system clipboard
 nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
@@ -185,9 +185,6 @@ nnoremap <Leader>u :UndotreeToggle<CR>
 
 " EasyAlign
 nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
-
-" OneTab
-let g:onetab=['tab', 'abbrev', 'file', 'keyword', 'dictionary']
 
 " Sneak
 map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
