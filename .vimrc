@@ -16,7 +16,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 
 " Programming
-Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'machakann/vim-sandwich'
@@ -155,30 +155,13 @@ let g:lightline={
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
 
-" Asynchronous Lint Engine
-nnoremap <Leader>gq :ALEFix<CR>
-nnoremap <Leader>gi :ALEOrganizeImports<CR>
-nnoremap <Leader>K :ALEDetail<CR>
-nnoremap K :ALEHover<CR>
-nnoremap gD :ALEFindReferences -relative<CR>
-nnoremap gd :ALEGoToDefinition<CR>
-nnoremap <F2> :ALERename<CR>
-nnoremap [e :ALEPreviousWrap<CR>zz| nnoremap ]e :ALENextWrap<CR>zz| nnoremap [E :ALEFirst<CR>zz| nnoremap ]E :ALELast<CR>zz
-let g:ale_completion_enabled=1
-let g:ale_completion_tsserver_autoimport=1
-let g:ale_sign_error='✖'
-let g:ale_sign_warning='▵'
-let g:ale_fixers={
-	\'*': ['remove_trailing_lines', 'trim_whitespace'],
-	\'css': ['prettier', 'stylelint'],
-	\'html': ['prettier'],
-	\'javascript': ['prettier', 'eslint'],
-	\'json': ['prettier'],
-	\'markdown': ['prettier'],
-	\'scss': ['prettier', 'stylelint'],
-	\'typescript': ['prettier', 'eslint'],
-	\'typescriptreact': ['prettier', 'eslint']
-\}
+" Conquer of Completion
+nmap <F2> <Plug>(coc-rename)
+nmap <silent> <Leader><Enter> <Plug>(coc-codeaction)| xmap <silent> <Leader><Enter> <Plug>(coc-codeaction-selected)
+nmap <silent> <Leader>gq <Plug>(coc-format)| xmap <silent> <Leader>gq <Plug>(coc-format-selected)
+nmap [g <Plug>(coc-diagnostic-prev)| nmap ]g <Plug>(coc-diagnostic-next)
+nmap gd <Plug>(coc-definition)| nmap gD <Plug>(coc-references)
+nnoremap K :call CocAction('doHover')<CR>
 
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
