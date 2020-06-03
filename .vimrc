@@ -159,9 +159,9 @@ nnoremap <Leader>f :FZF -m<CR>
 nmap <silent> <F2> <Plug>(coc-rename)
 nmap <silent> <Leader><Enter> <Plug>(coc-codeaction)| xmap <silent> <Leader><Enter> <Plug>(coc-codeaction-selected)
 nmap <silent> <Leader>gq <Plug>(coc-format)| xmap <silent> <Leader>gq <Plug>(coc-format-selected)
-nmap [g <Plug>(coc-diagnostic-prev)| nmap ]g <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)| nmap <silent> gD <Plug>(coc-references)
-nnoremap <silent> K :call CocAction('doHover')<CR>
+nnoremap <silent> [g :<C-u>call CocAction('diagnosticPrevious')<CR>zz| nnoremap <silent> ]g :<C-u>call CocAction('diagnosticNext')<CR>zz
+nnoremap <silent> gd :<C-u>call CocAction('jumpDefinition')<CR>zz| nmap <silent> gD <Plug>(coc-references)
+nnoremap <silent> K :<C-u>call CocActionAsync('doHover')<CR>
 
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
