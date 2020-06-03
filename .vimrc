@@ -156,11 +156,11 @@ let g:lightline={
 nnoremap <Leader>f :FZF -m<CR>
 
 " Conquer of Completion
-nmap <F2> <Plug>(coc-rename)
+nmap <silent> <F2> <Plug>(coc-rename)
 nmap <silent> <Leader><Enter> <Plug>(coc-codeaction)| xmap <silent> <Leader><Enter> <Plug>(coc-codeaction-selected)
 nmap <silent> <Leader>gq <Plug>(coc-format)| xmap <silent> <Leader>gq <Plug>(coc-format-selected)
 nmap [g <Plug>(coc-diagnostic-prev)| nmap ]g <Plug>(coc-diagnostic-next)
-nmap gd <Plug>(coc-definition)| nmap gD <Plug>(coc-references)
+nmap <silent> gd <Plug>(coc-definition)| nmap <silent> gD <Plug>(coc-references)
 nnoremap <silent> K :call CocAction('doHover')<CR>
 
 " Sandwich
