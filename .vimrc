@@ -90,7 +90,13 @@ nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
 nnoremap ; : | nnoremap : ; | vnoremap ; : | vnoremap : ;
-inoremap <expr> <Tab> strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$' ? '<Tab>' : '<C-]>'
+
+" Smart Tab
+function s:isBeginningOfLine()
+  return strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
+endfunction
+inoremap <expr> <Tab> <SID>isBeginningOfLine() ? '<Tab>' : pumvisible() ? '<C-n>' : '<C-]>'
+inoremap <expr> <S-Tab> <SID>isBeginningOfLine() ? '<C-D>' : pumvisible() ? '<C-p>' : '<C-]>'
 
 " Yank/paste using the system clipboard
 nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
