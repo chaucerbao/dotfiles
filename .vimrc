@@ -162,6 +162,7 @@ let g:lightline={
 nnoremap <Leader>f :FZF -m<CR>
 
 " Conquer of Completion
+let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
 nmap <silent> <F2> <Plug>(coc-rename)
 nmap <silent> <Leader><Enter> <Plug>(coc-codeaction)| xmap <silent> <Leader><Enter> <Plug>(coc-codeaction-selected)
 nmap <silent> <Leader>gq <Plug>(coc-format)| xmap <silent> <Leader>gq <Plug>(coc-format-selected)
