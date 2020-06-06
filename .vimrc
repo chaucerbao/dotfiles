@@ -10,7 +10,6 @@ call plug#begin()
 
 " Themes
 Plug 'arcticicestudio/nord-vim'
-Plug 'itchyny/lightline.vim'
 
 " File navigation
 Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': { -> fzf#install() } }
@@ -59,6 +58,45 @@ if exists('s:grepCommand') | let &grepprg=s:grepCommand.' --vimgrep' | set grepf
 
 " User interface
 set number nowrap scrolloff=1 laststatus=2
+
+" Status Line
+function! StlMode() abort
+	let l:mode = mode()
+	let l:statusline=' '
+
+	if l:mode=~'^n'
+		let l:statusline.='NORMAL'
+	elseif l:mode=~#'^i'
+		let l:statusline.='INSERT'
+	elseif l:mode=~?'^[v|]'
+		let l:statusline.='VISUAL'
+	elseif l:mode=~?'^[s|]'
+		let l:statusline.='SELECT'
+	elseif l:mode=~#'^R'
+		let l:statusline.='REPLACE'
+	else
+		let l:statusline.=l:mode
+	endif
+
+	let l:statusline.=' 〉'
+
+	return l:statusline
+endfunction
+
+function! StatusLine() abort
+	let l:statusline=StlMode()
+	let l:statusline.='%(%{fugitive#head()} 〉%)'
+	let l:statusline.='%t'
+	let l:statusline.='%( 〉%R%)'
+	let l:statusline.='%( 〉%M%)'
+	let l:statusline.='%='
+	let l:statusline.='%(%{&filetype}〈 %)'
+	let l:statusline.='%l:%c〈 %p%% '
+
+	return l:statusline
+endfunction
+
+set statusline=%!StatusLine()
 
 " Folding
 set nofoldenable foldmethod=indent
@@ -147,16 +185,6 @@ inoremap <expr> <Enter> pumvisible() ? "\<C-y>" : "\<Enter>"
 " Quickfix/Location list navigation
 nnoremap [q :cprevious<CR>zz| nnoremap ]q :cnext<CR>zz| nnoremap [Q :cfirst<CR>zz| nnoremap ]Q :clast<CR>zz
 nnoremap [l :lprevious<CR>zz| nnoremap ]l :lnext<CR>zz| nnoremap [L :lfirst<CR>zz| nnoremap ]L :llast<CR>zz
-
-" Lightline
-let g:lightline={
-	\'colorscheme': 'nord',
-	\'active': { 'left': [['mode', 'paste'], ['gitbranch', 'filename', 'readonly', 'modified']] },
-	\'component': { 'lineinfo': '%3l:%-2v' },
-	\'component_function': { 'gitbranch': 'fugitive#head' },
-	\'separator': { 'left': '', 'right': '' },
-	\'subseparator': { 'left': '', 'right': '' }
-\}
 
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
