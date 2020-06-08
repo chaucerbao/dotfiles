@@ -65,15 +65,15 @@ function! StlMode() abort
 	let l:statusline=' '
 
 	if l:mode=~'^n'
-		let l:statusline.='NORMAL'
+		let l:statusline.='%#StlModeNormal#NORMAL%*'
 	elseif l:mode=~#'^i'
-		let l:statusline.='INSERT'
+		let l:statusline.='%#StlModeInsert#INSERT%*'
 	elseif l:mode=~?'^[v|]'
-		let l:statusline.='VISUAL'
+		let l:statusline.='%#StlModeVisual#VISUAL%*'
 	elseif l:mode=~?'^[s|]'
-		let l:statusline.='SELECT'
+		let l:statusline.='%#StlModeSelect#SELECT%*'
 	elseif l:mode=~#'^R'
-		let l:statusline.='REPLACE'
+		let l:statusline.='%#StlModeReplace#REPLACE%*'
 	else
 		let l:statusline.=l:mode
 	endif
