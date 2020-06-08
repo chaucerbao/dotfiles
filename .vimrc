@@ -96,6 +96,11 @@ function! StatusLine() abort
 	return l:statusline
 endfunction
 
+highlight StlModeNormal term=bold,reverse ctermfg=15 ctermbg=8 guifg=#ECEFF4 guibg=#4C566A
+highlight StlModeInsert term=bold,reverse ctermfg=3 ctermbg=8 guifg=#EBCB8B guibg=#4C566A
+highlight StlModeVisual term=bold,reverse ctermfg=5 ctermbg=8 guifg=#B48EAD guibg=#4C566A
+highlight StlModeSelect term=bold,reverse ctermfg=13 ctermbg=8 guifg=#B48EAD guibg=#4C566A
+highlight StlModeReplace term=bold,reverse ctermfg=1 ctermbg=8 guifg=#BF616A guibg=#4C566A
 set statusline=%!StatusLine()
 
 " Folding
