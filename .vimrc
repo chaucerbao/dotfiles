@@ -139,7 +139,7 @@ function s:isBeginningOfLine()
   return strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
 endfunction
 inoremap <expr> <Tab> <SID>isBeginningOfLine() ? '<Tab>' : pumvisible() ? '<C-n>' : '<C-]>'
-inoremap <expr> <S-Tab> <SID>isBeginningOfLine() ? '<C-D>' : pumvisible() ? '<C-p>' : '<C-]>'
+inoremap <expr> <S-Tab> <SID>isBeginningOfLine() ? '<C-d>' : pumvisible() ? '<C-p>' : '<C-]>'
 
 " Yank/paste using the system clipboard
 nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
