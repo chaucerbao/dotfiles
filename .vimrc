@@ -197,8 +197,8 @@ nnoremap <Leader>f :FZF -m<CR>
 " Conquer of Completion
 let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
 nmap <silent> <F2> <Plug>(coc-rename)
-nmap <silent> <Leader><Enter> <Plug>(coc-codeaction)| xmap <silent> <Leader><Enter> <Plug>(coc-codeaction-selected)
 nmap <silent> <Leader>gq <Plug>(coc-format)| xmap <silent> <Leader>gq <Plug>(coc-format-selected)
+nnoremap <silent> <Leader><Enter> :<C-u>CocList commands<CR>| xmap <silent> <Leader><Enter> <Plug>(coc-codeaction-selected)
 nnoremap <silent> [g :<C-u>call CocAction('diagnosticPrevious')<CR>zz| nnoremap <silent> ]g :<C-u>call CocAction('diagnosticNext')<CR>zz
 nnoremap <silent> gd :<C-u>call CocAction('jumpDefinition')<CR>zz| nmap <silent> gD <Plug>(coc-references)
 nnoremap <silent> K :<C-u>call CocActionAsync('doHover')<CR>
