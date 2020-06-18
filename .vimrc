@@ -172,6 +172,7 @@ nnoremap - :Explore<CR>
 
 " Buffer navigation
 nnoremap gb :buffers<CR>:buffer<Space>
+nnoremap <Tab> :bnext<CR>| nnoremap <S-Tab> :bprevious<CR>
 
 " Tab navigation
 nnoremap <Leader><Tab> :$tabnew<CR>
