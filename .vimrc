@@ -51,7 +51,7 @@ let g:nord_uniform_diff_background=1
 colorscheme nord
 
 " General settings
-set confirm hidden lazyredraw spell splitbelow splitright noswapfile nowritebackup encoding=utf-8 backspace=indent,eol,start list listchars=tab:»·,trail:· mouse=a tags=./tags;,tags
+set confirm hidden lazyredraw spell splitbelow splitright noswapfile nowritebackup encoding=utf-8 backspace=indent,eol,start list listchars=tab:»·,trail:· mouse=a tags=./tags;,tags updatetime=300
 if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
 if executable('rg') | let s:grepCommand='rg' | elseif executable('ag') | let s:grepCommand='ag' | endif
 if exists('s:grepCommand') | let &grepprg=s:grepCommand.' --vimgrep' | set grepformat=%f:%l:%c:%m | unlet s:grepCommand | endif
@@ -59,7 +59,7 @@ if exists('s:grepCommand') | let &grepprg=s:grepCommand.' --vimgrep' | set grepf
 " User interface
 set number nowrap scrolloff=1 laststatus=2
 
-" Status Line
+" Status line
 function! StlMode() abort
 	let l:mode = mode()
 	let l:statusline=' '
@@ -200,10 +200,10 @@ nnoremap <Leader>f :FZF -m<CR>
 let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
 nmap <silent> <F2> <Plug>(coc-rename)
 nmap <silent> <Leader>gq <Plug>(coc-format)| xmap <silent> <Leader>gq <Plug>(coc-format-selected)
-nnoremap <silent> <Leader><Enter> :<C-u>CocList commands<CR>| xmap <silent> <Leader><Enter> <Plug>(coc-codeaction-selected)
-nnoremap <silent> [g :<C-u>call CocAction('diagnosticPrevious')<CR>zz| nnoremap <silent> ]g :<C-u>call CocAction('diagnosticNext')<CR>zz
-nnoremap <silent> gd :<C-u>call CocAction('jumpDefinition')<CR>zz| nmap <silent> gD <Plug>(coc-references)
-nnoremap <silent> K :<C-u>call CocActionAsync('doHover')<CR>
+nnoremap <silent> <Leader><Enter> :CocList commands<CR>| xmap <silent> <Leader><Enter> <Plug>(coc-codeaction-selected)
+nnoremap <silent> [g :call CocAction('diagnosticPrevious')<CR>zz| nnoremap <silent> ]g :call CocAction('diagnosticNext')<CR>zz
+nnoremap <silent> gd :call CocAction('jumpDefinition')<CR>zz| nmap <silent> gD <Plug>(coc-references)
+nnoremap <silent> K :call CocActionAsync('doHover')<CR>
 
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
