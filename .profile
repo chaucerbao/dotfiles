@@ -48,7 +48,7 @@ alias gstp='git stp'
 # Node
 alias npmD='npm install --save-dev'
 alias npmS='npm install --save'
-alias npmR='rm --force --recursive node_modules && npm install'
+alias npmR='rm --force --recursive node_modules; npm install'
 
 # tmux
 alias t='tmux'
@@ -56,6 +56,10 @@ alias ta='tmux attach-session'
 alias tks='tmux kill-server'
 alias tls='tmux list-sessions'
 alias ts='tmux new-session -A -s'
+
+# Vim
+if [ -x "$(command -v nvim)" ]; then alias v='nvim'; else alias v='vim'; fi
+alias vup='v +PlugUpgrade +PlugUpdate +only +"normal D" +"nnoremap <silent> <buffer> q :qall<CR>"'
 
 # Miscellaneous
 alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
@@ -65,8 +69,6 @@ alias forklift='open -a ForkLift'
 alias l='ls -l'
 alias ll='ls --almost-all -l'
 alias ls='ls --color --classify --group-directories-first --human-readable --literal'
-alias v='vim'
-alias vup='vim +PlugUpgrade +PlugUpdate +only +"normal D" +"nnoremap <silent> <buffer> q :qall<CR>"'
 
 # Functions
 gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
