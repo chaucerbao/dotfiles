@@ -243,6 +243,6 @@ map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
 map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
 
 " VimWiki
-nmap <silent><unique> <Leader>ww <Plug>VimwikiIndex
-nmap <silent><unique> <Leader>wt <Plug>VimwikiTabIndex
-nmap <silent><unique> <Leader>ws <Plug>VimwikiUISelect
+nmap <silent> <Leader>ww <Plug>VimwikiIndex
+nmap <silent> <Leader>wt <Plug>VimwikiTabIndex
+nmap <silent> <Leader>ws <Plug>VimwikiUISelect
