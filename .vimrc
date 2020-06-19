@@ -103,6 +103,13 @@ highlight StlModeSelect term=bold,reverse ctermfg=13 ctermbg=8 guifg=#B48EAD gui
 highlight StlModeReplace term=bold,reverse ctermfg=1 ctermbg=8 guifg=#BF616A guibg=#4C566A
 set statusline=%!StatusLine()
 
+" CursorLine
+augroup CursorLine
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+augroup END
+
 " Folding
 set nofoldenable foldmethod=indent
 
