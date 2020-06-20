@@ -207,7 +207,7 @@ nnoremap <Leader>f :FZF -m<CR>
 let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
 nmap <silent> <F2> <Plug>(coc-rename)
 nmap <silent> <Leader>gq <Plug>(coc-format)| xmap <silent> <Leader>gq <Plug>(coc-format-selected)
-nnoremap <silent> <Leader>o :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+nnoremap <silent> <Leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 nnoremap <silent> <Leader><Enter> :CocList commands<CR>| xmap <silent> <Leader><Enter> <Plug>(coc-codeaction-selected)
 nnoremap <silent> [g :call CocAction('diagnosticPrevious')<CR>zz| nnoremap <silent> ]g :call CocAction('diagnosticNext')<CR>zz
 nnoremap <silent> gd :call CocAction('jumpDefinition')<CR>zz| nmap <silent> gD <Plug>(coc-references)
