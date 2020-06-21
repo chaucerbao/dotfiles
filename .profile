@@ -62,13 +62,17 @@ if [ -x "$(command -v nvim)" ]; then alias v='nvim'; else alias v='vim'; fi
 alias vup='v +PlugUpgrade +PlugUpdate +only +"normal D" +"nnoremap <silent> <buffer> q :qall<CR>"'
 
 # Miscellaneous
-alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
 alias c='cat'
-alias clean='rg --null --files --no-ignore-vcs --glob "*.DS_Store" $HOME/ | xargs -0 rm --'
-alias forklift='open -a ForkLift'
 alias l='ls -l'
 alias ll='ls --almost-all -l'
 alias ls='ls --color --classify --group-directories-first --human-readable --literal'
+
+# macOS
+if [[ $OSTYPE == "darwin"* ]]; then
+	alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
+	alias clean='rg --null --files --no-ignore-vcs --glob "*.DS_Store" $HOME/ | xargs -0 rm --'
+	alias forklift='open -a ForkLift'
+fi
 
 # Functions
 gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
