@@ -140,6 +140,7 @@ nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
 nnoremap ; : | nnoremap : ; | vnoremap ; : | vnoremap : ;
+nnoremap n nzz | nnoremap N Nzz
 
 " Smart Tab
 function s:isBeginningOfLine()
