@@ -139,8 +139,8 @@ let mapleader=' '
 nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 nnoremap <Leader>/ :nohlsearch<CR>
 nnoremap <Leader>r :redraw!<CR>
-nnoremap ; : | nnoremap : ; | vnoremap ; : | vnoremap : ;
-nnoremap n nzz | nnoremap N Nzz
+nnoremap ; :| nnoremap : ;| vnoremap ; :| vnoremap : ;
+nnoremap n nzz| nnoremap N Nzz
 
 " Smart Tab
 function s:isBeginningOfLine()
@@ -150,14 +150,14 @@ inoremap <expr> <Tab> <SID>isBeginningOfLine() ? '<Tab>' : pumvisible() ? '<C-n>
 inoremap <expr> <S-Tab> <SID>isBeginningOfLine() ? '<C-d>' : pumvisible() ? '<C-p>' : '<C-]>'
 
 " Yank/paste using the system clipboard
-nnoremap <Leader>y "*y | xnoremap <Leader>y "*y
-nnoremap <Leader>p "*p | xnoremap <Leader>p "*p
-nnoremap <Leader>P "*P | xnoremap <Leader>P "*P
+nnoremap <Leader>y "*y| xnoremap <Leader>y "*y
+nnoremap <Leader>p "*p| xnoremap <Leader>p "*p
+nnoremap <Leader>P "*P| xnoremap <Leader>P "*P
 
 " Change/delete to black hole register
-nnoremap <Leader>c "_c | xnoremap <Leader>c "_c
-nnoremap <Leader>d "_d | xnoremap <Leader>d "_d
-nnoremap <Leader>x "_x | xnoremap <Leader>x "_x
+nnoremap <Leader>c "_c| xnoremap <Leader>c "_c
+nnoremap <Leader>d "_d| xnoremap <Leader>d "_d
+nnoremap <Leader>x "_x| xnoremap <Leader>x "_x
 
 " Star search
 nnoremap * /\V\<<C-r>=expand('<cword>')<CR>\>\C<CR>
