@@ -175,6 +175,7 @@ noremap k gk
 " Buffer navigation
 nnoremap gb :buffers<CR>:buffer<Space>
 nnoremap <Tab> :bnext<CR>| nnoremap <S-Tab> :bprevious<CR>
+nnoremap <Leader>bo :%bdelete\|edit#<CR>
 
 " Tab navigation
 nnoremap <Leader><Tab> :$tabnew<CR>
