@@ -13,6 +13,7 @@ Plug 'arcticicestudio/nord-vim'
 
 " File navigation
 Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': { -> fzf#install() } }
+Plug 'justinmk/vim-dirvish'
 
 " Programming
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -171,14 +172,6 @@ vnoremap <Leader>* "9y:let @/=@9<CR>:silent execute 'grep -F "'.@9.'"'<CR>:set h
 noremap j gj
 noremap k gk
 
-" Directory navigation
-let g:netrw_banner=0
-let g:netrw_bufsettings='number'
-let g:netrw_fastbrowse=0
-let g:netrw_preview=1
-let g:netrw_alto=0
-nnoremap - :Explore<CR>
-
 " Buffer navigation
 nnoremap gb :buffers<CR>:buffer<Space>
 nnoremap <Tab> :bnext<CR>| nnoremap <S-Tab> :bprevious<CR>
@@ -203,6 +196,10 @@ nnoremap [l :lprevious<CR>zz| nnoremap ]l :lnext<CR>zz| nnoremap [L :lfirst<CR>z
 
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
+
+" Dirvish
+let g:loaded_netrwPlugin=1
+let g:dirvish_mode=':sort ,^.*[\/],'
 
 " Conquer of Completion
 let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
