@@ -53,6 +53,7 @@ colorscheme nord
 
 " General settings
 set confirm hidden lazyredraw spell splitbelow splitright noswapfile nowritebackup encoding=utf-8 backspace=indent,eol,start list listchars=tab:»·,trail:· mouse=a tags=./tags;,tags updatetime=300
+if has('nvim') | set guicursor= | endif
 if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
 if executable('rg') | let s:grepCommand='rg' | elseif executable('ag') | let s:grepCommand='ag' | endif
 if exists('s:grepCommand') | let &grepprg=s:grepCommand.' --vimgrep' | set grepformat=%f:%l:%c:%m | unlet s:grepCommand | endif
