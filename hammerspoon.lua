@@ -44,6 +44,14 @@ function setVolume(target, message)
   end
 end
 
+-- Clipboard Manager
+local clipboardManager = hs.loadSpoon('ClipboardTool')
+clipboardManager.show_copied_alert = false
+clipboardManager.show_in_menubar = false
+clipboardManager.hist_size = 500
+clipboardManager:bindHotkeys({ toggle_clipboard = { { 'ctrl' }, 'space' } })
+clipboardManager:start()
+
 -- Hotkey bindings
 local mods = { 'ctrl', 'cmd' }
 

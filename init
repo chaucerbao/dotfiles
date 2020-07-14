@@ -25,8 +25,11 @@ else
 				git config --global include.path "$DOTFILES/.gitconfig"
 				;;
 			hammerspoon )
-				mkdir -p $HOME/.hammerspoon/
+				mkdir -p $HOME/.hammerspoon/Spoons/
 				echo "dofile('$DOTFILES_ABS/hammerspoon.lua')" >> $HOME/.hammerspoon/init.lua
+				curl -LO "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ClipboardTool.spoon.zip"
+				unzip -d $HOME/.hammerspoon/Spoons/ ClipboardTool.spoon.zip
+				rm ClipboardTool.spoon.zip
 				;;
 			neovim )
 				mkdir -p $HOME/.config/nvim/
