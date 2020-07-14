@@ -30,6 +30,22 @@ function moveTo(target)
   window:setFrame(frame)
 end
 
+-- Shortcuts
+if shortcuts then
+  local shortcutChooser = hs.chooser.new(function(choice)
+    if choice then
+      if choice['keyStrokes'] then hs.eventtap.keyStrokes(choice['keyStrokes']) end
+    end
+  end)
+
+  shortcutChooser:choices(shortcuts)
+
+  hs.hotkey.bind('ctrl', 'escape', function()
+    shortcutChooser:query(nil)
+    shortcutChooser:show()
+  end)
+end
+
 -- Control the volume of the active audio device
 function setVolume(target)
   local audioDevice = hs.audiodevice.defaultOutputDevice()
