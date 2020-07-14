@@ -85,22 +85,34 @@ if quickLaunch then
 end
 
 if shortcuts then
+  function sendText(text)
+    local sentinelRegex = '([\n\t])$'
+    local _, _, sentinel = string.find(text, sentinelRegex)
+
+    hs.eventtap.keyStrokes(string.gsub(text, sentinelRegex, ''))
+
+    if sentinel then
+      if sentinel == '\n' then hs.eventtap.keyStroke({}, 'return') end
+      if sentinel == '\t' then hs.eventtap.keyStroke({}, 'tab') end
+    end
+  end
+
   local shortcutChooser = hs.chooser.new(function(choice)
     if choice then
       if choice.keyStrokes then
-        if (type(choice.keyStrokes) == 'string') then hs.eventtap.keyStrokes(choice.keyStrokes) end
+        if (type(choice.keyStrokes) == 'string') then sendText(choice.keyStrokes) end
 
         if (type(choice.keyStrokes) == 'table') then
           if choice.interval then
             for i, keyStrokes in ipairs(choice.keyStrokes) do
               hs.timer.doAfter(
                 choice.interval * (i - 1),
-                function() hs.eventtap.keyStrokes(keyStrokes) end
+                function() sendText(keyStrokes) end
               )
             end
           else
             for _, keyStrokes in ipairs(choice.keyStrokes) do
-              hs.eventtap.keyStrokes(keyStrokes)
+              sendText(keyStrokes)
             end
           end
         end
