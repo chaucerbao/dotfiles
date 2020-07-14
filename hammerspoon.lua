@@ -30,93 +30,22 @@ function moveTo(target)
   window:setFrame(frame)
 end
 
--- Shortcuts
-if shortcuts then
-  local shortcutChooser = hs.chooser.new(function(choice)
-    if choice then
-      if choice['keyStrokes'] then hs.eventtap.keyStrokes(choice['keyStrokes']) end
-    end
-  end)
-
-  shortcutChooser:choices(shortcuts)
-
-  hs.hotkey.bind('ctrl', 'escape', function()
-    shortcutChooser:query(nil)
-    shortcutChooser:show()
-  end)
-end
-
 -- Control the volume of the active audio device
-function setVolume(target)
+function setVolume(target, message)
   local audioDevice = hs.audiodevice.defaultOutputDevice()
 
-  if target == 'toggle' then
+  if target == 0 then
     audioDevice:setMuted(not audioDevice:muted())
-    hs.alert.show(audioDevice:muted() and 'Mute' or 'Unmute')
-  elseif target == 'low' then
-    audioDevice:setVolume(2/16 * 100)
-    audioDevice:setMuted(false)
-    hs.alert.show('Volume low')
-  elseif target == 'normal' then
-    audioDevice:setVolume(6/16 * 100)
-    audioDevice:setMuted(false)
-    hs.alert.show('Volume normal')
-  end
-end
-
--- Select audio input/output devices
-function audioDeviceChoices(findDevices)
-  local choices = {}
-
-  for _, device in ipairs(hs.audiodevice[findDevices]()) do
-    table.insert(choices, { ['text'] = device:name(), ['uid'] = device:uid() })
-  end
-
-  return choices
-end
-
-function selectAudioDevice(uid, findDevice, setDevice)
-  local device = hs.audiodevice[findDevice](uid)
-
-  device[setDevice](device)
-end
-
-local audioInputChooser = hs.chooser.new(function(choice)
-  if choice then selectAudioDevice(choice.uid, 'findInputByUID', 'setDefaultInputDevice') end
-end):choices(function() return audioDeviceChoices('allInputDevices') end)
-
-local audioOutputChooser = hs.chooser.new(function(choice)
-  if choice then selectAudioDevice(choice.uid, 'findOutputByUID', 'setDefaultOutputDevice') end
-end):choices(function() return audioDeviceChoices('allOutputDevices') end)
-
--- Bind back/forward navigation on the mouse
-hs.eventtap.new({hs.eventtap.event.types.otherMouseDown}, function(event)
-  local mouseButton = event:getProperty(hs.eventtap.event.properties.mouseEventButtonNumber)
-
-  if mouseButton == 3 then
-    return true, {hs.eventtap.event.newKeyEvent({'cmd'}, '[', true)}
-  elseif mouseButton == 4 then
-    return true, {hs.eventtap.event.newKeyEvent({'cmd'}, ']', true)}
-  end
-end):start()
-
--- Caffeine
-local caffeine = hs.menubar.new()
-function toggleCaffeine()
-  if (hs.caffeinate.toggle('displayIdle')) then
-    caffeine:returnToMenuBar()
+    hs.alert.show(audioDevice:muted() and message[1] or message[2])
   else
-    caffeine:removeFromMenuBar()
+    audioDevice:setVolume(target * 100)
+    audioDevice:setMuted(false)
+    hs.alert.show(message)
   end
-end
-if caffeine then
-  caffeine:setTitle('\u{2615}')
-  caffeine:setClickCallback(toggleCaffeine)
-  caffeine:removeFromMenuBar()
 end
 
 -- Hotkey bindings
-local mods = {'ctrl', 'cmd'}
+local mods = { 'ctrl', 'cmd' }
 
 hs.hotkey.bind(mods, '1', function() moveTo(1) end)
 hs.hotkey.bind(mods, '2', function() moveTo(2) end)
@@ -133,34 +62,39 @@ hs.hotkey.bind(mods, 'L', function() hs.window.frontmostWindow():moveToUnit(hs.l
 hs.hotkey.bind(mods, '[', function() hs.window.frontmostWindow():moveOneScreenWest() end)
 hs.hotkey.bind(mods, ']', function() hs.window.frontmostWindow():moveOneScreenEast() end)
 
-hs.hotkey.bind(mods, '0', function() setVolume('toggle') end)
-hs.hotkey.bind(mods, '-', function() setVolume('low') end)
-hs.hotkey.bind(mods, '=', function() setVolume('normal') end)
+hs.hotkey.bind(mods, '0', function() setVolume(0, { 'Mute', 'Unmute' }) end)
+hs.hotkey.bind(mods, '-', function() setVolume(2/16, 'Volume low') end)
+hs.hotkey.bind(mods, '=', function() setVolume(6/16, 'Volume normal') end)
 
-hs.hotkey.bind(mods, 'Z', function() toggleCaffeine() end)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
 hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com.apple.Safari') end)
-hs.hotkey.bind(mods, 'O', function() if (type(browser) == 'string') then hs.application.launchOrFocusByBundleID(browser) end end)
 hs.hotkey.bind('cmd', 'escape', function() hs.application.launchOrFocusByBundleID('com.apple.Terminal') end)
 
-hs.hotkey.bind(mods, '\\', function()
-  if (type(quickLaunch) == 'table') then
+-- Conditional hotkey bindings
+if browser then
+  hs.hotkey.bind(mods, 'O', function() hs.application.launchOrFocusByBundleID(browser) end)
+end
+
+if quickLaunch then
+  hs.hotkey.bind(mods, '\\', function()
     for i, bundleID in ipairs(quickLaunch) do
       hs.application.launchOrFocusByBundleID(bundleID)
     end
-  end
-end)
+  end)
+end
 
--- Shift-mod bindings
-local shift_mods = {'shift', 'ctrl', 'cmd'}
+if shortcuts then
+  local shortcutChooser = hs.chooser.new(function(choice)
+    if choice then
+      if choice.keyStrokes then hs.eventtap.keyStrokes(choice.keyStrokes) end
+    end
+  end)
 
-hs.hotkey.bind(shift_mods, '-', function() audioInputChooser:show() end)
-hs.hotkey.bind(shift_mods, '=', function() audioOutputChooser:show() end)
+  shortcutChooser:choices(shortcuts)
 
--- AutoClicker
-local autoClicker = hs.timer.new(.1, function() hs.eventtap.leftClick(hs.mouse.getAbsolutePosition(), 1000) end)
-local autoClickerModal = hs.hotkey.modal.new(mods, 'A')
-autoClickerModal:bind('', 'escape', nil, function() autoClickerModal:exit() end)
-function autoClickerModal:entered() autoClicker:start(); hs.alert.show('AutoClicker started') end
-function autoClickerModal:exited() autoClicker:stop(); hs.alert.show('AutoClicker stopped') end
+  hs.hotkey.bind('ctrl', 'escape', function()
+    shortcutChooser:query(nil)
+    shortcutChooser:show()
+  end)
+end
