@@ -87,7 +87,24 @@ end
 if shortcuts then
   local shortcutChooser = hs.chooser.new(function(choice)
     if choice then
-      if choice.keyStrokes then hs.eventtap.keyStrokes(choice.keyStrokes) end
+      if choice.keyStrokes then
+        if (type(choice.keyStrokes) == 'string') then hs.eventtap.keyStrokes(choice.keyStrokes) end
+
+        if (type(choice.keyStrokes) == 'table') then
+          if choice.interval then
+            for i, keyStrokes in ipairs(choice.keyStrokes) do
+              hs.timer.doAfter(
+                choice.interval * (i - 1),
+                function() hs.eventtap.keyStrokes(keyStrokes) end
+              )
+            end
+          else
+            for _, keyStrokes in ipairs(choice.keyStrokes) do
+              hs.eventtap.keyStrokes(keyStrokes)
+            end
+          end
+        end
+      end
     end
   end)
 
