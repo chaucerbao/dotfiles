@@ -206,13 +206,13 @@ let g:dirvish_mode=':sort ,^.*[\/],'
 
 " Conquer of Completion
 let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
-nmap <silent> <F2> <Plug>(coc-rename)
-nmap <silent> <Leader>gq <Plug>(coc-format)| xmap <silent> <Leader>gq <Plug>(coc-format-selected)
-nnoremap <silent> <Leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
-nnoremap <silent> <Leader><Enter> :CocList commands<CR>| xmap <silent> <Leader><Enter> <Plug>(coc-codeaction-selected)
-nnoremap <silent> [g :call CocAction('diagnosticPrevious')<CR>zz| nnoremap <silent> ]g :call CocAction('diagnosticNext')<CR>zz
-nnoremap <silent> gd :call CocAction('jumpDefinition')<CR>zz| nmap <silent> gD <Plug>(coc-references)
-nnoremap <silent> K :call CocActionAsync('doHover')<CR>
+nmap <F2> <Plug>(coc-rename)
+nmap <Leader>gq <Plug>(coc-format)| xmap <Leader>gq <Plug>(coc-format-selected)
+nnoremap <Leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+nnoremap <Leader><Enter> :CocList commands<CR>| xmap <Leader><Enter> <Plug>(coc-codeaction-selected)
+nnoremap [g :call CocAction('diagnosticPrevious')<CR>zz| nnoremap ]g :call CocAction('diagnosticNext')<CR>zz
+nnoremap gd :call CocAction('jumpDefinition')<CR>zz| nmap gD <Plug>(coc-references)
+nnoremap K :call CocActionAsync('doHover')<CR>
 
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
@@ -248,6 +248,6 @@ map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
 map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
 
 " VimWiki
-nmap <silent> <Leader>ww <Plug>VimwikiIndex
-nmap <silent> <Leader>wt <Plug>VimwikiTabIndex
-nmap <silent> <Leader>ws <Plug>VimwikiUISelect
+nmap <Leader>ww <Plug>VimwikiIndex
+nmap <Leader>wt <Plug>VimwikiTabIndex
+nmap <Leader>ws <Plug>VimwikiUISelect
