@@ -232,8 +232,8 @@ let g:vrc_curl_opts={
 nmap cr <Plug>(abolish-coerce-word)
 
 " NrrwRgn
-xmap <Leader>nr <Plug>NrrwrgnBangDo
-xmap <Leader>Nr <Plug>NrrwrgnDo
+xmap <Leader>nr <Plug>NrrwrgnDo| nmap <Leader>nr <Plug>NrrwrgnDo
+xmap <Leader>Nr <Plug>NrrwrgnBangDo
 
 " Undotree
 nnoremap <Leader>u :UndotreeToggle<CR>
