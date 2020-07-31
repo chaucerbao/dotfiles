@@ -125,6 +125,10 @@ if shortcuts then
           end
         end
       end
+
+      if _G[choice.callback] ~= nil then
+        _G[choice.callback]()
+      end
     end
   end)
 
