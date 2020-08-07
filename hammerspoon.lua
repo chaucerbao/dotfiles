@@ -44,6 +44,24 @@ function setVolume(target, message)
   end
 end
 
+-- Caffeine
+local caffeine = hs.menubar.new(hs.caffeinate.get('displayIdle'))
+
+function setCaffeineDisplay(state)
+  if state then
+    caffeine:returnToMenuBar()
+    caffeine:setTitle('☕️')
+    caffeine:setTooltip('Prevent display from sleeping')
+    caffeine:setClickCallback(toggleCaffeineDisplay)
+  else
+    caffeine:removeFromMenuBar()
+  end
+end
+
+function toggleCaffeineDisplay()
+  setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
+end
+
 -- Clipboard Manager
 local clipboardManager = hs.loadSpoon('ClipboardTool')
 clipboardManager.show_copied_alert = false
@@ -74,6 +92,7 @@ hs.hotkey.bind(mods, '0', function() setVolume(0, { 'Mute', 'Unmute' }) end)
 hs.hotkey.bind(mods, '-', function() setVolume(2/16, 'Volume low') end)
 hs.hotkey.bind(mods, '=', function() setVolume(6/16, 'Volume normal') end)
 
+hs.hotkey.bind(mods, 'Z', toggleCaffeineDisplay)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
 hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com.apple.Safari') end)
