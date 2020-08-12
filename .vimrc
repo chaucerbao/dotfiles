@@ -130,9 +130,6 @@ set wildmenu wildmode=longest:full,full
 " Diff
 set diffopt+=hiddenoff,vertical
 
-" Trim trailing whitespace on save
-autocmd BufWritePre * :%s/\s\+$//e
-
 " Open QuickFix/Location List automatically
 autocmd QuickFixCmdPost [^l]* cwindow
 autocmd QuickFixCmdPost l* lwindow
