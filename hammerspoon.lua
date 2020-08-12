@@ -153,7 +153,7 @@ if shortcuts then
 
   shortcutChooser:choices(shortcuts)
 
-  hs.hotkey.bind('ctrl', 'escape', function()
+  hs.hotkey.bind(mods, ';', function()
     shortcutChooser:query(nil)
     shortcutChooser:show()
   end)
