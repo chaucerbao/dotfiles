@@ -4,7 +4,7 @@ hs.alert.defaultStyle.strokeColor.alpha = 0
 hs.window.animationDuration = 0
 
 -- Move the focused window to a target position on the current screen
-function moveTo(target)
+local function moveTo(target)
   local window = hs.window.frontmostWindow()
   local frame = window:frame()
   local screen = window:screen():frame()
@@ -36,18 +36,24 @@ function setVolume(target, message)
 
   if target == 0 then
     audioDevice:setMuted(not audioDevice:muted())
-    hs.alert.show(audioDevice:muted() and message[1] or message[2])
+
+    if (message) then
+      hs.alert.show(audioDevice:muted() and message[1] or message[2])
+    end
   else
     audioDevice:setVolume(target * 100)
     audioDevice:setMuted(false)
-    hs.alert.show(message)
+
+    if (message) then
+      hs.alert.show(message)
+    end
   end
 end
 
 -- Caffeine
 local caffeine = hs.menubar.new(hs.caffeinate.get('displayIdle'))
 
-function setCaffeineDisplay(state)
+local function setCaffeineDisplay(state)
   if state then
     caffeine:returnToMenuBar()
     caffeine:setTitle('☕️')
@@ -112,7 +118,7 @@ if quickLaunch then
 end
 
 if shortcuts then
-  function sendText(text)
+  local function sendText(text)
     local sentinelRegex = '([\n\t])$'
     local _, _, sentinel = string.find(text, sentinelRegex)
 
