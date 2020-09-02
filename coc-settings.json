@@ -1,4 +1,6 @@
 {
+  "coc.preferences.useQuickfixForLocations": true,
+
   "diagnostic.infoSign": "⚑",
   "diagnostic.warningSign": "⚠",
   "diagnostic.errorSign": "✖",
