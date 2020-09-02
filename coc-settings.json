@@ -3,7 +3,5 @@
 
   "diagnostic.infoSign": "⚑",
   "diagnostic.warningSign": "⚠",
-  "diagnostic.errorSign": "✖",
-
-  "eslint.autoFixOnSave": true
+  "diagnostic.errorSign": "✖"
 }
