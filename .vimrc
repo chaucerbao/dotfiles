@@ -191,6 +191,20 @@ inoremap <expr> <C-e> pumvisible() ? "\<C-e>" : "\<Esc>A"
 inoremap <expr> <Enter> pumvisible() ? "\<C-y>" : "\<Enter>"
 
 " Quickfix/Location list navigation
+function! ToggleList(list, open, close)
+	if empty(filter(getwininfo(), 'v:val.'.a:list))
+		try
+			execute a:open
+		catch
+			echo "List is empty"
+		endtry
+	else
+		execute a:close
+	end
+endfunction
+
+nnoremap <Leader>q :call ToggleList('quickfix', 'copen', 'cclose')<CR>
+nnoremap <Leader>l :call ToggleList('loclist', 'lopen', 'lclose')<CR>
 nnoremap [q :cprevious<CR>zz| nnoremap ]q :cnext<CR>zz| nnoremap [Q :cfirst<CR>zz| nnoremap ]Q :clast<CR>zz
 nnoremap [l :lprevious<CR>zz| nnoremap ]l :lnext<CR>zz| nnoremap [L :lfirst<CR>zz| nnoremap ]L :llast<CR>zz
 
