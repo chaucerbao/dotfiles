@@ -207,6 +207,7 @@ nnoremap <Leader>q :call ToggleList('quickfix', 'copen', 'cclose')<CR>
 nnoremap <Leader>l :call ToggleList('loclist', 'lopen', 'lclose')<CR>
 nnoremap [q :cprevious<CR>zz| nnoremap ]q :cnext<CR>zz| nnoremap [Q :cfirst<CR>zz| nnoremap ]Q :clast<CR>zz
 nnoremap [l :lprevious<CR>zz| nnoremap ]l :lnext<CR>zz| nnoremap [L :lfirst<CR>zz| nnoremap ]L :llast<CR>zz
+autocmd FileType qf nnoremap <CR> :execute 'wincmd p \| cc '.line('.')<CR>
 
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF -m<CR>
