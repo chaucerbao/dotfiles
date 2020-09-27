@@ -1,5 +1,5 @@
 -- Style options
-hs.alert.defaultStyle.radius = 5
+hs.alert.defaultStyle.radius = 3
 hs.alert.defaultStyle.strokeColor.alpha = 0
 hs.window.animationDuration = 0
 
@@ -110,7 +110,7 @@ end
 
 if quickLaunch then
   hs.hotkey.bind(mods, '\\', function()
-    for i, bundleID in ipairs(quickLaunch) do
+    for _, bundleID in ipairs(quickLaunch) do
       hs.application.launchOrFocusByBundleID(bundleID)
     end
   end)
