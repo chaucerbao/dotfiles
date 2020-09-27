@@ -118,14 +118,27 @@ end
 
 if shortcuts then
   local function sendText(text)
-    local sentinelRegex = '([\n\t])$'
-    local _, _, sentinel = string.find(text, sentinelRegex)
+    local delimiterMap = { ['\n'] = 'return', ['\t'] = 'tab' }
 
-    hs.eventtap.keyStrokes(string.gsub(text, sentinelRegex, ''))
+    local delimiterRegex = ''
+    for key in pairs(delimiterMap) do
+      delimiterRegex = delimiterRegex..key
+    end
 
-    if sentinel then
-      if sentinel == '\n' then hs.eventtap.keyStroke({}, 'return') end
-      if sentinel == '\t' then hs.eventtap.keyStroke({}, 'tab') end
+    local delimiters = {}
+    for delimiter in string.gmatch(text, '['..delimiterRegex..']') do
+      table.insert(delimiters, delimiterMap[delimiter])
+    end
+
+    local i = 1
+    for substring in string.gmatch(text, '[^'..delimiterRegex..']*') do
+      hs.eventtap.keyStrokes(substring)
+
+      if (delimiters[i]) then
+        hs.eventtap.keyStroke({}, delimiters[i])
+      end
+
+      i = i + 1
     end
   end
 
@@ -136,16 +149,14 @@ if shortcuts then
 
         if (type(choice.keyStrokes) == 'table') then
           if choice.interval then
-            for i, keyStrokes in ipairs(choice.keyStrokes) do
+            for i, text in ipairs(choice.keyStrokes) do
               hs.timer.doAfter(
                 choice.interval * (i - 1),
-                function() sendText(keyStrokes) end
+                function() sendText(text) end
               )
             end
           else
-            for _, keyStrokes in ipairs(choice.keyStrokes) do
-              sendText(keyStrokes)
-            end
+            sendText(table.concat(choice.keyStrokes, ''))
           end
         end
       end
