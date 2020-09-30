@@ -12,7 +12,7 @@ call plug#begin()
 Plug 'arcticicestudio/nord-vim'
 
 " File navigation
-Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'justinmk/vim-dirvish'
 
 " Programming
@@ -172,9 +172,26 @@ noremap j gj
 noremap k gk
 
 " Buffer navigation
-nnoremap gb :buffers<CR>:buffer<Space>
+function! s:listBuffers() abort
+	redir => ls
+	silent ls
+	redir END
+
+	return split(ls, '\n')
+endfunction
+
+function! s:openBuffer(query) abort
+	execute 'buffer' matchstr(a:query, '^[ 0-9]*')
+endfunction
+
+nnoremap <Leader>b :call fzf#run({
+	\'source': reverse(<SID>listBuffers()),
+	\'sink': function('<SID>openBuffer'),
+	\'options': '+m',
+	\'down': len(<SID>listBuffers()) + 2
+\})<CR>
 nnoremap <Tab> :bnext<CR>| nnoremap <S-Tab> :bprevious<CR>
-nnoremap <Leader>bo :%bdelete\|edit#<CR>
+nnoremap <Leader>o :%bdelete\|edit#\|bdelete#<CR>
 
 " Tab navigation
 nnoremap <Leader><Tab> :$tabnew<CR>
