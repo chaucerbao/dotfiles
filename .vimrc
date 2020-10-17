@@ -184,7 +184,7 @@ function! s:openBuffer(query) abort
 	execute 'buffer' matchstr(a:query, '^[ 0-9]*')
 endfunction
 
-nnoremap <Leader>b :call fzf#run({
+nnoremap <silent> <Leader>b :call fzf#run({
 	\'source': reverse(<SID>listBuffers()),
 	\'sink': function('<SID>openBuffer'),
 	\'options': '+m',
@@ -238,7 +238,6 @@ let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsse
 nmap <F2> <Plug>(coc-rename)
 nmap <Leader>gq <Plug>(coc-format)| xmap <Leader>gq <Plug>(coc-format-selected)
 nnoremap <Leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
-nnoremap <Leader><Enter> :CocList commands<CR>| xmap <Leader><Enter> <Plug>(coc-codeaction-selected)
 nnoremap [g :call CocAction('diagnosticPrevious')<CR>zz| nnoremap ]g :call CocAction('diagnosticNext')<CR>zz
 nnoremap gd :call CocAction('jumpDefinition')<CR>zz| nmap gD <Plug>(coc-references)
 nnoremap K :call CocActionAsync('doHover')<CR>
