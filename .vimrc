@@ -245,6 +245,9 @@ nnoremap K :call CocActionAsync('doHover')<CR>
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
 
+" Auto Pairs
+let g:AutoPairsMultilineClose=0
+
 " Close Tags
 let g:closetag_filetypes='html,javascript,typescriptreact'
 
