@@ -2,7 +2,6 @@ inoreabbrev lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed d
 
 augroup abbreviation_snippets
 	autocmd!
-	autocmd FileType javascript,typescript,typescript.tsx,typescriptreact inoreabbrev <buffer> clg console.log({ + })<C-[>F+"_s
-	autocmd FileType javascript,typescript,typescript.tsx,typescriptreact inoreabbrev <buffer> iife ;(function() {<CR>})()<C-[>O
-	autocmd FileType javascript,typescript,typescript.tsx,typescriptreact inoreabbrev <buffer> im import {} from '+'<C-[>F+"_s
+	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> clg console.log({ + })<C-[>F+"_s
+	autocmd FileType html,javascriptreact,typescriptreact inoreabbrev <buffer> tb target="_blank" rel="noopener"
 augroup END
