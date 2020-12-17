@@ -26,11 +26,11 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 
 " Helpers
-Plug 'tpope/vim-abolish', { 'on': ['S', '<Plug>(abolish-coerce-word)'] }
 Plug 'chrisbra/NrrwRgn', { 'on': ['<Plug>NrrwrgnDo', '<Plug>NrrwrgnBangDo'] }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-repeat'
 
 " File types
@@ -258,9 +258,6 @@ let g:vrc_curl_opts={
 	\'--show-error': '',
 	\'--silent': ''
 \}
-
-" Abolish
-nmap cr <Plug>(abolish-coerce-word)
 
 " NrrwRgn
 xmap <Leader>nr <Plug>NrrwrgnDo| nmap <Leader>nr <Plug>NrrwrgnDo
