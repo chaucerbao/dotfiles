@@ -235,6 +235,7 @@ let g:dirvish_mode=':sort ,^.*[\/],'
 
 " Conquer of Completion
 let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
+set tagfunc=CocTagFunc
 nmap <F2> <Plug>(coc-rename)
 nmap <Leader>gq <Plug>(coc-format)| xmap <Leader>gq <Plug>(coc-format-selected)
 nnoremap <Leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
