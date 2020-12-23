@@ -240,8 +240,8 @@ nmap <F2> <Plug>(coc-rename)
 nmap <Leader>gq <Plug>(coc-format)| xmap <Leader>gq <Plug>(coc-format-selected)
 nnoremap <Leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 nnoremap [g :call CocAction('diagnosticPrevious')<CR>zz| nnoremap ]g :call CocAction('diagnosticNext')<CR>zz
-nnoremap gd :call CocAction('jumpDefinition')<CR>zz| nmap gD <Plug>(coc-references)
-nnoremap <Leader>gd :call CocAction('jumpDefinition', 'vsplit')<CR>zz
+nnoremap gd <C-]>zz| nmap gD <Plug>(coc-references)
+nnoremap <Leader>gd <C-w>v<C-]>zz
 nnoremap K :call CocActionAsync('doHover')<CR>
 
 " Sandwich
