@@ -275,6 +275,9 @@ let g:sneak#s_next=1
 map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
 map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
 
+" Abolish
+vmap <Leader>cr <Plug>(abolish-coerce)
+
 " VimWiki
 nmap <Leader>ww <Plug>VimwikiIndex
 nmap <Leader>wt <Plug>VimwikiTabIndex
