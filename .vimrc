@@ -194,7 +194,8 @@ nnoremap <Tab> :bnext<CR>| nnoremap <S-Tab> :bprevious<CR>
 nnoremap <Leader>o :%bdelete\|edit#\|bdelete#<CR>
 
 " Tab navigation
-nnoremap <Leader><Tab> :$tabnew<CR>
+nnoremap g<Tab> :$tabnew<CR>
+nnoremap <Leader><Tab> :tab split<CR>
 
 " Split window navigation
 nnoremap <C-h> <C-w>h
