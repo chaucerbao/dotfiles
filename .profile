@@ -62,7 +62,7 @@ if [ -x "$(command -v nvim)" ]; then alias v='nvim'; else alias v='vim'; fi
 alias vup='v +PlugUpgrade +PlugUpdate +only +"normal D" +"nnoremap <silent> <buffer> q :qall<CR>"'
 
 # Miscellaneous
-alias c='cat'
+if [ -x "$(command -v bat)" ]; then alias c='bat'; else alias c='cat'; fi
 alias l='ls -l'
 alias ll='ls --almost-all -l'
 alias ls='ls --color --classify --group-directories-first --human-readable --literal'
