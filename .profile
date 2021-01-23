@@ -1,6 +1,6 @@
 # Exports
 export N_PREFIX=$HOME/.n
-if [ -z $TMUX ]; then export PATH=node_modules/.bin:$N_PREFIX/bin:$HOME/.bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH; fi
+export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
