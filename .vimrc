@@ -24,6 +24,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
+Plug 'tpope/vim-dadbod', { 'for': 'sql' }
 
 " Helpers
 Plug 'chrisbra/NrrwRgn', { 'on': ['<Plug>NrrwrgnDo', '<Plug>NrrwrgnBangDo'] }
@@ -259,12 +260,17 @@ let g:AutoPairsMultilineClose=0
 let g:closetag_filetypes='html,javascript,typescriptreact'
 
 " REST Console
+let g:vrc_trigger='<CR>'
 let g:vrc_curl_opts={
 	\'--include': '',
 	\'--location': '',
 	\'--show-error': '',
 	\'--silent': ''
 \}
+
+" Dadbod
+autocmd FileType sql nnoremap <buffer> <CR> :%DB<CR>
+autocmd FileType sql vnoremap <buffer> <CR> :DB<CR>
 
 " NrrwRgn
 xmap <Leader>nr <Plug>NrrwrgnDo| nmap <Leader>nr <Plug>NrrwrgnDo
