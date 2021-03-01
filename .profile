@@ -17,6 +17,7 @@ alias .....='cd ../../../..'
 # Docker
 alias d='docker'
 alias dc='docker-compose'
+alias dco='docker context'
 alias dprune='docker system prune --force'
 alias drun='docker run --interactive --tty --rm'
 alias dcrun='docker-compose run --rm'
