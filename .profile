@@ -17,7 +17,6 @@ alias .....='cd ../../../..'
 # Docker
 alias d='docker'
 alias dc='docker-compose'
-alias dco='docker context'
 alias dprune='docker system prune --force'
 alias drun='docker run --interactive --tty --rm'
 alias dcrun='docker-compose run --rm'
@@ -76,6 +75,7 @@ if [[ $OSTYPE == "darwin"* ]]; then
 fi
 
 # Functions
+dco() { if [ -n "$1" ]; then docker context use "$1"; else docker context list; fi; }
 gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
 gbh() { if [ -n "$1" ]; then git checkout -b "hotfix/$1" "${2:-master}"; fi; }
 fd() { if [ -n "$1" ]; then rg --files --glob "*$1*" "${2:-.}"; fi; }
