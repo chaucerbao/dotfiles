@@ -1,0 +1,3 @@
+#!/bin/sh
+
+docker run --interactive --rm -v $(pwd):$(pwd) -w $(pwd) jrottenberg/ffmpeg:4.3-alpine312 $*
