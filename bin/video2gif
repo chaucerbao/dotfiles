@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Default options
+FPS="15"
+WIDTH="iw"
+DELAY="-1"
+
+# Video input file
+INPUT=""
+
+# Parse arguments
+while (( "$#" )); do
+  case "$1" in
+    -f | --fps) FPS="$2"; shift;;
+    -w | --width) WIDTH="$2" shift;;
+    -d | --delay) DELAY="$2" shift;;
+    --) shift; break;;
+
+    *)
+      if [ -z "$INPUT" ]; then
+        INPUT="$1"
+      fi
+      ;;
+  esac
+
+  shift
+done
+
+# Execute
+if [ -z "$INPUT" ]; then
+  echo "Usage: $(basename $0) [-f <fps>] [-w <width>] [-d <delay>] <file>"
+elif [ ! -f "$INPUT" ]; then
+  echo "Unable to find the file: $INPUT"
+else
+  ffmpeg -i "$INPUT" -vf "fps=$FPS,scale=$WIDTH:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 -final_delay $DELAY "${INPUT%.*}.gif"
+fi
