@@ -260,7 +260,6 @@ let g:AutoPairsMultilineClose=0
 let g:closetag_filetypes='html,javascript,typescriptreact'
 
 " REST Console
-let g:vrc_trigger='<CR>'
 let g:vrc_curl_opts={
 	\'--include': '',
 	\'--location': '',
