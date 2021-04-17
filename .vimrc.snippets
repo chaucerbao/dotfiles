@@ -2,6 +2,11 @@ inoreabbrev lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed d
 
 augroup abbreviation_snippets
 	autocmd!
+	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //i // Imports<C-[>
+	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //t // Type Definitions<C-[>
+	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //c // Constants<C-[>
+	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //h // Helpers<C-[>
+	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //e // Exports<C-[>
 	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> clg console.log({ + })<C-[>F+"_s
 	autocmd FileType html,javascriptreact,typescriptreact inoreabbrev <buffer> tb target="_blank" rel="noopener"
 augroup END
