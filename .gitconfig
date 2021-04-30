@@ -42,7 +42,15 @@
 [core]
 	editor = vim
 	pager = less -+FX
+[diff]
+	colorMoved = default
+[fetch]
+	prune = true
+[init]
+	defaultBranch = master
 [merge]
 	tool = vimdiff
 [mergetool]
 	keepBackup = false
+[pull]
+	rebase = true
