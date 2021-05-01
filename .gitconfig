@@ -17,7 +17,7 @@
 	g = grep --fixed-strings --ignore-case --untracked --break --heading --line-number
 	gp = !git push origin $(git current-branch)
 	gu = !git pull --rebase origin $(git current-branch)
-	lo = log --pretty='%C(yellow)%h%Creset -%Cred%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset'
+	lo = log --pretty='%C(yellow)%h%C(reset) ·%C(red)%d%C(reset) %s %C(green)(%cr) %C(blue)<%an>%C(reset)'
 	m = merge
 	mt = mergetool
 	rb = rebase
