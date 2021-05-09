@@ -205,8 +205,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Insert mode navigation
-inoremap <C-a> <Esc>I
-inoremap <expr> <C-e> pumvisible() ? "\<C-e>" : "\<Esc>A"
+inoremap <C-a> <C-[>I
+inoremap <expr> <C-e> pumvisible() ? "\<C-e>" : "\<C-[>A"
 inoremap <expr> <Enter> pumvisible() ? "\<C-y>" : "\<Enter>"
 
 " Quickfix/Location list navigation
