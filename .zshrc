@@ -23,6 +23,5 @@ source <(antibody init)
 antibody bundle <<-PLUGINS
 	subnixr/minimal
 	rupa/z
-	zsh-users/zsh-completions
 	zsh-users/zsh-syntax-highlighting
 PLUGINS
