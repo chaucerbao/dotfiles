@@ -247,6 +247,7 @@ let g:dirvish_mode=':sort ,^.*[\/],'
 let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
 nmap <F2> <Plug>(coc-rename)
 nmap <Leader>gq <Plug>(coc-format)| xmap <Leader>gq <Plug>(coc-format-selected)
+nmap <Leader><CR> <Plug>(coc-codeaction-cursor)
 nnoremap <Leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 nnoremap [g :call CocActionAsync('diagnosticPrevious')<CR>zz| nnoremap ]g :call CocActionAsync('diagnosticNext')<CR>zz
 nnoremap gd :call CocActionAsync('jumpDefinition')<CR>zz| nmap gD <Plug>(coc-references)
