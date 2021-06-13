@@ -176,7 +176,6 @@ noremap k gk
 nnoremap <silent> <Leader>a :call fzf#run({
 	\'source': argv(),
 	\'sink': 'edit',
-	\'options': '+m',
 	\'down': len(argv()) + 2
 \})<CR>
 nnoremap <Leader>A :argadd<CR>
@@ -197,7 +196,6 @@ endfunction
 nnoremap <silent> <Leader>b :call fzf#run({
 	\'source': reverse(<SID>listBuffers()),
 	\'sink': function('<SID>openBuffer'),
-	\'options': '+m',
 	\'down': len(<SID>listBuffers()) + 2
 \})<CR>
 nnoremap <Tab> :bnext<CR>| nnoremap <S-Tab> :bprevious<CR>
@@ -237,7 +235,7 @@ nnoremap [q :cprevious<CR>zz| nnoremap ]q :cnext<CR>zz| nnoremap [Q :cabove<CR>z
 autocmd FileType qf nnoremap <CR> :execute 'wincmd p \| cc '.line('.')<CR>
 
 " FZF Fuzzy Finder
-nnoremap <Leader>f :FZF -m<CR>
+nnoremap <Leader>f :FZF --multi<CR>
 
 " Dirvish
 let g:loaded_netrwPlugin=1
