@@ -1,8 +1,8 @@
 " Automatically load the plug-in manager
 let s:pluginsInstalled=1
 if empty(glob('~/.vim/autoload/plug.vim')) && executable('curl')
-	let s:pluginsInstalled=0
-	silent !curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  let s:pluginsInstalled=0
+  silent !curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
 " Plug-ins
@@ -54,50 +54,49 @@ let g:nord_uniform_diff_background=1
 colorscheme nord
 
 " General settings
-set confirm hidden lazyredraw spell splitbelow splitright noswapfile nowritebackup encoding=utf-8 backspace=indent,eol,start list listchars=tab:»·,trail:· mouse=a tags=./tags;,tags updatetime=300
+set confirm hidden spell nojoinspaces noswapfile nowritebackup mouse=a updatetime=300
 if has('nvim') | set guicursor= | endif
 if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
-if executable('rg') | let s:grepCommand='rg' | elseif executable('ag') | let s:grepCommand='ag' | endif
-if exists('s:grepCommand') | let &grepprg=s:grepCommand.' --vimgrep' | set grepformat=%f:%l:%c:%m | unlet s:grepCommand | endif
+if executable('rg') | let &grepprg='rg --vimgrep' | set grepformat=%f:%l:%c:%m | endif
 
 " User interface
-set number nowrap scrolloff=1 laststatus=2
+set number nowrap splitbelow splitright list listchars=tab:»·,trail:·,nbsp:◡ scrolloff=1 laststatus=2
 
 " Status line
 function! StlMode() abort
-	let l:mode = mode()
-	let l:statusline=' '
+  let l:mode = mode()
+  let l:statusline=' '
 
-	if l:mode=~'^n'
-		let l:statusline.='%#StlModeNormal#NORMAL%*'
-	elseif l:mode=~#'^i'
-		let l:statusline.='%#StlModeInsert#INSERT%*'
-	elseif l:mode=~?'^[v|]'
-		let l:statusline.='%#StlModeVisual#VISUAL%*'
-	elseif l:mode=~?'^[s|]'
-		let l:statusline.='%#StlModeSelect#SELECT%*'
-	elseif l:mode=~#'^R'
-		let l:statusline.='%#StlModeReplace#REPLACE%*'
-	else
-		let l:statusline.=l:mode
-	endif
+  if l:mode=~'^n'
+    let l:statusline.='%#StlModeNormal#NORMAL%*'
+  elseif l:mode=~#'^i'
+    let l:statusline.='%#StlModeInsert#INSERT%*'
+  elseif l:mode=~?'^[v|]'
+    let l:statusline.='%#StlModeVisual#VISUAL%*'
+  elseif l:mode=~?'^[s|]'
+    let l:statusline.='%#StlModeSelect#SELECT%*'
+  elseif l:mode=~#'^R'
+    let l:statusline.='%#StlModeReplace#REPLACE%*'
+  else
+    let l:statusline.=l:mode
+  endif
 
-	let l:statusline.=' 〉'
+  let l:statusline.=' 〉'
 
-	return l:statusline
+  return l:statusline
 endfunction
 
 function! StatusLine() abort
-	let l:statusline=StlMode()
-	let l:statusline.='%(%{fugitive#head()} 〉%)'
-	let l:statusline.='%t'
-	let l:statusline.='%( 〉%R%)'
-	let l:statusline.='%( 〉%M%)'
-	let l:statusline.='%='
-	let l:statusline.='%(%{&filetype}〈 %)'
-	let l:statusline.='%l:%c〈 %p%% '
+  let l:statusline=StlMode()
+  let l:statusline.='%(%{fugitive#head()} 〉%)'
+  let l:statusline.='%t'
+  let l:statusline.='%( 〉%R%)'
+  let l:statusline.='%( 〉%M%)'
+  let l:statusline.='%='
+  let l:statusline.='%(%{&filetype}〈 %)'
+  let l:statusline.='%l:%c〈 %p%% '
 
-	return l:statusline
+  return l:statusline
 endfunction
 
 highlight StlModeNormal term=bold,reverse ctermfg=15 ctermbg=8 guifg=#ECEFF4 guibg=#4C566A
@@ -118,7 +117,7 @@ augroup END
 set nofoldenable foldmethod=indent
 
 " Indentation
-set autoindent smarttab shiftround expandtab tabstop=2 shiftwidth=2
+set smarttab shiftround expandtab tabstop=2 shiftwidth=0
 
 " Search and replace
 set ignorecase smartcase incsearch hlsearch
@@ -174,36 +173,36 @@ noremap k gk
 
 " Argument list navigation
 nnoremap <silent> <Leader>a :call fzf#run({
-	\'source': argv(),
-	\'sink': 'edit',
-	\'down': len(argv()) + 2
+  \'source': argv(),
+  \'sink': 'edit',
+  \'down': len(argv()) + 2
 \})<CR>
 nnoremap <Leader>A :argadd<CR>
 
-" Buffer navigation
+" Buffer list navigation
 function! s:listBuffers() abort
-	redir => ls
-	silent ls
-	redir END
+  redir => ls
+  silent ls
+  redir END
 
-	return split(ls, '\n')
+  return split(ls, '\n')
 endfunction
 
 function! s:openBuffer(query) abort
-	execute 'buffer' matchstr(a:query, '^[ 0-9]*')
+  execute 'buffer' matchstr(a:query, '^[ 0-9]*')
 endfunction
 
 nnoremap <silent> <Leader>b :call fzf#run({
-	\'source': reverse(<SID>listBuffers()),
-	\'sink': function('<SID>openBuffer'),
-	\'down': len(<SID>listBuffers()) + 2
+  \'source': reverse(<SID>listBuffers()),
+  \'sink': function('<SID>openBuffer'),
+  \'down': len(<SID>listBuffers()) + 2
 \})<CR>
 nnoremap <Tab> :bnext<CR>| nnoremap <S-Tab> :bprevious<CR>
 nnoremap <Leader>o :%bdelete\|edit#\|bdelete#<CR>
 
 " Tab navigation
-nnoremap g<Tab> :$tabnew<CR>
-nnoremap <Leader><Tab> :tab split<CR>
+nnoremap g<Tab> :$tab split<CR>
+nnoremap <Leader><Tab> :$tabnew<CR>
 
 " Split window navigation
 nnoremap <C-h> <C-w>h
@@ -214,19 +213,19 @@ nnoremap <C-l> <C-w>l
 " Insert mode navigation
 inoremap <C-a> <C-[>I
 inoremap <expr> <C-e> pumvisible() ? "\<C-e>" : "\<C-[>A"
-inoremap <expr> <Enter> pumvisible() ? "\<C-y>" : "\<Enter>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " Quickfix/Location list navigation
 function! ToggleList(list, open, close)
-	if empty(filter(getwininfo(), 'v:val.'.a:list))
-		try
-			execute a:open
-		catch
-			echo "List is empty"
-		endtry
-	else
-		execute a:close
-	end
+  if empty(filter(getwininfo(), 'v:val.'.a:list))
+    try
+      execute a:open
+    catch
+      echo "List is empty"
+    endtry
+  else
+    execute a:close
+  end
 endfunction
 
 nnoremap <Leader>q :call ToggleList('quickfix', 'copen', 'cclose')<CR>
@@ -252,9 +251,9 @@ nnoremap gd :call CocActionAsync('jumpDefinition')<CR>zz| nmap gD <Plug>(coc-ref
 nnoremap <Leader>gd :call CocActionAsync('jumpDefinition', 'vsplit')<CR>zz
 nnoremap K :call CocActionAsync('doHover')<CR>
 if exists('&tagfunc')
-	set tagfunc=CocTagFunc
-	nnoremap gd <C-]>zz
-	nnoremap <Leader>gd <C-w>v<C-]>zz
+  set tagfunc=CocTagFunc
+  nnoremap gd <C-]>zz
+  nnoremap <Leader>gd <C-w>v<C-]>zz
 endif
 
 " Sandwich
@@ -268,10 +267,10 @@ let g:closetag_filetypes='html,javascript,typescriptreact'
 
 " REST Console
 let g:vrc_curl_opts={
-	\'--include': '',
-	\'--location': '',
-	\'--show-error': '',
-	\'--silent': ''
+  \'--include': '',
+  \'--location': '',
+  \'--show-error': '',
+  \'--silent': ''
 \}
 
 " Dadbod
