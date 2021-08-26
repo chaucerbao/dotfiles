@@ -65,36 +65,36 @@ set number nowrap splitbelow splitright list listchars=tab:»·,trail:·,nbsp:�
 " Status line
 function! StlMode() abort
   let l:mode = mode()
-  let l:statusline=' '
 
   if l:mode=~'^n'
-    let l:statusline.='%#StlModeNormal#NORMAL%*'
+    return '%#StlModeNormal#NORMAL%*'
   elseif l:mode=~#'^i'
-    let l:statusline.='%#StlModeInsert#INSERT%*'
+    return '%#StlModeInsert#INSERT%*'
   elseif l:mode=~?'^[v|]'
-    let l:statusline.='%#StlModeVisual#VISUAL%*'
+    return '%#StlModeVisual#VISUAL%*'
   elseif l:mode=~?'^[s|]'
-    let l:statusline.='%#StlModeSelect#SELECT%*'
+    return '%#StlModeSelect#SELECT%*'
   elseif l:mode=~#'^R'
-    let l:statusline.='%#StlModeReplace#REPLACE%*'
+    return '%#StlModeReplace#REPLACE%*'
+  elseif l:mode=~#'^c'
+    return '%#StlModeInsert#COMMAND%*'
   else
-    let l:statusline.=l:mode
+    return l:mode
   endif
-
-  let l:statusline.=' 〉'
-
-  return l:statusline
 endfunction
 
 function! StatusLine() abort
-  let l:statusline=StlMode()
-  let l:statusline.='%(%{fugitive#head()} 〉%)'
-  let l:statusline.='%t'
+  let l:statusline=' '
+  let l:statusline.=StlMode()
+  let l:statusline.='%( 〉%{fugitive#head()}%)'
+  let l:statusline.=' 〉%t'
   let l:statusline.='%( 〉%R%)'
   let l:statusline.='%( 〉%M%)'
   let l:statusline.='%='
   let l:statusline.='%(%{&filetype}〈 %)'
-  let l:statusline.='%l:%c〈 %p%% '
+  let l:statusline.='%l:%c〈 '
+  let l:statusline.='%p%%'
+  let l:statusline.=' '
 
   return l:statusline
 endfunction
