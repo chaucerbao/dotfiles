@@ -8,37 +8,34 @@ endif
 " Plug-ins
 call plug#begin()
 
-" Themes
+" Color scheme
 Plug 'arcticicestudio/nord-vim'
 
 " File navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
-Plug 'justinmk/vim-dirvish'
+Plug 'justinmk/vim-dirvish', { 'on': '<Plug>(dirvish_up)' }
+
+" General
+Plug 'tpope/vim-abolish'
+Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
+Plug 'justinmk/vim-sneak', { 'on': ['<Plug>Sneak_s', '<Plug>Sneak_S', '<Plug>Sneak_f', '<Plug>Sneak_F', '<Plug>Sneak_t', '<Plug>Sneak_T'] }
 
 " Programming
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
-Plug 'alvan/vim-closetag'
+Plug 'machakann/vim-sandwich'
+Plug 'alvan/vim-closetag', { 'for': ['html', 'javascriptreact', 'typescriptreact'] }
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 Plug 'tpope/vim-dadbod', { 'for': 'sql' }
-
-" Helpers
-Plug 'chrisbra/NrrwRgn', { 'on': ['<Plug>NrrwrgnDo', '<Plug>NrrwrgnBangDo'] }
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
-Plug 'justinmk/vim-sneak'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-repeat'
 
 " File types
 Plug 'sheerun/vim-polyglot'
 
 " Tools
-Plug 'vimwiki/vimwiki', { 'on': ['<Plug>VimwikiIndex', '<Plug>VimwikiTabIndex', '<Plug>VimwikiUISelect'] }
+Plug 'vimwiki/vimwiki', { 'on': ['<Plug>VimwikiIndex', '<Plug>VimwikiTabIndex'] }
 
 call plug#end()
 
@@ -60,7 +57,7 @@ if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
 if executable('rg') | let &grepprg='rg --vimgrep' | set grepformat=%f:%l:%c:%m | endif
 
 " User interface
-set number nowrap splitbelow splitright list listchars=tab:»·,trail:·,nbsp:◡ scrolloff=1 laststatus=2
+set number breakindent nowrap splitbelow splitright list listchars=tab:»·,trail:·,nbsp:◡ scrolloff=1 laststatus=2
 
 " Status line
 function! StlMode() abort
@@ -68,16 +65,22 @@ function! StlMode() abort
 
   if l:mode=~'^n'
     return '%#StlModeNormal#NORMAL%*'
-  elseif l:mode=~#'^i'
-    return '%#StlModeInsert#INSERT%*'
   elseif l:mode=~?'^[v|]'
     return '%#StlModeVisual#VISUAL%*'
   elseif l:mode=~?'^[s|]'
     return '%#StlModeSelect#SELECT%*'
+  elseif l:mode=~#'^i'
+    return '%#StlModeInsert#INSERT%*'
   elseif l:mode=~#'^R'
     return '%#StlModeReplace#REPLACE%*'
   elseif l:mode=~#'^c'
     return '%#StlModeInsert#COMMAND%*'
+  elseif l:mode=~#'^r'
+    return '%#StlModeNormal#PROMPT%*'
+  elseif l:mode=~#'^!'
+    return '%#StlModeNormal#SHELL%*'
+  elseif l:mode=~#'^t'
+    return '%#StlModeNormal#TERMINAL%*'
   else
     return l:mode
   endif
@@ -104,6 +107,7 @@ highlight StlModeInsert term=bold,reverse ctermfg=3 ctermbg=8 guifg=#EBCB8B guib
 highlight StlModeVisual term=bold,reverse ctermfg=5 ctermbg=8 guifg=#B48EAD guibg=#4C566A
 highlight StlModeSelect term=bold,reverse ctermfg=13 ctermbg=8 guifg=#B48EAD guibg=#4C566A
 highlight StlModeReplace term=bold,reverse ctermfg=1 ctermbg=8 guifg=#BF616A guibg=#4C566A
+
 set statusline=%!StatusLine()
 
 " CursorLine
@@ -146,13 +150,13 @@ nnoremap n nzz| nnoremap N Nzz
 function s:isBeginningOfLine()
   return strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
 endfunction
-inoremap <expr> <Tab> <SID>isBeginningOfLine() ? '<Tab>' : pumvisible() ? '<C-n>' : '<C-]>'
+inoremap <expr> <Tab> <SID>isBeginningOfLine() ? '<C-i>' : pumvisible() ? '<C-n>' : '<C-]>'
 inoremap <expr> <S-Tab> <SID>isBeginningOfLine() ? '<C-d>' : pumvisible() ? '<C-p>' : '<C-]>'
 
 " Yank/paste using the system clipboard
-nnoremap <Leader>y "*y| xnoremap <Leader>y "*y
-nnoremap <Leader>p "*p| xnoremap <Leader>p "*p
-nnoremap <Leader>P "*P| xnoremap <Leader>P "*P
+nnoremap <Leader>y "+y| xnoremap <Leader>y "+y
+nnoremap <Leader>p "+p| xnoremap <Leader>p "+p
+nnoremap <Leader>P "+P| xnoremap <Leader>P "+P
 
 " Change/delete to black hole register
 nnoremap <Leader>c "_c| xnoremap <Leader>c "_c
@@ -168,8 +172,8 @@ nnoremap <Leader>* :let @/=expand('<cword>')<CR>:silent execute 'grep -F "'.expa
 vnoremap <Leader>* "9y:let @/=@9<CR>:silent execute 'grep -F "'.@9.'"'<CR>:set hlsearch<CR>:redraw!<CR>
 
 " Navigate by displayed lines when wrapped
-noremap j gj
-noremap k gk
+noremap <expr> j v:count > 0 ? 'j' : 'gj'
+noremap <expr> k v:count > 0 ? 'k' : 'gk'
 
 " Argument list navigation
 nnoremap <silent> <Leader>a :call fzf#run({
@@ -211,9 +215,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Insert mode navigation
-inoremap <C-a> <C-[>I
-inoremap <expr> <C-e> pumvisible() ? "\<C-e>" : "\<C-[>A"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <C-a> <C-o>I
+inoremap <expr> <C-e> pumvisible() ? '<C-e>' : '<C-o>A'
+inoremap <expr> <CR> pumvisible() ? '<C-y>' : '<CR>'
 
 " Quickfix/Location list navigation
 function! ToggleList(list, open, close)
@@ -237,8 +241,23 @@ autocmd FileType qf nnoremap <CR> :execute 'wincmd p \| cc '.line('.')<CR>
 nnoremap <Leader>f :FZF --multi<CR>
 
 " Dirvish
+let g:loaded_netrw=1
 let g:loaded_netrwPlugin=1
 let g:dirvish_mode=':sort ,^.*[\/],'
+nmap - <Plug>(dirvish_up)
+
+" Abolish
+vmap <Leader>cr <Plug>(abolish-coerce)
+
+" EasyAlign
+nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
+
+" Sneak
+let g:sneak#label=1
+let g:sneak#s_next=1
+map s <Plug>Sneak_s| map S <Plug>Sneak_S| sunmap s| sunmap S
+map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
+map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
 
 " Conquer of Completion
 let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
@@ -256,14 +275,14 @@ if exists('&tagfunc')
   nnoremap <Leader>gd <C-w>v<C-]>zz
 endif
 
-" Sandwich
-runtime macros/sandwich/keymap/surround.vim
-
 " Auto Pairs
 let g:AutoPairsMultilineClose=0
 
+" Sandwich
+runtime macros/sandwich/keymap/surround.vim
+
 " Close Tags
-let g:closetag_filetypes='html,javascript,typescriptreact'
+let g:closetag_filetypes='html,javascriptreact,typescriptreact'
 
 " REST Console
 let g:vrc_curl_opts={
@@ -274,29 +293,12 @@ let g:vrc_curl_opts={
 \}
 
 " Dadbod
-autocmd FileType sql nnoremap <buffer> <CR> :%DB<CR>
-autocmd FileType sql vnoremap <buffer> <CR> :DB<CR>
-
-" NrrwRgn
-xmap <Leader>nr <Plug>NrrwrgnDo| nmap <Leader>nr <Plug>NrrwrgnDo
-xmap <Leader>Nr <Plug>NrrwrgnBangDo
-
-" Undotree
-nnoremap <Leader>u :UndotreeToggle<CR>
-
-" EasyAlign
-nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
-
-" Sneak
-let g:sneak#label=1
-let g:sneak#s_next=1
-map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
-map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
-
-" Abolish
-vmap <Leader>cr <Plug>(abolish-coerce)
+augroup Dadbod
+  autocmd!
+  autocmd FileType sql nnoremap <buffer> <CR> :%DB<CR>
+  autocmd FileType sql vnoremap <buffer> <CR> :DB<CR>
+augroup END
 
 " VimWiki
 nmap <Leader>ww <Plug>VimwikiIndex
 nmap <Leader>wt <Plug>VimwikiTabIndex
-nmap <Leader>ws <Plug>VimwikiUISelect
