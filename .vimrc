@@ -125,6 +125,7 @@ set smarttab shiftround expandtab tabstop=2 shiftwidth=0
 
 " Search and replace
 set ignorecase smartcase incsearch hlsearch
+if has('nvim') | set inccommand = 'nosplit' | endif
 
 " Autocompletion
 set complete-=t,i
@@ -135,8 +136,11 @@ set wildmenu wildmode=longest:full,full
 set diffopt+=hiddenoff,vertical
 
 " Open QuickFix/Location List automatically
-autocmd QuickFixCmdPost [^l]* cwindow
-autocmd QuickFixCmdPost l* lwindow
+augroup AutoOpenList
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost l* lwindow
+augroup END
 
 " Mappings
 let mapleader=' '
@@ -232,10 +236,14 @@ function! ToggleList(list, open, close)
   end
 endfunction
 
+augroup QuickfixLastWindow
+  autocmd!
+  autocmd FileType qf nnoremap <CR> :execute 'wincmd p \| cc '.line('.')<CR>
+augroup END
+
 nnoremap <Leader>q :call ToggleList('quickfix', 'copen', 'cclose')<CR>
 nnoremap <Leader>l :call ToggleList('loclist', 'lopen', 'lclose')<CR>
 nnoremap [q :cprevious<CR>zz| nnoremap ]q :cnext<CR>zz| nnoremap [Q :cabove<CR>zz| nnoremap ]Q :cbelow<CR>zz
-autocmd FileType qf nnoremap <CR> :execute 'wincmd p \| cc '.line('.')<CR>
 
 " FZF Fuzzy Finder
 nnoremap <Leader>f :FZF --multi<CR>
