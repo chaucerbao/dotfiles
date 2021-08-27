@@ -17,8 +17,8 @@ Plug 'justinmk/vim-dirvish', { 'on': '<Plug>(dirvish_up)' }
 
 " General
 Plug 'tpope/vim-abolish'
-Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 Plug 'justinmk/vim-sneak', { 'on': ['<Plug>Sneak_s', '<Plug>Sneak_S', '<Plug>Sneak_f', '<Plug>Sneak_F', '<Plug>Sneak_t', '<Plug>Sneak_T'] }
+Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
 
 " Programming
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -28,10 +28,8 @@ Plug 'machakann/vim-sandwich'
 Plug 'alvan/vim-closetag', { 'for': ['html', 'javascriptreact', 'typescriptreact'] }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 Plug 'tpope/vim-dadbod', { 'for': 'sql' }
-
-" File types
+Plug 'diepm/vim-rest-console', { 'for': 'rest' }
 Plug 'sheerun/vim-polyglot'
 
 " Tools
@@ -46,18 +44,18 @@ unlet s:pluginsInstalled
 " MatchIt plug-in
 if !has('nvim') | packadd! matchit | endif
 
-" Color scheme
-let g:nord_uniform_diff_background=1
-colorscheme nord
-
 " General settings
 set confirm hidden spell nojoinspaces noswapfile nowritebackup mouse=a updatetime=300
 if has('nvim') | set guicursor= | endif
 if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
 if executable('rg') | let &grepprg='rg --vimgrep' | set grepformat=%f:%l:%c:%m | endif
 
-" User interface
+" Interface
 set number breakindent nowrap splitbelow splitright list listchars=tab:»·,trail:·,nbsp:◡ scrolloff=1 laststatus=2
+
+" Color scheme
+let g:nord_uniform_diff_background=1
+colorscheme nord
 
 " Status line
 function! StlMode() abort
@@ -257,15 +255,15 @@ nmap - <Plug>(dirvish_up)
 " Abolish
 vmap <Leader>cr <Plug>(abolish-coerce)
 
-" EasyAlign
-nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
-
 " Sneak
 let g:sneak#label=1
 let g:sneak#s_next=1
 map s <Plug>Sneak_s| map S <Plug>Sneak_S| sunmap s| sunmap S
 map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
 map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
+
+" EasyAlign
+nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
 
 " Conquer of Completion
 let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
@@ -292,6 +290,13 @@ runtime macros/sandwich/keymap/surround.vim
 " Close Tags
 let g:closetag_filetypes='html,javascriptreact,typescriptreact'
 
+" Dadbod
+augroup Dadbod
+  autocmd!
+  autocmd FileType sql nnoremap <buffer> <CR> :%DB<CR>
+  autocmd FileType sql vnoremap <buffer> <CR> :DB<CR>
+augroup END
+
 " REST Console
 let g:vrc_curl_opts={
   \'--include': '',
@@ -299,13 +304,6 @@ let g:vrc_curl_opts={
   \'--show-error': '',
   \'--silent': ''
 \}
-
-" Dadbod
-augroup Dadbod
-  autocmd!
-  autocmd FileType sql nnoremap <buffer> <CR> :%DB<CR>
-  autocmd FileType sql vnoremap <buffer> <CR> :DB<CR>
-augroup END
 
 " VimWiki
 nmap <Leader>ww <Plug>VimwikiIndex

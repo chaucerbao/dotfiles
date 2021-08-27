@@ -52,15 +52,15 @@ require('packer').startup(function(use)
   use { 'neovim/nvim-lspconfig' }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use { 'tpope/vim-commentary', keys = { 'gc' } }
-  use { 'AndrewRadev/splitjoin.vim', keys = { 'gJ', 'gS' } }
-  use { 'machakann/vim-sandwich' }
   use { 'jiangmiao/auto-pairs' }
+  use { 'machakann/vim-sandwich' }
   use { 'alvan/vim-closetag', ft = { 'html', 'javascriptreact', 'typescriptreact' } }
+  use { 'AndrewRadev/splitjoin.vim', keys = { 'gJ', 'gS' } }
   use { 'tpope/vim-fugitive', cmd = { 'G', 'Git' } }
   use { 'tpope/vim-dadbod', ft = { 'sql' } }
   use { 'diepm/vim-rest-console', ft = { 'rest' } }
 
-  -- Miscellaneous
+  -- Tools
   use { 'vimwiki/vimwiki', keys = { '<Plug>VimwikiIndex', '<Plug>VimwikiTabIndex' } }
 end)
 
@@ -183,6 +183,26 @@ end
 
 opt.statusline = ' %{v:lua.cursor_mode()} 〉%t%( 〉%R%)%( 〉%M%)%=%(%{&filetype}%)〈 %l:%c〈 %p%% '
 
+-- Telescope
+map('n', '<Leader>b', ':Telescope buffers<CR>')
+map('n', '<Leader>f', ':Telescope find_files<CR>')
+map('n', '<Leader>g', ':Telescope live_grep<CR>')
+
+-- Sneak
+g['sneak#label'] = 1
+g['sneak#s_next'] = 1
+
+map('n', 's', '<Plug>Sneak_s', { noremap = false })
+map('n', 'S', '<Plug>Sneak_S', { noremap = false })
+map('n', 'f', '<Plug>Sneak_f', { noremap = false })
+map('n', 'F', '<Plug>Sneak_F', { noremap = false })
+map('n', 't', '<Plug>Sneak_t', { noremap = false })
+map('n', 'T', '<Plug>Sneak_T', { noremap = false })
+
+-- EasyAlign
+map('n', 'ga', '<Plug>(EasyAlign)', { noremap = false })
+map('v', 'ga', '<Plug>(EasyAlign)', { noremap = false })
+
 -- Language Server Protocol (LSP)
 local function on_attach(_, bufnr)
   local function set_buf_keymap(mode, lhs, rhs, opts)
@@ -217,10 +237,14 @@ for level, symbol in pairs(diagnostic_symbols) do
   vim.fn.sign_define(hl, { text = symbol, texthl = hl, numhl = "" })
 end
 
--- Telescope
-map('n', '<Leader>b', ':Telescope buffers<CR>')
-map('n', '<Leader>f', ':Telescope find_files<CR>')
-map('n', '<Leader>g', ':Telescope live_grep<CR>')
+-- Auto Pairs
+g.AutoPairsMultilineClose = 0
+
+-- Sandwich
+vim.cmd('runtime macros/sandwich/keymap/surround.vim')
+
+-- Close Tags
+g.closetag_filetypes = 'html,javascriptreact,typescriptreact'
 
 -- Dadbod
 vim.cmd([[
@@ -231,12 +255,6 @@ vim.cmd([[
   augroup END
 ]])
 
--- Auto Pairs
-g.AutoPairsMultilineClose = 0
-
--- Close Tags
-g.closetag_filetypes = 'html,javascriptreact,typescriptreact'
-
 -- REST Console
 g.vrc_curl_opts = {
   ['--include'] = '',
@@ -244,25 +262,6 @@ g.vrc_curl_opts = {
   ['--show-error'] = '',
   ['--silent'] = ''
 }
-g.vrc_show_command = 1
-
--- Sneak
-g['sneak#label'] = 1
-g['sneak#s_next'] = 1
-
-map('n', 's', '<Plug>Sneak_s', { noremap = false })
-map('n', 'S', '<Plug>Sneak_S', { noremap = false })
-map('n', 'f', '<Plug>Sneak_f', { noremap = false })
-map('n', 'F', '<Plug>Sneak_F', { noremap = false })
-map('n', 't', '<Plug>Sneak_t', { noremap = false })
-map('n', 'T', '<Plug>Sneak_T', { noremap = false })
-
--- Sandwich
-vim.cmd('runtime macros/sandwich/keymap/surround.vim')
-
--- EasyAlign
-map('n', 'ga', '<Plug>(EasyAlign)', { noremap = false })
-map('v', 'ga', '<Plug>(EasyAlign)', { noremap = false })
 
 -- VimWiki
 map('n', '<Leader>ww', '<Plug>VimwikiIndex', { noremap = false })
