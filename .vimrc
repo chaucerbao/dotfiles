@@ -166,8 +166,6 @@ nnoremap <Leader>d "_d| xnoremap <Leader>d "_d
 nnoremap <Leader>x "_x| xnoremap <Leader>x "_x
 
 " Star search
-nnoremap * /\V\<<C-r>=expand('<cword>')<CR>\>\C<CR>
-nnoremap # ?\V\<<C-r>=expand('<cword>')<CR>\>\C<CR>
 vnoremap * "9y/\V<C-r>=escape(@9, '/\')<CR>\C<CR>
 vnoremap # "9y?\V<C-r>=escape(@9, '/\')<CR>\C<CR>
 nnoremap <Leader>* :let @/=expand('<cword>')<CR>:silent execute 'grep -F "'.expand('<cword>').'"'<CR>:set hlsearch<CR>:redraw!<CR>
