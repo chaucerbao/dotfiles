@@ -123,7 +123,7 @@ set smarttab shiftround expandtab tabstop=2 shiftwidth=0
 
 " Search and replace
 set ignorecase smartcase incsearch hlsearch
-if has('nvim') | set inccommand = 'nosplit' | endif
+if has('nvim') | set inccommand=nosplit | endif
 
 " Autocompletion
 set complete-=t,i
