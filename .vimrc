@@ -176,11 +176,10 @@ noremap <expr> j v:count > 0 ? 'j' : 'gj'
 noremap <expr> k v:count > 0 ? 'k' : 'gk'
 
 " Argument list navigation
-nnoremap <silent> <Leader>a :call fzf#run({
+nnoremap <silent> <Leader>a :call fzf#run(fzf#wrap({
   \'source': argv(),
-  \'sink': 'edit',
-  \'down': len(argv()) + 2
-\})<CR>
+  \'sink': 'edit'
+\}))<CR>
 nnoremap <Leader>A :argadd<CR>
 
 " Buffer list navigation
@@ -196,11 +195,10 @@ function! s:openBuffer(query) abort
   execute 'buffer' matchstr(a:query, '^[ 0-9]*')
 endfunction
 
-nnoremap <silent> <Leader>b :call fzf#run({
+nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
   \'source': reverse(<SID>listBuffers()),
-  \'sink': function('<SID>openBuffer'),
-  \'down': len(<SID>listBuffers()) + 2
-\})<CR>
+  \'sink': function('<SID>openBuffer')
+\}))<CR>
 nnoremap <Tab> :bnext<CR>| nnoremap <S-Tab> :bprevious<CR>
 nnoremap <Leader>o :%bdelete\|edit#\|bdelete#<CR>
 
