@@ -1,7 +1,18 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "html",
+    "json",
+    "markdown",
+    "yaml",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "coc.preferences.useQuickfixForLocations": true,
 
-  "diagnostic.infoSign": "⚑",
+  "diagnostic.infoSign": "ℹ",
   "diagnostic.warningSign": "⚠",
   "diagnostic.errorSign": "✖",
 
