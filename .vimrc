@@ -133,13 +133,6 @@ set wildmenu wildmode=longest:full,full
 " Diff
 set diffopt+=hiddenoff,vertical
 
-" Open QuickFix/Location List automatically
-augroup AutoOpenList
-  autocmd!
-  autocmd QuickFixCmdPost [^l]* cwindow
-  autocmd QuickFixCmdPost l* lwindow
-augroup END
-
 " Mappings
 let mapleader=' '
 nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
@@ -217,7 +210,18 @@ inoremap <C-a> <C-o>I
 inoremap <expr> <C-e> pumvisible() ? '<C-e>' : '<C-o>A'
 inoremap <expr> <CR> pumvisible() ? '<C-y>' : '<CR>'
 
-" Quickfix/Location list navigation
+" Quickfix/Location lists
+augroup AutoOpenLists
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost l* lwindow
+augroup END
+
+augroup QuickFixLastWindow
+  autocmd!
+  autocmd FileType qf nnoremap <CR> :execute 'wincmd p \| cc '.line('.')<CR>
+augroup END
+
 function! ToggleList(list, open, close)
   if empty(filter(getwininfo(), 'v:val.'.a:list))
     try
@@ -229,11 +233,6 @@ function! ToggleList(list, open, close)
     execute a:close
   end
 endfunction
-
-augroup QuickfixLastWindow
-  autocmd!
-  autocmd FileType qf nnoremap <CR> :execute 'wincmd p \| cc '.line('.')<CR>
-augroup END
 
 nnoremap <Leader>q :call ToggleList('quickfix', 'copen', 'cclose')<CR>
 nnoremap <Leader>l :call ToggleList('loclist', 'lopen', 'lclose')<CR>
