@@ -62,23 +62,23 @@ function! StlMode() abort
   let l:mode = mode()
 
   if l:mode=~'^n'
-    return '%#StlModeNormal#NORMAL%*'
+    return '%#StlModeWhite#NORMAL%*'
   elseif l:mode=~?'^[v|]'
-    return '%#StlModeVisual#VISUAL%*'
+    return '%#StlModeMagenta#VISUAL%*'
   elseif l:mode=~?'^[s|]'
-    return '%#StlModeSelect#SELECT%*'
+    return '%#StlModeMagenta#SELECT%*'
   elseif l:mode=~#'^i'
-    return '%#StlModeInsert#INSERT%*'
+    return '%#StlModeYellow#INSERT%*'
   elseif l:mode=~#'^R'
-    return '%#StlModeReplace#REPLACE%*'
+    return '%#StlModeRed#REPLACE%*'
   elseif l:mode=~#'^c'
-    return '%#StlModeInsert#COMMAND%*'
+    return '%#StlModeYellow#COMMAND%*'
   elseif l:mode=~#'^r'
-    return '%#StlModeNormal#PROMPT%*'
+    return '%#StlModeYellow#PROMPT%*'
   elseif l:mode=~#'^!'
-    return '%#StlModeNormal#SHELL%*'
+    return '%#StlModeWhite#SHELL%*'
   elseif l:mode=~#'^t'
-    return '%#StlModeNormal#TERMINAL%*'
+    return '%#StlModeWhite#TERMINAL%*'
   else
     return l:mode
   endif
@@ -100,11 +100,10 @@ function! StatusLine() abort
   return l:statusline
 endfunction
 
-highlight StlModeNormal term=bold,reverse ctermfg=15 ctermbg=8 guifg=#ECEFF4 guibg=#4C566A
-highlight StlModeInsert term=bold,reverse ctermfg=3 ctermbg=8 guifg=#EBCB8B guibg=#4C566A
-highlight StlModeVisual term=bold,reverse ctermfg=5 ctermbg=8 guifg=#B48EAD guibg=#4C566A
-highlight StlModeSelect term=bold,reverse ctermfg=13 ctermbg=8 guifg=#B48EAD guibg=#4C566A
-highlight StlModeReplace term=bold,reverse ctermfg=1 ctermbg=8 guifg=#BF616A guibg=#4C566A
+highlight StlModeWhite ctermfg=15 ctermbg=8 guifg=#ECEFF4 guibg=#4C566A
+highlight StlModeYellow ctermfg=3 ctermbg=8 guifg=#EBCB8B guibg=#4C566A
+highlight StlModeMagenta ctermfg=5 ctermbg=8 guifg=#B48EAD guibg=#4C566A
+highlight StlModeRed ctermfg=1 ctermbg=8 guifg=#BF616A guibg=#4C566A
 
 set statusline=%!StatusLine()
 
