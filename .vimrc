@@ -59,29 +59,45 @@ colorscheme nord
 
 " Status line
 function! StlMode() abort
+  let l:statusmode=''
+  let l:is_active=g:statusline_winid == win_getid(winnr())
   let l:mode = mode()
 
   if l:mode=~'^n'
-    return '%#StlModeWhite#NORMAL%*'
+    if l:is_active | let l:statusmode.='%#StlModeWhite#' | endif
+    let l:statusmode.='NORMAL'
   elseif l:mode=~?'^[v|]'
-    return '%#StlModeMagenta#VISUAL%*'
+    if l:is_active | let l:statusmode.='%#StlModeMagenta#' | endif
+    let l:statusmode.='VISUAL'
   elseif l:mode=~?'^[s|]'
-    return '%#StlModeMagenta#SELECT%*'
+    if l:is_active | let l:statusmode.='%#StlModeMagenta#' | endif
+    let l:statusmode.='SELECT'
   elseif l:mode=~#'^i'
-    return '%#StlModeYellow#INSERT%*'
+    if l:is_active | let l:statusmode.='%#StlModeYellow#' | endif
+    let l:statusmode.='INSERT'
   elseif l:mode=~#'^R'
-    return '%#StlModeRed#REPLACE%*'
+    if l:is_active | let l:statusmode.='%#StlModeRed#' | endif
+    let l:statusmode.='REPLACE'
   elseif l:mode=~#'^c'
-    return '%#StlModeYellow#COMMAND%*'
+    if l:is_active | let l:statusmode.='%#StlModeYellow#' | endif
+    let l:statusmode.='COMMAND'
   elseif l:mode=~#'^r'
-    return '%#StlModeYellow#PROMPT%*'
+    if l:is_active | let l:statusmode.='%#StlModeYellow#' | endif
+    let l:statusmode.='PROMPT'
   elseif l:mode=~#'^!'
-    return '%#StlModeWhite#SHELL%*'
+    if l:is_active | let l:statusmode.='%#StlModeWhite#' | endif
+    let l:statusmode.='SHELL'
   elseif l:mode=~#'^t'
-    return '%#StlModeWhite#TERMINAL%*'
+    if l:is_active | let l:statusmode.='%#StlModeWhite#' | endif
+    let l:statusmode.='TERMINAL'
   else
-    return l:mode
+    if l:is_active | let l:statusmode.='%#StlModeWhite#' | endif
+    let l:statusmode.=l:mode
   endif
+
+  let l:statusmode.='%*'
+
+  return l:statusmode
 endfunction
 
 function! StatusLine() abort
