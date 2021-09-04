@@ -60,7 +60,7 @@ colorscheme nord
 " Status line
 function! StlMode() abort
   let l:statusmode=''
-  let l:is_active=g:statusline_winid == win_getid(winnr())
+  let l:is_active=!has('nvim') && g:statusline_winid == win_getid(winnr())
   let l:mode = mode()
 
   if l:mode=~'^n'
