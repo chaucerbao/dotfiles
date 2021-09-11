@@ -51,7 +51,7 @@ if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
 if executable('rg') | let &grepprg='rg --vimgrep' | set grepformat=%f:%l:%c:%m | endif
 
 " Interface
-set number breakindent nowrap splitbelow splitright fillchars=vert:│ list listchars=tab:»·,trail:·,nbsp:◡ scrolloff=1 laststatus=2
+set number breakindent nowrap splitbelow splitright fillchars=vert:│ list listchars=tab:»·,trail:·,nbsp:◡ signcolumn=number scrolloff=1 laststatus=2
 
 " Color scheme
 let g:nord_uniform_diff_background=1
@@ -209,6 +209,7 @@ nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
   \'source': reverse(<SID>listBuffers()),
   \'sink': function('<SID>openBuffer')
 \}))<CR>
+nnoremap <BS> <C-^>
 nnoremap <Tab> :bnext<CR>| nnoremap <S-Tab> :bprevious<CR>
 nnoremap <Leader>o :%bdelete\|edit#\|bdelete#<CR>
 
@@ -217,6 +218,10 @@ nnoremap g<Tab> :$tab split<CR>
 nnoremap <Leader><Tab> :$tabnew<CR>
 
 " Split window navigation
+augroup AutoWindowResize
+  autocmd!
+  autocmd VimResized * wincmd =
+augroup END
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
