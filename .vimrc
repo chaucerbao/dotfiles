@@ -185,13 +185,6 @@ vnoremap <Leader>* "9y:let @/=@9<CR>:silent execute 'grep -F "'.@9.'"'<CR>:set h
 noremap <expr> j v:count > 0 ? 'j' : 'gj'
 noremap <expr> k v:count > 0 ? 'k' : 'gk'
 
-" Argument list navigation
-nnoremap <silent> <Leader>a :call fzf#run(fzf#wrap({
-  \'source': argv(),
-  \'sink': 'edit'
-\}))<CR>
-nnoremap <Leader>A :argadd<CR>
-
 " Buffer list navigation
 function! s:listBuffers() abort
   redir => ls
