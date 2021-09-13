@@ -50,6 +50,20 @@ function setVolume(target, message)
   end
 end
 
+function toggleAudioInputMute(audioDevice, message)
+  audioDevice:setInputMuted(not audioDevice:inputMuted())
+
+  if (message) then
+    hs.alert.show(audioDevice:inputMuted() and message[1] or message[2])
+  end
+end
+
+function toggleMic(message)
+  local audioDevice = hs.audiodevice.defaultInputDevice()
+
+  toggleAudioInputMute(audioDevice, message)
+end
+
 -- Caffeine
 local caffeine = hs.menubar.new(hs.caffeinate.get('displayIdle'))
 
@@ -96,6 +110,7 @@ hs.hotkey.bind(mods, ']', function() hs.window.frontmostWindow():moveOneScreenEa
 hs.hotkey.bind(mods, '0', function() setVolume(0, { 'Mute', 'Unmute' }) end)
 hs.hotkey.bind(mods, '-', function() setVolume(2/16, 'Volume low') end)
 hs.hotkey.bind(mods, '=', function() setVolume(6/16, 'Volume normal') end)
+hs.hotkey.bind(mods, 'delete', function() toggleMic({ 'Mic Mute', 'Mic Unmute' }) end)
 
 hs.hotkey.bind(mods, 'Z', toggleCaffeineDisplay)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
