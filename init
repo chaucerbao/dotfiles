@@ -37,6 +37,9 @@ else
 				echo "let &packpath=&runtimepath" >> $HOME/.config/nvim/init.vim
 				echo "source ~/.vimrc" >> $HOME/.config/nvim/init.vim
 				;;
+			nnn )
+				curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
+				;;
 			prettier )
 				cp $DOTFILES_ABS/.prettierrc $HOME
 				;;

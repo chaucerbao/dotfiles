@@ -1,5 +1,7 @@
 # Exports
 export N_PREFIX=$HOME/.n
+export NNN_OPTS='cHo'
+export NNN_PLUG='c:autojump;u:getplugs'
 export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
