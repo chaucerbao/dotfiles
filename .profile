@@ -1,10 +1,19 @@
 # Exports
-export N_PREFIX=$HOME/.n
-export NNN_OPTS='cHo'
-export NNN_PLUG='c:autojump;u:getplugs'
+if [ -x "$(command -v fzf)" ]; then
+	export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
+	export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+fi
+
+if [ -x "$(command -v n)" ]; then
+	export N_PREFIX=$HOME/.n
+fi
+
+if [ -x "$(command -v nnn)" ]; then
+	export NNN_OPTS='cHo'
+	export NNN_PLUG='c:autojump;u:getplugs'
+fi
+
 export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
-export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 
 # History
 HISTSIZE=5000
@@ -19,9 +28,9 @@ alias .....='cd ../../../..'
 # Docker
 alias d='docker'
 alias dc='docker-compose'
-alias dprune='docker system prune --force'
-alias drun='docker run --interactive --tty --rm'
-alias dcrun='docker-compose run --rm'
+alias dprune='d system prune --force'
+alias drun='d run --interactive --tty --rm'
+alias dcrun='dc run --rm'
 alias -- drun.='drun --volume=$PWD:/mnt/host'
 
 # Git
@@ -34,7 +43,6 @@ alias gcd='git cd'
 alias gcm='git cm'
 alias gco='git co'
 alias gd='git d'
-alias gg='git g'
 alias ggp='git gp'
 alias ggu='git gu'
 alias glo='git lo'
@@ -54,10 +62,10 @@ alias npmR='rm --force --recursive node_modules; npm install'
 
 # tmux
 alias t='tmux'
-alias ta='tmux attach-session'
-alias tks='tmux kill-server'
-alias tls='tmux list-sessions'
-alias ts='tmux new-session -A -s'
+alias ta='t attach-session'
+alias tks='t kill-server'
+alias tls='t list-sessions'
+alias ts='t new-session -A -s'
 
 # Vim
 if [ -x "$(command -v nvim)" ]; then alias v='nvim'; else alias v='vim'; fi
