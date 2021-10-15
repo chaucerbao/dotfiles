@@ -225,6 +225,13 @@ inoremap <C-a> <C-o>I
 inoremap <expr> <C-e> pumvisible() ? '<C-e>' : '<C-o>A'
 inoremap <expr> <CR> pumvisible() ? '<C-y>' : '<CR>'
 
+" Highlighting
+if !has('nvim')
+  call prop_type_add('highlight', { 'highlight': 'DiffChange' })
+  vnoremap <Leader>h :call prop_add(line("'<"), col("'<"), { 'end_lnum': line("'>"), 'end_col': col("'>") + 1, 'type': 'highlight' })<CR>
+  nnoremap <Leader>H :call prop_clear(1, line('$'))<CR>
+endif
+
 " Quickfix/Location lists
 augroup AutoOpenLists
   autocmd!
