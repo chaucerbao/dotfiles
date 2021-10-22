@@ -51,7 +51,7 @@ if has('mouse') && !has('nvim') | set ttymouse=xterm2 | endif
 if executable('rg') | let &grepprg='rg --vimgrep' | set grepformat=%f:%l:%c:%m | endif
 
 " Interface
-set number breakindent nowrap splitbelow splitright fillchars=vert:│ list listchars=tab:»·,trail:·,nbsp:◡ signcolumn=number scrolloff=1 laststatus=2
+set number breakindent linebreak nowrap splitbelow splitright fillchars=vert:│ list listchars=tab:»·,trail:·,nbsp:◡ signcolumn=number scrolloff=1 laststatus=2
 
 " Color scheme
 let g:nord_uniform_diff_background=1
