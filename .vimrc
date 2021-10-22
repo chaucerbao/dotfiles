@@ -289,6 +289,7 @@ nmap <Leader>gq <Plug>(coc-format)| xmap <Leader>gq <Plug>(coc-format-selected)
 nmap <Leader><CR> <Plug>(coc-codeaction-cursor)
 nnoremap <Leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 nnoremap [e :call CocActionAsync('diagnosticPrevious', 'error')<CR>zz| nnoremap ]e :call CocActionAsync('diagnosticNext', 'error')<CR>zz
+nnoremap [g :call CocActionAsync('diagnosticPrevious')<CR>zz| nnoremap ]g :call CocActionAsync('diagnosticNext')<CR>zz
 nnoremap gd :call CocActionAsync('jumpDefinition')<CR>zz| nmap gD <Plug>(coc-references)
 nnoremap <Leader>gd :call CocActionAsync('jumpDefinition', 'vsplit')<CR>zz
 nnoremap K :call CocActionAsync('doHover')<CR>
