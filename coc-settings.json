@@ -16,5 +16,7 @@
   "diagnostic.warningSign": "⚠",
   "diagnostic.errorSign": "✖",
 
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+
+  "git.addGBlameToVirtualText": true
 }
