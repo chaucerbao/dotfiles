@@ -286,6 +286,7 @@ map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
 nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
 
 " Conquer of Completion
+highlight! link CocCodeLens Comment
 let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
 nmap <F2> <Plug>(coc-rename)
 nmap <Leader>gq <Plug>(coc-format)| xmap <Leader>gq <Plug>(coc-format-selected)

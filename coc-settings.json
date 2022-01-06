@@ -18,5 +18,6 @@
 
   "eslint.autoFixOnSave": true,
 
-  "git.addGBlameToVirtualText": true
+  "git.addGBlameToVirtualText": true,
+  "git.virtualTextPrefix": "    « "
 }
