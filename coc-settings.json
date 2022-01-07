@@ -12,6 +12,9 @@
   ],
   "coc.preferences.useQuickfixForLocations": true,
 
+  "codeLens.separator": "    ‹",
+  "codeLens.subseparator": ", ",
+
   "diagnostic.infoSign": "ℹ",
   "diagnostic.warningSign": "⚠",
   "diagnostic.errorSign": "✖",
