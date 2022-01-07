@@ -287,7 +287,7 @@ nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
 
 " Conquer of Completion
 highlight! link CocCodeLens Comment
-let g:coc_global_extensions=['coc-eslint', 'coc-json', 'coc-prettier', 'coc-tsserver']
+let g:coc_global_extensions=['coc-eslint', 'coc-git', 'coc-json', 'coc-prettier', 'coc-tsserver']
 nmap <F2> <Plug>(coc-rename)
 nmap <Leader>gq <Plug>(coc-format)| xmap <Leader>gq <Plug>(coc-format-selected)
 nmap <Leader><CR> <Plug>(coc-codeaction-cursor)
