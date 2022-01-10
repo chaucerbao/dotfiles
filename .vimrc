@@ -227,7 +227,16 @@ inoremap <expr> <CR> pumvisible() ? '<C-y>' : '<CR>'
 
 " Highlighting
 if has('nvim')
-  vnoremap <Leader>h :call nvim_buf_add_highlight(0, nvim_create_namespace('highlight'), 'DiffChange', line("'<") - 1, col("'<") - 1, col("'>"))<CR>
+  function! AddHighlight() abort
+    let l:line_start=line("'<")
+    let l:line_end=line("'>")
+
+    for line_number in range(l:line_start, l:line_end)
+      call nvim_buf_add_highlight(0, nvim_create_namespace('highlight'), 'DiffChange', line_number - 1, line_number == l:line_start ? col("'<") - 1 : 0, line_number == l:line_end ? col("'>") : col('$'))
+    endfor
+  endfunction
+
+  vnoremap <Leader>h :call AddHighlight()<CR>
   nnoremap <Leader>H :call nvim_buf_clear_namespace(0, nvim_create_namespace('highlight'), 0, line('$'))<CR>
 else
   call prop_type_add('highlight', { 'highlight': 'DiffChange' })
