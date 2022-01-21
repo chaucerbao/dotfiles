@@ -69,7 +69,7 @@ alias ts='t new-session -A -s'
 
 # Vim
 if [ -x "$(command -v nvim)" ]; then alias v='nvim'; else alias v='vim'; fi
-alias vup='v +PlugUpgrade +PlugUpdate +only +"normal D" +"nnoremap <silent> <buffer> q :qall<CR>"'
+alias vup='v +PlugUpgrade +PlugUpdate +only +"normal D" +CocUpdate +"nnoremap <silent> q :quitall<CR>"'
 
 # Miscellaneous
 if [ -x "$(command -v bat)" ]; then alias c='bat'; else alias c='cat'; fi
