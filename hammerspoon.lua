@@ -69,21 +69,17 @@ function toggleMicMute()
 end
 
 -- Caffeine
-local caffeine = hs.menubar.new(hs.caffeinate.get('displayIdle'))
+local caffeineIcon = hs.menubar.new(false)
 
-local function setCaffeineDisplay(state)
-  if state then
-    caffeine:returnToMenuBar()
-    caffeine:setTitle('☕️')
-    caffeine:setTooltip('Prevent display from sleeping')
-    caffeine:setClickCallback(toggleCaffeineDisplay)
+function toggleCaffeine()
+  if hs.caffeinate.toggle("displayIdle") then
+    caffeineIcon:returnToMenuBar()
+    caffeineIcon:setTitle('☕️')
+    caffeineIcon:setTooltip('Prevent display from sleeping')
+    caffeineIcon:setClickCallback(toggleCaffeine)
   else
-    caffeine:removeFromMenuBar()
+    caffeineIcon:removeFromMenuBar()
   end
-end
-
-function toggleCaffeineDisplay()
-  setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
 end
 
 -- Clipboard Manager
@@ -116,7 +112,7 @@ hs.hotkey.bind(mods, '-', function() setVolume(2/16, 'Volume low') end)
 hs.hotkey.bind(mods, '=', function() setVolume(6/16, 'Volume normal') end)
 hs.hotkey.bind(mods, 'delete', function() toggleMicMute() end)
 
-hs.hotkey.bind(mods, 'Z', toggleCaffeineDisplay)
+hs.hotkey.bind(mods, 'Z', toggleCaffeine)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
 hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com.apple.Safari') end)
