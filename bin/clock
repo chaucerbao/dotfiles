@@ -1,0 +1,30 @@
+#!/bin/sh
+
+LOG="${HOME}/timecard.log"
+DIRECTION=""
+
+case $1 in
+  "i" | "in")
+    DIRECTION="IN"
+    ;;
+
+  "o" | "out")
+    DIRECTION="OUT"
+    ;;
+
+  *)
+    ;;
+esac
+
+if [ -z $DIRECTION ]; then
+  echo "$0 <in|out> [notes]"
+else
+  RECORD="$(date) | $DIRECTION"
+
+  if [ $2 ]; then
+    RECORD="$RECORD | ${@:2}"
+  fi
+
+  echo $RECORD >> $LOG
+  echo $RECORD
+fi
