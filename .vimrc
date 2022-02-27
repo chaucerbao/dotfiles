@@ -1,6 +1,3 @@
-" MatchIt plug-in
-if !has('nvim') | packadd! matchit | endif
-
 " General settings
 set confirm hidden spell nojoinspaces noswapfile nowritebackup mouse=a updatetime=300
 if has('nvim') | set guicursor= | endif
@@ -9,6 +6,24 @@ if executable('rg') | let &grepprg='rg --vimgrep' | set grepformat=%f:%l:%c:%m |
 
 " Interface
 set number breakindent linebreak nowrap splitbelow splitright fillchars=vert:│ list listchars=tab:»·,trail:·,nbsp:◡ signcolumn=number scrolloff=1 laststatus=2
+
+" Indentation
+set smarttab shiftround expandtab tabstop=2 shiftwidth=0
+
+" Folding
+set nofoldenable foldmethod=indent
+
+" Autocompletion
+set complete-=t,i
+set completeopt=longest,menuone
+set wildmenu wildmode=longest:full,full
+
+" Search and replace
+set ignorecase smartcase incsearch hlsearch
+if has('nvim') | set inccommand=nosplit | endif
+
+" Diff
+set diffopt+=hiddenoff,vertical
 
 " Status line
 function! StlMode() abort
@@ -71,7 +86,7 @@ function! StatusLine() abort
   return l:statusline
 endfunction
 
- augroup StlColors
+augroup StlColors
   autocmd!
   autocmd SourcePost * highlight StlModeWhite ctermfg=15 ctermbg=8
     \ | highlight StlModeYellow ctermfg=3 ctermbg=8
@@ -90,24 +105,6 @@ augroup CursorLine
   autocmd WinLeave * setlocal nocursorline
 augroup END
 
-" Folding
-set nofoldenable foldmethod=indent
-
-" Indentation
-set smarttab shiftround expandtab tabstop=2 shiftwidth=0
-
-" Search and replace
-set ignorecase smartcase incsearch hlsearch
-if has('nvim') | set inccommand=nosplit | endif
-
-" Autocompletion
-set complete-=t,i
-set completeopt=longest,menuone
-set wildmenu wildmode=longest:full,full
-
-" Diff
-set diffopt+=hiddenoff,vertical
-
 " Mappings
 let mapleader=' '
 nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
@@ -120,6 +117,7 @@ nnoremap n nzz| nnoremap N Nzz
 function s:isBeginningOfLine()
   return strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
 endfunction
+
 inoremap <expr> <Tab> <SID>isBeginningOfLine() ? '<C-i>' : pumvisible() ? '<C-n>' : '<C-]>'
 inoremap <expr> <S-Tab> <SID>isBeginningOfLine() ? '<C-d>' : pumvisible() ? '<C-p>' : '<C-]>'
 
@@ -215,3 +213,6 @@ endfunction
 nnoremap <Leader>q :call ToggleList('quickfix', 'copen', 'cclose')<CR>
 nnoremap <Leader>l :call ToggleList('loclist', 'lopen', 'lclose')<CR>
 nnoremap [q :cprevious<CR>zz| nnoremap ]q :cnext<CR>zz| nnoremap [Q :cabove<CR>zz| nnoremap ]Q :cbelow<CR>zz
+
+" MatchIt plug-in
+if !has('nvim') | packadd! matchit | endif

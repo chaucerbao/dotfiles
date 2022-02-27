@@ -11,14 +11,14 @@ call plug#begin()
 " Color scheme
 Plug 'arcticicestudio/nord-vim'
 
-" File navigation
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
-Plug 'justinmk/vim-dirvish', { 'on': '<Plug>(dirvish_up)' }
-
 " General
 Plug 'tpope/vim-abolish'
 Plug 'justinmk/vim-sneak', { 'on': ['<Plug>Sneak_s', '<Plug>Sneak_S', '<Plug>Sneak_f', '<Plug>Sneak_F', '<Plug>Sneak_t', '<Plug>Sneak_T'] }
 Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
+
+" File navigation
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
+Plug 'justinmk/vim-dirvish', { 'on': '<Plug>(dirvish_up)' }
 
 " Programming
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -60,9 +60,9 @@ endfunction
 
 nnoremap <Leader>f :FZF --multi<CR>
 nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
-      \'source': reverse(<SID>listBuffers()),
-      \'sink': function('<SID>openBuffer')
-      \}))<CR>
+  \ 'source': reverse(<SID>listBuffers()),
+  \ 'sink': function('<SID>openBuffer')
+  \ }))<CR>
 
 " Dirvish
 let g:loaded_netrw=1
@@ -119,11 +119,11 @@ augroup END
 
 " REST Console
 let g:vrc_curl_opts={
-      \'--include': '',
-      \'--location': '',
-      \'--show-error': '',
-      \'--silent': ''
-      \}
+  \ '--include': '',
+  \ '--location': '',
+  \ '--show-error': '',
+  \ '--silent': ''
+  \ }
 
 " VimWiki
 nmap <Leader>ww <Plug>VimwikiIndex
