@@ -1,46 +1,3 @@
-" Automatically load the plug-in manager
-let s:pluginsInstalled=1
-if empty(glob('~/.vim/autoload/plug.vim')) && executable('curl')
-  let s:pluginsInstalled=0
-  silent !curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-endif
-
-" Plug-ins
-call plug#begin()
-
-" Color scheme
-Plug 'arcticicestudio/nord-vim'
-
-" File navigation
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
-Plug 'justinmk/vim-dirvish', { 'on': '<Plug>(dirvish_up)' }
-
-" General
-Plug 'tpope/vim-abolish'
-Plug 'justinmk/vim-sneak', { 'on': ['<Plug>Sneak_s', '<Plug>Sneak_S', '<Plug>Sneak_f', '<Plug>Sneak_F', '<Plug>Sneak_t', '<Plug>Sneak_T'] }
-Plug 'junegunn/vim-easy-align', { 'on': '<Plug>(EasyAlign)' }
-
-" Programming
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'tpope/vim-commentary'
-Plug 'jiangmiao/auto-pairs'
-Plug 'machakann/vim-sandwich'
-Plug 'alvan/vim-closetag', { 'for': ['html', 'javascriptreact', 'typescriptreact'] }
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dadbod', { 'for': 'sql' }
-Plug 'diepm/vim-rest-console', { 'for': 'rest' }
-Plug 'sheerun/vim-polyglot'
-
-" Tools
-Plug 'vimwiki/vimwiki', { 'on': ['<Plug>VimwikiIndex', '<Plug>VimwikiTabIndex'] }
-
-call plug#end()
-
-" Install plug-ins if needed
-if s:pluginsInstalled == 0 | :PlugInstall | endif
-unlet s:pluginsInstalled
-
 " MatchIt plug-in
 if !has('nvim') | packadd! matchit | endif
 
@@ -52,10 +9,6 @@ if executable('rg') | let &grepprg='rg --vimgrep' | set grepformat=%f:%l:%c:%m |
 
 " Interface
 set number breakindent linebreak nowrap splitbelow splitright fillchars=vert:│ list listchars=tab:»·,trail:·,nbsp:◡ signcolumn=number scrolloff=1 laststatus=2
-
-" Color scheme
-let g:nord_uniform_diff_background=1
-colorscheme nord
 
 " Status line
 function! StlMode() abort
@@ -103,7 +56,9 @@ endfunction
 function! StatusLine() abort
   let l:statusline=' '
   let l:statusline.=StlMode()
-  let l:statusline.='%( 〉%{fugitive#head()}%)'
+  if exists('g:loaded_fugitive')
+    let l:statusline.='%( 〉%{fugitive#head()}%)'
+  endif
   let l:statusline.=' 〉%t'
   let l:statusline.='%( 〉%R%)'
   let l:statusline.='%( 〉%M%)'
@@ -116,10 +71,15 @@ function! StatusLine() abort
   return l:statusline
 endfunction
 
-highlight StlModeWhite ctermfg=15 ctermbg=8 guifg=#ECEFF4 guibg=#4C566A
-highlight StlModeYellow ctermfg=3 ctermbg=8 guifg=#EBCB8B guibg=#4C566A
-highlight StlModeMagenta ctermfg=5 ctermbg=8 guifg=#B48EAD guibg=#4C566A
-highlight StlModeRed ctermfg=1 ctermbg=8 guifg=#BF616A guibg=#4C566A
+ augroup StlColors
+  autocmd!
+  autocmd SourcePost * highlight StlModeWhite ctermfg=15 ctermbg=8
+    \ | highlight StlModeYellow ctermfg=3 ctermbg=8
+    \ | highlight StlModeMagenta ctermfg=5 ctermbg=8
+    \ | highlight StlModeRed ctermfg=1 ctermbg=8
+    \ | highlight StatusLine cterm=none ctermfg=6 ctermbg=8
+    \ | highlight StatusLineNC cterm=none ctermbg=0
+augroup END
 
 set statusline=%!StatusLine()
 
@@ -186,22 +146,6 @@ noremap <expr> j v:count > 0 ? 'j' : 'gj'
 noremap <expr> k v:count > 0 ? 'k' : 'gk'
 
 " Buffer list navigation
-function! s:listBuffers() abort
-  redir => ls
-  silent ls
-  redir END
-
-  return split(ls, '\n')
-endfunction
-
-function! s:openBuffer(query) abort
-  execute 'buffer' matchstr(a:query, '^[ 0-9]*')
-endfunction
-
-nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
-  \'source': reverse(<SID>listBuffers()),
-  \'sink': function('<SID>openBuffer')
-\}))<CR>
 nnoremap <BS> <C-^>
 nnoremap <Tab> :bnext<CR>| nnoremap <S-Tab> :bprevious<CR>
 nnoremap <Leader>o :%bdelete\|edit#\|bdelete#<CR>
@@ -271,71 +215,3 @@ endfunction
 nnoremap <Leader>q :call ToggleList('quickfix', 'copen', 'cclose')<CR>
 nnoremap <Leader>l :call ToggleList('loclist', 'lopen', 'lclose')<CR>
 nnoremap [q :cprevious<CR>zz| nnoremap ]q :cnext<CR>zz| nnoremap [Q :cabove<CR>zz| nnoremap ]Q :cbelow<CR>zz
-
-" FZF Fuzzy Finder
-nnoremap <Leader>f :FZF --multi<CR>
-
-" Dirvish
-let g:loaded_netrw=1
-let g:loaded_netrwPlugin=1
-let g:dirvish_mode=':sort ,^.*[\/],'
-nmap - <Plug>(dirvish_up)
-
-" Abolish
-vmap <Leader>cr <Plug>(abolish-coerce)
-
-" Sneak
-let g:sneak#label=1
-let g:sneak#s_next=1
-map s <Plug>Sneak_s| map S <Plug>Sneak_S| sunmap s| sunmap S
-map f <Plug>Sneak_f| map F <Plug>Sneak_F| sunmap f| sunmap F
-map t <Plug>Sneak_t| map T <Plug>Sneak_T| sunmap t| sunmap T
-
-" EasyAlign
-nmap ga <Plug>(EasyAlign)| xmap ga <Plug>(EasyAlign)
-
-" Conquer of Completion
-highlight! link CocCodeLens Comment
-let g:coc_global_extensions=['coc-eslint', 'coc-git', 'coc-json', 'coc-prettier', 'coc-tsserver']
-nmap <F2> <Plug>(coc-rename)
-nmap <Leader>gq <Plug>(coc-format)| xmap <Leader>gq <Plug>(coc-format-selected)
-nmap <Leader><CR> <Plug>(coc-codeaction-cursor)
-nnoremap <Leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
-nnoremap [e :call CocActionAsync('diagnosticPrevious', 'error')<CR>zz| nnoremap ]e :call CocActionAsync('diagnosticNext', 'error')<CR>zz
-nnoremap [g :call CocActionAsync('diagnosticPrevious')<CR>zz| nnoremap ]g :call CocActionAsync('diagnosticNext')<CR>zz
-nnoremap gd :call CocActionAsync('jumpDefinition')<CR>zz| nmap gD <Plug>(coc-references)
-nnoremap <Leader>gd :call CocActionAsync('jumpDefinition', 'vsplit')<CR>zz
-nnoremap K :call CocActionAsync('doHover')<CR>
-if exists('&tagfunc')
-  set tagfunc=CocTagFunc
-  nnoremap gd <C-]>zz
-  nnoremap <Leader>gd <C-w>v<C-]>zz
-endif
-
-" Auto Pairs
-let g:AutoPairsMultilineClose=0
-
-" Sandwich
-runtime macros/sandwich/keymap/surround.vim
-
-" Close Tags
-let g:closetag_filetypes='html,javascriptreact,typescriptreact'
-
-" Dadbod
-augroup Dadbod
-  autocmd!
-  autocmd FileType sql nnoremap <buffer> <CR> :%DB<CR>
-  autocmd FileType sql vnoremap <buffer> <CR> :DB<CR>
-augroup END
-
-" REST Console
-let g:vrc_curl_opts={
-  \'--include': '',
-  \'--location': '',
-  \'--show-error': '',
-  \'--silent': ''
-\}
-
-" VimWiki
-nmap <Leader>ww <Plug>VimwikiIndex
-nmap <Leader>wt <Plug>VimwikiTabIndex
