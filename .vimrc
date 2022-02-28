@@ -214,5 +214,26 @@ nnoremap <Leader>q :call ToggleList('quickfix', 'copen', 'cclose')<CR>
 nnoremap <Leader>l :call ToggleList('loclist', 'lopen', 'lclose')<CR>
 nnoremap [q :cprevious<CR>zz| nnoremap ]q :cnext<CR>zz| nnoremap [Q :cabove<CR>zz| nnoremap ]Q :cbelow<CR>zz
 
+function! FallbackMappings() abort
+  if empty(mapcheck('-', 'n'))
+    let g:netrw_banner=0
+    nnoremap - :Explore<CR>
+  endif
+
+  if empty(mapcheck('<Leader>f', 'n'))
+    set path+=**
+    nnoremap <Leader>f :find<Space>
+  endif
+
+  if empty(mapcheck('<Leader>b', 'n'))
+    nnoremap <Leader>b :buffers<CR>:buffer<Space>
+  endif
+endfunction
+
+augroup FallbackMappings
+  autocmd!
+  autocmd SourcePost * call FallbackMappings()
+augroup END
+
 " MatchIt plug-in
 if !has('nvim') | packadd! matchit | endif
