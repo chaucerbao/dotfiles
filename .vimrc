@@ -214,6 +214,18 @@ nnoremap <Leader>q :call ToggleList('quickfix', 'copen', 'cclose')<CR>
 nnoremap <Leader>l :call ToggleList('loclist', 'lopen', 'lclose')<CR>
 nnoremap [q :cprevious<CR>zz| nnoremap ]q :cnext<CR>zz| nnoremap [Q :cabove<CR>zz| nnoremap ]Q :cbelow<CR>zz
 
+function! AutoClosePairs(open, close = '') abort
+  let l:open = escape(a:open, '"')
+  let l:close = escape(a:close, '"')
+
+  if empty(a:close)
+    execute 'inoremap <expr> ' . a:open . ' strpart(getline("."), col(".") - 1, 1) == "' . l:open . '" ? "<Right>" : "' . l:open . l:open . '<Left>"'
+  else
+    execute 'inoremap ' . a:open . ' ' . a:open . a:close . '<Left>'
+    execute 'inoremap <expr> ' . a:close . ' strpart(getline("."), col(".") - 1, 1) == "' . l:close . '" ? "<Right>" : "' . l:close . '"'
+  endif
+endfunction
+
 function! FallbackMappings() abort
   if empty(mapcheck('-', 'n'))
     let g:netrw_banner=0
@@ -228,6 +240,13 @@ function! FallbackMappings() abort
   if empty(mapcheck('<Leader>b', 'n'))
     nnoremap <Leader>b :buffers<CR>:buffer<Space>
   endif
+
+  if empty(mapcheck('[', 'i')) | call AutoClosePairs('[', ']') | endif
+  if empty(mapcheck('(', 'i')) | call AutoClosePairs('(', ')') | endif
+  if empty(mapcheck('{', 'i')) | call AutoClosePairs('{', '}') | endif
+  if empty(mapcheck("'", 'i')) | call AutoClosePairs("'") | endif
+  if empty(mapcheck('"', 'i')) | call AutoClosePairs('"') | endif
+  if empty(mapcheck('`', 'i')) | call AutoClosePairs('`') | endif
 endfunction
 
 augroup FallbackMappings
