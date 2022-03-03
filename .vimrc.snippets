@@ -1,12 +1,20 @@
+function s:eatChar(regex)
+  let char = nr2char(getchar(0))
+
+  return (char =~ a:regex) ? '' : char
+endfunction
+
 inoreabbrev lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 augroup abbreviation_snippets
-	autocmd!
-	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //i // Imports<C-[>
-	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //t // Type Definitions<C-[>
-	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //c // Constants<C-[>
-	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //h // Helpers<C-[>
-	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //e // Exports<C-[>
-	autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> clg console.log({ + })<C-[>F+"_s
-	autocmd FileType html,javascriptreact,typescriptreact inoreabbrev <buffer> tb target="_blank" rel="noreferrer"
+  autocmd!
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //i // Imports<C-[>
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //t // Type Definitions<C-[>
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //c // Constants<C-[>
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //h // Helpers<C-[>
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> //e // Exports<C-[>
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> clg console.log({ + })<C-[>F+"_s<C-r>=<SID>eatChar('\s')<CR>
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> jst JSON.stringify(+, null, 2)<C-[>F+"_s<C-r>=<SID>eatChar('\s')<CR>
+  autocmd FileType javascript,javascriptreact,typescript,typescriptreact inoreabbrev <buffer> im import {} from '+'<C-[>F+"_s<C-r>=<SID>eatChar('\s')<CR>
+  autocmd FileType html,javascriptreact,typescriptreact inoreabbrev <buffer> tb target="_blank" rel="noreferrer"<C-r>=<SID>eatChar('\s')<CR>
 augroup END
