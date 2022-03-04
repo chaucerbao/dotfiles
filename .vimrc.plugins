@@ -1,8 +1,9 @@
 " Automatically load the plug-in manager
 let s:pluginsInstalled=1
-if empty(glob('~/.vim/autoload/plug.vim')) && executable('curl')
+let s:vimPlug=has('nvim') ? '~/.local/share/nvim/site/autoload/plug.vim' : '~/.vim/autoload/plug.vim'
+if empty(glob(s:vimPlug)) && executable('curl')
   let s:pluginsInstalled=0
-  silent !curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  execute 'silent !curl --create-dirs -fLo '.s:vimPlug.' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 endif
 
 " Load Plug-ins
