@@ -21,7 +21,13 @@ if [ -x "$(command -v rg)" ]; then
 	export RIPGREP_CONFIG_PATH=~/.dotfiles/.ripgreprc
 fi
 
-export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH
+if [ "$(/usr/bin/uname -m)" = "arm64" ]; then
+	COREUTILS="/opt/homebrew/opt/coreutils/libexec/gnubin:"
+else
+	COREUTILS="/usr/local/opt/coreutils/libexec/gnubin:"
+fi
+
+export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:$COREUTILS$PATH
 
 # History
 HISTSIZE=5000
