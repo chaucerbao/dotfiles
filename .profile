@@ -1,4 +1,8 @@
 # Exports
+if [ -x "$(command -v bat)" ]; then
+	export BAT_CONFIG_PATH=~/.dotfiles/bat.conf
+fi
+
 if [ -x "$(command -v fzf)" ]; then
 	export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
 	export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
@@ -11,6 +15,10 @@ fi
 if [ -x "$(command -v nnn)" ]; then
 	export NNN_OPTS='cHo'
 	export NNN_PLUG='c:autojump;u:getplugs'
+fi
+
+if [ -x "$(command -v rg)" ]; then
+	export RIPGREP_CONFIG_PATH=~/.dotfiles/.ripgreprc
 fi
 
 export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:/usr/local/opt/coreutils/libexec/gnubin:$PATH

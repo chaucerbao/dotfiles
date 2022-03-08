@@ -1,10 +1,8 @@
 #!/bin/sh
 
 if [ $# -eq 0 ]; then
-	echo 'Usage: init [bash|bat|git|hammerspoon|neovim|prettier|ripgrep|tmux|vim|zsh] ...'
+	echo 'Usage: init [bash|git|hammerspoon|neovim|prettier|tmux|vim|zsh] ...'
 else
-	SHELL_CONFIGS=".bashrc .zshrc"
-
 	DOTFILES_ABS="$(cd $(dirname $0); pwd -P)"
 	DOTFILES="$DOTFILES_ABS"
 	case "$DOTFILES" in
@@ -15,11 +13,6 @@ else
 		case "$i" in
 			bash )
 				echo "source $DOTFILES/.bashrc" >> $HOME/.bashrc
-				;;
-			bat )
-				for SHELL_CONFIG in $SHELL_CONFIGS; do
-					if [ -f $HOME/$SHELL_CONFIG ]; then echo "export BAT_CONFIG_PATH=$DOTFILES/bat.conf" >> $HOME/$SHELL_CONFIG; fi
-				done
 				;;
 			git )
 				git config --global include.path "$DOTFILES/.gitconfig"
@@ -42,11 +35,6 @@ else
 				;;
 			prettier )
 				cp $DOTFILES_ABS/.prettierrc $HOME
-				;;
-			ripgrep )
-				for SHELL_CONFIG in $SHELL_CONFIGS; do
-					if [ -f $HOME/$SHELL_CONFIG ]; then echo "export RIPGREP_CONFIG_PATH=$DOTFILES/.ripgreprc" >> $HOME/$SHELL_CONFIG; fi
-				done
 				;;
 			tmux )
 				if [ ! -d $HOME/.tmux/plugins/tpm ]; then git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm; fi
