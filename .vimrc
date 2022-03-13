@@ -17,6 +17,7 @@ set nofoldenable foldmethod=indent
 set complete-=t,i
 set completeopt=longest,menuone
 set wildmenu wildmode=longest:full,full
+set path=.,,**
 
 " Search and replace
 set ignorecase smartcase incsearch hlsearch
@@ -233,7 +234,6 @@ function! FallbackMappings() abort
   endif
 
   if empty(mapcheck('<Leader>f', 'n'))
-    set path+=**
     nnoremap <Leader>f :find<Space>
   endif
 
