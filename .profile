@@ -21,7 +21,7 @@ if [ -x "$(command -v rg)" ]; then
 	export RIPGREP_CONFIG_PATH=~/.dotfiles/.ripgreprc
 fi
 
-if [ "$(/usr/bin/uname -m)" = "arm64" ]; then
+if [ "$(uname -m)" = "arm64" ]; then
 	COREUTILS="/opt/homebrew/opt/coreutils/libexec/gnubin:"
 else
 	COREUTILS="/usr/local/opt/coreutils/libexec/gnubin:"
