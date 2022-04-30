@@ -89,6 +89,29 @@ clipboardManager.show_in_menubar = false
 clipboardManager:bindHotkeys({ toggle_clipboard = { { 'ctrl' }, 'space' } })
 clipboardManager:start()
 
+-- AutoClicker
+local autoClickerInterval = 0.1
+local autoClickerIcon = hs.menubar.new(false)
+local isAutoClicking = false
+
+function toggleAutoClicker()
+  if (isAutoClicking) then
+    autoClickerIcon:removeFromMenuBar()
+    isAutoClicking = false
+  else
+    isAutoClicking = true
+    autoClickerIcon:returnToMenuBar()
+    autoClickerIcon:setTitle('🐭')
+    autoClickerIcon:setClickCallback(toggleAutoClicker)
+
+    hs.timer.doWhile(
+      function() return isAutoClicking end,
+      function() hs.eventtap.leftClick(hs.mouse.absolutePosition(), autoClickerInterval * 0.5) end,
+      autoClickerInterval
+    )
+  end
+end
+
 -- Hotkey bindings
 local mods = { 'ctrl', 'cmd' }
 
@@ -112,6 +135,7 @@ hs.hotkey.bind(mods, '-', function() setVolume(2/16, 'Volume low') end)
 hs.hotkey.bind(mods, '=', function() setVolume(6/16, 'Volume normal') end)
 hs.hotkey.bind(mods, 'delete', function() toggleMicMute() end)
 
+hs.hotkey.bind(mods, 'A', toggleAutoClicker)
 hs.hotkey.bind(mods, 'Z', toggleCaffeine)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
