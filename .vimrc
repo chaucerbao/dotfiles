@@ -73,7 +73,7 @@ function! StatusLine() abort
   let l:statusline=' '
   let l:statusline.=StlMode()
   if exists('g:loaded_fugitive')
-    let l:statusline.='%( 〉%{fugitive#head()}%)'
+    let l:statusline.='%( 〉%{FugitiveHead()}%)'
   endif
   let l:statusline.=' 〉%t'
   let l:statusline.='%( 〉%R%)'
