@@ -129,5 +129,10 @@ let g:vrc_curl_opts={
   \ }
 
 " VimWiki
+let g:vimwiki_folding = 'expr'
 nmap <Leader>ww <Plug>VimwikiIndex
 nmap <Leader>wt <Plug>VimwikiTabIndex
+augroup VimWiki
+  autocmd!
+  autocmd FileType vimwiki nmap <Leader>x <Plug>VimwikiToggleListItem
+augroup END
