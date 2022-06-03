@@ -256,3 +256,6 @@ augroup END
 
 " MatchIt plug-in
 if !has('nvim') | packadd! matchit | endif
+
+" Quickfix/Location list filtering
+packadd! cfilter
