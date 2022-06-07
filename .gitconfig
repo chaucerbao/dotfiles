@@ -3,6 +3,7 @@
 	b = branch
 	c = commit --verbose
 	ca = commit --verbose --amend
+	cb = checkout -b
 	cd = checkout develop
 	cm = checkout master
 	co = checkout
