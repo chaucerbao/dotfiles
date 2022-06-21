@@ -112,6 +112,18 @@ function toggleAutoClicker()
   end
 end
 
+-- Mouse bindings
+local mouseClickEvent = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(tapEvent)
+  local buttonIndex = tapEvent:getProperty(hs.eventtap.event.properties.mouseEventButtonNumber)
+
+  if buttonIndex == 3 then
+    hs.eventtap.keyStroke({ 'cmd' }, '[')
+  elseif buttonIndex == 4 then
+    hs.eventtap.keyStroke({ 'cmd' }, ']')
+  end
+end)
+mouseClickEvent:start()
+
 -- Hotkey bindings
 local mods = { 'ctrl', 'cmd' }
 
