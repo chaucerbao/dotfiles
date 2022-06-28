@@ -175,14 +175,14 @@ if has('nvim')
     let l:line_end=line("'>")
 
     for line_number in range(l:line_start, l:line_end)
-      call nvim_buf_add_highlight(0, nvim_create_namespace('highlight'), 'DiffChange', line_number - 1, line_number == l:line_start ? col("'<") - 1 : 0, line_number == l:line_end ? col("'>") : col('$'))
+      call nvim_buf_add_highlight(0, nvim_create_namespace('highlight'), 'StlModeYellow', line_number - 1, line_number == l:line_start ? col("'<") - 1 : 0, line_number == l:line_end ? col("'>") : col('$'))
     endfor
   endfunction
 
   vnoremap <Leader>h :call AddHighlight()<CR>
   nnoremap <Leader>H :call nvim_buf_clear_namespace(0, nvim_create_namespace('highlight'), 0, line('$'))<CR>
 else
-  call prop_type_add('highlight', { 'highlight': 'DiffChange' })
+  call prop_type_add('highlight', { 'highlight': 'StlModeYellow' })
   vnoremap <Leader>h :call prop_add(line("'<"), col("'<"), { 'end_lnum': line("'>"), 'end_col': col("'>") + 1, 'type': 'highlight' })<CR>
   nnoremap <Leader>H :call prop_clear(1, line('$'))<CR>
 endif
