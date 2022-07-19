@@ -134,5 +134,5 @@ nmap <Leader>ww <Plug>VimwikiIndex
 nmap <Leader>wt <Plug>VimwikiTabIndex
 augroup VimWiki
   autocmd!
-  autocmd FileType vimwiki nmap <Leader>x <Plug>VimwikiToggleListItem
+  autocmd FileType vimwiki nmap <buffer> <Leader>x <Plug>VimwikiToggleListItem
 augroup END

@@ -196,7 +196,7 @@ augroup END
 
 augroup QuickFixLastWindow
   autocmd!
-  autocmd FileType qf nnoremap <CR> :execute 'wincmd p \| cc '.line('.')<CR>
+  autocmd FileType qf nnoremap <buffer> <CR> :execute 'wincmd p \| cc '.line('.')<CR>
 augroup END
 
 function! ToggleList(list, open, close)
