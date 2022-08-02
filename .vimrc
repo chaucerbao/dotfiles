@@ -119,8 +119,21 @@ function s:isBeginningOfLine()
   return strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
 endfunction
 
-inoremap <expr> <Tab> <SID>isBeginningOfLine() ? '<C-i>' : pumvisible() ? '<C-n>' : '<C-]>'
-inoremap <expr> <S-Tab> <SID>isBeginningOfLine() ? '<C-d>' : pumvisible() ? '<C-p>' : '<C-]>'
+function s:isCocEnabled()
+  return get(g:, 'coc_enabled', 0) != 0
+endfunction
+
+inoremap <expr> <Tab> <SID>isBeginningOfLine()
+  \ ? '<C-i>'
+  \ : <SID>isCocEnabled()
+  \ ? (coc#pum#visible() ? coc#pum#next(1) : '<C-]>')
+  \ : (pumvisible() ? '<C-n>' : '<C-]>')
+
+inoremap <expr> <S-Tab> <SID>isBeginningOfLine()
+  \ ? '<C-d>'
+  \ : <SID>isCocEnabled()
+  \ ? (coc#pum#visible() ? coc#pum#prev(1): '<C-]>')
+  \ : (pumvisible() ? '<C-p>' : '<C-]>')
 
 " Yank/paste using the system clipboard
 nnoremap <Leader>y "+y| xnoremap <Leader>y "+y
@@ -166,7 +179,9 @@ nnoremap <C-l> <C-w>l
 " Insert mode navigation
 inoremap <C-a> <C-o>I
 inoremap <expr> <C-e> pumvisible() ? '<C-e>' : '<C-o>A'
-inoremap <expr> <CR> pumvisible() ? '<C-y>' : '<CR>'
+inoremap <expr> <CR> <SID>isCocEnabled()
+  \ ? (coc#pum#visible() ? coc#_select_confirm() : '<CR>')
+  \ : (pumvisible() ? '<C-y>' : '<CR>')
 
 " Highlighting
 if has('nvim')
