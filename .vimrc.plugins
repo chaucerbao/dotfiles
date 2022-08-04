@@ -128,6 +128,11 @@ let g:vrc_curl_opts={
   \ '--silent': ''
   \ }
 
+let g:vrc_auto_format_response_patterns = {
+  \ 'html': 'npx prettier --parser html',
+  \ 'json': 'npx prettier --parser json'
+  \ }
+
 " VimWiki
 let g:vimwiki_folding = 'expr'
 nmap <Leader>ww <Plug>VimwikiIndex
