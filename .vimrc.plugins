@@ -26,7 +26,6 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'machakann/vim-sandwich'
-Plug 'alvan/vim-closetag', { 'for': ['html', 'javascriptreact', 'typescriptreact'] }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dadbod', { 'for': 'sql' }
@@ -110,9 +109,6 @@ let g:AutoPairsMultilineClose=0
 
 " Sandwich
 runtime macros/sandwich/keymap/surround.vim
-
-" Close Tags
-let g:closetag_filetypes='html,javascriptreact,typescriptreact'
 
 " Dadbod
 augroup Dadbod
