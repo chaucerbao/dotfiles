@@ -176,6 +176,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Window management
+nnoremap <C-w>z <C-w>_<C-w><Bar>
+
 " Insert mode navigation
 inoremap <C-a> <C-o>I
 inoremap <expr> <C-e> pumvisible() ? '<C-e>' : '<C-o>A'
