@@ -30,7 +30,7 @@
 	rh = reset HEAD
 	rhh = reset HEAD --hard
 	st = status
-	sta = stash save
+	sta = stash push
 	stp = stash pop
 	undo = reset HEAD~1
 	wipe = clean --interactive --force -dx
