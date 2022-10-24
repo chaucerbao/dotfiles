@@ -26,9 +26,9 @@ else
 				;;
 			neovim )
 				mkdir -p $HOME/.config/nvim/
-				echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after" >> $HOME/.config/nvim/init.vim
-				echo "let &packpath=&runtimepath" >> $HOME/.config/nvim/init.vim
-				echo "source ~/.vimrc" >> $HOME/.config/nvim/init.vim
+				ln -s $DOTFILES_ABS/vim/lua $HOME/.config/nvim/
+				echo "dofile('$DOTFILES_ABS/vim/init.lua')" >> $HOME/.config/nvim/init.lua
+				echo "dofile('$DOTFILES_ABS/vim/plugins.lua')" >> $HOME/.config/nvim/init.lua
 				;;
 			nnn )
 				curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
