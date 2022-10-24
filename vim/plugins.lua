@@ -60,6 +60,20 @@ require('packer').startup(function(use)
   })
 
   use({
+    'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    config = function()
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'BufNew', 'BufNewFile', 'BufWinEnter' }, {
+        group = vim.api.nvim_create_augroup('TreesitterFolding', {}),
+        callback = function()
+          vim.opt.foldmethod = 'expr'
+          vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+        end,
+      })
+    end,
+  })
+
+  use({
     'nvim-telescope/telescope.nvim',
     requires = { { 'nvim-lua/plenary.nvim' } },
     config = function()
