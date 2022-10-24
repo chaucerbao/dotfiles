@@ -88,8 +88,13 @@ alias tls='t list-sessions'
 alias ts='t new-session -A -s'
 
 # Vim
-if [ -x "$(command -v nvim)" ]; then alias v='nvim'; else alias v='vim'; fi
-alias vup='v +PlugUpgrade +PlugUpdate +only +"normal D" +CocUpdate +"nnoremap <silent> q :quitall<CR>"'
+if [ -x "$(command -v nvim)" ]; then
+	alias v='nvim'
+	alias vup='nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"'
+else
+	alias v='vim'
+	alias vup='vim +PlugUpgrade +PlugUpdate +only +"normal D" +CocUpdate +"nnoremap <silent> q :quitall<CR>"'
+fi
 
 # Miscellaneous
 if [ -x "$(command -v bat)" ]; then alias c='bat'; else alias c='cat'; fi
