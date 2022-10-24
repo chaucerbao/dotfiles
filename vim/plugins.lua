@@ -23,16 +23,12 @@ require('packer').startup(function(use)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, buffer_options)
         vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, buffer_options)
         vim.keymap.set({ 'n', 'v' }, '<Leader> ', vim.lsp.buf.code_action, buffer_options)
-        vim.keymap.set({ 'n', 'v' }, '<Leader>gq', function()
-          vim.lsp.buf.format({ async = true })
-        end, buffer_options)
+        vim.keymap.set({ 'n', 'v' }, '<Leader>gq', function() vim.lsp.buf.format({ async = true }) end, buffer_options)
       end
 
       local language_servers = { tsserver = 'typescript-language-server' }
       for server, binary in pairs(language_servers) do
-        if vim.fn.executable(binary) then
-          require('lspconfig')[server].setup({ on_attach = on_attach })
-        end
+        if vim.fn.executable(binary) then require('lspconfig')[server].setup({ on_attach = on_attach }) end
       end
 
       local snippet_servers = {
@@ -80,13 +76,17 @@ require('packer').startup(function(use)
     config = function()
       require('telescope').load_extension('file_browser')
 
-      vim.keymap.set('n', '<Leader>e', function()
-        require('telescope').extensions.file_browser.file_browser({
-          path = '%:p:h',
-          grouped = true,
-          select_buffer = true,
-        })
-      end)
+      vim.keymap.set(
+        'n',
+        '<Leader>e',
+        function()
+          require('telescope').extensions.file_browser.file_browser({
+            path = '%:p:h',
+            grouped = true,
+            select_buffer = true,
+          })
+        end
+      )
     end,
   })
 
@@ -167,9 +167,7 @@ require('packer').startup(function(use)
 
   use({
     'tpope/vim-abolish',
-    config = function()
-      vim.keymap.set('v', '<Leader>cr', '<Plug>(abolish-coerce)')
-    end,
+    config = function() vim.keymap.set('v', '<Leader>cr', '<Plug>(abolish-coerce)') end,
   })
 
   use({
@@ -184,7 +182,5 @@ require('packer').startup(function(use)
     end,
   })
 
-  if not is_packer_installed then
-    require('packer').sync()
-  end
+  if not is_packer_installed then require('packer').sync() end
 end)

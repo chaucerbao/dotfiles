@@ -55,9 +55,7 @@ vim.fn.sign_define({
 -- Automatically Resize Windows
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
   group = vim.api.nvim_create_augroup('AutoResizeWindows', {}),
-  callback = function(args)
-    vim.cmd.wincmd('=')
-  end,
+  callback = function(args) vim.cmd.wincmd('=') end,
 })
 
 -- Lists
@@ -75,9 +73,7 @@ vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
 -- Cursor Line
 vim.api.nvim_create_autocmd({ 'VimEnter', 'WinEnter', 'BufWinEnter', 'WinLeave' }, {
   group = vim.api.nvim_create_augroup('CursorLine', {}),
-  callback = function(args)
-    vim.opt_local.cursorline = args.event ~= 'WinLeave'
-  end,
+  callback = function(args) vim.opt_local.cursorline = args.event ~= 'WinLeave' end,
 })
 
 -- Built-in Packages

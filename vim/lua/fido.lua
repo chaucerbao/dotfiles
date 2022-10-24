@@ -25,25 +25,19 @@ end
 
 local function find(list, predicate)
   for i, item in pairs(list) do
-    if predicate(item) then
-      return item, i
-    end
+    if predicate(item) then return item, i end
   end
 
   return nil, -1
 end
 
-local function trim(line)
-  return string.match(line, '^%s*(.*%S)') or ''
-end
+local function trim(line) return string.match(line, '^%s*(.*%S)') or '' end
 
 -- Helpers
 local function remove_empty_lines(lines)
   local empty_line_regex = '^%s*$'
 
-  return filter(lines, function(line)
-    return not string.find(line, empty_line_regex)
-  end)
+  return filter(lines, function(line) return not string.find(line, empty_line_regex) end)
 end
 
 local function parse_buffer()
@@ -53,34 +47,28 @@ local function parse_buffer()
   local selected_index = vim.fn.line('.')
 
   -- Parse the `global` section
-  local _, global_separator_index = find(buffer_lines, function(line)
-    return string.find(line, global_separator_regex)
-  end)
+  local _, global_separator_index = find(
+    buffer_lines,
+    function(line) return string.find(line, global_separator_regex) end
+  )
 
   -- Parse the `selected` section
-  local _, local_separator_indexes = filter(buffer_lines, function(line)
-    return string.find(line, local_separator_regex) or string.find(line, global_separator_regex)
-  end)
+  local _, local_separator_indexes = filter(
+    buffer_lines,
+    function(line) return string.find(line, local_separator_regex) or string.find(line, global_separator_regex) end
+  )
 
   -- Move the `selected_index` out of the `global` section
-  if selected_index <= global_separator_index then
-    selected_index = global_separator_index + 1
-  end
+  if selected_index <= global_separator_index then selected_index = global_separator_index + 1 end
 
   local min_index = 1
   local max_index = #buffer_lines
   for _, separator_index in pairs(local_separator_indexes) do
     -- If the `selected_index` is on a separator, move to the next section
-    if selected_index == separator_index and selected_index < #buffer_lines then
-      selected_index = selected_index + 1
-    end
+    if selected_index == separator_index and selected_index < #buffer_lines then selected_index = selected_index + 1 end
 
-    if separator_index < selected_index and separator_index > 1 then
-      min_index = separator_index + 1
-    end
-    if separator_index > selected_index and separator_index < max_index then
-      max_index = separator_index - 1
-    end
+    if separator_index < selected_index and separator_index > 1 then min_index = separator_index + 1 end
+    if separator_index > selected_index and separator_index < max_index then max_index = separator_index - 1 end
   end
 
   local global_lines = global_separator_index > 1 and vim.fn.getline(1, global_separator_index - 1) or {}
@@ -134,9 +122,7 @@ local function apply_variables(global, selected)
   -- Parse `global` for variable declarations
   for _, line in pairs(global) do
     local key, value = string.match(line, '^%s*(%S+)%s*=%s*(.+)%s*$')
-    if key then
-      variables[key] = value
-    end
+    if key then variables[key] = value end
   end
 
   local function replace_variables(lines)
