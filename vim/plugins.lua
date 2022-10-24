@@ -109,7 +109,7 @@ require('packer').startup(function(use)
     config = function()
       vim.g.nord_uniform_diff_background = 1
       vim.g.nord_uniform_status_lines = 1
-      vim.cmd.colorscheme('nord')
+      vim.cmd('colorscheme nord')
     end,
   })
 
