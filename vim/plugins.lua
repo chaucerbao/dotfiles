@@ -6,6 +6,9 @@ if not is_packer_installed then
   vim.cmd('packadd! packer.nvim')
 end
 
+-- Disable `netrw` in lieu of `nvim-telescope/telescope-file-browser.nvim`
+vim.g.loaded_netrwPlugin = 1
+
 require('packer').startup(function(use)
   use('wbthomason/packer.nvim')
 
@@ -95,6 +98,7 @@ require('packer').startup(function(use)
           require('telescope').extensions.file_browser.file_browser({
             path = '%:p:h',
             grouped = true,
+            hide_parent_dir = true,
             select_buffer = true,
           })
         end
