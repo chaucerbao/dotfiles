@@ -97,6 +97,7 @@ require('packer').startup(function(use)
         function()
           require('telescope').extensions.file_browser.file_browser({
             path = '%:p:h',
+            dir_icon = '',
             grouped = true,
             hide_parent_dir = true,
             select_buffer = true,
