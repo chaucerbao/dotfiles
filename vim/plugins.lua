@@ -15,7 +15,7 @@ require('packer').startup(function(use)
   use({
     'neovim/nvim-lspconfig',
     config = function()
-      local on_attach = function(client, bufnr)
+      local on_attach = function(_, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
         local buffer_options = { noremap = true, silent = true, buffer = bufnr }

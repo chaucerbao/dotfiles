@@ -55,7 +55,7 @@ vim.fn.sign_define({
 -- Automatically Resize Windows
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
   group = vim.api.nvim_create_augroup('AutoResizeWindows', {}),
-  callback = function(args) vim.cmd.wincmd('=') end,
+  callback = function() vim.cmd.wincmd('=') end,
 })
 
 -- Lists
@@ -79,7 +79,7 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'WinEnter', 'BufWinEnter', 'WinLeave' 
 -- Highlight on Yank
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   group = vim.api.nvim_create_augroup('YankHighlight', {}),
-  callback = function(args) vim.highlight.on_yank() end,
+  callback = function() vim.highlight.on_yank() end,
 })
 -- Built-in Packages
 vim.cmd('packadd! cfilter')
@@ -127,7 +127,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '[q', ':cprevious<CR>zz', { silent = true })
 vim.keymap.set('n', ']q', ':cnext<CR>zz', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<Leader>q', function()
-  for i, win in pairs(vim.fn.getwininfo()) do
+  for _, win in pairs(vim.fn.getwininfo()) do
     if win.quickfix == 1 then
       vim.cmd.cclose()
       return
