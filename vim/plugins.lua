@@ -68,6 +68,13 @@ require('packer').startup(function(use)
     'nvim-telescope/telescope.nvim',
     requires = { { 'nvim-lua/plenary.nvim' } },
     config = function()
+      require('telescope').setup({
+        defaults = {
+          sorting_strategy = 'ascending',
+          layout_config = { prompt_position = 'top' },
+        },
+      })
+
       local builtin = require('telescope.builtin')
 
       vim.keymap.set('n', '<Leader>b', builtin.buffers)
