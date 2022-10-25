@@ -139,3 +139,15 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 if vim.fn.executable('prettier') then
   vim.keymap.set('n', '<Leader>gq', ':%! prettier --stdin-filepath %<CR>', { silent = true })
 end
+
+-- User Commands
+vim.api.nvim_create_user_command('Fetch', function(args)
+  require('fido').fetch({
+    name = 'Shell',
+    vertical = args.bang,
+    execute = function() return vim.fn.systemlist(args.args) end,
+  })
+end, {
+  nargs = '*',
+  bang = true,
+})

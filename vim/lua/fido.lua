@@ -153,8 +153,10 @@ local function run_client(args)
   })
 end
 
-local function fetch()
-  if vim.bo.filetype == 'rest' and vim.fn.executable('curl') then
+local function fetch(client)
+  if client then
+    run_client(client)
+  elseif vim.bo.filetype == 'rest' and vim.fn.executable('curl') then
     run_client({
       name = 'HTTP',
       vertical = true,
