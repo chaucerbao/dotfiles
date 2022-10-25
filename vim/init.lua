@@ -105,7 +105,7 @@ vim.keymap.set('n', '<BS>', '<C-^>')
 vim.keymap.set({ 'n', 'v' }, '<Leader>y', '"+y')
 vim.keymap.set({ 'n', 'v' }, '<Leader>p', '"+p')
 vim.keymap.set({ 'n', 'v' }, '<Leader>P', '"+P')
-vim.keymap.set('x', 'p', '"_dP')
+vim.keymap.set('x', 'p', 'col(".") == col("$") - 1 ? "\\"_dp" : "\\"_dP"', { expr = true })
 
 -- Key Mappings: Movement
 vim.keymap.set('n', 'j', 'v:count > 0 ? "j" : "gj"', { expr = true })
