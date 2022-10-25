@@ -80,6 +80,7 @@ end
 
 -- Clipboard Manager
 local clipboardManager = hs.loadSpoon('ClipboardTool')
+clipboardManager.hist_size = 50
 clipboardManager.show_copied_alert = false
 clipboardManager.show_in_menubar = false
 clipboardManager:bindHotkeys({ toggle_clipboard = { { 'ctrl' }, 'space' } })
