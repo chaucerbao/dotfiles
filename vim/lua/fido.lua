@@ -71,49 +71,13 @@ local function parse_buffer()
     if separator_index > selected_index and separator_index < max_index then max_index = separator_index - 1 end
   end
 
-  local global_lines = global_separator_index > 1 and vim.fn.getline(1, global_separator_index - 1) or {}
-  local selected_lines = vim.fn.getline(min_index, max_index)
+  return {
+    global = global_separator_index > 1
+        and filter(vim.fn.getline(1, global_separator_index - 1), function(line) return not string.find(line, '^#') end)
+      or {},
 
-  return selected_lines, global_lines
-end
-
-local function render_response(args)
-  local name = '[' .. args.name .. ']'
-  local winnr = vim.fn.bufwinnr(vim.fn.escape(name, '[]'))
-
-  if winnr > 0 then
-    -- Focus the existing response window
-    vim.cmd(winnr .. 'wincmd w')
-  else
-    -- Create a new response window
-    if args.vertical then
-      local winwidth = vim.fn.winwidth(0)
-
-      vim.cmd('vnew ' .. name)
-      vim.cmd('vertical resize ' .. winwidth / 5 * 2)
-    else
-      local winheight = vim.fn.winheight(0)
-
-      vim.cmd('new ' .. name)
-      vim.cmd('resize ' .. winheight / 4)
-    end
-
-    -- Convert to a Scratch buffer
-    vim.bo.bufhidden = 'wipe'
-    vim.bo.buflisted = false
-    vim.bo.buftype = 'nofile'
-    vim.bo.swapfile = false
-  end
-
-  vim.bo.readonly = false
-  vim.cmd('silent normal gg"_dG')
-
-  vim.api.nvim_buf_set_lines(0, 0, 0, false, args.lines)
-
-  vim.cmd('normal gg')
-  vim.bo.readonly = true
-
-  vim.cmd('wincmd p')
+    selected = vim.fn.getline(min_index, max_index),
+  }
 end
 
 local function apply_variables(global, selected)
@@ -140,96 +104,132 @@ local function apply_variables(global, selected)
   return replace_variables(global), replace_variables(selected)
 end
 
-local function run_client(args)
-  local selected, global = parse_buffer()
+local function render_client_response(client)
+  local name = '[' .. client.name .. ']'
+  local winnr = vim.fn.bufwinnr(vim.fn.escape(name, '[]'))
 
-  render_response({
-    name = args.name,
-    vertical = args.vertical,
-    lines = args.execute({
-      global = global,
-      selected = selected,
-    }),
-  })
+  local response_lines = client.execute()
+
+  if winnr > 0 then
+    -- Focus the existing response window
+    vim.cmd(winnr .. 'wincmd w')
+  else
+    -- Create a new response window
+    if client.vertical then
+      local winwidth = vim.fn.winwidth(0)
+
+      vim.cmd('vnew ' .. name)
+      vim.cmd('vertical resize ' .. winwidth / 5 * 2)
+    else
+      local winheight = vim.fn.winheight(0)
+
+      vim.cmd('new ' .. name)
+      vim.cmd('resize ' .. winheight / 4)
+    end
+
+    -- Convert to a Scratch buffer
+    vim.bo.bufhidden = 'wipe'
+    vim.bo.buflisted = false
+    vim.bo.buftype = 'nofile'
+    vim.bo.swapfile = false
+  end
+
+  vim.bo.readonly = false
+  vim.cmd('silent normal gg"_dG')
+
+  vim.api.nvim_buf_set_lines(0, 0, 0, false, response_lines)
+
+  vim.cmd('normal gg')
+  vim.bo.readonly = true
+
+  vim.cmd('wincmd p')
 end
 
-local function fetch(client)
-  if client then
-    run_client(client)
+-- Clients
+local curl_client = {
+  name = 'HTTP',
+  vertical = true,
+  execute = function()
+    local parsed_buffer = parse_buffer()
+    local global, selected = apply_variables(
+      map(remove_empty_lines(parsed_buffer.global), trim),
+      map(remove_empty_lines(parsed_buffer.selected), trim)
+    )
+
+    local cmd_opts = {
+      '--silent',
+      '--show-error',
+      '--location',
+      '--include',
+    }
+
+    -- Parse `global` lines
+    for _, line in pairs(global) do
+      if string.find(line, '^-') then
+        table.insert(cmd_opts, line)
+      elseif string.find(line, '^.+:.+$') then
+        table.insert(cmd_opts, '--header "' .. line .. '"')
+      end
+    end
+
+    local method, url = 'GET', selected[1] or ''
+    if string.find(url, '%s') then
+      method, url = string.match(url, '^(%S+)%s+(.+)$')
+      method = string.upper(method)
+    end
+
+    -- Request Body
+    local data_methods = { POST = true, PUT = true, PATCH = true }
+    if #selected > 1 and data_methods[method] then
+      table.remove(selected, 1)
+
+      -- Join with `&` or ` `, depending on the shape of the data
+      local data = table.concat(selected, string.find(selected[1], '%S+=%S+') and '&' or ' ')
+      table.insert(cmd_opts, '--data "' .. string.gsub(data, '"', '\\"') .. '"')
+    end
+
+    -- HTTP Method
+    table.insert(cmd_opts, '--request ' .. string.upper(method))
+
+    local cmd = trim('curl ' .. table.concat(cmd_opts, ' ') .. ' "' .. url .. '"', '')
+    print(cmd)
+
+    return vim.fn.systemlist(cmd)
+  end,
+}
+
+local psql_client = {
+  name = 'SQL',
+  execute = function()
+    local parsed_buffer = parse_buffer()
+    local global, selected =
+      apply_variables(map(remove_empty_lines(parsed_buffer.global), trim), parsed_buffer.selected)
+
+    local cmd_opts = {}
+
+    -- Parse `global` lines
+    for _, line in pairs(global) do
+      if string.find(line, '^-') then
+        table.insert(cmd_opts, line)
+      elseif string.find(line, '^%s*%S+://%S+%s*$') then
+        table.insert(cmd_opts, '--dbname="' .. line .. '"')
+      end
+    end
+
+    local cmd = trim('psql ' .. table.concat(cmd_opts, ' '))
+    print(cmd)
+
+    return vim.fn.systemlist(cmd, table.concat(selected, '\n'))
+  end,
+}
+
+local function fetch(cmd_client)
+  if cmd_client then
+    render_client_response(cmd_client)
   elseif vim.bo.filetype == 'rest' and vim.fn.executable('curl') then
-    run_client({
-      name = 'HTTP',
-      vertical = true,
-      execute = function(args)
-        local cmd_opts = {
-          '--silent',
-          '--show-error',
-          '--location',
-          '--include',
-        }
-
-        local global, selected =
-          apply_variables(map(remove_empty_lines(args.global), trim), map(remove_empty_lines(args.selected), trim))
-
-        -- Parse `global` lines
-        for _, line in pairs(global) do
-          if string.find(line, '^#') then
-          elseif string.find(line, '^-') then
-            table.insert(cmd_opts, line)
-          elseif string.find(line, '^.+:.+$') then
-            table.insert(cmd_opts, '--header "' .. line .. '"')
-          end
-        end
-
-        local method, url = 'GET', selected[1] or ''
-        if string.find(url, '%s') then
-          method, url = string.match(url, '^(%S+)%s+(.+)$')
-          method = string.upper(method)
-        end
-
-        -- Request Body
-        local data_methods = { POST = true, PUT = true, PATCH = true }
-        if #selected > 1 and data_methods[method] then
-          table.remove(selected, 1)
-
-          -- Join with `&` or ` `, depending on the shape of the data
-          local data = table.concat(selected, string.find(selected[1], '%S+=%S+') and '&' or ' ')
-          table.insert(cmd_opts, '--data "' .. string.gsub(data, '"', '\\"') .. '"')
-        end
-
-        -- HTTP Method
-        table.insert(cmd_opts, '--request ' .. string.upper(method))
-
-        local cmd = trim('curl ' .. table.concat(cmd_opts, ' ') .. ' "' .. url .. '"', '')
-        print(cmd)
-
-        return vim.fn.systemlist(cmd)
-      end,
-    })
+    render_client_response(curl_client)
   elseif vim.bo.filetype == 'sql' and vim.fn.executable('psql') then
-    run_client({
-      name = 'SQL',
-      execute = function(args)
-        local cmd_opts = {}
-
-        local global, selected = apply_variables(map(remove_empty_lines(args.global), trim), args.selected)
-
-        -- Parse `global` lines
-        for _, line in pairs(global) do
-          if string.find(line, '^#') then
-          elseif string.find(line, '^-') then
-            table.insert(cmd_opts, line)
-          elseif string.find(line, '^%s*%S+://%S+%s*$') then
-            table.insert(cmd_opts, '--dbname="' .. line .. '"')
-          end
-        end
-
-        local cmd = trim('psql ' .. table.concat(cmd_opts, ' '))
-        print(cmd)
-
-        return vim.fn.systemlist(cmd, table.concat(selected, '\n'))
-      end,
-    })
+    render_client_response(psql_client)
   end
 end
 
