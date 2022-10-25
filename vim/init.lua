@@ -76,6 +76,11 @@ vim.api.nvim_create_autocmd({ 'VimEnter', 'WinEnter', 'BufWinEnter', 'WinLeave' 
   callback = function(args) vim.opt_local.cursorline = args.event ~= 'WinLeave' end,
 })
 
+-- Highlight on Yank
+vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
+  group = vim.api.nvim_create_augroup('YankHighlight', {}),
+  callback = function(args) vim.highlight.on_yank() end,
+})
 -- Built-in Packages
 vim.cmd('packadd! cfilter')
 
