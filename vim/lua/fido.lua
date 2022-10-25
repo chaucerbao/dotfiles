@@ -208,9 +208,7 @@ local function fetch()
     run_client({
       name = 'SQL',
       execute = function(args)
-        local cmd_opts = {
-          '--field-separator="x"',
-        }
+        local cmd_opts = {}
 
         local global, selected = apply_variables(map(remove_empty_lines(args.global), trim), args.selected)
 
