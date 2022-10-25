@@ -141,13 +141,10 @@ if vim.fn.executable('prettier') then
 end
 
 -- User Commands
-vim.api.nvim_create_user_command('Fetch', function(args)
+vim.api.nvim_create_user_command('R', function(args)
   require('fido').fetch({
     name = 'Shell',
     vertical = args.bang,
     execute = function() return vim.fn.systemlist(args.args) end,
   })
-end, {
-  nargs = '*',
-  bang = true,
-})
+end, { nargs = '*', bang = true })
