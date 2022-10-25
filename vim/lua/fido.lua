@@ -108,7 +108,7 @@ local function render_client_response(client)
   local name = '[' .. client.name .. ']'
   local winnr = vim.fn.bufwinnr(vim.fn.escape(name, '[]'))
 
-  local response_lines = client.execute()
+  local response_lines, cmd = client.execute()
 
   if winnr > 0 then
     -- Focus the existing response window
@@ -143,6 +143,8 @@ local function render_client_response(client)
   vim.bo.readonly = true
 
   vim.cmd('wincmd p')
+
+  print(cmd)
 end
 
 -- Clients
@@ -183,8 +185,14 @@ local curl_client = {
     if #selected > 1 and data_methods[method] then
       table.remove(selected, 1)
 
-      -- Join with `&` or ` `, depending on the shape of the data
-      local data = table.concat(selected, string.find(selected[1], '%S+=%S+') and '&' or ' ')
+      local is_key_value = string.find(selected[1], '%S+=%S+')
+      local data = table.concat(selected, is_key_value and '&' or ' ')
+
+      if not is_key_value then
+        cmd_opts = filter(cmd_opts, function(opt) return not string.find(string.lower(opt), '^content-type:%s') end)
+        table.insert(cmd_opts, '--header "Content-Type: application/json"')
+      end
+
       table.insert(cmd_opts, '--data "' .. string.gsub(data, '"', '\\"') .. '"')
     end
 
@@ -192,9 +200,8 @@ local curl_client = {
     table.insert(cmd_opts, '--request ' .. string.upper(method))
 
     local cmd = trim('curl ' .. table.concat(cmd_opts, ' ') .. ' "' .. url .. '"', '')
-    print(cmd)
 
-    return vim.fn.systemlist(cmd)
+    return vim.fn.systemlist(cmd), cmd
   end,
 }
 
@@ -217,9 +224,8 @@ local psql_client = {
     end
 
     local cmd = trim('psql ' .. table.concat(cmd_opts, ' '))
-    print(cmd)
 
-    return vim.fn.systemlist(cmd, table.concat(selected, '\n'))
+    return vim.fn.systemlist(cmd, table.concat(selected, '\n')), cmd
   end,
 }
 

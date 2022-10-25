@@ -150,6 +150,10 @@ vim.api.nvim_create_user_command('R', function(args)
   require('fido').fetch({
     name = 'Shell',
     vertical = args.bang,
-    execute = function() return vim.fn.systemlist(args.args) end,
+    execute = function()
+      local cmd = string.gsub(args.args, '%%', vim.fn.expand('%'))
+
+      return vim.fn.systemlist(cmd), cmd
+    end,
   })
 end, { nargs = '*', bang = true })
