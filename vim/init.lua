@@ -28,7 +28,7 @@ vim.opt.foldmethod = 'indent'
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 if vim.fn.executable('rg') then
-  vim.opt.grepprg = 'rg --vimgrep'
+  vim.opt.grepprg = 'rg --no-config --fixed-strings --sort=path --vimgrep'
   vim.opt.grepformat = '%f:%l:%c:%m'
 end
 
@@ -136,6 +136,23 @@ vim.keymap.set({ 'n', 'v' }, '<Leader>q', function()
 
   vim.cmd.copen()
 end)
+
+-- Key Mappings: Search
+vim.keymap.set('n', '*', '/\\V\\<<C-r>=expand("<cword>")<CR>\\>\\C<CR>')
+vim.keymap.set('v', '*', 'y/\\V<C-r>=escape(@", "/\\\\")<CR>\\C<CR>')
+vim.keymap.set({ 'n', 'v' }, '<Leader>*', function(x)
+  local search_term
+  if string.find(string.lower(vim.fn.mode()), '^n') then
+    search_term = vim.fn.expand('<cword>')
+  else
+    vim.cmd('normal y')
+    search_term = vim.fn.getreg('"')
+  end
+
+  vim.fn.setreg('/', vim.fn.escape(search_term, '/\\'))
+  vim.cmd('silent grep "' .. vim.fn.escape(search_term, '"') .. '"')
+  vim.opt.hlsearch = true
+end, { silent = true })
 
 -- Key Mappings: Miscellaneous
 vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch)
