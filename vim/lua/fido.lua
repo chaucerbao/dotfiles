@@ -205,6 +205,31 @@ local curl_client = {
   end,
 }
 
+local node_client = {
+  name = 'Node',
+  vertical = true,
+  execute = function()
+    local parsed_buffer = parse_buffer()
+    local global, selected = apply_variables(
+      map(remove_empty_lines(parsed_buffer.global), trim),
+      map(remove_empty_lines(parsed_buffer.selected), trim)
+    )
+
+    local cmd_opts = {}
+
+    -- Parse `global` lines
+    for _, line in pairs(global) do
+      if string.find(line, '^-') then
+        table.insert(cmd_opts, line)
+      end
+    end
+
+    local cmd = trim('node ' .. table.concat(cmd_opts, ' '))
+
+    return vim.fn.systemlist(cmd, table.concat(selected, '\n')), cmd
+  end,
+}
+
 local psql_client = {
   name = 'SQL',
   execute = function()
@@ -260,6 +285,8 @@ local function fetch(cmd_client)
     render_client_response(cmd_client)
   elseif vim.bo.filetype == 'rest' and vim.fn.executable('curl') then
     render_client_response(curl_client)
+  elseif vim.bo.filetype == 'node' and vim.fn.executable('node') then
+    render_client_response(node_client)
   elseif vim.bo.filetype == 'sql' and vim.fn.executable('psql') then
     render_client_response(psql_client)
   elseif vim.bo.filetype == 'redis' and vim.fn.executable('redis-cli') then
