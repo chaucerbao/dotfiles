@@ -15,7 +15,7 @@ require('packer').startup(function(use)
   use({
     'neovim/nvim-lspconfig',
     config = function()
-      local on_attach = function(_, bufnr)
+      local on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
         local buffer_options = { noremap = true, silent = true, buffer = bufnr }
@@ -35,6 +35,20 @@ require('packer').startup(function(use)
         vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, buffer_options)
         vim.keymap.set({ 'n', 'v' }, '<Leader> ', vim.lsp.buf.code_action, buffer_options)
         vim.keymap.set({ 'n', 'v' }, '<Leader>gq', function() vim.lsp.buf.format({ async = true }) end, buffer_options)
+
+        if client.name == 'tsserver' then
+          vim.keymap.set(
+            'n',
+            '<Leader>i',
+            function()
+              vim.lsp.buf.execute_command({
+                command = '_typescript.organizeImports',
+                arguments = { vim.api.nvim_buf_get_name(0) },
+              })
+            end,
+            buffer_options
+          )
+        end
       end
 
       local language_servers = { tsserver = 'typescript-language-server' }
