@@ -229,6 +229,32 @@ local psql_client = {
   end,
 }
 
+local redis_client = {
+  name = 'Redis',
+  execute = function()
+    local parsed_buffer = parse_buffer()
+    local global, selected =
+      apply_variables(map(remove_empty_lines(parsed_buffer.global), trim), parsed_buffer.selected)
+
+    local cmd_opts = {
+      '--no-raw',
+    }
+
+    -- Parse `global` lines
+    for _, line in pairs(global) do
+      if string.find(line, '^-') then
+        table.insert(cmd_opts, line)
+      elseif string.find(line, '^%s*%S+://%S+%s*$') then
+        table.insert(cmd_opts, '-u "' .. line .. '"')
+      end
+    end
+
+    local cmd = trim('redis-cli ' .. table.concat(cmd_opts, ' '))
+
+    return vim.fn.systemlist(cmd, table.concat(selected, '\n')), cmd
+  end,
+}
+
 local function fetch(cmd_client)
   if cmd_client then
     render_client_response(cmd_client)
@@ -236,6 +262,8 @@ local function fetch(cmd_client)
     render_client_response(curl_client)
   elseif vim.bo.filetype == 'sql' and vim.fn.executable('psql') then
     render_client_response(psql_client)
+  elseif vim.bo.filetype == 'redis' and vim.fn.executable('redis-cli') then
+    render_client_response(redis_client)
   end
 end
 
