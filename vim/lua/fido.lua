@@ -219,9 +219,7 @@ local node_client = {
 
     -- Parse `global` lines
     for _, line in pairs(global) do
-      if string.find(line, '^-') then
-        table.insert(cmd_opts, line)
-      end
+      if string.find(line, '^-') then table.insert(cmd_opts, line) end
     end
 
     local cmd = trim('node ' .. table.concat(cmd_opts, ' '))
