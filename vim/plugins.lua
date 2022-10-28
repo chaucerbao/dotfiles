@@ -200,6 +200,17 @@ require('packer').startup(function(use)
       vim.keymap.set('n', '<Leader>c', ':Gitsigns preview_hunk<CR>', { silent = true })
       vim.keymap.set('n', '[c', ':Gitsigns prev_hunk<CR>zz', { silent = true })
       vim.keymap.set('n', ']c', ':Gitsigns next_hunk<CR>zz', { silent = true })
+
+      vim.keymap.set('n', '<Leader>G', ':Gitsigns setqflist all<CR>', { silent = true })
+
+      vim.keymap.set({ 'n', 'v' }, '<Leader>gs', ':Gitsigns stage_hunk<CR>', { silent = true })
+      vim.keymap.set({ 'n', 'v' }, '<Leader>gu', ':Gitsigns undo_stage_hunk<CR>', { silent = true })
+      vim.keymap.set({ 'n', 'v' }, '<Leader>gr', ':Gitsigns reset_hunk<CR>', { silent = true })
+
+      vim.keymap.set('n', '<Leader>gS', ':Gitsigns stage_buffer<CR>', { silent = true })
+      vim.keymap.set('n', '<Leader>gU', ':Gitsigns reset_buffer_index<CR>', { silent = true })
+
+      vim.keymap.set('n', '<Leader>gR', ':Gitsigns reset_buffer<CR>', { silent = true })
     end,
   })
 
