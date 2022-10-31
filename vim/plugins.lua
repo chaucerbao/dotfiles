@@ -104,6 +104,15 @@ require('packer').startup(function(use)
 
       vim.keymap.set('n', '<Leader>b', builtin.buffers)
       vim.keymap.set('n', '<Leader>f', builtin.find_files)
+      vim.keymap.set(
+        'n',
+        '<Leader>F',
+        function()
+          builtin.find_files({
+            cwd = '%:p:h',
+          })
+        end
+      )
     end,
   })
 
