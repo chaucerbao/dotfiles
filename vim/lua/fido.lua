@@ -175,7 +175,7 @@ local curl_client = {
     end
 
     local method, url = 'GET', selected[1] or ''
-    if string.find(url, '%s') then
+    if string.find(url, '%S+%s+%S+://') then
       method, url = string.match(url, '^(%S+)%s+(.+)$')
       method = string.upper(method)
     end
