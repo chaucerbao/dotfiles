@@ -175,9 +175,20 @@ local curl_client = {
     end
 
     local method, url = 'GET', selected[1] or ''
+
+    -- Parse the `method`
     if string.find(url, '%S+%s+%S+://') then
       method, url = string.match(url, '^(%S+)%s+(.+)$')
       method = string.upper(method)
+    end
+
+    -- Parse the Query String
+    if string.find(url, '?') then
+      for data in string.gmatch(string.match(url, '%?(.+)$'), '[^&]+') do
+        table.insert(cmd_opts, '--data-urlencode "' .. data .. '"')
+      end
+
+      url = string.match(url, '^(.+)%?')
     end
 
     -- Request Body
@@ -194,6 +205,10 @@ local curl_client = {
       end
 
       table.insert(cmd_opts, '--data "' .. string.gsub(data, '"', '\\"') .. '"')
+    end
+
+    if method == 'GET' and (find(cmd_opts, function(line) return string.find(line, '^%-%-data%-urlencode') end)) then
+      table.insert(cmd_opts, '--get')
     end
 
     -- HTTP Method
