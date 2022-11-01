@@ -204,7 +204,7 @@ local curl_client = {
       else
         cmd_opts = filter(cmd_opts, function(opt) return not string.find(string.lower(opt), '^content-type:%s') end)
         table.insert(cmd_opts, '--header "Content-Type: application/json"')
-        table.insert(cmd_opts, '--data "' .. string.gsub(table.concat(selected, ' '), '"', '\\"') .. '"')
+        table.insert(cmd_opts, "--data '" .. string.gsub(table.concat(selected, ' '), "'", "'\\''") .. "'")
       end
     end
 
