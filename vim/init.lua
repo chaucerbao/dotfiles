@@ -158,9 +158,36 @@ end, { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch)
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
-if vim.fn.executable('prettier') then
-  vim.keymap.set('n', '<Leader>gq', ':%! prettier --stdin-filepath %<CR>', { silent = true })
-end
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = vim.api.nvim_create_augroup('PrettierFormat', {}),
+  pattern = {
+    'html',
+    'css',
+    'scss',
+    'javascript',
+    'javascriptreact',
+    'typescript',
+    'typescriptreact',
+    'json',
+    'markdown',
+    'yaml',
+  },
+  callback = function()
+    if vim.fn.executable('npx') and vim.fn.empty(vim.fn.maparg('<Leader>gq', 'n')) then
+      vim.keymap.set('n', '<Leader>gq', ':%! npx prettier --stdin-filepath %<CR>', { silent = true })
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = vim.api.nvim_create_augroup('StyLuaFormat', {}),
+  pattern = { 'lua' },
+  callback = function()
+    if vim.fn.executable('npx') and vim.fn.empty(vim.fn.maparg('<Leader>gq', 'n')) then
+      vim.keymap.set('n', '<Leader>gq', ':%! npx @johnnymorganz/stylua-bin %<CR>', { silent = true })
+    end
+  end,
+})
 
 -- User Commands
 vim.api.nvim_create_user_command('R', function(args)
