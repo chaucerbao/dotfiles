@@ -192,19 +192,20 @@ local curl_client = {
     end
 
     -- Request Body
-    local data_methods = { POST = true, PUT = true, PATCH = true }
-    if #selected > 1 and data_methods[method] then
+    if #selected > 1 then
       table.remove(selected, 1)
 
-      local is_key_value = string.find(selected[1], '%S+=%S+')
-      local data = table.concat(selected, is_key_value and '&' or ' ')
-
-      if not is_key_value then
+      if string.find(selected[1], '%S+=%S+') then
+        for _, body_line in pairs(selected) do
+          for key_value_pair in string.gmatch(body_line, '[^&]+') do
+            table.insert(cmd_opts, '--data-urlencode "' .. key_value_pair .. '"')
+          end
+        end
+      else
         cmd_opts = filter(cmd_opts, function(opt) return not string.find(string.lower(opt), '^content-type:%s') end)
         table.insert(cmd_opts, '--header "Content-Type: application/json"')
+        table.insert(cmd_opts, '--data "' .. string.gsub(table.concat(selected, ' '), '"', '\\"') .. '"')
       end
-
-      table.insert(cmd_opts, '--data "' .. string.gsub(data, '"', '\\"') .. '"')
     end
 
     if method == 'GET' and (find(cmd_opts, function(line) return string.find(line, '^%-%-data%-urlencode') end)) then
