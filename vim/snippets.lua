@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     vim.cmd.inoreabbrev('<buffer>', '//h', '// Helpers<C-[>')
     vim.cmd.inoreabbrev('<buffer>', '//e', '// Exports<C-[>')
 
-    vim.cmd.inoreabbrev('<buffer>', 'clg', create_snippet('console.log({ | })'))
+    vim.cmd.inoreabbrev('<buffer>', 'clg', create_snippet('console.log(|)'))
     vim.cmd.inoreabbrev('<buffer>', 'clgj', create_snippet('console.log(JSON.stringify(|, null, 2))'))
     vim.cmd.inoreabbrev('<buffer>', 'im', create_snippet("import {} from '|'"))
   end,
