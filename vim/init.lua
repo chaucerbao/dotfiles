@@ -105,6 +105,7 @@ vim.keymap.set('n', '<C-w>z', '<C-w>_<C-w><Bar>')
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', { silent = true })
 vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { silent = true })
 vim.keymap.set('n', '<BS>', '<C-^>')
+vim.keymap.set('n', '<Leader>O', ':%bdelete|edit #|normal `"<CR>', { silent = true })
 
 -- Key Mappings: Yank/Paste
 vim.keymap.set({ 'n', 'v' }, '<Leader>y', '"+y')
