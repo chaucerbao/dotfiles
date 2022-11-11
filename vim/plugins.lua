@@ -155,7 +155,7 @@ require('packer').startup(function(use)
         content = {
           active = function()
             local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-            local git = MiniStatusline.section_git({ trunc_width = 75 })
+            local git = MiniStatusline.section_git({ trunc_width = 75, icon = '' })
             local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
             local filename = MiniStatusline.section_filename({ trunc_width = 140 })
             local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
@@ -168,7 +168,7 @@ require('packer').startup(function(use)
               mode_hl,
               mode,
               'StatusLine',
-              #git > 0 and string.format(' %s%s', left_separator, git) or '',
+              #git > 0 and string.format(' %s%s', left_separator, git:gsub('^%s*(.-)', '')) or '',
               #diagnostics > 0 and string.format(' %s%s', left_separator, diagnostics) or '',
               #filename > 0 and string.format(' %s%s', left_separator, filename) or '',
               #fileinfo > 0
