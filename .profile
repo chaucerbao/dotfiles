@@ -98,6 +98,8 @@ fi
 
 # Miscellaneous
 if [ -x "$(command -v bat)" ]; then alias c='bat'; else alias c='cat'; fi
+if [ ! -x "$(command -v prettier)" ] && [ -x "$(command -v npx)" ]; then alias prettier='npx prettier'; fi
+if [ ! -x "$(command -v stylua)" ] && [ -x "$(command -v npx)" ]; then alias stylua='npx @johnnymorganz/stylua-bin'; fi
 alias l='ls -l'
 alias ll='ls --almost-all -l'
 alias ls='ls --color --classify --group-directories-first --human-readable --literal'
