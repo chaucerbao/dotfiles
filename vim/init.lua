@@ -52,24 +52,6 @@ vim.fn.sign_define({
   { name = 'DiagnosticSignError', text = '✖', texthl = 'DiagnosticError' },
 })
 
--- Automatically Resize Windows
-vim.api.nvim_create_autocmd({ 'VimResized' }, {
-  group = vim.api.nvim_create_augroup('AutoResizeWindows', {}),
-  callback = function() vim.cmd.wincmd('=') end,
-})
-
--- Lists
-vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
-  group = vim.api.nvim_create_augroup('AutoOpenLists', {}),
-  callback = function(args)
-    if string.find(args.match, '^l') then
-      vim.cmd.lwindow()
-    else
-      vim.cmd.cwindow()
-    end
-  end,
-})
-
 -- Cursor Line
 vim.api.nvim_create_autocmd({ 'VimEnter', 'WinEnter', 'BufWinEnter', 'WinLeave' }, {
   group = vim.api.nvim_create_augroup('CursorLine', {}),
@@ -81,6 +63,32 @@ vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   group = vim.api.nvim_create_augroup('YankHighlight', {}),
   callback = function() vim.highlight.on_yank() end,
 })
+
+-- Automatically Resize Windows
+vim.api.nvim_create_autocmd({ 'VimResized' }, {
+  group = vim.api.nvim_create_augroup('AutoResizeWindows', {}),
+  callback = function() vim.cmd.wincmd('=') end,
+})
+
+-- Automatically Open Lists
+vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
+  group = vim.api.nvim_create_augroup('AutoOpenLists', {}),
+  callback = function(args)
+    if string.find(args.match, '^l') then
+      vim.cmd.lwindow()
+    else
+      vim.cmd.cwindow()
+    end
+  end,
+})
+
+-- Automatically Reload Files
+vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+  group = vim.api.nvim_create_augroup('AutoReloadFiles', {}),
+  pattern = { '*' },
+  callback = function() vim.cmd.checktime() end,
+})
+
 -- Built-in Packages
 vim.cmd('packadd! cfilter')
 
