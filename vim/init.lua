@@ -86,7 +86,7 @@ vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
 vim.api.nvim_create_autocmd({ 'CursorHold' }, {
   group = vim.api.nvim_create_augroup('AutoReloadFiles', {}),
   pattern = { '*' },
-  callback = function() vim.cmd.checktime() end,
+  callback = function() vim.cmd('checktime') end,
 })
 
 -- Built-in Packages
