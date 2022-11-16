@@ -19,10 +19,14 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|=*' 'l:|=* r
 # Disable START/STOP flow control to reclaim CTRL-S and CTRL-Q
 /bin/stty -ixon
 
-# Antibody plugin manager
-source <(antibody init)
-antibody bundle <<-PLUGINS
-	subnixr/minimal
-	rupa/z
-	zsh-users/zsh-syntax-highlighting
-PLUGINS
+# Antidote plugin manager
+antidote() { if [ ! -x "$(command -v antidote)" ] && [ -x "$(command -v brew)" ]; then source $(brew --prefix antidote)/share/antidote/antidote.zsh; fi; antidote "$@"; }
+if [ ! -f "$HOME/.cache/.zsh_plugins" ]; then
+	mkdir --parents $HOME/.cache
+	antidote bundle >$HOME/.cache/.zsh_plugins <<-PLUGINS
+		subnixr/minimal
+		rupa/z
+		zsh-users/zsh-syntax-highlighting
+	PLUGINS
+fi
+source $HOME/.cache/.zsh_plugins
