@@ -45,11 +45,11 @@ alias .....='cd ../../../..'
 
 # Docker
 alias d='docker'
-alias dc='docker-compose'
-alias dprune='d system prune --force'
-alias dps='d ps --all'
-alias drun='d run --interactive --tty --rm'
-alias dcrun='dc run --rm'
+alias dc='docker compose'
+alias dprune='docker system prune --force'
+alias dps='docker ps --all'
+alias drun='docker run --interactive --tty --rm'
+alias dcrun='docker compose run --rm'
 alias -- drun.='drun --volume=$PWD:/mnt/host'
 
 # Git
