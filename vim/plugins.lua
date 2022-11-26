@@ -200,7 +200,7 @@ require('packer').startup(function(use)
         require('mini.comment').setup()
         require('mini.completion').setup()
         require('mini.jump').setup({
-          mappings = { repeat_jump = '<NOP>' },
+          mappings = { repeat_jump = ',' },
         })
         require('mini.jump2d').setup({
           spotter = require('mini.jump2d').builtin_opts.word_start.spotter,
