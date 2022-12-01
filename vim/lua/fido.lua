@@ -132,6 +132,8 @@ local function render_client_response(client)
     vim.bo.buflisted = false
     vim.bo.buftype = 'nofile'
     vim.bo.swapfile = false
+
+    winnr = vim.fn.winnr()
   end
 
   vim.bo.readonly = false
@@ -145,6 +147,8 @@ local function render_client_response(client)
   vim.cmd('wincmd p')
 
   print(cmd)
+
+  return winnr
 end
 
 -- Clients
@@ -295,16 +299,25 @@ local redis_client = {
 }
 
 local function fetch(cmd_client)
+  local winnr = -1
+
   if cmd_client then
-    render_client_response(cmd_client)
+    winnr = render_client_response(cmd_client)
   elseif vim.bo.filetype == 'rest' and vim.fn.executable('curl') then
-    render_client_response(curl_client)
+    winnr = render_client_response(curl_client)
   elseif vim.bo.filetype == 'node' and vim.fn.executable('node') then
-    render_client_response(node_client)
+    winnr = render_client_response(node_client)
   elseif vim.bo.filetype == 'sql' and vim.fn.executable('psql') then
-    render_client_response(psql_client)
+    winnr = render_client_response(psql_client)
   elseif vim.bo.filetype == 'redis' and vim.fn.executable('redis-cli') then
-    render_client_response(redis_client)
+    winnr = render_client_response(redis_client)
+  end
+
+  if winnr > 0 then
+    vim.keymap.set('n', '<Leader>Q', function()
+      vim.cmd(winnr .. 'wincmd q')
+      vim.keymap.del('n', '<Leader>Q', { buffer = true })
+    end, { buffer = true })
   end
 end
 
