@@ -3,8 +3,8 @@ if [ -x "$(command -v bat)" ]; then
 	export BAT_CONFIG_PATH=~/.dotfiles/bat.conf
 fi
 
-if [ -x "$(command -v docker)" ]; then
-	export DOCKER_DEFAULT_PLATFORM=linux/amd64
+if [ -x "$(command -v docker)" ] && [ "$(uname -m)" = "arm64" ]; then
+	export DOCKER_DEFAULT_PLATFORM=linux/arm64
 fi
 
 if [ -x "$(command -v fzf)" ]; then
