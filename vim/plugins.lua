@@ -197,6 +197,7 @@ require('packer').startup(function(use)
         vim.api.nvim_set_hl(0, 'MiniJump', { link = 'SpecialChar' })
         vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { link = 'SpecialChar' })
 
+        require('mini.align').setup()
         require('mini.comment').setup()
         require('mini.completion').setup()
         require('mini.jump').setup({
