@@ -198,6 +198,14 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  group = vim.api.nvim_create_augroup('NodeSyntaxOverride', {}),
+  pattern = { 'node' },
+  callback = function()
+    vim.defer_fn(function() vim.bo.syntax = 'javascript' end, 0)
+  end,
+})
+
 -- User Commands
 vim.api.nvim_create_user_command('R', function(args)
   require('fido').fetch({
