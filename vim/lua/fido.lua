@@ -138,12 +138,10 @@ local function render_client_response(client)
 
   vim.bo.readonly = false
   vim.cmd('silent normal gg"_dG')
-
-  vim.api.nvim_buf_set_lines(0, 0, 0, false, response_lines)
-
-  vim.cmd('normal gg')
+  vim.api.nvim_buf_set_lines(0, 0, 0, false, client.reduce and client.reduce(response_lines) or response_lines)
   vim.bo.readonly = true
 
+  vim.cmd('normal gg')
   vim.cmd('wincmd p')
 
   print(cmd)
@@ -222,6 +220,21 @@ local curl_client = {
     local cmd = trim('curl ' .. table.concat(cmd_opts, ' ') .. ' "' .. url .. '"', '')
 
     return vim.fn.systemlist(cmd), cmd
+  end,
+  reduce = function(response_lines)
+    for i, line in pairs(response_lines) do
+      if i <= 50 then
+        local lowercase_line = string.lower(line)
+
+        if string.find(lowercase_line, '^content%-type: application/json') then
+          vim.bo.filetype = 'json'
+        elseif string.find(lowercase_line, '^content%-type: text/html') then
+          vim.bo.filetype = 'html'
+        end
+      end
+    end
+
+    return response_lines
   end,
 }
 
