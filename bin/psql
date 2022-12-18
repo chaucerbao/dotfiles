@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker run --interactive --rm --network host --volume /var/folders:/var/folders postgres:alpine psql "$@"
+docker run --interactive --rm --network host postgres:alpine psql "$@"
