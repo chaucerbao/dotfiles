@@ -149,7 +149,7 @@ end)
 -- Key Mappings: Search
 vim.keymap.set('n', '*', '/\\V\\<<C-r>=expand("<cword>")<CR>\\>\\C<CR>')
 vim.keymap.set('v', '*', 'y/\\V<C-r>=escape(@", "/\\\\")<CR>\\C<CR>')
-vim.keymap.set({ 'n', 'v' }, '<Leader>*', function(x)
+vim.keymap.set({ 'n', 'v' }, '<Leader>*', function()
   local search_term
   if string.find(string.lower(vim.fn.mode()), '^n') then
     search_term = vim.fn.expand('<cword>')
@@ -162,6 +162,30 @@ vim.keymap.set({ 'n', 'v' }, '<Leader>*', function(x)
   vim.cmd('silent grep "' .. vim.fn.escape(search_term, '"') .. '"')
   vim.opt.hlsearch = true
 end, { silent = true })
+
+-- Highlighting
+local highlight_namespace = vim.api.nvim_create_namespace('highlight')
+vim.keymap.set({ 'v' }, '<Leader>h', function()
+  vim.api.nvim_input('<C-[>')
+
+  vim.defer_fn(function()
+    local line_start = vim.fn.line("'<")
+    local line_end = vim.fn.line("'>")
+    local visual_block_mode = vim.fn.visualmode() == ''
+
+    for line_number = line_start, line_end do
+      vim.api.nvim_buf_add_highlight(
+        0,
+        highlight_namespace,
+        'StatusLineNC',
+        line_number - 1,
+        (line_number == line_start or visual_block_mode) and (vim.fn.col("'<") - 1) or 0,
+        (line_number == line_end or visual_block_mode) and (vim.fn.col("'>")) or -1
+      )
+    end
+  end, 0)
+end)
+vim.keymap.set({ 'n' }, '<Leader>H', function() vim.api.nvim_buf_clear_namespace(0, highlight_namespace, 0, -1) end)
 
 -- Key Mappings: Miscellaneous
 vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch)
