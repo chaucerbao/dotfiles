@@ -239,17 +239,5 @@ require('packer').startup(function(use)
     config = function() vim.keymap.set('v', '<Leader>cr', '<Plug>(abolish-coerce)') end,
   })
 
-  use({
-    'vimwiki/vimwiki',
-    config = function()
-      vim.g.vimwiki_list = {
-        {
-          path = '~/Library/Mobile Documents/com~apple~CloudDocs/Wiki/',
-          nested_syntaxes = { javascript = 'javascript' },
-        },
-      }
-    end,
-  })
-
   if not is_packer_installed then require('packer').sync() end
 end)
