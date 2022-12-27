@@ -107,18 +107,13 @@ require('packer').startup(function(use)
       })
 
       local builtin = require('telescope.builtin')
+      local utils = require('telescope.utils')
 
       vim.keymap.set('n', '<Leader>b', builtin.buffers)
       vim.keymap.set('n', '<Leader>f', builtin.find_files)
-      vim.keymap.set(
-        'n',
-        '<Leader>F',
-        function()
-          builtin.find_files({
-            cwd = '%:p:h',
-          })
-        end
-      )
+      vim.keymap.set('n', '<Leader>F', function() builtin.find_files({ cwd = utils.buffer_dir() }) end)
+      vim.keymap.set('n', '<Leader>g', builtin.live_grep)
+      vim.keymap.set('n', '<Leader>G', function() builtin.live_grep({ cwd = utils.buffer_dir() }) end)
     end,
   })
 
@@ -226,7 +221,7 @@ require('packer').startup(function(use)
       vim.keymap.set('n', '[c', ':Gitsigns prev_hunk<CR>zz', { silent = true })
       vim.keymap.set('n', ']c', ':Gitsigns next_hunk<CR>zz', { silent = true })
 
-      vim.keymap.set('n', '<Leader>G', ':Gitsigns setqflist all<CR>', { silent = true })
+      vim.keymap.set('n', '<Leader>gg', ':Gitsigns setqflist all<CR>', { silent = true })
 
       vim.keymap.set({ 'n', 'v' }, '<Leader>gs', ':Gitsigns stage_hunk<CR>', { silent = true })
       vim.keymap.set({ 'n', 'v' }, '<Leader>gu', ':Gitsigns undo_stage_hunk<CR>', { silent = true })
