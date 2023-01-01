@@ -90,6 +90,7 @@ alias ts='t new-session -A -s'
 # Vim
 if [ -x "$(command -v nvim)" ]; then
 	alias v='nvim'
+	alias vc='nvim --headless -c "autocmd User PackerCompileDone quitall" -c "PackerCompile"'
 	alias vup='nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"'
 else
 	alias v='vim'
