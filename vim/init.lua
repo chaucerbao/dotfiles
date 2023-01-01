@@ -206,7 +206,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     'yaml',
   },
   callback = function()
-    if vim.fn.executable('npx') and vim.fn.empty(vim.fn.maparg('<Leader>gq', 'n')) then
+    if vim.fn.executable('npx') then
       vim.keymap.set('n', '<Leader>gq', ':%! npx prettier --stdin-filepath "%"<CR>', { silent = true })
     end
   end,
@@ -216,7 +216,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = vim.api.nvim_create_augroup('StyLuaFormat', {}),
   pattern = { 'lua' },
   callback = function()
-    if vim.fn.executable('npx') and vim.fn.empty(vim.fn.maparg('<Leader>gq', 'n')) then
+    if vim.fn.executable('npx') then
       vim.keymap.set('n', '<Leader>gq', ':%! npx @johnnymorganz/stylua-bin "%"<CR>', { silent = true })
     end
   end,
