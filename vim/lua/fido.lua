@@ -105,15 +105,26 @@ local function apply_variables(global, selected)
 end
 
 local function render_client_response(client)
-  local name = '[' .. client.name .. ']'
-  local winnr = vim.fn.bufwinnr(vim.fn.escape(name, '[]'))
+  local name = vim.fn.escape('[' .. client.name .. ']', '[]')
+
+  -- Setup `window`
+  local window = {
+    focus = function(winnr) vim.cmd(winnr .. 'wincmd w') end,
+    parent = { winnr = vim.fn.bufwinnr('%') },
+    child = { winnr = vim.fn.bufwinnr(name) },
+  }
+
+  window.parent.bufnr = vim.fn.winbufnr(window.parent.winnr)
+  window.child.bufnr = vim.fn.winbufnr(window.child.winnr)
+
+  window.parent.focus = function() window.focus(window.parent.winnr) end
+  window.child.focus = function() window.focus(window.child.winnr) end
+
+  if client.hook and client.hook.before then client.hook.before(window) end
 
   local response_lines, cmd = client.execute()
 
-  if winnr > 0 then
-    -- Focus the existing response window
-    vim.cmd(winnr .. 'wincmd w')
-  else
+  if window.child.winnr < 0 then
     -- Create a new response window
     if client.vertical then
       local winwidth = vim.fn.winwidth(0)
@@ -133,20 +144,32 @@ local function render_client_response(client)
     vim.bo.buftype = 'nofile'
     vim.bo.swapfile = false
 
-    winnr = vim.fn.winnr()
+    window.child.winnr = vim.fn.winnr()
+    window.child.bufnr = vim.fn.winbufnr(window.child.winnr)
   end
 
-  vim.bo.readonly = false
-  vim.cmd('silent normal gg"_dG')
-  vim.api.nvim_buf_set_lines(0, 0, 0, false, client.reduce and client.reduce(response_lines) or response_lines)
-  vim.bo.readonly = true
+  window.child.replace_buffer = function(response_lines)
+    local starting_winnr = vim.fn.bufwinnr('%')
 
-  vim.cmd('normal gg')
-  vim.cmd('wincmd p')
+    window.child.focus()
+
+    vim.bo.readonly = false
+    vim.cmd('silent normal gg"_dG')
+    vim.api.nvim_buf_set_lines(0, 0, 0, false, client.reduce and client.reduce(response_lines) or response_lines)
+    vim.bo.readonly = true
+
+    vim.cmd('normal gg')
+
+    window.focus(starting_winnr)
+  end
+
+  window.child.replace_buffer(response_lines)
+
+  if client.hook and client.hook.after then client.hook.after(window) end
 
   print(cmd)
 
-  return winnr
+  return window
 end
 
 -- Clients
@@ -312,25 +335,40 @@ local redis_client = {
 }
 
 local function fetch(cmd_client)
-  local winnr = -1
+  local window = nil
 
   if cmd_client then
-    winnr = render_client_response(cmd_client)
+    window = render_client_response(cmd_client)
   elseif vim.bo.filetype == 'rest' and vim.fn.executable('curl') then
-    winnr = render_client_response(curl_client)
+    window = render_client_response(curl_client)
   elseif vim.bo.filetype == 'node' and vim.fn.executable('node') then
-    winnr = render_client_response(node_client)
+    window = render_client_response(node_client)
   elseif vim.bo.filetype == 'sql' and vim.fn.executable('psql') then
-    winnr = render_client_response(psql_client)
+    window = render_client_response(psql_client)
   elseif vim.bo.filetype == 'redis' and vim.fn.executable('redis-cli') then
-    winnr = render_client_response(redis_client)
+    window = render_client_response(redis_client)
   end
 
-  if winnr > 0 then
-    vim.keymap.set('n', '<Leader>Q', function()
-      vim.cmd(winnr .. 'wincmd q')
-      vim.keymap.del('n', '<Leader>Q', { buffer = true })
-    end, { buffer = true })
+  if window ~= nil then
+    local close_mapping = '<Leader>Q'
+
+    window.parent.focus()
+    if vim.fn.empty(vim.fn.mapcheck(close_mapping, 'n')) then
+      vim.keymap.set(
+        'n',
+        close_mapping,
+        function() vim.cmd(window.child.winnr .. 'wincmd q') end,
+        { buffer = window.parent.bufnr }
+      )
+    end
+
+    vim.api.nvim_create_autocmd({ 'BufUnload' }, {
+      group = vim.api.nvim_create_augroup('FidoClose', {}),
+      buffer = window.child.bufnr,
+      callback = function() vim.keymap.del('n', close_mapping, { buffer = window.parent.bufnr }) end,
+    })
+
+    window.parent.focus()
   end
 end
 

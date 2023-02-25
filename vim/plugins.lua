@@ -222,7 +222,6 @@ require('packer').startup(function(use)
       vim.keymap.set('n', ']c', ':Gitsigns next_hunk<CR>zz', { silent = true })
 
       vim.keymap.set('n', '<Leader>gb', ':Gitsigns blame_line<CR>', { silent = true })
-      vim.keymap.set('n', '<Leader>gB', ':Gitsigns toggle_current_line_blame<CR>', { silent = true })
       vim.keymap.set('n', '<Leader>gg', ':Gitsigns setqflist all<CR>', { silent = true })
 
       vim.keymap.set({ 'n', 'v' }, '<Leader>gs', ':Gitsigns stage_hunk<CR>', { silent = true })

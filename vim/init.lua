@@ -230,6 +230,88 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   end,
 })
 
+if vim.fn.executable('git') then
+  vim.keymap.set('n', '<Leader>gB', function()
+    require('fido').fetch({
+      name = 'GitBlame',
+      vertical = true,
+      execute = function()
+        local cmd_opts = {
+          '-c',
+          '--date=short',
+        }
+
+        table.insert(cmd_opts, '--')
+        table.insert(cmd_opts, vim.fn.expand('%'))
+
+        local cmd = 'git blame ' .. table.concat(cmd_opts, ' ')
+        return vim.fn.systemlist(cmd), cmd
+      end,
+      hook = {
+        before = function()
+          vim.wo.cursorbind = false
+          vim.wo.scrollbind = false
+        end,
+        after = function(window)
+          -- Synchronize the scroll-binding
+          window.child.focus()
+
+          vim.cmd('normal gg')
+          vim.wo.cursorbind = true
+          vim.wo.scrollbind = true
+
+          window.parent.focus()
+
+          local current_line = vim.fn.line('.')
+          vim.cmd('normal gg')
+          vim.wo.cursorbind = true
+          vim.wo.scrollbind = true
+          vim.cmd('normal ' .. current_line .. 'ggzz')
+
+          -- Key Mappings: Follow blame history
+          local follow_mapping = '<Leader>gB'
+
+          window.child.focus()
+          if vim.fn.empty(vim.fn.mapcheck(follow_mapping, 'n')) then
+            vim.keymap.set('n', follow_mapping, function()
+              -- Disable scroll-binding
+              window.parent.focus()
+              vim.wo.cursorbind = false
+              vim.wo.scrollbind = false
+
+              window.child.focus()
+              vim.wo.cursorbind = false
+              vim.wo.scrollbind = false
+
+              local revision = vim.fn.expand('<cword>')
+
+              local cmd_opts = {
+                '-c',
+                '--date=short',
+              }
+
+              table.insert(cmd_opts, revision .. '^1')
+              table.insert(cmd_opts, '--')
+              table.insert(cmd_opts, vim.fn.bufname(vim.fn.bufwinnr(window.parent.winnr)))
+
+              local cmd = 'git blame ' .. table.concat(cmd_opts, ' ')
+              local response_lines = vim.fn.systemlist(cmd)
+
+              local line = vim.fn.line('.')
+              window.child.replace_buffer(response_lines)
+              vim.cmd('normal ' .. line .. 'ggzz')
+
+              print(cmd)
+            end, { buffer = window.child.bufnr })
+          end
+
+          window.parent.focus()
+        end,
+      },
+    })
+  end)
+end
+
 -- User Commands
 vim.api.nvim_create_user_command('R', function(args)
   require('fido').fetch({
