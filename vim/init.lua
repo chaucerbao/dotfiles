@@ -292,7 +292,7 @@ if vim.fn.executable('git') then
 
               table.insert(cmd_opts, revision .. '^1')
               table.insert(cmd_opts, '--')
-              table.insert(cmd_opts, vim.fn.bufname(vim.fn.bufwinnr(window.parent.winnr)))
+              table.insert(cmd_opts, vim.fn.bufname(window.parent.bufnr))
 
               local cmd = 'git blame ' .. table.concat(cmd_opts, ' ')
               local response_lines = vim.fn.systemlist(cmd)
