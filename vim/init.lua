@@ -218,6 +218,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   callback = function()
     if vim.fn.executable('npx') then
       vim.opt_local.formatprg = 'npx prettier --parser ' .. prettier_filetypes[vim.bo.filetype]
+      vim.opt_local.formatexpr = nil
     end
   end,
 })
@@ -231,16 +232,12 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 })
 
 vim.keymap.set({ 'n', 'v' }, '<Leader>gq', function()
-  local is_normal_mode = string.find(vim.fn.mode(), '^n') > 0
+  local is_normal_mode = (string.find(vim.fn.mode(), '^n') or 0) > 0
 
-  if is_normal_mode and vim.fn.exists(':EslintFixAll') > 0 then
-    vim.cmd(':EslintFixAll')
+  if is_normal_mode then
+    vim.cmd(':normal gggqG')
   else
-    if is_normal_mode then
-      vim.cmd(':normal gggqG')
-    else
-      vim.cmd(':normal gq')
-    end
+    vim.cmd(':normal gq')
   end
 end, buffer_options)
 
