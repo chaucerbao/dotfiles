@@ -187,9 +187,19 @@ vim.keymap.set({ 'v' }, '<Leader>h', function()
 end)
 vim.keymap.set({ 'n' }, '<Leader>H', function() vim.api.nvim_buf_clear_namespace(0, highlight_namespace, 0, -1) end)
 
--- Key Mappings: Miscellaneous
-vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch)
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+-- Formatting
+local prettier_filetypes = {
+  html = 'html',
+  css = 'css',
+  scss = 'scss',
+  javascript = 'typescript',
+  javascriptreact = 'typescript',
+  typescript = 'typescript',
+  typescriptreact = 'typescript',
+  json = 'json',
+  markdown = 'markdown',
+  yaml = 'yaml',
+}
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = vim.api.nvim_create_augroup('PrettierFormat', {}),
@@ -207,7 +217,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   },
   callback = function()
     if vim.fn.executable('npx') then
-      vim.keymap.set('n', '<Leader>gq', ':%! npx prettier --stdin-filepath "%"<CR>', { silent = true })
+      vim.opt_local.formatprg = 'npx prettier --parser ' .. prettier_filetypes[vim.bo.filetype]
     end
   end,
 })
@@ -216,11 +226,27 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = vim.api.nvim_create_augroup('StyLuaFormat', {}),
   pattern = { 'lua' },
   callback = function()
-    if vim.fn.executable('npx') then
-      vim.keymap.set('n', '<Leader>gq', ':%! npx @johnnymorganz/stylua-bin "%"<CR>', { silent = true })
-    end
+    if vim.fn.executable('npx') then vim.opt_local.formatprg = 'npx @johnnymorganz/stylua-bin -' end
   end,
 })
+
+vim.keymap.set({ 'n', 'v' }, '<Leader>gq', function()
+  local is_normal_mode = string.find(vim.fn.mode(), '^n') > 0
+
+  if is_normal_mode and vim.fn.exists(':EslintFixAll') > 0 then
+    vim.cmd(':EslintFixAll')
+  else
+    if is_normal_mode then
+      vim.cmd(':normal gggqG')
+    else
+      vim.cmd(':normal gq')
+    end
+  end
+end, buffer_options)
+
+-- Key Mappings: Miscellaneous
+vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch)
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = vim.api.nvim_create_augroup('NodeSyntaxOverride', {}),

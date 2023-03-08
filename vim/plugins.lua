@@ -34,7 +34,6 @@ require('packer').startup(function(use)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, buffer_options)
         vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, buffer_options)
         vim.keymap.set({ 'n', 'v' }, '<Leader> ', vim.lsp.buf.code_action, buffer_options)
-        vim.keymap.set({ 'n', 'v' }, '<Leader>gq', function() vim.lsp.buf.format({ async = true }) end, buffer_options)
 
         if client.name == 'tsserver' then
           vim.keymap.set(
