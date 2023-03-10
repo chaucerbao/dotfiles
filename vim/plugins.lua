@@ -201,6 +201,7 @@ require('packer').startup(function(use)
           spotter = require('mini.jump2d').builtin_opts.word_start.spotter,
         })
         require('mini.pairs').setup()
+        require('mini.splitjoin').setup()
         require('mini.surround').setup()
       end, 0)
     end,
