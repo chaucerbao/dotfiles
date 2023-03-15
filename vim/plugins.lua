@@ -188,12 +188,17 @@ require('packer').startup(function(use)
         vim.api.nvim_set_hl(0, 'MiniStatuslineModeCommand', { ctermfg = 3, ctermbg = 8, cterm = nil })
         vim.api.nvim_set_hl(0, 'MiniStatuslineModeOther', { ctermfg = 3, ctermbg = 8, cterm = nil })
 
+        vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', { link = 'Comment' })
+
         vim.api.nvim_set_hl(0, 'MiniJump', { link = 'SpecialChar' })
         vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { link = 'SpecialChar' })
 
         require('mini.align').setup()
         require('mini.comment').setup()
         require('mini.completion').setup()
+        require('mini.indentscope').setup({
+          draw = { animation = require('mini.indentscope').gen_animation.none() },
+        })
         require('mini.jump').setup({
           mappings = { repeat_jump = ',' },
         })
