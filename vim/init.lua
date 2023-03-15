@@ -235,7 +235,7 @@ vim.keymap.set({ 'n', 'v' }, '<Leader>gq', function()
   local is_normal_mode = (string.find(vim.fn.mode(), '^n') or 0) > 0
 
   if is_normal_mode then
-    vim.cmd(':normal gggqG')
+    vim.cmd(":normal mzgggqG'zzz")
   else
     vim.cmd(':normal gq')
   end
