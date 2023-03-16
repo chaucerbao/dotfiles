@@ -197,6 +197,7 @@ local prettier_filetypes = {
   typescript = 'typescript',
   typescriptreact = 'typescript',
   json = 'json',
+  graphql = 'graphql',
   markdown = 'markdown',
   yaml = 'yaml',
 }
@@ -212,6 +213,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     'typescript',
     'typescriptreact',
     'json',
+    'graphql',
     'markdown',
     'yaml',
   },
