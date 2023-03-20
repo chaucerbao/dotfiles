@@ -21,7 +21,7 @@ local group = vim.api.nvim_create_augroup('AbbreviationSnippets', {})
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = group,
-  pattern = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+  pattern = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'node' },
   callback = function()
     vim.cmd.inoreabbrev('<buffer>', '//i', '// Imports<C-[>')
     vim.cmd.inoreabbrev('<buffer>', '//t', '// Type Definitions<C-[>')
@@ -31,6 +31,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 
     vim.cmd.inoreabbrev('<buffer>', 'clg', create_snippet('console.log(|)'))
     vim.cmd.inoreabbrev('<buffer>', 'clgj', create_snippet('console.log(JSON.stringify(|, null, 2))'))
+    vim.cmd.inoreabbrev('<buffer>', 'iife', create_snippet(';(async () => {|})()'))
     vim.cmd.inoreabbrev('<buffer>', 'im', create_snippet("import {} from '|'"))
   end,
 })

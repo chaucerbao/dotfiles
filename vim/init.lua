@@ -200,6 +200,7 @@ local prettier_filetypes = {
   graphql = 'graphql',
   markdown = 'markdown',
   yaml = 'yaml',
+  node = 'typescript',
 }
 
 vim.api.nvim_create_autocmd({ 'FileType' }, {
@@ -216,6 +217,7 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     'graphql',
     'markdown',
     'yaml',
+    'node',
   },
   callback = function()
     if vim.fn.executable('npx') then
