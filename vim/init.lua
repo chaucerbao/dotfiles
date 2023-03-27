@@ -89,6 +89,13 @@ vim.api.nvim_create_autocmd({ 'CursorHold' }, {
   callback = function() vim.cmd('checktime') end,
 })
 
+-- Automatically Open Files as Editable If A Swap File Exists
+vim.api.nvim_create_autocmd({ 'SwapExists' }, {
+  group = vim.api.nvim_create_augroup('AutoEditOnSwapFiles', {}),
+  pattern = { '*' },
+  callback = function() vim.v.swapchoice = 'e' end,
+})
+
 -- Built-in Packages
 vim.cmd('packadd! cfilter')
 
