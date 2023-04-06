@@ -19,21 +19,49 @@ require('packer').startup(function(use)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
         local buffer_options = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, buffer_options)
-        vim.keymap.set('n', '<Leader>gd', function()
-          vim.cmd.vsplit()
-          vim.lsp.buf.definition()
-        end, buffer_options)
-        vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, buffer_options)
-        vim.keymap.set('n', '<Leader>gD', function()
-          vim.cmd.vsplit()
-          vim.lsp.buf.type_definition()
-        end, buffer_options)
-        vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, buffer_options)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, buffer_options)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, buffer_options)
-        vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, buffer_options)
-        vim.keymap.set({ 'n', 'v' }, '<Leader> ', vim.lsp.buf.code_action, buffer_options)
+
+        if client.server_capabilities.definitionProvider then
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, buffer_options)
+          vim.keymap.set('n', '<Leader>gd', function()
+            vim.cmd.vsplit()
+            vim.lsp.buf.definition()
+          end, buffer_options)
+        end
+
+        if client.server_capabilities.typeDefinitionProvider then
+          vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, buffer_options)
+          vim.keymap.set('n', '<Leader>gD', function()
+            vim.cmd.vsplit()
+            vim.lsp.buf.type_definition()
+          end, buffer_options)
+        end
+
+        if client.server_capabilities.implementationProvider then
+          vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, buffer_options)
+        end
+
+        if client.server_capabilities.referencesProvider then
+          vim.keymap.set('n', 'gr', vim.lsp.buf.references, buffer_options)
+        end
+
+        if client.server_capabilities.hoverProvider then vim.keymap.set('n', 'K', vim.lsp.buf.hover, buffer_options) end
+
+        if client.server_capabilities.renameProvider then
+          vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, buffer_options)
+        end
+
+        if client.server_capabilities.codeActionProvider then
+          vim.keymap.set({ 'n', 'v' }, '<Leader> ', vim.lsp.buf.code_action, buffer_options)
+        end
+
+        if client.server_capabilities.documentFormattingProvider and not vim.opt_local.formatprg then
+          vim.keymap.set(
+            { 'n', 'v' },
+            '<Leader>gq',
+            function() vim.lsp.buf.format({ async = true }) end,
+            buffer_options
+          )
+        end
 
         if client.name == 'tsserver' then
           vim.keymap.set(
@@ -50,7 +78,7 @@ require('packer').startup(function(use)
         end
       end
 
-      local language_servers = { tsserver = 'typescript-language-server' }
+      local language_servers = { sqlls = 'sql-language-server', tsserver = 'typescript-language-server' }
       for server, binary in pairs(language_servers) do
         if vim.fn.executable(binary) then require('lspconfig')[server].setup({ on_attach = on_attach }) end
       end
