@@ -31,7 +31,7 @@ local function moveTo(target)
 end
 
 -- Control the volume of the active audio device
-function setVolume(target, message)
+local function setVolume(target, message)
   local audioDevice = hs.audiodevice.defaultOutputDevice()
 
   if target == 0 then
@@ -49,7 +49,7 @@ end
 -- Microphone Mute
 local micMuteIcon = hs.menubar.new(false)
 
-function toggleMicMute()
+local function toggleMicMute()
   local audioDevice = hs.audiodevice.defaultInputDevice()
 
   audioDevice:setInputMuted(not audioDevice:inputMuted())
@@ -67,7 +67,7 @@ end
 -- Caffeine
 local caffeineIcon = hs.menubar.new(false)
 
-function toggleCaffeine()
+local function toggleCaffeine()
   if hs.caffeinate.toggle('displayIdle') then
     caffeineIcon:returnToMenuBar()
     caffeineIcon:setTitle('☕️')
@@ -91,7 +91,7 @@ local autoClickerInterval = 0.1
 local autoClickerIcon = hs.menubar.new(false)
 local isAutoClicking = false
 
-function toggleAutoClicker()
+local function toggleAutoClicker()
   if isAutoClicking then
     autoClickerIcon:removeFromMenuBar()
     isAutoClicking = false
@@ -110,7 +110,7 @@ function toggleAutoClicker()
 end
 
 -- Mouse bindings
-local mouseClickEvent = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(tapEvent)
+_G.mouseClickEvent = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(tapEvent)
   local buttonIndex = tapEvent:getProperty(hs.eventtap.event.properties.mouseEventButtonNumber)
 
   if buttonIndex == 3 then
@@ -119,7 +119,7 @@ local mouseClickEvent = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown
     hs.eventtap.keyStroke({ 'cmd' }, ']')
   end
 end)
-mouseClickEvent:start()
+_G.mouseClickEvent:start()
 
 -- Hotkey bindings
 local mods = { 'ctrl', 'cmd' }
@@ -150,7 +150,7 @@ hs.hotkey.bind(mods, ']', function() hs.window.frontmostWindow():moveOneScreenEa
 
 hs.hotkey.bind(mods, '0', function() setVolume(0, { 'Mute', 'Unmute' }) end)
 hs.hotkey.bind(mods, '-', function() setVolume(2 / 16, 'Volume low') end)
-hs.hotkey.bind(mods, '=', function() setVolume(6 / 16, 'Volume normal') end)
+hs.hotkey.bind(mods, '=', function() setVolume(8 / 16, 'Volume normal') end)
 hs.hotkey.bind(mods, 'delete', function() toggleMicMute() end)
 
 hs.hotkey.bind(mods, 'A', toggleAutoClicker)
