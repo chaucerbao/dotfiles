@@ -150,17 +150,28 @@ require('packer').startup(function(use)
     config = function()
       require('telescope').load_extension('file_browser')
 
+      local utils = require('telescope.utils')
+
+      local file_browser_options = {
+        dir_icon = '',
+        grouped = true,
+        hide_parent_dir = true,
+        select_buffer = true,
+      }
+
       vim.keymap.set(
         'n',
         '<Leader>e',
+        function() require('telescope').extensions.file_browser.file_browser(file_browser_options) end
+      )
+
+      vim.keymap.set(
+        'n',
+        '<Leader>E',
         function()
-          require('telescope').extensions.file_browser.file_browser({
-            path = '%:p:h',
-            dir_icon = '',
-            grouped = true,
-            hide_parent_dir = true,
-            select_buffer = true,
-          })
+          require('telescope').extensions.file_browser.file_browser(vim.tbl_extend('force', file_browser_options, {
+            path = utils.buffer_dir(),
+          }))
         end
       )
     end,
