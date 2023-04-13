@@ -116,10 +116,20 @@ require('packer').startup(function(use)
     config = function()
       require('nvim-treesitter.configs').setup({
         highlight = { enable = true },
-        textobjects = { enable = true },
       })
     end,
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+  })
+
+  use({
+    'nvim-treesitter/nvim-treesitter-context',
+    requires = { { 'nvim-treesitter/nvim-treesitter' } },
+    config = function()
+      require('treesitter-context').setup({
+        mode = 'topline',
+        separator = '-',
+      })
+    end,
   })
 
   use({
