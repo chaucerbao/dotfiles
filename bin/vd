@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Note: Build the Docker image from https://github.com/saulpw/visidata
-
-docker run --interactive --tty --rm --volume=$PWD:/mnt/host:ro --workdir=/mnt/host --entrypoint=/usr/local/bin/vd visidata "$@"
