@@ -118,4 +118,4 @@ fd() { if [ -n "$1" ]; then rg --files --glob "*$1*" "${2:-.}"; fi; }
 gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
 gbh() { if [ -n "$1" ]; then git checkout -b "hotfix/$1" "${2:-master}"; fi; }
 G() { if [ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then v +Git +only +"nnoremap <silent> <buffer> q :qall<CR>"; fi; }
-myip() { curl --header "Accept: application/json" "https://ipinfo.io/$@" }
+myip() { curl --header "Accept: application/json" "https://ipinfo.io/$@"; }
