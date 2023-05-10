@@ -16,7 +16,7 @@ require('packer').startup(function(use)
     'neovim/nvim-lspconfig',
     config = function()
       local on_attach = function(client, bufnr)
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.MiniCompletion.completefunc_lsp')
 
         local buffer_options = { noremap = true, silent = true, buffer = bufnr }
 
@@ -244,7 +244,21 @@ require('packer').startup(function(use)
 
         require('mini.align').setup()
         require('mini.comment').setup()
-        require('mini.completion').setup()
+        require('mini.completion').setup({
+          lsp_completion = {
+            source_func = 'omnifunc',
+            auto_setup = false,
+            process_items = function(items, base)
+              for _, item in ipairs(items) do
+                local new_text = (item.textEdit or {}).newText
+                if type(new_text) == 'string' then item.textEdit.newText = new_text:gsub('^%.+', '') end
+              end
+
+              return MiniCompletion.default_process_items(items, base)
+            end,
+          },
+          fallback_action = '',
+        })
         require('mini.indentscope').setup({
           draw = { animation = require('mini.indentscope').gen_animation.none() },
         })
