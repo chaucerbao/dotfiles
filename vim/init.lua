@@ -115,7 +115,11 @@ vim.keymap.set('n', '<C-h>', '<C-w>h')
 vim.keymap.set('n', '<C-j>', '<C-w>j')
 vim.keymap.set('n', '<C-k>', '<C-w>k')
 vim.keymap.set('n', '<C-l>', '<C-w>l')
-vim.keymap.set('n', '<C-w>z', '<C-w>_<C-w><Bar>')
+vim.keymap.set('n', '<M-h>', '<C-w><')
+vim.keymap.set('n', '<M-j>', '<C-w>-')
+vim.keymap.set('n', '<M-k>', '<C-w>+')
+vim.keymap.set('n', '<M-l>', '<C-w>>')
+vim.keymap.set('n', '<M-z>', '<C-w>_<C-w><Bar>')
 
 -- Key Mappings: Buffers
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', { silent = true })
