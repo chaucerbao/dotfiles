@@ -1,5 +1,6 @@
 -- General
 vim.opt.confirm = true
+vim.opt.cmdheight = 0
 vim.opt.mouse = 'a'
 vim.opt.number = true
 vim.opt.spell = true

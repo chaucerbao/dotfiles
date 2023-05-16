@@ -163,7 +163,6 @@ require('packer').startup(function(use)
       local utils = require('telescope.utils')
 
       local file_browser_options = {
-        dir_icon = '',
         grouped = true,
         hide_parent_dir = true,
         select_buffer = true,
@@ -196,15 +195,16 @@ require('packer').startup(function(use)
     end,
   })
 
+  use({ 'nvim-tree/nvim-web-devicons' })
+
   use({
     'echasnovski/mini.nvim',
     config = function()
       require('mini.statusline').setup({
-        use_icons = false,
         content = {
           active = function()
             local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-            local git = MiniStatusline.section_git({ trunc_width = 75, icon = '' })
+            local git = MiniStatusline.section_git({ trunc_width = 75 })
             local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
             local filename = MiniStatusline.section_filename({ trunc_width = 140 })
             local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
@@ -213,13 +213,13 @@ require('packer').startup(function(use)
             local right_separator = '〈'
 
             return string.format(
-              ' %%#%s#%s%%#%s#%s%s%%<%s%%=%s%s ',
+              ' %%#%s#%s%%#%s#%s%s%%<%%=%s%s%s ',
               mode_hl,
               mode,
               'StatusLine',
               #git > 0 and string.format(' %s%s', left_separator, git:gsub('^%s*(.-)', '')) or '',
-              #diagnostics > 0 and string.format(' %s%s', left_separator, diagnostics) or '',
               #filename > 0 and string.format(' %s%s', left_separator, filename) or '',
+              #diagnostics > 0 and string.format('%s%s', diagnostics, right_separator) or '',
               #fileinfo > 0
                   and string.format(' %s%s ', string.gsub(fileinfo, '%s+%S+%[%S+%]', right_separator), right_separator)
                 or '',
@@ -271,6 +271,7 @@ require('packer').startup(function(use)
         require('mini.pairs').setup()
         require('mini.splitjoin').setup()
         require('mini.surround').setup()
+        require('mini.tabline').setup()
       end, 0)
     end,
   })
