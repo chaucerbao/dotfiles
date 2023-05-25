@@ -261,6 +261,24 @@ end, buffer_options)
 vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch)
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
+local function set_smart_tab(tab, pum_mapping)
+  vim.keymap.set('i', tab, function()
+    local line = vim.api.nvim_get_current_line()
+    local row, column = unpack(vim.api.nvim_win_get_cursor(0))
+
+    if vim.fn.pumvisible() == 1 then
+      return pum_mapping
+    elseif column > 0 and (string.match(line:sub(column, column), '%s') == nil) then
+      return '<C-]>'
+    else
+      return tab
+    end
+  end, { expr = true, noremap = true })
+end
+
+set_smart_tab('<Tab>', '<C-n>')
+set_smart_tab('<S-Tab>', '<C-p>')
+
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = vim.api.nvim_create_augroup('NodeSyntaxOverride', {}),
   pattern = { 'node' },
