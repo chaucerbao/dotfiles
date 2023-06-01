@@ -187,7 +187,7 @@ require('packer').startup(function(use)
   })
 
   use({
-    'arcticicestudio/nord-vim',
+    'nordtheme/vim',
     config = function()
       vim.g.nord_uniform_diff_background = 1
       vim.g.nord_uniform_status_lines = 1
