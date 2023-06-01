@@ -10,6 +10,10 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '»·', trail = '·', nbsp = '◡' }
 vim.opt.diffopt:append({ 'algorithm:patience', 'vertical' })
 
+if (os.getenv('COLORTERM') == 'truecolor') then
+  vim.opt.termguicolors = true
+end
+
 -- Completion
 vim.opt.complete:remove({ 't' })
 vim.opt.completeopt = { 'menuone', 'noselect' }
