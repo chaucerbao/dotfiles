@@ -91,7 +91,7 @@ alias ts='t new-session -A -s'
 if [ -x "$(command -v nvim)" ]; then
 	alias v='nvim'
 	alias vc='nvim --headless -c "autocmd User PackerCompileDone quitall" -c "PackerCompile"'
-	alias vup='nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"'
+	alias vup='nvim --headless -c "autocmd User PackerComplete TSUpdateSync|quitall" -c "PackerSync"'
 else
 	alias v='vim'
 	alias vup='vim +PlugUpgrade +PlugUpdate +only +"normal D" +CocUpdate +"nnoremap <silent> q :quitall<CR>"'
@@ -103,7 +103,7 @@ if [ ! -x "$(command -v prettier)" ] && [ -x "$(command -v npx)" ]; then alias p
 if [ ! -x "$(command -v stylua)" ] && [ -x "$(command -v npx)" ]; then alias stylua='npx @johnnymorganz/stylua-bin'; fi
 alias l='ls -l'
 alias ll='ls --almost-all -l'
-alias ls='ls --color --classify --group-directories-first --human-readable --literal'
+alias ls='ls --color=auto --classify --group-directories-first --human-readable --hyperlink=auto --literal'
 
 # macOS
 if [[ $OSTYPE == "darwin"* ]]; then
