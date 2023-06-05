@@ -1,1 +1,4 @@
-application/javascript jsx ts tsx
+# https://www.iana.org/assignments/media-types/media-types.xhtml
+
+application/yaml yaml yml
+text/javascript jsx ts tsx
