@@ -75,6 +75,15 @@ alias gst='git st'
 alias gsta='git sta'
 alias gstp='git stp'
 
+# Kitty
+if [ -x "$(command -v kitty)" ]; then
+	alias icat='kitty +kitten icat'
+
+	if [ -x "$(command -v rg)" ]; then
+		alias rg='kitty +kitten hyperlinked_grep'
+	fi
+fi
+
 # Node
 alias npmD='npm install --save-dev'
 alias npmS='npm install --save'

@@ -24,6 +24,10 @@ else
 				unzip -d $HOME/.hammerspoon/Spoons/ ClipboardTool.spoon.zip
 				rm ClipboardTool.spoon.zip
 				;;
+			kitty )
+				mkdir -p $HOME/.config/kitty/
+				ln -s $DOTFILES_ABS/kitty/mime.types $DOTFILES_ABS/kitty/open-actions.conf $HOME/.config/kitty/
+				;;
 			neovim )
 				mkdir -p $HOME/.config/nvim/
 				ln -s $DOTFILES_ABS/vim/lua $HOME/.config/nvim/
