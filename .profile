@@ -76,8 +76,9 @@ alias gsta='git sta'
 alias gstp='git stp'
 
 # Kitty
-if [ -x "$(command -v kitty)" ]; then
+if [ -x "$(command -v kitty)" ] && [ ! -z "${KITTY_WINDOW_ID:+X}" ]; then
 	alias icat='kitty +kitten icat'
+	alias ssh='kitty +kitten ssh'
 
 	if [ -x "$(command -v rg)" ]; then
 		alias rg='kitty +kitten hyperlinked_grep'
