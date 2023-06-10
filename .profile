@@ -26,12 +26,12 @@ if [ -x "$(command -v rg)" ]; then
 fi
 
 if [ "$(uname -m)" = "arm64" ]; then
-	COREUTILS="/opt/homebrew/opt/coreutils/libexec/gnubin:"
+	COREUTILS="/opt/homebrew/opt/coreutils/libexec/gnubin"
 else
-	COREUTILS="/usr/local/opt/coreutils/libexec/gnubin:"
+	COREUTILS="/usr/local/opt/coreutils/libexec/gnubin"
 fi
 
-export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:$COREUTILS$PATH
+export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:$COREUTILS:$PATH
 
 # History
 HISTSIZE=5000
