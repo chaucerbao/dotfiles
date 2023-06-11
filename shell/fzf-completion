@@ -1,0 +1,7 @@
+_fzf_complete_gco() {
+	_fzf_complete --multi -- "$@" < <(git branch --verbose | awk '{ sub(/^\*/, ""); print $1 }')
+}
+
+_fzf_complete_z() {
+	_fzf_complete --exact --no-sort --tac -- "$@" < <(z -l | awk '{ print $2 }')
+}

@@ -12,7 +12,7 @@ else
 	for i do
 		case "$i" in
 			bash )
-				echo "source $DOTFILES/.bashrc" >> $HOME/.bashrc
+				echo "source $DOTFILES/shell/.bashrc" >> $HOME/.bashrc
 				;;
 			git )
 				git config --global include.path "$DOTFILES/.gitconfig"
@@ -54,7 +54,7 @@ else
 				if [[ "$OSTYPE" == "darwin"* ]]; then echo "let g:vimwiki_list=[{ 'path': '~/Library/Mobile Documents/com~apple~CloudDocs/Wiki/', 'nested_syntaxes': {'javascript': 'javascript'} }]" >> $HOME/.vimrc; fi
 				;;
 			zsh )
-				echo "source $DOTFILES/.zshrc" >> $HOME/.zshrc
+				echo "source $DOTFILES/shell/.zshrc" >> $HOME/.zshrc
 				;;
 			* )
 				echo "Unrecognized: $i"

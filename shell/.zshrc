@@ -1,5 +1,5 @@
 # Import Profile
-source ${0:a:h}/.profile
+source ${0:a:h}/profile
 
 # Navigation
 setopt AUTO_CD
@@ -30,3 +30,6 @@ if [ ! -f "$HOME/.cache/.zsh_plugins" ]; then
 	PLUGINS
 fi
 source $HOME/.cache/.zsh_plugins
+
+# Custom FZF Completions
+source ${0:a:h}/fzf-completion
