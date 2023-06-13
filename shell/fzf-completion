@@ -1,4 +1,12 @@
 if [ -x "$(command -v fzf)" ]; then
+	_fzf_complete_d() {
+		_fzf_complete --no-sort --multi -- "$@" < <(docker ps --all | awk 'NR > 1')
+	}
+
+	_fzf_complete_d_post() {
+		awk '{ print $1 }'
+	}
+
 	_fzf_complete_gco() {
 		_fzf_complete --no-sort -- "$@" < <(git branch --verbose | awk '{ sub(/^\*/, ""); print $1 }')
 	}
