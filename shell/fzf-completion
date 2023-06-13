@@ -1,16 +1,25 @@
 if [ -x "$(command -v fzf)" ]; then
-	_fzf_complete_d() {
-		_fzf_complete --no-sort --multi -- "$@" < <(docker ps --all | awk 'NR > 1')
+	# Docker
+	_fzf_complete_docker() {
+		_fzf_complete --exact --no-sort --multi -- "$@" < <(docker ps --all | awk 'NR > 1')
 	}
 
-	_fzf_complete_d_post() {
+	_fzf_complete_docker_post() {
 		awk '{ print $1 }'
 	}
 
-	_fzf_complete_gco() {
+	_fzf_complete_d() { _fzf_complete_docker }
+	_fzf_complete_d_post() { _fzf_complete_docker_post }
+
+	# Git
+	_fzf_complete_git() {
 		_fzf_complete --no-sort -- "$@" < <(git branch --verbose | awk '{ sub(/^\*/, ""); print $1 }')
 	}
 
+	_fzf_complete_g() { _fzf_complete_git }
+	_fzf_complete_gco() { _fzf_complete_git }
+
+	# Z
 	_fzf_complete_z() {
 		_fzf_complete --exact --no-sort --tac -- "$@" < <(z -l | awk '{ print $2 }')
 	}
