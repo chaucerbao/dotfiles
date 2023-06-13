@@ -8,7 +8,7 @@ if [ -x "$(command -v fzf)" ]; then
 		awk '{ print $1 }'
 	}
 
-	_fzf_complete_d() { _fzf_complete_docker }
+	_fzf_complete_d() { _fzf_complete_docker "$@" }
 	_fzf_complete_d_post() { _fzf_complete_docker_post }
 
 	# Git
@@ -16,8 +16,8 @@ if [ -x "$(command -v fzf)" ]; then
 		_fzf_complete --no-sort -- "$@" < <(git branch --verbose | awk '{ sub(/^\*/, ""); print $1 }')
 	}
 
-	_fzf_complete_g() { _fzf_complete_git }
-	_fzf_complete_gco() { _fzf_complete_git }
+	_fzf_complete_g() { _fzf_complete_git "$@" }
+	_fzf_complete_gco() { _fzf_complete_git "$@" }
 
 	# Z
 	_fzf_complete_z() {
