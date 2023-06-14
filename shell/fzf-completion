@@ -1,7 +1,11 @@
 if [ -x "$(command -v fzf)" ]; then
 	# Docker
 	_fzf_complete_docker() {
-		_fzf_complete --exact --no-sort --multi -- "$@" < <(docker ps --all | awk 'NR > 1')
+		if [[ "$@" == *" rmi "* ]]; then
+			_fzf_complete --exact --no-sort --multi -- "$@" < <(docker images --all | awk 'NR > 1')
+		else
+			_fzf_complete --exact --no-sort --multi -- "$@" < <(docker ps --all | awk 'NR > 1')
+		fi
 	}
 
 	_fzf_complete_docker_post() {
