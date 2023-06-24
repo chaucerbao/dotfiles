@@ -187,12 +187,8 @@ require('packer').startup(function(use)
   })
 
   use({
-    'nordtheme/vim',
-    config = function()
-      vim.g.nord_uniform_diff_background = 1
-      vim.g.nord_uniform_status_lines = 1
-      vim.cmd('colorscheme nord')
-    end,
+    'folke/tokyonight.nvim',
+    config = function() vim.cmd('colorscheme tokyonight-night') end,
   })
 
   use({ 'nvim-tree/nvim-web-devicons' })
@@ -230,36 +226,12 @@ require('packer').startup(function(use)
       })
 
       vim.defer_fn(function()
-        vim.api.nvim_set_hl(
-          0,
-          'MiniStatuslineModeNormal',
-          { fg = vim.g.terminal_color_15, bg = vim.g.terminal_color_8, ctermfg = 15, ctermbg = 8, cterm = nil }
-        )
-        vim.api.nvim_set_hl(
-          0,
-          'MiniStatuslineModeVisual',
-          { fg = vim.g.terminal_color_5, bg = vim.g.terminal_color_8, ctermfg = 5, ctermbg = 8, cterm = nil }
-        )
-        vim.api.nvim_set_hl(
-          0,
-          'MiniStatuslineModeInsert',
-          { fg = vim.g.terminal_color_3, bg = vim.g.terminal_color_8, ctermfg = 3, ctermbg = 8, cterm = nil }
-        )
-        vim.api.nvim_set_hl(
-          0,
-          'MiniStatuslineModeReplace',
-          { fg = vim.g.terminal_color_1, bg = vim.g.terminal_color_8, ctermfg = 1, ctermbg = 8, cterm = nil }
-        )
-        vim.api.nvim_set_hl(
-          0,
-          'MiniStatuslineModeCommand',
-          { fg = vim.g.terminal_color_3, bg = vim.g.terminal_color_8, ctermfg = 3, ctermbg = 8, cterm = nil }
-        )
-        vim.api.nvim_set_hl(
-          0,
-          'MiniStatuslineModeOther',
-          { fg = vim.g.terminal_color_3, bg = vim.g.terminal_color_8, ctermfg = 3, ctermbg = 8, cterm = nil }
-        )
+        vim.api.nvim_set_hl(0, 'MiniStatuslineModeNormal', { fg = vim.g.terminal_color_15, ctermfg = 15, cterm = nil })
+        vim.api.nvim_set_hl(0, 'MiniStatuslineModeVisual', { fg = vim.g.terminal_color_5, ctermfg = 5, cterm = nil })
+        vim.api.nvim_set_hl(0, 'MiniStatuslineModeInsert', { fg = vim.g.terminal_color_3, ctermfg = 3, cterm = nil })
+        vim.api.nvim_set_hl(0, 'MiniStatuslineModeReplace', { fg = vim.g.terminal_color_1, ctermfg = 1, cterm = nil })
+        vim.api.nvim_set_hl(0, 'MiniStatuslineModeCommand', { fg = vim.g.terminal_color_3, ctermfg = 3, cterm = nil })
+        vim.api.nvim_set_hl(0, 'MiniStatuslineModeOther', { fg = vim.g.terminal_color_3, ctermfg = 3, cterm = nil })
 
         vim.api.nvim_set_hl(0, 'MiniIndentscopeSymbol', { link = 'Comment' })
 

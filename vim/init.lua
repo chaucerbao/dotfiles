@@ -1,6 +1,5 @@
 -- General
 vim.opt.confirm = true
-vim.opt.cmdheight = 0
 vim.opt.mouse = 'a'
 vim.opt.number = true
 vim.opt.spell = true
@@ -193,7 +192,7 @@ vim.keymap.set({ 'v' }, '<Leader>h', function()
       vim.api.nvim_buf_add_highlight(
         0,
         highlight_namespace,
-        'StatusLineNC',
+        'IncSearch',
         line_number - 1,
         (line_number == line_start or visual_block_mode) and (vim.fn.col("'<") - 1) or 0,
         (line_number == line_end or visual_block_mode) and (vim.fn.col("'>")) or -1
