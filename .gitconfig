@@ -31,7 +31,9 @@
 	rhh = reset HEAD --hard
 	st = status
 	sta = stash push
+	stl = stash list
 	stp = stash pop
+	sts = stash show
 	undo = reset HEAD~1
 	wipe = clean --interactive --force -dx
 [color "diff"]

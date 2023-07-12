@@ -74,7 +74,9 @@ alias grh='git rh'
 alias grhh='git rhh'
 alias gst='git st'
 alias gsta='git sta'
+alias gstl='git stl'
 alias gstp='git stp'
+alias gsts='git sts'
 
 # Kitty
 if [ -x "$(command -v kitty)" ] && [ ! -z "${KITTY_WINDOW_ID:+X}" ]; then
