@@ -4,7 +4,7 @@ pane_frames false
 theme "tokyo-night-dark"
 
 keybinds clear-defaults=true {
-  locked {
+  session {
     bind "d" { Detach; }
 
     bind "t" { SwitchToMode "Tab"; }
@@ -92,7 +92,7 @@ keybinds clear-defaults=true {
     bind "Enter" { SwitchToMode "Normal"; }
   }
 
-  shared_among "locked" "tab" "pane" "move" "resize" "scroll" "search" {
+  shared_among "session" "tab" "pane" "move" "resize" "scroll" "search" {
     bind "Esc" "q" { SwitchToMode "Normal"; }
   }
 
@@ -106,8 +106,8 @@ keybinds clear-defaults=true {
     bind "Ctrl b" "PageUp" { PageScrollUp; }
   }
 
-  shared_except "locked" {
-    bind "Ctrl w" { SwitchToMode "Locked"; }
+  shared_except "session" {
+    bind "Ctrl w" { SwitchToMode "Session"; }
     bind "Alt n" { NewPane; }
     bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
     bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
