@@ -1,3 +1,8 @@
+copy_command "pbcopy"
+default_layout "compact"
+pane_frames false
+theme "tokyo-night-dark"
+
 keybinds clear-defaults=true {
   locked {
     bind "d" { Detach; }
@@ -113,7 +118,9 @@ keybinds clear-defaults=true {
   }
 }
 
-copy_command "pbcopy"
-default_layout "compact"
-pane_frames false
-theme "tokyo-night-dark"
+ui {
+  pane_frames {
+    hide_session_name true
+    rounded_corners true
+  }
+}
