@@ -53,6 +53,10 @@ else
 				echo "let g:coc_config_home='$DOTFILES/vim/'" >> $HOME/.vimrc
 				if [[ "$OSTYPE" == "darwin"* ]]; then echo "let g:vimwiki_list=[{ 'path': '~/Library/Mobile Documents/com~apple~CloudDocs/Wiki/', 'nested_syntaxes': {'javascript': 'javascript'} }]" >> $HOME/.vimrc; fi
 				;;
+			zellij )
+				mkdir -p $HOME/.config/zellij/
+				ln -s $DOTFILES_ABS/zellij.kdl $HOME/.config/zellij/config.kdl
+				;;
 			zsh )
 				echo "source $DOTFILES/shell/.zshrc" >> $HOME/.zshrc
 				;;
