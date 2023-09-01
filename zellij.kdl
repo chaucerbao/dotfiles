@@ -13,7 +13,6 @@ keybinds clear-defaults=true {
     bind "r" { SwitchToMode "Resize"; }
     bind "s" { SwitchToMode "Scroll"; }
 
-    bind "Tab" { NewTab; SwitchToMode "Normal"; }
     bind "h" "Left" { GoToPreviousTab; }
     bind "l" "Right" { GoToNextTab; }
     bind "1" { GoToTab 1; SwitchToMode "Normal"; }
@@ -108,6 +107,7 @@ keybinds clear-defaults=true {
 
   shared_except "session" {
     bind "Ctrl w" { SwitchToMode "Session"; }
+    bind "Alt t" { NewTab; SwitchToMode "Normal"; }
     bind "Alt n" { NewPane; }
     bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
     bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
