@@ -34,9 +34,4 @@ if [ -x "$(command -v fzf)" ]; then
 
 	_fzf_complete_pnpm() { _fzf_complete_npm "$@"; }
 	_fzf_complete_pnpm_post() { _fzf_complete_npm_post; }
-
-	# Z
-	_fzf_complete_z() {
-		_fzf_complete --exact --no-sort --tac -- "$@" < <(z -l | awk '{ print $2 }')
-	}
 fi
