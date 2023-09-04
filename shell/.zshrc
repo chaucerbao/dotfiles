@@ -25,7 +25,6 @@ if [ ! -f "$HOME/.cache/.zsh_plugins" ]; then
 	mkdir --parents $HOME/.cache
 	antidote bundle >$HOME/.cache/.zsh_plugins <<-PLUGINS
 		subnixr/minimal
-		rupa/z
 		zsh-users/zsh-syntax-highlighting
 	PLUGINS
 fi

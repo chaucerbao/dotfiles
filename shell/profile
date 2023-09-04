@@ -1,3 +1,6 @@
+# History
+HISTSIZE=5000
+
 # Exports
 if [ -x "$(command -v bat)" ]; then
 	export BAT_CONFIG_PATH=~/.dotfiles/bat.conf
@@ -34,8 +37,17 @@ fi
 
 export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:$COREUTILS:$PATH
 
-# History
-HISTSIZE=5000
+# Utilities
+if [ -x "$(command -v zoxide)" ]; then
+	case "$SHELL" in
+		*/bash*)
+			eval "$(zoxide init bash)"
+			;;
+		*/zsh*)
+			eval "$(zoxide init zsh)"
+			;;
+	esac
+fi
 
 # Navigation
 alias -- -='cd -'
@@ -89,16 +101,20 @@ if [ -x "$(command -v kitty)" ] && [ ! -z "${KITTY_WINDOW_ID:+X}" ]; then
 fi
 
 # Node
-alias npmD='npm install --save-dev'
-alias npmS='npm install --save'
-alias npmR='rm --force --recursive node_modules; npm install'
+if [ -x "$(command -v npm)" ]; then
+	alias npmD='npm install --save-dev'
+	alias npmS='npm install --save'
+	alias npmR='rm --force --recursive node_modules; npm install'
+fi
 
 # tmux
-alias t='tmux'
-alias ta='t attach-session'
-alias tks='t kill-server'
-alias tls='t list-sessions'
-alias ts='t new-session -A -s'
+if [ -x "$(command -v tmux)" ]; then
+	alias t='tmux'
+	alias ta='t attach-session'
+	alias tks='t kill-server'
+	alias tls='t list-sessions'
+	alias ts='t new-session -A -s'
+fi
 
 # Vim
 if [ -x "$(command -v nvim)" ]; then
@@ -108,6 +124,15 @@ if [ -x "$(command -v nvim)" ]; then
 else
 	alias v='vim'
 	alias vup='vim +PlugUpgrade +PlugUpdate +only +"normal D" +CocUpdate +"nnoremap <silent> q :quitall<CR>"'
+fi
+
+# Zellij
+if [ -x "$(command -v zellij)" ]; then
+	alias zj='zellij'
+	alias za='zellij attach'
+	alias zs='zellij attach --create'
+	alias zls='zellij list-sessions'
+	alias zks='zellij kill-all-sessions'
 fi
 
 # Miscellaneous
