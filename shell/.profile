@@ -17,7 +17,7 @@ fi
 
 # Exports
 if [ -x "$(command -v bat)" ]; then
-	export BAT_CONFIG_PATH=${DOTFILES}/bat.conf
+	eval export BAT_CONFIG_PATH=$DOTFILES/bat.conf
 fi
 
 if [ -x "$(command -v docker)" ] && [ "$(uname -m)" = "arm64" ]; then
@@ -35,7 +35,7 @@ if [ -x "$(command -v n)" ]; then
 fi
 
 if [ -x "$(command -v rg)" ]; then
-	export RIPGREP_CONFIG_PATH=${DOTFILES}/.ripgreprc
+	eval export RIPGREP_CONFIG_PATH=${DOTFILES}/.ripgreprc
 fi
 
 if [ -x "$(command -v nvim)" ]; then
