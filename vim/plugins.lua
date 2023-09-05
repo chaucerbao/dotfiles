@@ -164,6 +164,7 @@ require('packer').startup(function(use)
 
       local file_browser_options = {
         grouped = true,
+        hidden = true,
         hide_parent_dir = true,
         select_buffer = true,
       }
@@ -239,6 +240,7 @@ require('packer').startup(function(use)
         vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { link = 'SpecialChar' })
 
         require('mini.align').setup()
+        require('mini.bracketed').setup()
         require('mini.comment').setup()
         require('mini.completion').setup({
           lsp_completion = {
@@ -299,6 +301,8 @@ require('packer').startup(function(use)
       vim.keymap.set('n', '<Leader>gR', ':Gitsigns reset_buffer<CR>', { silent = true })
     end,
   })
+
+  use({ 'github/copilot.vim' })
 
   use({
     'tpope/vim-abolish',
