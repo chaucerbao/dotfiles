@@ -240,7 +240,6 @@ require('packer').startup(function(use)
         vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { link = 'SpecialChar' })
 
         require('mini.align').setup()
-        require('mini.bracketed').setup()
         require('mini.comment').setup()
         require('mini.completion').setup({
           lsp_completion = {
