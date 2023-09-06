@@ -9,9 +9,7 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '»·', trail = '·', nbsp = '◡' }
 vim.opt.diffopt:append({ 'algorithm:patience', 'vertical' })
 
-if (os.getenv('COLORTERM') == 'truecolor') then
-  vim.opt.termguicolors = true
-end
+if os.getenv('COLORTERM') == 'truecolor' then vim.opt.termguicolors = true end
 
 -- Completion
 vim.opt.complete:remove({ 't' })
@@ -308,40 +306,18 @@ if vim.fn.executable('git') then
         return vim.fn.systemlist(cmd), cmd
       end,
       hook = {
-        before = function()
-          vim.wo.cursorbind = false
-          vim.wo.scrollbind = false
-        end,
         after = function(window)
-          -- Synchronize the scroll-binding
-          window.child.focus()
-
-          vim.cmd('normal gg')
-          vim.wo.cursorbind = true
-          vim.wo.scrollbind = true
-
           window.parent.focus()
+          local parent_line = vim.fn.line('.')
 
-          local current_line = vim.fn.line('.')
-          vim.cmd('normal gg')
-          vim.wo.cursorbind = true
-          vim.wo.scrollbind = true
-          vim.cmd('normal ' .. current_line .. 'ggzz')
+          window.child.focus()
+          vim.cmd('normal ' .. parent_line .. 'ggzz')
 
           -- Key Mappings: Follow blame history
           local follow_mapping = '<Leader>gB'
-
-          window.child.focus()
           if vim.fn.empty(vim.fn.mapcheck(follow_mapping, 'n')) then
             vim.keymap.set('n', follow_mapping, function()
-              -- Disable scroll-binding
-              window.parent.focus()
-              vim.wo.cursorbind = false
-              vim.wo.scrollbind = false
-
-              window.child.focus()
-              vim.wo.cursorbind = false
-              vim.wo.scrollbind = false
+              vim.cmd('normal 0')
 
               local revision = vim.fn.expand('<cword>')
 
@@ -364,8 +340,6 @@ if vim.fn.executable('git') then
               print(cmd)
             end, { buffer = window.child.bufnr })
           end
-
-          window.parent.focus()
         end,
       },
     })
