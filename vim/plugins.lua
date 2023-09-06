@@ -13,101 +13,26 @@ require('packer').startup(function(use)
   use('wbthomason/packer.nvim')
 
   use({
-    'neovim/nvim-lspconfig',
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'dev-v3',
+    requires = {
+      { 'neovim/nvim-lspconfig' },
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+    },
     config = function()
-      local on_attach = function(client, bufnr)
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.MiniCompletion.completefunc_lsp')
+      local lsp_zero = require('lsp-zero')
 
-        local buffer_options = { noremap = true, silent = true, buffer = bufnr }
+      lsp_zero.on_attach(function(client, bufnr) lsp_zero.default_keymaps({ buffer = bufnr }) end)
 
-        if client.server_capabilities.definitionProvider then
-          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, buffer_options)
-          vim.keymap.set('n', '<Leader>gd', function()
-            vim.cmd.vsplit()
-            vim.lsp.buf.definition()
-          end, buffer_options)
-        end
-
-        if client.server_capabilities.typeDefinitionProvider then
-          vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, buffer_options)
-          vim.keymap.set('n', '<Leader>gD', function()
-            vim.cmd.vsplit()
-            vim.lsp.buf.type_definition()
-          end, buffer_options)
-        end
-
-        if client.server_capabilities.implementationProvider then
-          vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, buffer_options)
-        end
-
-        if client.server_capabilities.referencesProvider then
-          vim.keymap.set('n', 'gr', vim.lsp.buf.references, buffer_options)
-        end
-
-        if client.server_capabilities.hoverProvider then vim.keymap.set('n', 'K', vim.lsp.buf.hover, buffer_options) end
-
-        if client.server_capabilities.renameProvider then
-          vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, buffer_options)
-        end
-
-        if client.server_capabilities.codeActionProvider then
-          vim.keymap.set({ 'n', 'v' }, '<Leader> ', vim.lsp.buf.code_action, buffer_options)
-        end
-
-        if client.server_capabilities.documentFormattingProvider and not vim.opt_local.formatprg then
-          vim.keymap.set(
-            { 'n', 'v' },
-            '<Leader>gq',
-            function() vim.lsp.buf.format({ async = true }) end,
-            buffer_options
-          )
-        end
-
-        if client.name == 'tsserver' then
-          vim.keymap.set(
-            'n',
-            '<Leader>i',
-            function()
-              vim.lsp.buf.execute_command({
-                command = '_typescript.organizeImports',
-                arguments = { vim.api.nvim_buf_get_name(0) },
-              })
-            end,
-            buffer_options
-          )
-        end
-      end
-
-      local language_servers = { sqlls = 'sql-language-server', tsserver = 'typescript-language-server' }
-      for server, binary in pairs(language_servers) do
-        if vim.fn.executable(binary) then require('lspconfig')[server].setup({ on_attach = on_attach }) end
-      end
-
-      local snippet_servers = {
-        cssls = 'vscode-css-language-server',
-        html = 'vscode-html-language-server',
-        jsonls = 'vscode-json-language-server',
-      }
-      for server, binary in pairs(snippet_servers) do
-        if vim.fn.executable(binary) then
-          local capabilities = vim.lsp.protocol.make_client_capabilities()
-          capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-          require('lspconfig')[server].setup({ capabilities = capabilities })
-        end
-      end
-
-      if vim.fn.executable('vscode-eslint-language-server') then
-        require('lspconfig').eslint.setup({
-          on_attach = function()
-            vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-              group = vim.api.nvim_create_augroup('FormatOnSave', {}),
-              pattern = { '*.js', '*.jsx', '*.ts', '*.tsx' },
-              command = 'EslintFixAll',
-            })
-          end,
-        })
-      end
+      require('mason').setup()
+      require('mason-lspconfig').setup({
+        handlers = {
+          lsp_zero.default_setup,
+        },
+      })
     end,
   })
 
@@ -241,21 +166,6 @@ require('packer').startup(function(use)
 
         require('mini.align').setup()
         require('mini.comment').setup()
-        require('mini.completion').setup({
-          lsp_completion = {
-            source_func = 'omnifunc',
-            auto_setup = false,
-            process_items = function(items, base)
-              for _, item in ipairs(items) do
-                local new_text = (item.textEdit or {}).newText
-                if type(new_text) == 'string' then item.textEdit.newText = new_text:gsub('^%.+', '') end
-              end
-
-              return MiniCompletion.default_process_items(items, base)
-            end,
-          },
-          fallback_action = '',
-        })
         require('mini.indentscope').setup({
           draw = { animation = require('mini.indentscope').gen_animation.none() },
         })
