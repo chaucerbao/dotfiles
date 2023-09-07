@@ -200,86 +200,11 @@ vim.keymap.set({ 'v' }, '<Leader>h', function()
 end)
 vim.keymap.set({ 'n' }, '<Leader>H', function() vim.api.nvim_buf_clear_namespace(0, highlight_namespace, 0, -1) end)
 
--- Formatting
-local prettier_filetypes = {
-  html = 'html',
-  css = 'css',
-  scss = 'scss',
-  javascript = 'typescript',
-  javascriptreact = 'typescript',
-  typescript = 'typescript',
-  typescriptreact = 'typescript',
-  json = 'json',
-  graphql = 'graphql',
-  markdown = 'markdown',
-  yaml = 'yaml',
-  node = 'typescript',
-}
-
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  group = vim.api.nvim_create_augroup('PrettierFormat', {}),
-  pattern = {
-    'html',
-    'css',
-    'scss',
-    'javascript',
-    'javascriptreact',
-    'typescript',
-    'typescriptreact',
-    'json',
-    'graphql',
-    'markdown',
-    'yaml',
-    'node',
-  },
-  callback = function()
-    if vim.fn.executable('npx') then
-      vim.opt_local.formatprg = 'npx prettier --parser ' .. prettier_filetypes[vim.bo.filetype]
-      vim.opt_local.formatexpr = nil
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  group = vim.api.nvim_create_augroup('StyLuaFormat', {}),
-  pattern = { 'lua' },
-  callback = function()
-    if vim.fn.executable('npx') then vim.opt_local.formatprg = 'npx @johnnymorganz/stylua-bin -' end
-  end,
-})
-
-vim.keymap.set({ 'n', 'v' }, '<Leader>gq', function()
-  local is_normal_mode = (string.find(vim.fn.mode(), '^n') or 0) > 0
-
-  if is_normal_mode then
-    vim.cmd(":normal mzgggqG'zzz")
-  else
-    vim.cmd(':normal gq')
-  end
-end, buffer_options)
-
 -- Key Mappings: Miscellaneous
 vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch)
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
-local function set_smart_tab(tab, pum_mapping)
-  vim.keymap.set('i', tab, function()
-    local line = vim.api.nvim_get_current_line()
-    local row, column = unpack(vim.api.nvim_win_get_cursor(0))
-
-    if vim.fn.pumvisible() == 1 then
-      return pum_mapping
-    elseif column > 0 and (string.match(line:sub(column, column), '%s') == nil) then
-      return '<C-]>'
-    else
-      return tab
-    end
-  end, { expr = true, noremap = true })
-end
-
-set_smart_tab('<Tab>', '<C-n>')
-set_smart_tab('<S-Tab>', '<C-p>')
-
+-- Fido
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   group = vim.api.nvim_create_augroup('NodeSyntaxOverride', {}),
   pattern = { 'node' },

@@ -10,7 +10,7 @@ end
 vim.g.loaded_netrwPlugin = 1
 
 require('packer').startup(function(use)
-  use('wbthomason/packer.nvim')
+  use({ 'wbthomason/packer.nvim' })
 
   use({
     'VonHeikemen/lsp-zero.nvim',
@@ -24,25 +24,44 @@ require('packer').startup(function(use)
     },
     config = function()
       local lsp_zero = require('lsp-zero')
-      local lspconfig = require('lspconfig')
 
       lsp_zero.on_attach(function(client, bufnr) lsp_zero.default_keymaps({ buffer = bufnr }) end)
 
       require('mason').setup()
-      require('mason-lspconfig').setup({
-        handlers = {
-          lsp_zero.default_setup,
-          ['eslint'] = function()
-            lspconfig.eslint.setup({
-              on_attach = function(client, bufnr)
-                vim.api.nvim_create_autocmd('BufWritePre', {
-                  buffer = bufnr,
-                  command = 'EslintFixAll',
-                })
-              end,
-            })
-          end,
+      require('mason-lspconfig').setup({ handlers = { lsp_zero.default_setup } })
+    end,
+  })
+
+  use({
+    'mhartington/formatter.nvim',
+    config = function()
+      local filetypeSettings = {
+        lua = {
+          require('formatter.filetypes.lua').stylua,
+          ['*'] = { require('formatter.filetypes.any').remove_trailing_whitespace },
         },
+      }
+
+      local prettierFiletypes = { 'css', 'graphql', 'html', 'json', 'markdown', 'yaml' }
+      for _, filetype in ipairs(prettierFiletypes) do
+        filetypeSettings[filetype] = { require('formatter.filetypes.' .. filetype).prettierd }
+      end
+
+      local prettierEslintFiletypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
+      for _, filetype in ipairs(prettierEslintFiletypes) do
+        filetypeSettings[filetype] = {
+          require('formatter.filetypes.' .. filetype).prettierd,
+          require('formatter.filetypes.' .. filetype).eslint_d,
+        }
+      end
+
+      require('formatter').setup({ filetype = filetypeSettings })
+
+      vim.keymap.set({ 'n', 'v' }, '<Leader>gq', ':FormatLock<CR>', { silent = true })
+
+      vim.api.nvim_create_autocmd('BufWritePost', {
+        group = vim.api.nvim_create_augroup('FormatOnSave', {}),
+        command = 'FormatWrite',
       })
     end,
   })
