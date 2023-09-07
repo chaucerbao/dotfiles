@@ -1,5 +1,5 @@
 # Dotfiles Path
-DOTFILES_ABS="$(cd $(dirname $0)/..; pwd -P)"
+DOTFILES_ABS="$(cd $(dirname ${BASH_SOURCE[0]:-$0})/..; pwd -P)"
 DOTFILES="$DOTFILES_ABS"
 case "$DOTFILES" in
 	$HOME* ) DOTFILES="~${DOTFILES#$HOME}" ;;
