@@ -24,6 +24,7 @@ require('packer').startup(function(use)
     },
     config = function()
       local lsp_zero = require('lsp-zero')
+      local lspconfig = require('lspconfig')
 
       lsp_zero.on_attach(function(client, bufnr) lsp_zero.default_keymaps({ buffer = bufnr }) end)
 
@@ -31,6 +32,16 @@ require('packer').startup(function(use)
       require('mason-lspconfig').setup({
         handlers = {
           lsp_zero.default_setup,
+          ['eslint'] = function()
+            lspconfig.eslint.setup({
+              on_attach = function(client, bufnr)
+                vim.api.nvim_create_autocmd('BufWritePre', {
+                  buffer = bufnr,
+                  command = 'EslintFixAll',
+                })
+              end,
+            })
+          end,
         },
       })
     end,
