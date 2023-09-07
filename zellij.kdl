@@ -99,8 +99,8 @@ keybinds clear-defaults=true {
     bind "Alt H" { GoToPreviousTab; }
     bind "Alt L" { GoToNextTab; }
     bind "Alt n" { NewPane; }
-    bind "Alt h" { MoveFocusOrTab "Left"; }
-    bind "Alt l" { MoveFocusOrTab "Right"; }
+    bind "Alt h" { MoveFocus "Left"; }
+    bind "Alt l" { MoveFocus "Right"; }
     bind "Alt j" { MoveFocus "Down"; }
     bind "Alt k" { MoveFocus "Up"; }
     bind "Alt [" { PreviousSwapLayout; }
