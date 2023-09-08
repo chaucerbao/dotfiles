@@ -21,6 +21,22 @@ require('packer').startup(function(use)
       { 'williamboman/mason-lspconfig.nvim' },
       { 'hrsh7th/nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lsp' },
+      {
+        'zbirenbaum/copilot.lua',
+        cmd = 'Copilot',
+        event = 'InsertEnter',
+        config = function()
+          require('copilot').setup({
+            panel = { enabled = false },
+            suggestion = { enabled = false },
+          })
+        end,
+      },
+      {
+        'zbirenbaum/copilot-cmp',
+        after = { 'copilot.lua' },
+        config = function() require('copilot_cmp').setup() end,
+      },
     },
     config = function()
       local lsp_zero = require('lsp-zero')
@@ -29,6 +45,13 @@ require('packer').startup(function(use)
 
       require('mason').setup()
       require('mason-lspconfig').setup({ handlers = { lsp_zero.default_setup } })
+
+      require('cmp').setup({
+        sources = {
+          { name = 'copilot' },
+          { name = 'nvim_lsp' },
+        },
+      })
     end,
   })
 
@@ -240,8 +263,6 @@ require('packer').startup(function(use)
       vim.keymap.set('n', '<Leader>gR', ':Gitsigns reset_buffer<CR>', { silent = true })
     end,
   })
-
-  use({ 'github/copilot.vim' })
 
   use({
     'tpope/vim-abolish',
