@@ -62,23 +62,23 @@ require('packer').startup(function(use)
   use({
     'mhartington/formatter.nvim',
     config = function()
+      local filetype_formatter = require('formatter.filetypes')
+
       local filetypeSettings = {
-        lua = {
-          require('formatter.filetypes.lua').stylua,
-          ['*'] = { require('formatter.filetypes.any').remove_trailing_whitespace },
-        },
+        lua = { filetype_formatter[filetype].stylua },
+        ['*'] = { filetype_formatter.any.remove_trailing_whitespace },
       }
 
       local prettierFiletypes = { 'css', 'graphql', 'html', 'json', 'markdown', 'yaml' }
       for _, filetype in ipairs(prettierFiletypes) do
-        filetypeSettings[filetype] = { require('formatter.filetypes.' .. filetype).prettierd }
+        filetypeSettings[filetype] = { filetype_formatter[filetype].prettierd }
       end
 
       local prettierEslintFiletypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
       for _, filetype in ipairs(prettierEslintFiletypes) do
         filetypeSettings[filetype] = {
-          require('formatter.filetypes.' .. filetype).prettierd,
-          require('formatter.filetypes.' .. filetype).eslint_d,
+          filetype_formatter[filetype].prettierd,
+          filetype_formatter[filetype].eslint_d,
         }
       end
 
