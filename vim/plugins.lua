@@ -281,8 +281,8 @@ require('packer').startup(function(use)
     'chaucerbao/fido.nvim',
     config = function()
       local fido_commands = require('fido.commands')
-      fido_commands.shell({ command = 'Run' })
-      fido_commands.git_blame({ command = 'GitBlame' })
+      fido_commands.shell.create({ command = 'Run' })
+      fido_commands.git_blame.create({ command = 'GitBlame' })
 
       vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch_by_filetype)
       vim.keymap.set('n', '<leader>gB', ':GitBlame<CR>', { silent = true })
