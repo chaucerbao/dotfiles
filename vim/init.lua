@@ -9,7 +9,9 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '»·', trail = '·', nbsp = '◡' }
 vim.opt.diffopt:append({ 'algorithm:patience', 'vertical' })
 
-if os.getenv('COLORTERM') == 'truecolor' then vim.opt.termguicolors = true end
+if os.getenv('COLORTERM') == 'truecolor' then
+  vim.opt.termguicolors = true
+end
 
 -- Completion
 vim.opt.complete:remove({ 't' })
@@ -57,19 +59,25 @@ vim.fn.sign_define({
 -- Cursor Line
 vim.api.nvim_create_autocmd({ 'VimEnter', 'WinEnter', 'BufWinEnter', 'WinLeave' }, {
   group = vim.api.nvim_create_augroup('CursorLine', {}),
-  callback = function(args) vim.opt_local.cursorline = args.event ~= 'WinLeave' end,
+  callback = function(args)
+    vim.opt_local.cursorline = args.event ~= 'WinLeave'
+  end,
 })
 
 -- Highlight on Yank
 vim.api.nvim_create_autocmd({ 'TextYankPost' }, {
   group = vim.api.nvim_create_augroup('YankHighlight', {}),
-  callback = function() vim.highlight.on_yank() end,
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 -- Automatically Resize Windows
 vim.api.nvim_create_autocmd({ 'VimResized' }, {
   group = vim.api.nvim_create_augroup('AutoResizeWindows', {}),
-  callback = function() vim.cmd.wincmd('=') end,
+  callback = function()
+    vim.cmd.wincmd('=')
+  end,
 })
 
 -- Automatically Open Lists
@@ -88,14 +96,18 @@ vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
 vim.api.nvim_create_autocmd({ 'CursorHold' }, {
   group = vim.api.nvim_create_augroup('AutoReloadFiles', {}),
   pattern = { '*' },
-  callback = function() vim.cmd('checktime') end,
+  callback = function()
+    vim.cmd('checktime')
+  end,
 })
 
 -- Automatically Open Files as Editable If A Swap File Exists
 vim.api.nvim_create_autocmd({ 'SwapExists' }, {
   group = vim.api.nvim_create_augroup('AutoEditOnSwapFiles', {}),
   pattern = { '*' },
-  callback = function() vim.v.swapchoice = 'e' end,
+  callback = function()
+    vim.v.swapchoice = 'e'
+  end,
 })
 
 -- Built-in Packages
@@ -176,7 +188,7 @@ vim.keymap.set({ 'n', 'v' }, '<Leader>*', function()
   vim.opt.hlsearch = true
 end, { silent = true })
 
--- Highlighting
+-- Key Mappings: Highlighting
 local highlight_namespace = vim.api.nvim_create_namespace('highlight')
 vim.keymap.set({ 'v' }, '<Leader>h', function()
   vim.api.nvim_input('<C-[>')
@@ -198,88 +210,9 @@ vim.keymap.set({ 'v' }, '<Leader>h', function()
     end
   end, 0)
 end)
-vim.keymap.set({ 'n' }, '<Leader>H', function() vim.api.nvim_buf_clear_namespace(0, highlight_namespace, 0, -1) end)
+vim.keymap.set({ 'n' }, '<Leader>H', function()
+  vim.api.nvim_buf_clear_namespace(0, highlight_namespace, 0, -1)
+end)
 
 -- Key Mappings: Miscellaneous
-vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch)
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-
--- Fido
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  group = vim.api.nvim_create_augroup('NodeSyntaxOverride', {}),
-  pattern = { 'node' },
-  callback = function()
-    vim.defer_fn(function() vim.bo.syntax = 'javascript' end, 0)
-  end,
-})
-
-if vim.fn.executable('git') then
-  vim.keymap.set('n', '<Leader>gB', function()
-    require('fido').fetch({
-      name = 'GitBlame',
-      vertical = true,
-      execute = function()
-        local cmd_opts = {
-          '-c',
-          '--date=short',
-        }
-
-        table.insert(cmd_opts, '--')
-        table.insert(cmd_opts, vim.fn.expand('%'))
-
-        local cmd = 'git blame ' .. table.concat(cmd_opts, ' ')
-        return vim.fn.systemlist(cmd), cmd
-      end,
-      hook = {
-        after = function(window)
-          window.parent.focus()
-          local parent_line = vim.fn.line('.')
-
-          window.child.focus()
-          vim.cmd('normal ' .. parent_line .. 'ggzz')
-
-          -- Key Mappings: Follow blame history
-          local follow_mapping = '<Leader>gB'
-          if vim.fn.empty(vim.fn.mapcheck(follow_mapping, 'n')) then
-            vim.keymap.set('n', follow_mapping, function()
-              vim.cmd('normal 0')
-
-              local revision = vim.fn.expand('<cword>')
-
-              local cmd_opts = {
-                '-c',
-                '--date=short',
-              }
-
-              table.insert(cmd_opts, revision .. '^1')
-              table.insert(cmd_opts, '--')
-              table.insert(cmd_opts, vim.fn.bufname(window.parent.bufnr))
-
-              local cmd = 'git blame ' .. table.concat(cmd_opts, ' ')
-              local response_lines = vim.fn.systemlist(cmd)
-
-              local line = vim.fn.line('.')
-              window.child.replace_buffer(response_lines)
-              vim.cmd('normal ' .. line .. 'ggzz')
-
-              print(cmd)
-            end, { buffer = window.child.bufnr })
-          end
-        end,
-      },
-    })
-  end)
-end
-
--- User Commands
-vim.api.nvim_create_user_command('R', function(args)
-  require('fido').fetch({
-    name = 'Shell',
-    vertical = args.bang,
-    execute = function()
-      local cmd = string.gsub(args.args, '%%', vim.fn.expand('%'))
-
-      return vim.fn.systemlist(cmd), cmd
-    end,
-  })
-end, { nargs = '*', bang = true })

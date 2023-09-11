@@ -35,13 +35,17 @@ require('packer').startup(function(use)
       {
         'zbirenbaum/copilot-cmp',
         after = { 'copilot.lua' },
-        config = function() require('copilot_cmp').setup() end,
+        config = function()
+          require('copilot_cmp').setup()
+        end,
       },
     },
     config = function()
       local lsp_zero = require('lsp-zero')
 
-      lsp_zero.on_attach(function(client, bufnr) lsp_zero.default_keymaps({ buffer = bufnr }) end)
+      lsp_zero.on_attach(function(client, bufnr)
+        lsp_zero.default_keymaps({ buffer = bufnr })
+      end)
 
       require('mason').setup()
       require('mason-lspconfig').setup({ handlers = { lsp_zero.default_setup } })
@@ -96,7 +100,9 @@ require('packer').startup(function(use)
         highlight = { enable = true },
       })
     end,
-    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    run = function()
+      require('nvim-treesitter.install').update({ with_sync = true })
+    end,
   })
 
   use({
@@ -126,9 +132,13 @@ require('packer').startup(function(use)
 
       vim.keymap.set('n', '<Leader>b', builtin.buffers)
       vim.keymap.set('n', '<Leader>f', builtin.find_files)
-      vim.keymap.set('n', '<Leader>F', function() builtin.find_files({ cwd = utils.buffer_dir() }) end)
+      vim.keymap.set('n', '<Leader>F', function()
+        builtin.find_files({ cwd = utils.buffer_dir() })
+      end)
       vim.keymap.set('n', '<Leader>g', builtin.live_grep)
-      vim.keymap.set('n', '<Leader>G', function() builtin.live_grep({ cwd = utils.buffer_dir() }) end)
+      vim.keymap.set('n', '<Leader>G', function()
+        builtin.live_grep({ cwd = utils.buffer_dir() })
+      end)
     end,
   })
 
@@ -147,27 +157,23 @@ require('packer').startup(function(use)
         select_buffer = true,
       }
 
-      vim.keymap.set(
-        'n',
-        '<Leader>e',
-        function() require('telescope').extensions.file_browser.file_browser(file_browser_options) end
-      )
+      vim.keymap.set('n', '<Leader>e', function()
+        require('telescope').extensions.file_browser.file_browser(file_browser_options)
+      end)
 
-      vim.keymap.set(
-        'n',
-        '<Leader>E',
-        function()
-          require('telescope').extensions.file_browser.file_browser(vim.tbl_extend('force', file_browser_options, {
-            path = utils.buffer_dir(),
-          }))
-        end
-      )
+      vim.keymap.set('n', '<Leader>E', function()
+        require('telescope').extensions.file_browser.file_browser(vim.tbl_extend('force', file_browser_options, {
+          path = utils.buffer_dir(),
+        }))
+      end)
     end,
   })
 
   use({
     'folke/tokyonight.nvim',
-    config = function() vim.cmd('colorscheme tokyonight-night') end,
+    config = function()
+      vim.cmd('colorscheme tokyonight-night')
+    end,
   })
 
   use({ 'nvim-tree/nvim-web-devicons' })
@@ -266,8 +272,24 @@ require('packer').startup(function(use)
 
   use({
     'tpope/vim-abolish',
-    config = function() vim.keymap.set('v', '<Leader>cr', '<Plug>(abolish-coerce)') end,
+    config = function()
+      vim.keymap.set('v', '<Leader>cr', '<Plug>(abolish-coerce)')
+    end,
   })
 
-  if not is_packer_installed then require('packer').sync() end
+  use({
+    'chaucerbao/fido.nvim',
+    config = function()
+      local fido_commands = require('fido.commands')
+      fido_commands.shell({ command = 'Run' })
+      fido_commands.git_blame({ command = 'GitBlame' })
+
+      vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch_by_filetype)
+      vim.keymap.set('n', '<leader>gB', ':GitBlame<CR>', { silent = true })
+    end,
+  })
+
+  if not is_packer_installed then
+    require('packer').sync()
+  end
 end)
