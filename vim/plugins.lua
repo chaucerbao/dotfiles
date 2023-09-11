@@ -65,7 +65,7 @@ require('packer').startup(function(use)
       local filetype_formatter = require('formatter.filetypes')
 
       local filetypeSettings = {
-        lua = { filetype_formatter[filetype].stylua },
+        lua = { filetype_formatter.lua.stylua },
         ['*'] = { filetype_formatter.any.remove_trailing_whitespace },
       }
 
