@@ -283,6 +283,12 @@ require('packer').startup(function(use)
       local fido_commands = require('fido.commands')
       fido_commands.shell.create({ command = 'Run' })
       fido_commands.git_blame.create({ command = 'GitBlame' })
+      fido_commands.git_status.create({
+        command = 'GitStatus',
+        stage_mapping = '<Leader>s',
+        unstage_mapping = '<Leader>S',
+        refresh_mapping = '<Leader>r',
+      })
 
       vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch_by_filetype)
       vim.keymap.set('n', '<leader>gB', ':GitBlame<CR>', { silent = true })
