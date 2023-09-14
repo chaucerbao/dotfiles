@@ -20,6 +20,7 @@ require('packer').startup(function(use)
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
       { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-buffer' },
       { 'hrsh7th/cmp-nvim-lsp' },
       {
         'zbirenbaum/copilot.lua',
@@ -52,8 +53,9 @@ require('packer').startup(function(use)
 
       require('cmp').setup({
         sources = {
-          { name = 'copilot' },
-          { name = 'nvim_lsp' },
+          { name = 'nvim_lsp', group_index = 1 },
+          { name = 'copilot', group_index = 1 },
+          { name = 'buffer', group_index = 2 },
         },
       })
     end,
@@ -280,6 +282,9 @@ require('packer').startup(function(use)
   use({
     'chaucerbao/fido.nvim',
     config = function()
+      local fido = require('fido')
+      fido.setup()
+
       local fido_commands = require('fido.commands')
       fido_commands.shell.create({ command = 'Run' })
       fido_commands.git_blame.create({ command = 'GitBlame' })
@@ -290,7 +295,7 @@ require('packer').startup(function(use)
         refresh_mapping = '<Leader>r',
       })
 
-      vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', require('fido').fetch_by_filetype)
+      vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', fido.fetch_by_filetype)
       vim.keymap.set('n', '<leader>gB', ':GitBlame<CR>', { silent = true })
     end,
   })
