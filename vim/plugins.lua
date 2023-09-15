@@ -51,12 +51,14 @@ require('packer').startup(function(use)
       require('mason').setup()
       require('mason-lspconfig').setup({ handlers = { lsp_zero.default_setup } })
 
-      require('cmp').setup({
-        sources = {
-          { name = 'nvim_lsp', group_index = 1 },
-          { name = 'copilot', group_index = 1 },
-          { name = 'buffer', group_index = 2 },
-        },
+      local cmp = require('cmp')
+      cmp.setup({
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+        }, {
+          { name = 'buffer' },
+          { name = 'copilot' },
+        }),
       })
     end,
   })
