@@ -46,6 +46,15 @@ require('packer').startup(function(use)
 
       lsp_zero.on_attach(function(client, bufnr)
         lsp_zero.default_keymaps({ buffer = bufnr })
+
+        if vim.tbl_contains({ 'tsserver' }, client.name) then
+          vim.keymap.set('n', '<Leader>i', function()
+            vim.lsp.buf.execute_command({
+              command = '_typescript.organizeImports',
+              arguments = { vim.api.nvim_buf_get_name(0) },
+            })
+          end, { buffer = bufnr })
+        end
       end)
 
       require('mason').setup()
