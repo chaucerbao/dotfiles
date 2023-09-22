@@ -74,8 +74,8 @@ require('packer').startup(function(use)
               end,
             },
             sources = cmp.config.sources({
-              { name = 'nvim_lsp' },
-              { name = 'luasnip' },
+              { name = 'nvim_lsp', max_item_count = 5 },
+              { name = 'luasnip', max_item_count = 3 },
             }, {
               {
                 name = 'buffer',
@@ -85,12 +85,11 @@ require('packer').startup(function(use)
                   end,
                 },
               },
-              { name = 'copilot' },
+              { name = 'copilot', max_item_count = 3 },
             }),
             mapping = cmp.mapping.preset.insert({
               ['<C-b>'] = cmp.mapping.scroll_docs(-4),
               ['<C-f>'] = cmp.mapping.scroll_docs(4),
-              ['<CR>'] = cmp.mapping.confirm({ select = true }),
               ['<Tab>'] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                   cmp.select_next_item()
