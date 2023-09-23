@@ -216,3 +216,7 @@ end)
 
 -- Key Mappings: Miscellaneous
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
+-- Prefix the native `<C-n>`/`<C-p>` completion mappings
+vim.keymap.set('i', '<C-x><C-n>', '<C-n>', { noremap = true })
+vim.keymap.set('i', '<C-x><C-p>', '<C-p>', { noremap = true })

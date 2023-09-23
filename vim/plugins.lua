@@ -21,7 +21,6 @@ require('packer').startup(function(use)
       {
         'hrsh7th/nvim-cmp',
         requires = {
-          { 'hrsh7th/cmp-buffer' },
           { 'hrsh7th/cmp-nvim-lsp' },
 
           {
@@ -74,18 +73,10 @@ require('packer').startup(function(use)
               end,
             },
             sources = cmp.config.sources({
-              { name = 'nvim_lsp', max_item_count = 8 },
-              { name = 'luasnip', max_item_count = 3 },
+              { name = 'nvim_lsp' },
+              { name = 'luasnip' },
             }, {
-              {
-                name = 'buffer',
-                option = {
-                  get_bufnrs = function()
-                    return vim.api.nvim_list_bufs()
-                  end,
-                },
-              },
-              { name = 'copilot', max_item_count = 3 },
+              { name = 'copilot' },
             }),
             mapping = cmp.mapping.preset.insert({
               ['<C-b>'] = cmp.mapping.scroll_docs(-4),
