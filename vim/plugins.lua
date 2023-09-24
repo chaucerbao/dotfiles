@@ -78,6 +78,10 @@ require('packer').startup(function(use)
             }, {
               { name = 'copilot' },
             }),
+            matching = {
+              disallow_fuzzy_matching = true,
+              disallow_partial_matching = true,
+            },
             mapping = cmp.mapping.preset.insert({
               ['<C-b>'] = cmp.mapping.scroll_docs(-4),
               ['<C-f>'] = cmp.mapping.scroll_docs(4),
