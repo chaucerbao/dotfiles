@@ -50,6 +50,10 @@ require('packer').startup(function(use)
               {
                 'L3MON4D3/LuaSnip',
                 config = function()
+                  local luasnip = require('luasnip')
+                  luasnip.filetype_extend('node', { 'javascript' })
+                  luasnip.filetype_extend('psql', { 'sql' })
+
                   require('luasnip.loaders.from_vscode').lazy_load()
                 end,
               },
