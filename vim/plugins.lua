@@ -34,6 +34,7 @@ require('packer').startup(function(use)
                   require('copilot').setup({
                     panel = { enabled = false },
                     suggestion = { enabled = false },
+                    filetypes = { gitcommit = true },
                   })
                 end,
               },
