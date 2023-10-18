@@ -53,7 +53,6 @@ require('packer').startup(function(use)
                 config = function()
                   local luasnip = require('luasnip')
                   luasnip.filetype_extend('node', { 'javascript' })
-                  luasnip.filetype_extend('psql', { 'sql' })
 
                   require('luasnip.loaders.from_vscode').lazy_load()
                 end,
