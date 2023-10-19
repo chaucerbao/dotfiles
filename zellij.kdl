@@ -87,10 +87,12 @@ keybinds clear-defaults=true {
     bind "Esc" "q" { ScrollToBottom; SwitchToMode "Normal"; }
     bind "j" "Down" { ScrollDown; }
     bind "k" "Up" { ScrollUp; }
-    bind "Ctrl d" { HalfPageScrollDown; }
-    bind "Ctrl u" { HalfPageScrollUp; }
-    bind "Ctrl f" "PageDown" { PageScrollDown; }
-    bind "Ctrl b" "PageUp" { PageScrollUp; }
+    bind "d" "Ctrl d" { HalfPageScrollDown; }
+    bind "u" "Ctrl u" { HalfPageScrollUp; }
+    bind "f" "Ctrl f" "PageDown" { PageScrollDown; }
+    bind "b" "Ctrl b" "PageUp" { PageScrollUp; }
+    bind "g" { ScrollToTop; }
+    bind "G" { ScrollToBottom; }
   }
 
   shared_except "session" {
