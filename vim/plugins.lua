@@ -55,6 +55,7 @@ require('packer').startup(function(use)
                   luasnip.filetype_extend('node', { 'javascript' })
 
                   require('luasnip.loaders.from_vscode').lazy_load()
+                  require('luasnip.loaders.from_lua').lazy_load({ paths = './snippets' })
                 end,
               },
               { 'rafamadriz/friendly-snippets' },

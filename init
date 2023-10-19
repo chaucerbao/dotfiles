@@ -32,10 +32,9 @@ else
 				;;
 			neovim )
 				mkdir -p $HOME/.config/nvim/
-				ln -s $DOTFILES_ABS/vim/lua $HOME/.config/nvim/
+				ln -s $DOTFILES_ABS/vim/snippets $HOME/.config/nvim/
 				echo "dofile('$DOTFILES_ABS/vim/init.lua')" >> $HOME/.config/nvim/init.lua
 				echo "dofile('$DOTFILES_ABS/vim/plugins.lua')" >> $HOME/.config/nvim/init.lua
-				echo "dofile('$DOTFILES_ABS/vim/snippets.lua')" >> $HOME/.config/nvim/init.lua
 				;;
 			prettier )
 				cp $DOTFILES_ABS/.prettierrc $HOME
