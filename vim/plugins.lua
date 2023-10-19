@@ -157,6 +157,7 @@ require('packer').startup(function(use)
       local filetype_formatter = require('formatter.filetypes')
 
       local filetypeSettings = {
+        jsonc = { filetype_formatter.json.prettierd },
         lua = { filetype_formatter.lua.stylua },
         ['*'] = { filetype_formatter.any.remove_trailing_whitespace },
       }
