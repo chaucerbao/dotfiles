@@ -377,7 +377,7 @@ require('packer').startup(function(use)
     'chaucerbao/fido.nvim',
     config = function()
       local fido = require('fido')
-      fido.setup()
+      fido.setup({ close_mapping = '<Leader>Q' })
 
       local fido_commands = require('fido.commands')
       fido_commands.shell.create({ command = 'Run' })
