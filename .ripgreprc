@@ -1,5 +1,6 @@
---smart-case
 --fixed-strings
+--smart-case
+--sort=path
+
 --colors=path:fg:blue
 --colors=line:fg:yellow
---sort=path
