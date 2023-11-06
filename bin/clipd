@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Forwarding the Clipboard Over SSH
+# https://gist.github.com/dergachev/8259104
+#
+# (Local) Start this service
+# (Local) `ssh user@remote -R 6094:localhost:6094`
+#
+# (Remote) `cat ... | nc -q 0 localhost 6094`
+
+PORT=${1:-6094}
+
+echo "Clipboard server listening on port ${PORT}..."
+
+while (true); do
+  nc -l ${PORT} | pbcopy
+  echo "Copied..."
+done
