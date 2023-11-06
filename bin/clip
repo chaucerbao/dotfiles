@@ -1,0 +1,10 @@
+#!/bin/sh
+
+PORT=${1:-6094}
+
+ARGS="-q 0"
+if [ "$(uname)" = "Darwin" ]; then
+  ARGS=""
+fi
+
+nc ${ARGS} localhost ${PORT}
