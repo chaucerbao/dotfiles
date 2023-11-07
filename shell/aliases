@@ -77,8 +77,7 @@ fi
 # Zellij
 if [ -x "$(command -v zellij)" ]; then
 	alias zj='zellij'
-	alias za='zellij attach'
-	alias zs='zellij attach --create'
+	alias za='zellij attach --create'
 	alias zls='zellij list-sessions'
 	alias zks='zellij kill-all-sessions'
 fi
