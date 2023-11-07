@@ -3,7 +3,7 @@
 PORT=${1:-6094}
 
 ARGS="-q 0"
-if [ "$(uname)" = "Darwin" ]; then
+if [[ $OSTYPE == "darwin"* ]]; then
   ARGS=""
 fi
 
