@@ -7,4 +7,4 @@ if [ "$(uname)" = "Darwin" ]; then
   ARGS=""
 fi
 
-nc ${ARGS} localhost ${PORT}
+nc ${ARGS} 127.0.0.1 ${PORT}
