@@ -81,14 +81,15 @@ require('packer').startup(function(use)
             },
             sources = cmp.config.sources({
               { name = 'luasnip' },
-            }, {
               { name = 'nvim_lsp' },
             }, {
               { name = 'copilot' },
             }),
             matching = {
               disallow_fuzzy_matching = true,
+              disallow_fullfuzzy_matching = true,
               disallow_partial_matching = true,
+              disallow_prefix_unmatching = true,
             },
             mapping = cmp.mapping.preset.insert({
               ['<C-b>'] = cmp.mapping.scroll_docs(-4),
