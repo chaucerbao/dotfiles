@@ -3,6 +3,8 @@ if [ -x "$(command -v fzf)" ]; then
 	_fzf_complete_docker() {
 		if [[ "$@" == *" rmi "* ]]; then
 			_fzf_complete --exact --no-sort --multi -- "$@" < <(docker images --all | awk 'NR > 1')
+		elif [[ "$@" == *" volume "* ]]; then
+			_fzf_complete --exact --no-sort --multi -- "$@" < <(docker volume ls | awk 'NR > 1 { print $2 }')
 		else
 			_fzf_complete --exact --no-sort --multi -- "$@" < <(docker ps --all | awk 'NR > 1')
 		fi
