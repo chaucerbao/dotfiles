@@ -32,6 +32,8 @@ fi
 
 if [ -x "$(command -v n)" ]; then
 	export N_PREFIX=$HOME/.n
+	export N_PRESERVE_NPM=1
+	export N_PRESERVE_COREPACK=1
 fi
 
 if [ -x "$(command -v rg)" ]; then
