@@ -160,11 +160,14 @@ hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com.apple.Safari') end)
 
 -- Conditional hotkey bindings
+hs.hotkey.bind(mods, 'P', function() print(hs.application.frontmostApplication():bundleID()) end)
+
 hs.hotkey.bind(
   'cmd',
   'escape',
   function() hs.application.launchOrFocusByBundleID(terminal and terminal or 'com.apple.Terminal') end
 )
+
 if browser then hs.hotkey.bind(mods, 'O', function() hs.application.launchOrFocusByBundleID(browser) end) end
 
 if quickLaunch then
