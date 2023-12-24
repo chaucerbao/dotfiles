@@ -6,7 +6,7 @@ if not is_packer_installed then
   vim.cmd('packadd! packer.nvim')
 end
 
--- Disable `netrw` in lieu of `nvim-telescope/telescope-file-browser.nvim`
+-- Disable `netrw`
 vim.g.loaded_netrwPlugin = 1
 
 require('packer').startup(function(use)
@@ -214,55 +214,36 @@ require('packer').startup(function(use)
   })
 
   use({
-    'nvim-telescope/telescope.nvim',
-    requires = { { 'nvim-lua/plenary.nvim' } },
+    'michel-garcia/fzf-lua-file-browser.nvim',
+    requires = {
+      {
+        'ibhagwan/fzf-lua',
+        config = function()
+          local fzf_lua = require('fzf-lua')
+
+          vim.keymap.set('n', '<Leader>b', fzf_lua.buffers)
+
+          vim.keymap.set('n', '<Leader>f', fzf_lua.files)
+          vim.keymap.set('n', '<Leader>F', function()
+            fzf_lua.files({ cwd = vim.fn.expand('%:p:h') })
+          end)
+
+          vim.keymap.set('n', '<Leader>g/', fzf_lua.live_grep_native)
+          vim.keymap.set('n', '<Leader>G/', function()
+            fzf_lua.live_grep({ cwd = vim.fn.expand('%:p:h') })
+          end)
+        end,
+      },
+    },
     config = function()
-      require('telescope').setup({
-        defaults = {
-          sorting_strategy = 'ascending',
-          layout_config = { prompt_position = 'top' },
-        },
-      })
-
-      local builtin = require('telescope.builtin')
-      local utils = require('telescope.utils')
-
-      vim.keymap.set('n', '<Leader>b', builtin.buffers)
-      vim.keymap.set('n', '<Leader>f', builtin.find_files)
-      vim.keymap.set('n', '<Leader>F', function()
-        builtin.find_files({ cwd = utils.buffer_dir() })
-      end)
-      vim.keymap.set('n', '<Leader>g/', builtin.live_grep)
-      vim.keymap.set('n', '<Leader>G/', function()
-        builtin.live_grep({ cwd = utils.buffer_dir() })
-      end)
-    end,
-  })
-
-  use({
-    'nvim-telescope/telescope-file-browser.nvim',
-    requires = { { 'nvim-telescope/telescope.nvim' } },
-    config = function()
-      require('telescope').load_extension('file_browser')
-
-      local utils = require('telescope.utils')
-
-      local file_browser_options = {
-        grouped = true,
-        hidden = true,
-        hide_parent_dir = true,
-        select_buffer = true,
-      }
+      local fzf_lua_file_browser = require('fzf-lua-file-browser')
+      fzf_lua_file_browser.setup()
 
       vim.keymap.set('n', '<Leader>e', function()
-        require('telescope').extensions.file_browser.file_browser(file_browser_options)
+        fzf_lua_file_browser.browse({ cwd = vim.loop.cwd() })
       end)
 
-      vim.keymap.set('n', '<Leader>E', function()
-        require('telescope').extensions.file_browser.file_browser(vim.tbl_extend('force', file_browser_options, {
-          path = utils.buffer_dir(),
-        }))
-      end)
+      vim.keymap.set('n', '<Leader>E', fzf_lua_file_browser.browse)
     end,
   })
 
