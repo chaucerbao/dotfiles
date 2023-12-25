@@ -214,6 +214,7 @@ require('packer').startup(function(use)
 
   use({
     'ibhagwan/fzf-lua',
+    requires = { { 'nvim-tree/nvim-web-devicons' } },
     config = function()
       local fzf_lua = require('fzf-lua')
 
@@ -238,10 +239,9 @@ require('packer').startup(function(use)
     end,
   })
 
-  use({ 'nvim-tree/nvim-web-devicons' })
-
   use({
     'echasnovski/mini.nvim',
+    requires = { { 'nvim-tree/nvim-web-devicons' } },
     config = function()
       require('mini.statusline').setup({
         content = {
