@@ -14,7 +14,6 @@ require('packer').startup(function(use)
 
   use({
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'dev-v3',
     requires = {
       { 'neovim/nvim-lspconfig' },
 
@@ -214,36 +213,21 @@ require('packer').startup(function(use)
   })
 
   use({
-    'michel-garcia/fzf-lua-file-browser.nvim',
-    requires = {
-      {
-        'ibhagwan/fzf-lua',
-        config = function()
-          local fzf_lua = require('fzf-lua')
-
-          vim.keymap.set('n', '<Leader>b', fzf_lua.buffers)
-
-          vim.keymap.set('n', '<Leader>f', fzf_lua.files)
-          vim.keymap.set('n', '<Leader>F', function()
-            fzf_lua.files({ cwd = vim.fn.expand('%:p:h') })
-          end)
-
-          vim.keymap.set('n', '<Leader>g/', fzf_lua.live_grep_native)
-          vim.keymap.set('n', '<Leader>G/', function()
-            fzf_lua.live_grep({ cwd = vim.fn.expand('%:p:h') })
-          end)
-        end,
-      },
-    },
+    'ibhagwan/fzf-lua',
     config = function()
-      local fzf_lua_file_browser = require('fzf-lua-file-browser')
-      fzf_lua_file_browser.setup()
+      local fzf_lua = require('fzf-lua')
 
-      vim.keymap.set('n', '<Leader>e', function()
-        fzf_lua_file_browser.browse({ cwd = vim.loop.cwd() })
+      vim.keymap.set('n', '<Leader>b', fzf_lua.buffers)
+
+      vim.keymap.set('n', '<Leader>f', fzf_lua.files)
+      vim.keymap.set('n', '<Leader>F', function()
+        fzf_lua.files({ cwd = vim.fn.expand('%:p:h') })
       end)
 
-      vim.keymap.set('n', '<Leader>E', fzf_lua_file_browser.browse)
+      vim.keymap.set('n', '<Leader>g/', fzf_lua.live_grep_native)
+      vim.keymap.set('n', '<Leader>G/', function()
+        fzf_lua.live_grep_native({ cwd = vim.fn.expand('%:p:h') })
+      end)
     end,
   })
 
