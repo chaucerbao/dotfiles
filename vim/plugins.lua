@@ -225,9 +225,24 @@ require('packer').startup(function(use)
         fzf_lua.files({ cwd = vim.fn.expand('%:p:h') })
       end)
 
-      vim.keymap.set('n', '<Leader>g/', fzf_lua.live_grep_native)
+      vim.keymap.set('n', '<Leader>g/', function()
+        fzf_lua.live_grep_native({ prompt = 'Search❯ ' })
+      end)
       vim.keymap.set('n', '<Leader>G/', function()
-        fzf_lua.live_grep_native({ cwd = vim.fn.expand('%:p:h') })
+        fzf_lua.live_grep_native({ prompt = 'Search❯ ', cwd = vim.fn.expand('%:p:h') })
+      end)
+    end,
+  })
+
+  use({
+    'chaucerbao/fzf-lua-file-browser.nvim',
+    requires = { { 'ibhagwan/fzf-lua' } },
+    config = function()
+      local fzf_lua_file_browser = require('fzf-lua-file-browser')
+
+      vim.keymap.set('n', '<Leader>e', fzf_lua_file_browser.browse)
+      vim.keymap.set('n', '<Leader>E', function()
+        fzf_lua_file_browser.browse({ cwd = vim.fn.expand('%:p:h') })
       end)
     end,
   })
