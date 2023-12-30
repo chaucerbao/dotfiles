@@ -47,11 +47,7 @@ elif [ -x "$(command -v vim)" ]; then
 fi
 
 # Path
-if [ "$(uname -m)" = "arm64" ]; then
-	COREUTILS="/opt/homebrew/opt/coreutils/libexec/gnubin"
-else
-	COREUTILS="/usr/local/opt/coreutils/libexec/gnubin"
-fi
+COREUTILS="$(brew --prefix coreutils)/libexec/gnubin"
 
 export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:$COREUTILS:$PATH
 

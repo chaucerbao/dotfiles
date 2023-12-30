@@ -15,6 +15,7 @@ autoload -U edit-command-line; zle -N edit-command-line; bindkey '\C-x\C-e' edit
 autoload -U select-word-style; select-word-style bash
 
 # Completions
+if [ -x "$(command -v brew)" ]; then export FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH; fi
 if [ -x "$(command -v fzf)" ]; then source ${SCRIPT_PATH}/fzf-completion; fi
 autoload -U compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|=*' 'l:|=* r:|=*'
