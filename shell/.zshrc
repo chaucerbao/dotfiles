@@ -18,7 +18,6 @@ autoload -U select-word-style; select-word-style bash
 if [ -x "$(command -v brew)" ]; then export FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH; fi
 if [ -x "$(command -v fzf)" ]; then source ${SCRIPT_PATH}/fzf-completion; fi
 autoload -U compinit; compinit
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|=*' 'l:|=* r:|=*'
 
 # Disable START/STOP flow control to reclaim CTRL-S and CTRL-Q
 /bin/stty -ixon
