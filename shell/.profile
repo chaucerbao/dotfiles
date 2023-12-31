@@ -26,10 +26,10 @@ fi
 
 if [ -x "$(command -v fzf)" ]; then
 	if [ -x "$(command -v fd)" ]; then
-		export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --strip-cwd-prefix --exclude ".git/"'
-		export FZF_ALT_C_COMMAND='fd --type directory --hidden --follow --strip-cwd-prefix --exclude ".git/"'
+		export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --strip-cwd-prefix --exclude ".git/" --exclude "node_modules/"'
+		export FZF_ALT_C_COMMAND='fd --type directory --hidden --follow --strip-cwd-prefix --exclude ".git/" --exclude "node_modules/"'
 	elif [ -x "$(command -v rg)" ]; then
-		export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
+		export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!{.git,node_modules}/"'
 	fi
 
 	export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
