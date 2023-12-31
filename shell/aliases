@@ -3,7 +3,6 @@ alias -- -='cd -'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias .....='cd ../../../..'
 
 # Docker
 alias d='docker'
@@ -49,6 +48,10 @@ if [ -x "$(command -v npm)" ]; then
 	alias npmD='npm install --save-dev'
 	alias npmS='npm install --save'
 	alias npmR='rm --force --recursive node_modules; npm install'
+fi
+
+if [ -x "$(command -v rg)" ] && [ ! -z "${KITTY_WINDOW_ID:+X}" ]; then
+	alias rg='rg --hyperlink-format=kitty'
 fi
 
 # tmux
