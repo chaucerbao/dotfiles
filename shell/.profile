@@ -25,7 +25,13 @@ if [ -x "$(command -v docker)" ] && [ "$(uname -m)" = "arm64" ]; then
 fi
 
 if [ -x "$(command -v fzf)" ]; then
-	export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!{.git,node_modules}/"'
+	if [ -x "$(command -v fd)" ]; then
+		export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --strip-cwd-prefix --exclude ".git/"'
+		export FZF_ALT_C_COMMAND='fd --type directory --hidden --follow --strip-cwd-prefix --exclude ".git/"'
+	elif [ -x "$(command -v rg)" ]; then
+		export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/"'
+	fi
+
 	export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 fi
 

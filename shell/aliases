@@ -42,10 +42,6 @@ alias gsts='git sts'
 # Kitty
 if [ -x "$(command -v kitty)" ] && [ ! -z "${KITTY_WINDOW_ID:+X}" ]; then
 	alias icat='kitty +kitten icat'
-
-	if [ -x "$(command -v rg)" ]; then
-		alias rg='kitty +kitten hyperlinked_grep'
-	fi
 fi
 
 # Node
@@ -102,7 +98,9 @@ fi
 
 # Functions
 dco() { if [ -n "$1" ]; then if [ "$1" = "default" ]; then unset DOCKER_CONTEXT; else export DOCKER_CONTEXT="$1"; fi; else docker context list; fi; }
-fd() { if [ -n "$1" ]; then rg --files --glob "*$1*" "${2:-.}"; fi; }
+if [ ! -x "$(command -v fd)" ] && [ -x "$(command -v rg)" ]; then
+	fd() { if [ -n "$1" ]; then rg --files --hidden --glob "!.git/" --glob "*$1*" "${2:-.}"; fi; }
+fi
 gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
 gbh() { if [ -n "$1" ]; then git checkout -b "hotfix/$1" "${2:-master}"; fi; }
 G() { if [ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then v +GitStatus +"nnoremap <silent> <buffer> q :quitall<CR>"; fi; }
