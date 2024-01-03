@@ -194,6 +194,7 @@ require('packer').startup(function(use)
     config = function()
       require('nvim-treesitter.configs').setup({
         auto_install = vim.fn.executable('tree-sitter') > 0,
+        ensure_installed = { 'diff' },
         highlight = { enable = true },
       })
     end,
