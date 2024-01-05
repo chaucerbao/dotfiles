@@ -1,3 +1,6 @@
+-- Initialize the configuration
+if _G.config == nil then _G.config = {} end
+
 -- Style options
 hs.alert.defaultStyle.radius = 3
 hs.alert.defaultStyle.strokeColor.alpha = 0
@@ -46,7 +49,7 @@ local function setVolume(target, message)
   end
 end
 
--- Microphone Mute
+-- Microphone mute
 local micMuteIcon = hs.menubar.new(false)
 
 local function toggleMicMute()
@@ -109,8 +112,10 @@ local function toggleAutoClicker()
   end
 end
 
--- Mouse bindings
-_G.mouseClickEvent = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(tapEvent)
+-- Safari mouse bindings
+_G.watchers = {}
+
+local safariMouseEventWatcher = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown }, function(tapEvent)
   local buttonIndex = tapEvent:getProperty(hs.eventtap.event.properties.mouseEventButtonNumber)
 
   if buttonIndex == 3 then
@@ -119,7 +124,17 @@ _G.mouseClickEvent = hs.eventtap.new({ hs.eventtap.event.types.otherMouseDown },
     hs.eventtap.keyStroke({ 'cmd' }, ']')
   end
 end)
-_G.mouseClickEvent:start()
+
+_G.watchers.safariApplicationWatcher = hs.application.watcher.new(function(applicationName, eventType, application)
+  if applicationName ~= 'Safari' then return end
+
+  if eventType == hs.application.watcher.activated then
+    safariMouseEventWatcher:start()
+  elseif eventType == hs.application.watcher.deactivated then
+    safariMouseEventWatcher:stop()
+  end
+end)
+_G.watchers.safariApplicationWatcher:start()
 
 -- Hotkey bindings
 local mods = { 'ctrl', 'cmd' }
@@ -165,20 +180,22 @@ hs.hotkey.bind(mods, 'P', function() print(hs.application.frontmostApplication()
 hs.hotkey.bind(
   'cmd',
   'escape',
-  function() hs.application.launchOrFocusByBundleID(terminal and terminal or 'com.apple.Terminal') end
+  function() hs.application.launchOrFocusByBundleID(_G.config.terminal and _G.config.terminal or 'com.apple.Terminal') end
 )
 
-if browser then hs.hotkey.bind(mods, 'O', function() hs.application.launchOrFocusByBundleID(browser) end) end
+if _G.config.browser then
+  hs.hotkey.bind(mods, 'O', function() hs.application.launchOrFocusByBundleID(_G.config.browser) end)
+end
 
-if quickLaunch then
+if _G.config.quickLaunch then
   hs.hotkey.bind(mods, '\\', function()
-    for _, bundleID in ipairs(quickLaunch) do
+    for _, bundleID in ipairs(_G.config.quickLaunch) do
       hs.application.launchOrFocusByBundleID(bundleID)
     end
   end)
 end
 
-if shortcuts then
+if _G.config.shortcuts then
   local function sendText(text)
     local delimiterMap = { ['\n'] = 'return', ['\t'] = 'tab' }
 
@@ -222,7 +239,7 @@ if shortcuts then
     end
   end)
 
-  shortcutChooser:choices(shortcuts)
+  shortcutChooser:choices(_G.config.shortcuts)
 
   hs.hotkey.bind(mods, ';', function()
     shortcutChooser:query(nil)
