@@ -1,30 +1,35 @@
-local packer_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-local is_packer_installed = vim.fn.empty(vim.fn.glob(packer_path)) == 0
-
-if not is_packer_installed then
-  vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', packer_path })
-  vim.cmd('packadd! packer.nvim')
-end
-
 -- Disable `netrw`
 vim.g.loaded_netrwPlugin = 1
 
-require('packer').startup(function(use)
-  use({ 'wbthomason/packer.nvim' })
+-- Install `lazy.nvim`
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable',
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-  use({
+-- Load Plugins
+require('lazy').setup({
+  {
     'VonHeikemen/lsp-zero.nvim',
-    requires = {
+    dependencies = {
       { 'neovim/nvim-lspconfig' },
 
       {
         'hrsh7th/nvim-cmp',
-        requires = {
+        dependencies = {
           { 'hrsh7th/cmp-nvim-lsp' },
 
           {
             'zbirenbaum/copilot-cmp',
-            requires = {
+            dependencies = {
               {
                 'zbirenbaum/copilot.lua',
                 cmd = 'Copilot',
@@ -38,7 +43,6 @@ require('packer').startup(function(use)
                 end,
               },
             },
-            after = { 'copilot.lua' },
             config = function()
               require('copilot_cmp').setup()
             end,
@@ -46,7 +50,7 @@ require('packer').startup(function(use)
 
           {
             'saadparwaiz1/cmp_luasnip',
-            requires = {
+            dependencies = {
               {
                 'L3MON4D3/LuaSnip',
                 config = function()
@@ -136,11 +140,13 @@ require('packer').startup(function(use)
         end
       end)
     end,
-  })
+  },
 
-  use({
+  {
     'williamboman/mason-lspconfig.nvim',
-    requires = {
+    dependencies = {
+      { 'VonHeikemen/lsp-zero.nvim' },
+
       {
         'williamboman/mason.nvim',
         config = function()
@@ -148,13 +154,12 @@ require('packer').startup(function(use)
         end,
       },
     },
-    after = { 'lsp-zero.nvim' },
     config = function()
       require('mason-lspconfig').setup({ handlers = { require('lsp-zero').default_setup } })
     end,
-  })
+  },
 
-  use({
+  {
     'mhartington/formatter.nvim',
     config = function()
       local filetype_formatter = require('formatter.filetypes')
@@ -187,9 +192,9 @@ require('packer').startup(function(use)
         command = 'FormatWrite',
       })
     end,
-  })
+  },
 
-  use({
+  {
     'nvim-treesitter/nvim-treesitter',
     config = function()
       require('nvim-treesitter.configs').setup({
@@ -198,25 +203,25 @@ require('packer').startup(function(use)
         highlight = { enable = true },
       })
     end,
-    run = function()
+    build = function()
       require('nvim-treesitter.install').update({ with_sync = true })
     end,
-  })
+  },
 
-  use({
+  {
     'nvim-treesitter/nvim-treesitter-context',
-    requires = { { 'nvim-treesitter/nvim-treesitter' } },
+    dependencies = { { 'nvim-treesitter/nvim-treesitter' } },
     config = function()
       require('treesitter-context').setup({
         mode = 'topline',
         separator = '-',
       })
     end,
-  })
+  },
 
-  use({
+  {
     'ibhagwan/fzf-lua',
-    requires = { { 'nvim-tree/nvim-web-devicons' } },
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
     config = function()
       local fzf_lua = require('fzf-lua')
 
@@ -234,11 +239,11 @@ require('packer').startup(function(use)
         fzf_lua.live_grep_native({ prompt = 'Search❯ ', cwd = vim.fn.expand('%:p:h') })
       end)
     end,
-  })
+  },
 
-  use({
+  {
     'chaucerbao/fzf-lua-file-browser.nvim',
-    requires = { { 'ibhagwan/fzf-lua' } },
+    dependencies = { { 'ibhagwan/fzf-lua' } },
     config = function()
       local fzf_lua_file_browser = require('fzf-lua-file-browser')
 
@@ -247,18 +252,18 @@ require('packer').startup(function(use)
         fzf_lua_file_browser.browse({ cwd = vim.fn.expand('%:p:h') })
       end)
     end,
-  })
+  },
 
-  use({
+  {
     'folke/tokyonight.nvim',
     config = function()
       vim.cmd('colorscheme tokyonight-night')
     end,
-  })
+  },
 
-  use({
+  {
     'echasnovski/mini.nvim',
-    requires = { { 'nvim-tree/nvim-web-devicons' } },
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
     config = function()
       require('mini.statusline').setup({
         content = {
@@ -319,9 +324,9 @@ require('packer').startup(function(use)
         require('mini.tabline').setup()
       end, 0)
     end,
-  })
+  },
 
-  use({
+  {
     'lewis6991/gitsigns.nvim',
     config = function()
       require('gitsigns').setup({
@@ -347,16 +352,16 @@ require('packer').startup(function(use)
 
       vim.keymap.set('n', '<Leader>gR', ':Gitsigns reset_buffer<CR>', { silent = true })
     end,
-  })
+  },
 
-  use({
+  {
     'tpope/vim-abolish',
     config = function()
       vim.keymap.set('v', '<Leader>cr', '<Plug>(abolish-coerce)')
     end,
-  })
+  },
 
-  use({
+  {
     'chaucerbao/fido.nvim',
     config = function()
       local fido = require('fido')
@@ -375,9 +380,5 @@ require('packer').startup(function(use)
       vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', fido.fetch_by_filetype)
       vim.keymap.set('n', '<leader>gB', ':GitBlame<CR>', { silent = true })
     end,
-  })
-
-  if not is_packer_installed then
-    require('packer').sync()
-  end
-end)
+  },
+})
