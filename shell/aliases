@@ -66,8 +66,7 @@ fi
 # Vim
 if [ -x "$(command -v nvim)" ]; then
 	alias v='nvim'
-	alias vc='nvim --headless -c "autocmd User PackerCompileDone quitall" -c "PackerCompile"'
-	alias vup='nvim --headless -c "autocmd User PackerComplete TSUpdateSync|quitall" -c "PackerSync"'
+	alias vup='nvim --headless "+Lazy! sync" "+TSUpdateSync" "+quitall"'
 else
 	alias v='vim'
 	alias vup='vim +PlugUpgrade +PlugUpdate +only +"normal D" +CocUpdate +"nnoremap <silent> q :quitall<CR>"'
