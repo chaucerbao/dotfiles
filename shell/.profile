@@ -52,7 +52,9 @@ elif [ -x "$(command -v vim)" ]; then
 fi
 
 # Path
-COREUTILS="$(brew --prefix coreutils)/libexec/gnubin"
+if [ -x "$(command -v brew)" ]; then
+	COREUTILS="$(brew --prefix coreutils)/libexec/gnubin"
+fi
 
 export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:$COREUTILS:$PATH
 
