@@ -11,7 +11,7 @@ alias dprune='docker system prune --force'
 alias dps='docker ps --all'
 alias drun='docker run --interactive --tty --rm'
 alias dcrun='docker compose run --rm'
-alias -- drun.='drun --volume=$PWD:/mnt/host'
+alias -- drun.='drun --volume=${PWD}:/mnt/host'
 
 # Git
 alias g='git'
@@ -50,6 +50,12 @@ if [ -x "$(command -v npm)" ]; then
 	alias npmR='rm --force --recursive node_modules; npm install'
 fi
 
+if [ -x "$(command -v pnpm)" ]; then
+	alias pnpmD='pnpm add --save-dev'
+	alias pnpmS='pnpm add --save-prod'
+	alias pnpmR='pnpm --recursive exec rm --force --recursive node_modules; rm --force --recursive node_modules; pnpm install'
+fi
+
 if [ -x "$(command -v rg)" ] && [ ! -z "${KITTY_WINDOW_ID:+X}" ]; then
 	alias rg='rg --hyperlink-format=kitty'
 fi
@@ -83,6 +89,7 @@ fi
 # Miscellaneous
 if [ -x "$(command -v bat)" ]; then alias c='bat'; else alias c='cat'; fi
 if [ -x "$(command -v npx)" ]; then
+	if [ ! -x "$(command -v ncu)" ]; then alias ncu='npx npm-check-updates'; fi
 	if [ ! -x "$(command -v prettier)" ]; then alias prettier='npx prettier'; fi
 	if [ ! -x "$(command -v stylua)" ]; then alias stylua='npx @johnnymorganz/stylua-bin'; fi
 	if [ ! -x "$(command -v tsc)" ]; then alias tsc='npx --package="typescript" -- tsc'; fi
@@ -95,7 +102,6 @@ alias ls='ls --color=auto --classify --group-directories-first --human-readable 
 if [[ $OSTYPE == "darwin"* ]]; then
 	alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
 	alias clean='rg --null --files --no-ignore-vcs --glob "*.DS_Store" $HOME/ | xargs -0 rm --'
-	alias forklift='open -a ForkLift'
 fi
 
 # Functions
