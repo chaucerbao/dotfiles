@@ -383,4 +383,14 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>gB', ':GitBlame<CR>', { silent = true })
     end,
   },
+
+  {
+    'chaucerbao/narrow.nvim',
+    config = function()
+      local narrow = require('narrow')
+      narrow.setup({ write_mapping = '<Leader>n' })
+
+      vim.keymap.set('v', '<Leader>n', narrow.narrow_visual_selection)
+    end,
+  },
 })
