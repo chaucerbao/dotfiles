@@ -162,37 +162,44 @@ require('lazy').setup({
   },
 
   {
-    'mhartington/formatter.nvim',
+    'stevearc/conform.nvim',
     config = function()
-      local filetype_formatter = require('formatter.filetypes')
-
-      local filetypeSettings = {
-        jsonc = { filetype_formatter.json.prettierd },
-        lua = { filetype_formatter.lua.stylua },
-        ['*'] = { filetype_formatter.any.remove_trailing_whitespace },
+      local formatters_by_ft = {
+        lua = { 'stylua' },
+        ['_'] = { 'trim_whitespace', 'trim_newlines' },
       }
 
-      local prettierFiletypes = { 'css', 'graphql', 'html', 'json', 'markdown', 'yaml' }
-      for _, filetype in ipairs(prettierFiletypes) do
-        filetypeSettings[filetype] = { filetype_formatter[filetype].prettierd }
+      local prettier_formatters = { 'prettierd', 'prettier' }
+      local prettier_filetypes = { 'graphql', 'html', 'json', 'jsonc', 'markdown', 'yaml' }
+      for _, filetype in ipairs(prettier_filetypes) do
+        formatters_by_ft[filetype] = { prettier_formatters }
       end
 
-      local prettierEslintFiletypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
-      for _, filetype in ipairs(prettierEslintFiletypes) do
-        filetypeSettings[filetype] = {
-          filetype_formatter[filetype].prettierd,
-          filetype_formatter[filetype].eslint_d,
+      local prettier_stylelint_filetypes = { 'css', 'scss' }
+      for _, filetype in ipairs(prettier_stylelint_filetypes) do
+        formatters_by_ft[filetype] = {
+          prettier_formatters,
+          { 'stylelint' },
         }
       end
 
-      require('formatter').setup({ filetype = filetypeSettings })
+      local prettier_eslint_filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }
+      for _, filetype in ipairs(prettier_eslint_filetypes) do
+        formatters_by_ft[filetype] = {
+          prettier_formatters,
+          { 'eslint_d' },
+        }
+      end
 
-      vim.keymap.set({ 'n', 'v' }, '<Leader>gq', ':FormatLock<CR>', { silent = true })
-
-      vim.api.nvim_create_autocmd('BufWritePost', {
-        group = vim.api.nvim_create_augroup('FormatOnSave', {}),
-        command = 'FormatWrite',
+      local conform = require('conform')
+      conform.setup({
+        formatters_by_ft = formatters_by_ft,
+        format_on_save = { lsp_fallback = true },
       })
+
+      vim.keymap.set({ 'n', 'v' }, '<Leader>gq', function()
+        conform.format()
+      end)
     end,
   },
 
