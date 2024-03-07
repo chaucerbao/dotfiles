@@ -60,15 +60,6 @@ if [ -x "$(command -v rg)" ] && [ ! -z "${KITTY_WINDOW_ID:+X}" ]; then
 	alias rg='rg --hyperlink-format=kitty'
 fi
 
-# tmux
-if [ -x "$(command -v tmux)" ]; then
-	alias t='tmux'
-	alias ta='t attach-session'
-	alias tks='t kill-server'
-	alias tls='t list-sessions'
-	alias ts='t new-session -A -s'
-fi
-
 # Vim
 if [ -x "$(command -v nvim)" ]; then
 	alias v='nvim'
