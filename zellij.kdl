@@ -1,7 +1,15 @@
 copy_command "pbcopy"
 default_layout "compact"
 pane_frames false
+session_serialization false
 theme "tokyo-night-dark"
+
+ui {
+  pane_frames {
+    hide_session_name true
+    rounded_corners true
+  }
+}
 
 keybinds clear-defaults=true {
   session {
@@ -107,12 +115,5 @@ keybinds clear-defaults=true {
     bind "Alt k" { MoveFocus "Up"; }
     bind "Alt [" { PreviousSwapLayout; }
     bind "Alt ]" { NextSwapLayout; }
-  }
-}
-
-ui {
-  pane_frames {
-    hide_session_name true
-    rounded_corners true
   }
 }
