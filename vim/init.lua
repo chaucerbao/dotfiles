@@ -214,6 +214,20 @@ vim.keymap.set({ 'n' }, '<Leader>H', function()
   vim.api.nvim_buf_clear_namespace(0, highlight_namespace, 0, -1)
 end)
 
+-- Key Mappings: Markdown
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('MarkdownMappings', {}),
+  pattern = 'markdown',
+  callback = function()
+    vim.keymap.set(
+      'n',
+      '<Leader>gf',
+      '/\\[.\\+\\]\\(.\\+\\)/e-1<CR>:nohlsearch<CR>gf',
+      { buffer = true, silent = true }
+    )
+  end,
+})
+
 -- Key Mappings: Miscellaneous
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
