@@ -204,6 +204,9 @@ require('lazy').setup({
   },
 
   {
+    cond = function()
+      return vim.fn.executable('gcc') > 0
+    end,
     'nvim-treesitter/nvim-treesitter',
     config = function()
       require('nvim-treesitter.configs').setup({

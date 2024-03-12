@@ -31,7 +31,7 @@ vim.opt.foldmethod = 'indent'
 -- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-if vim.fn.executable('rg') then
+if vim.fn.executable('rg') > 0 then
   vim.opt.grepprg = 'rg --no-config --fixed-strings --sort=path --vimgrep'
   vim.opt.grepformat = '%f:%l:%c:%m'
 end
