@@ -190,7 +190,7 @@ end, { silent = true })
 
 -- Key Mappings: Highlighting
 local highlight_namespace = vim.api.nvim_create_namespace('highlight')
-vim.keymap.set({ 'v' }, '<Leader>h', function()
+vim.keymap.set('v', '<Leader>h', function()
   vim.api.nvim_input('<C-[>')
 
   vim.defer_fn(function()
@@ -210,7 +210,7 @@ vim.keymap.set({ 'v' }, '<Leader>h', function()
     end
   end, 0)
 end)
-vim.keymap.set({ 'n' }, '<Leader>H', function()
+vim.keymap.set('n', '<Leader>H', function()
   vim.api.nvim_buf_clear_namespace(0, highlight_namespace, 0, -1)
 end)
 
@@ -230,6 +230,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- Key Mappings: Miscellaneous
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+vim.keymap.set('v', '=', 'c<C-r>=<C-r>"<CR><C-[>')
 
 -- Prefix the native `<C-n>`/`<C-p>` completion mappings
 vim.keymap.set('i', '<C-x><C-n>', '<C-n>', { noremap = true })
