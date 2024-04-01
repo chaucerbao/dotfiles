@@ -230,7 +230,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- Key Mappings: Miscellaneous
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-vim.keymap.set('v', '=', 'c<C-r>=<C-r>"<CR><C-[>')
+vim.keymap.set('v', '<Leader>=', 'c<C-r>=<C-r>"<CR><C-[>')
 
 -- Prefix the native `<C-n>`/`<C-p>` completion mappings
 vim.keymap.set('i', '<C-x><C-n>', '<C-n>', { noremap = true })
