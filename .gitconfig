@@ -1,6 +1,8 @@
 [alias]
 	a = add
 	b = branch
+	bd = branch --edit-description
+	bds = !git config --get branch.$(git current-branch).description
 	c = commit --verbose
 	ca = commit --verbose --amend
 	cb = checkout -b
