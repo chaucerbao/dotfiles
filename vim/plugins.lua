@@ -403,4 +403,11 @@ require('lazy').setup({
       vim.keymap.set('v', '<Leader>n', narrow.narrow_visual_selection)
     end,
   },
+
+  {
+    name = 'cfilter',
+    dir = vim.env.VIMRUNTIME .. '/pack/dist/opt/cfilter',
+    lazy = true,
+    cmd = { 'Cfilter', 'Lfilter' },
+  },
 })
