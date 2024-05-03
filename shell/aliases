@@ -60,6 +60,13 @@ if [ -x "$(command -v rg)" ] && [ ! -z "${KITTY_WINDOW_ID:+X}" ]; then
 	alias rg='rg --hyperlink-format=kitty'
 fi
 
+# Screen
+if [ -x "$(command -v screen)" ]; then
+	alias s='screen'
+	alias sa='screen -R'
+	alias sls='screen -list'
+fi
+
 # Vim
 if [ -x "$(command -v nvim)" ]; then
 	alias v='nvim'
