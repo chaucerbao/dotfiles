@@ -1,7 +1,9 @@
 escape ^Ww
 
+altscreen on
 defscrollback 10000
 startup_message off
+termcapinfo xterm* ti@:te@
 
 caption string "%{= kw} %{W}%3n %t%{-} "
 hardstatus alwayslastline "%{= kw} %{g}Screen%{-} | %-w%{= kb}%50>%n %t%{-}%+w%< %= | %{m}%l%{-} | %{c}%M %d, %C%a%{-} "
