@@ -20,6 +20,7 @@ keybinds clear-defaults=true {
     bind "m" { SwitchToMode "Move"; }
     bind "r" { SwitchToMode "Resize"; }
     bind "s" { SwitchToMode "Scroll"; }
+    bind "Ctrl g" { SwitchToMode "Locked"; }
 
     bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
     bind "f" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
@@ -87,6 +88,10 @@ keybinds clear-defaults=true {
     bind "Enter" { SwitchToMode "Normal"; }
   }
 
+  locked {
+    bind "Ctrl g" { SwitchToMode "Normal"; }
+  }
+
   shared_among "session" "tab" "pane" "move" "resize" "scroll" "search" {
     bind "Esc" "q" { SwitchToMode "Normal"; }
   }
@@ -103,7 +108,7 @@ keybinds clear-defaults=true {
     bind "G" { ScrollToBottom; }
   }
 
-  shared_except "session" {
+  shared_except "session" "locked" {
     bind "Ctrl w" { SwitchToMode "Session"; }
     bind "Alt t" { NewTab; SwitchToMode "Normal"; }
     bind "Alt H" { GoToPreviousTab; }
