@@ -36,7 +36,7 @@ if [ -x "$(command -v fzf)" ]; then
 fi
 
 if [ -x "$(command -v less)" ]; then
-	export LESS="--ignore-case"
+	export LESS="--RAW-CONTROL-CHARS --ignore-case"
 fi
 
 if [ -x "$(command -v n)" ]; then
