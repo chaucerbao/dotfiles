@@ -198,7 +198,9 @@ require('lazy').setup({
       })
 
       vim.keymap.set({ 'n', 'v' }, '<Leader>gq', function()
-        conform.format()
+        if conform.format() and not string.find(string.lower(vim.fn.mode()), '^n') then
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', false, true, true), 'nx', false)
+        end
       end)
     end,
   },
