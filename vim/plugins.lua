@@ -386,9 +386,11 @@ require('lazy').setup({
       fido_commands.git_blame.create({ command = 'GitBlame' })
       fido_commands.git_status.create({
         command = 'GitStatus',
-        stage_mapping = '<Leader>s',
-        unstage_mapping = '<Leader>S',
-        refresh_mapping = '<Leader>r',
+        mappings = {
+          stage_files = '<Leader>gs',
+          unstage_files = '<Leader>gu',
+          refresh = '<Leader>r',
+        },
       })
 
       vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', fido.fetch_by_filetype)
