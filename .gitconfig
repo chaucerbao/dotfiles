@@ -19,15 +19,16 @@
 	fa = fetch --all --prune
 	g = grep --fixed-strings --ignore-case --untracked --break --heading --line-number
 	gp = !git push origin $(git current-branch)
+	gpf = !git push --force-with-lease origin $(git current-branch)
 	gu = !git pull --rebase origin $(git current-branch)
 	lo = log --pretty='%C(yellow)%h%C(reset) ·%C(red)%d%C(reset) %s %C(green)(%cr) %C(blue)<%an>%C(reset)'
 	m = merge
 	mt = mergetool
 	rb = rebase
 	rba = rebase --abort
+	rbb = rebase --committer-date-is-author-date --update-refs
 	rbc = rebase --continue
 	rbi = rebase --interactive
-	rbm = rebase master
 	rbs = rebase --skip
 	rh = reset HEAD
 	rhh = reset HEAD --hard
@@ -59,3 +60,5 @@
 	keepBackup = false
 [pull]
 	rebase = true
+[rebase]
+	updateRefs = true
