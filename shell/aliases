@@ -70,10 +70,9 @@ fi
 # Vim
 if [ -x "$(command -v nvim)" ]; then
 	alias v='nvim'
-	alias vup='nvim --headless "+Lazy! sync" "+TSUpdateSync" "+quitall"'
+	alias vup='nvim --headless +"lua MiniDeps.update(nil, { force = true })" +TSUpdateSync +MasonUpdate +quitall'
 else
 	alias v='vim'
-	alias vup='vim +PlugUpgrade +PlugUpdate +only +"normal D" +CocUpdate +"nnoremap <silent> q :quitall<CR>"'
 fi
 
 # Zellij
