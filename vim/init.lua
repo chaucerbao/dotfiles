@@ -43,6 +43,11 @@ MiniDeps.later(function()
     { name = 'DiagnosticSignInfo', text = 'ℹ' },
     { name = 'DiagnosticSignHint', text = '?' },
   })
+
+  if vim.fn.executable('rg') > 0 then
+    vim.opt.grepprg = 'rg --smart-case --fixed-strings --sort=path --vimgrep'
+    vim.opt.grepformat = '%f:%l:%c:%m'
+  end
 end)
 
 -- Events
