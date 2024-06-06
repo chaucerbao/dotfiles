@@ -44,6 +44,7 @@ MiniDeps.later(function()
     { name = 'DiagnosticSignHint', text = '?' },
   })
 
+  -- Search
   if vim.fn.executable('rg') > 0 then
     vim.opt.grepprg = 'rg --smart-case --fixed-strings --sort=path --vimgrep'
     vim.opt.grepformat = '%f:%l:%c:%m'
@@ -164,6 +165,7 @@ MiniDeps.now(function()
           on_attach = function(client, bufnr)
             on_attach(client, bufnr)
 
+            -- Organize Imports
             vim.keymap.set({ 'n' }, 'gi', function()
               vim.lsp.buf.execute_command({
                 command = '_typescript.organizeImports',
