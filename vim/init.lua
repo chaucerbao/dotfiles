@@ -276,7 +276,7 @@ MiniDeps.later(function()
   shelly.commands.shell.create('Run')
   shelly.commands.git_status.create(
     'GitStatus',
-    { mappings = { stage = '<Leader>s', unstage = '<Leader>S', refresh = '<Leader>r' } }
+    { mappings = { edit = '<CR>', stage = '<Leader>s', unstage = '<Leader>S', refresh = '<Leader>r' } }
   )
 end)
 
