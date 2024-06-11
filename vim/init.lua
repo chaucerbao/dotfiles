@@ -270,6 +270,7 @@ MiniDeps.later(function()
   vim.cmd.packadd('cfilter')
 
   local shelly = require('shelly')
+  shelly.setup({ mappings = { close = 'q' } })
 
   vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', shelly.evaluate)
   shelly.commands.shell.create('Run')
