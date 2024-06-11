@@ -108,5 +108,5 @@ if [ ! -x "$(command -v fd)" ] && [ -x "$(command -v rg)" ]; then
 fi
 gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
 gbh() { if [ -n "$1" ]; then git checkout -b "hotfix/$1" "${2:-master}"; fi; }
-G() { if [ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then v +GitStatus +"nnoremap <silent> <buffer> q :quitall<CR>"; fi; }
+G() { if [ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then v +"lua MiniDeps.later(function() vim.cmd('GitStatus') end)"; fi; }
 myip() { curl --header "Accept: application/json" "https://ipinfo.io/$@"; }
