@@ -265,25 +265,18 @@ end)
 MiniDeps.later(function()
   MiniDeps.add({ source = 'nvim-tree/nvim-web-devicons' })
   MiniDeps.add({ source = 'tpope/vim-abolish' })
-  MiniDeps.add({ source = 'chaucerbao/fido.nvim' })
+  MiniDeps.add({ source = 'chaucerbao/shelly.nvim' })
 
   vim.cmd.packadd('cfilter')
 
-  local fido = require('fido')
-  fido.setup({ close_mapping = '<Leader>Q' })
+  local shelly = require('shelly')
 
-  local fido_commands = require('fido.commands')
-  fido_commands.shell.create({ command = 'Run' })
-  fido_commands.git_status.create({
-    command = 'GitStatus',
-    mappings = {
-      stage_files = '<Leader>gs',
-      unstage_files = '<Leader>gu',
-      refresh = '<Leader>r',
-    },
-  })
-
-  vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', fido.fetch_by_filetype)
+  vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', shelly.evaluate)
+  shelly.commands.shell.create('Run')
+  shelly.commands.git_status.create(
+    'GitStatus',
+    { mappings = { stage = '<Leader>s', unstage = '<Leader>S', refresh = '<Leader>r' } }
+  )
 end)
 
 -- Key Mappings
