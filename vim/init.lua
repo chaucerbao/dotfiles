@@ -112,31 +112,33 @@ MiniDeps.now(function()
       end,
 
       ['efm'] = function()
-        local eslint = require('efmls-configs.linters.eslint')
+        local eslint = require('efmls-configs.linters.eslint_d')
+        local eslint_fix = require('efmls-configs.formatters.eslint_d')
         local stylelint = require('efmls-configs.linters.stylelint')
-        local prettier = require('efmls-configs.formatters.prettier')
+        local stylelint_fix = require('efmls-configs.formatters.stylelint')
+        local prettier = require('efmls-configs.formatters.prettier_d')
 
-        local function prettier_parser(parser)
+        local function prettier_parser(ext)
           return vim.tbl_extend(
             'force',
             prettier,
-            { formatCommand = prettier.formatCommand:gsub("%-%-stdin%-filepath '%${INPUT}'", '--parser=' .. parser) }
+            { formatCommand = prettier.formatCommand:gsub('%${INPUT}', 'file.' .. ext) }
           )
         end
 
         local languages = vim.tbl_extend('force', require('efmls-configs.defaults').languages(), {
-          javascript = { eslint, prettier_parser('typescript') },
-          javascriptreact = { eslint, prettier_parser('typescript') },
-          typescript = { eslint, prettier_parser('typescript') },
-          typescriptreact = { eslint, prettier_parser('typescript') },
+          javascript = { eslint, prettier_parser('js'), eslint_fix },
+          javascriptreact = { eslint, prettier_parser('jsx'), eslint_fix },
+          typescript = { eslint, prettier_parser('ts'), eslint_fix },
+          typescriptreact = { eslint, prettier_parser('tsx'), eslint_fix },
 
-          css = { stylelint, prettier_parser('css') },
-          scss = { stylelint, prettier_parser('scss') },
+          css = { stylelint, prettier_parser('css'), stylelint_fix },
+          scss = { stylelint, prettier_parser('scss'), stylelint_fix },
 
           graphql = { prettier_parser('graphql') },
           html = { prettier_parser('html') },
           json = { prettier_parser('json') },
-          markdown = { prettier_parser('markdown') },
+          markdown = { prettier_parser('md') },
           yaml = { prettier_parser('yaml') },
         })
 
