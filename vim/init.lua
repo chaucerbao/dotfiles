@@ -367,6 +367,9 @@ MiniDeps.later(function()
 
     local ok, result = pcall(vim.cmd, 'vertical Git blame --date=short ' .. revision .. ' -- ' .. filename)
 
+    local bufnr = vim.fn.winbufnr(0)
+    vim.keymap.set({ 'n' }, 'q', ':' .. bufnr .. 'bdelete<CR>', { silent = true, buffer = bufnr })
+
     if not ok and string.find(result, 'fatal: no such path ') ~= nil then
       print('`' .. vim.fs.basename(filename) .. '` does not exist before `' .. revision:gsub('%^$', '') .. '`')
     end
