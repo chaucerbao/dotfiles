@@ -207,7 +207,7 @@ MiniDeps.later(function()
   require('copilot').setup({
     suggestion = {
       auto_trigger = true,
-      keymap = { accept = '<C-l>', next = '<C-j>', prev = '<C-k>' },
+      keymap = { accept = '<C-;>', next = '<C-j>', prev = '<C-k>' },
     },
   })
 end)
@@ -227,6 +227,7 @@ MiniDeps.later(function()
   require('mini.ai').setup()
   require('mini.align').setup()
   require('mini.bracketed').setup({ diagnostic = { options = { severity = vim.diagnostic.severity.ERROR } } })
+  require('mini.comment').setup()
   require('mini.completion').setup({ lsp_completion = { source_func = 'omnifunc', auto_setup = false } })
   require('mini.diff').setup({
     view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } },
@@ -274,10 +275,15 @@ MiniDeps.later(function()
 
   vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', shelly.evaluate)
   shelly.commands.shell.create('Run')
-  shelly.commands.git_status.create(
-    'GitStatus',
-    { mappings = { edit = '<CR>', stage = '<Leader>s', unstage = '<Leader>S', refresh = '<Leader>r' } }
-  )
+  shelly.commands.git_status.create('GitStatus', {
+    mappings = {
+      edit = '<CR>',
+      stage = '<Leader>s',
+      unstage = '<Leader>S',
+      restore = '<Leader>R',
+      refresh = '<Leader>r',
+    },
+  })
 end)
 
 -- Key Mappings
