@@ -1,5 +1,15 @@
+vim.cmd([[
+  function! EatSpace()
+    let character = nr2char(getchar(0))
+    return (character =~ '\s') ? '' : character
+  endfunction
+]])
+
+local eat_space = '<C-r>=EatSpace()<CR>'
+
 vim.cmd(
   'inoreabbrev lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    .. eat_space
 )
 
 vim.api.nvim_create_autocmd('FileType', {
@@ -15,10 +25,15 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.cmd('inoreabbrev <buffer> //h // Helpers<Esc>')
     vim.cmd('inoreabbrev <buffer> //e // Exports<Esc>')
 
-    vim.cmd("inoreabbrev <buffer> im import {} from '+'<Esc>F+s")
-    vim.cmd('inoreabbrev <buffer> clg console.log(+)<Esc>F+s')
-    vim.cmd('inoreabbrev <buffer> clgs console.log(JSON.stringify(+, null, 2))<Esc>F+s')
-    vim.cmd('inoreabbrev <buffer> iife ;(() => {+})()<Esc>F+s')
-    vim.cmd('inoreabbrev <buffer> aiife ;(async () => {+})()<Esc>F+s')
+    vim.cmd("inoreabbrev <buffer> im import {} from '+'<Esc>F+s" .. eat_space)
+    vim.cmd('inoreabbrev <buffer> log console.log(+)<Esc>F+s' .. eat_space)
+    vim.cmd('inoreabbrev <buffer> logj console.log(JSON.stringify(+, null, 2))<Esc>F+s' .. eat_space)
+    vim.cmd('inoreabbrev <buffer> iife ;(() => {+})()<Esc>F+s' .. eat_space)
+    vim.cmd('inoreabbrev <buffer> aiife ;(async () => {+})()<Esc>F+s' .. eat_space)
   end,
 })
+
+vim.cmd('inoreabbrev ```h ```http<CR><CR>``<Up>' .. eat_space)
+vim.cmd('inoreabbrev ```j ```javascript<CR><CR>``<Up>' .. eat_space)
+vim.cmd('inoreabbrev ```s ```sql<CR><CR>``<Up>' .. eat_space)
+vim.cmd('inoreabbrev ```r ```redis<CR><CR>``<Up>' .. eat_space)
