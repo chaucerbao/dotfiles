@@ -1,0 +1,3 @@
+#!/bin/sh
+
+docker run --interactive --tty --rm golang:latest go "$@"
