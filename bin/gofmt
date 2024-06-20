@@ -1,0 +1,3 @@
+#!/bin/sh
+
+docker run --interactive --rm --volume=${PWD}:/mnt/host --workdir=/mnt/host golang:latest gofmt "$@"
