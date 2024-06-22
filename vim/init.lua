@@ -100,7 +100,7 @@ MiniDeps.now(function()
     vim.keymap.set({ 'n' }, 'gD', vim.lsp.buf.type_definition, keymap_opts)
     vim.keymap.set({ 'n' }, 'gr', vim.lsp.buf.references, keymap_opts)
     vim.keymap.set({ 'n' }, 'gR', vim.lsp.buf.rename, keymap_opts)
-    vim.keymap.set({ 'n' }, 'g<CR>', vim.lsp.buf.code_action, keymap_opts)
+    vim.keymap.set({ 'n' }, 'g.', vim.lsp.buf.code_action, keymap_opts)
   end
 
   require('mason').setup()
@@ -306,6 +306,7 @@ MiniDeps.later(function()
 
   -- Yank/Paste
   vim.keymap.set({ 'x' }, 'p', 'pgvy')
+  vim.keymap.set('n', 'gP', '"+P')
 
   -- Movement
   vim.keymap.set({ 'i' }, '<C-a>', '<Home>')
