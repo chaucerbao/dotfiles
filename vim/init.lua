@@ -365,7 +365,7 @@ MiniDeps.later(function()
         and (cword .. '^')
       or 'HEAD'
 
-    local ok, result = pcall(vim.cmd, 'vertical Git blame --date=short ' .. revision .. ' -- ' .. filename)
+    local ok, result = pcall(vim.cmd, 'vertical Git -C <cwd> blame --date=short ' .. revision .. ' -- ' .. filename)
 
     local bufnr = vim.fn.winbufnr(0)
     vim.keymap.set({ 'n' }, 'q', ':' .. bufnr .. 'bdelete<CR>', { silent = true, buffer = bufnr })
