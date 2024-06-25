@@ -117,6 +117,7 @@ MiniDeps.now(function()
         local stylelint = require('efmls-configs.linters.stylelint')
         local stylelint_fix = require('efmls-configs.formatters.stylelint')
         local prettier = require('efmls-configs.formatters.prettier_d')
+        local gofumpt = require('efmls-configs.formatters.gofumpt')
 
         local function prettier_parser(ext)
           return vim.tbl_extend(
@@ -140,6 +141,8 @@ MiniDeps.now(function()
           json = { prettier_parser('json') },
           markdown = { prettier_parser('md') },
           yaml = { prettier_parser('yaml') },
+
+          go = { gofumpt },
         })
 
         lspconfig.efm.setup({
