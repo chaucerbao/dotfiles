@@ -35,6 +35,10 @@ if [ -x "$(command -v fzf)" ]; then
 	export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 fi
 
+if [ -d "$HOME/.go/bin" ]; then
+	export GOPATH=$HOME/.cache/go
+fi
+
 if [ -x "$(command -v less)" ]; then
 	export LESS="--RAW-CONTROL-CHARS --ignore-case"
 fi
@@ -60,7 +64,7 @@ if [ -x "$(command -v brew)" ]; then
 	COREUTILS="$(brew --prefix coreutils)/libexec/gnubin"
 fi
 
-export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:$COREUTILS:$PATH
+export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:$HOME/.go/bin:$COREUTILS:$PATH
 
 # Clean Up
-unset DOTFILES DOTFILES_ABS HOMEBREW_PREFIX
+unset COREUTILS DOTFILES DOTFILES_ABS HOMEBREW_PREFIX
