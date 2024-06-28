@@ -307,6 +307,25 @@ MiniDeps.later(function()
   vim.keymap.set({ 'n' }, '<S-Tab>', ':bprevious<CR>', { silent = true })
   vim.keymap.set({ 'n' }, '<Leader>O', ':%bdelete|edit #|bdelete #|normal `"<CR>', { silent = true })
 
+  -- Quickfix
+  function toggle_list(list, open, close)
+    if vim.tbl_isempty(vim.tbl_filter(function(window)
+      return window[list] > 0
+    end, vim.fn.getwininfo())) then
+      vim.cmd(open)
+      vim.cmd.wincmd('p')
+    else
+      vim.cmd(close)
+    end
+  end
+
+  vim.keymap.set({ 'n' }, '\\q', function()
+    toggle_list('quickfix', 'copen', 'cclose')
+  end)
+  vim.keymap.set({ 'n' }, '\\l', function()
+    toggle_list('loclist', 'lopen', 'lclose')
+  end)
+
   -- Yank/Paste
   vim.keymap.set({ 'x' }, 'p', 'pgvy')
   vim.keymap.set('n', 'gP', '"+P')
