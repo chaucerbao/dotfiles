@@ -1,6 +1,7 @@
 [alias]
 	a = add
 	b = branch
+	bs = branch --sort=-committerdate
 	bd = branch --edit-description
 	bds = !git config --get branch.$(git branch --show-current).description
 	c = commit --verbose
