@@ -238,7 +238,10 @@ MiniDeps.later(function()
     view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } },
     options = { algorithm = 'patience' },
   })
-  require('mini.files').setup({ windows = { preview = true, width_preview = 80 } })
+  require('mini.files').setup({
+    mappings = { go_in = '', go_in_plus = '<CR>', go_out = '<BS>', go_out_plus = '', reset = '<Leader><BS>' },
+    windows = { preview = true, width_preview = 80 },
+  })
   require('mini.git').setup()
   require('mini.indentscope').setup({ draw = { animation = require('mini.indentscope').gen_animation.none() } })
   require('mini.jump').setup({ mappings = { repeat_jump = '' } })
