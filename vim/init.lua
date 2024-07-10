@@ -331,8 +331,8 @@ MiniDeps.later(function()
   vim.keymap.set('n', 'gP', '"+P')
 
   -- Movement
-  vim.keymap.set({ 'i' }, '<C-a>', '<Home>')
-  vim.keymap.set({ 'i' }, '<C-e>', '<End>')
+  vim.keymap.set({ 'c', 'i' }, '<C-a>', '<Home>')
+  vim.keymap.set({ 'c', 'i' }, '<C-e>', '<End>')
 
   -- Search
   vim.keymap.set({ 'n', 'v' }, '<Leader>*', function()
