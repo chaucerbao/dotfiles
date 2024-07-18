@@ -243,6 +243,7 @@ MiniDeps.later(function()
     windows = { preview = true, width_preview = 80 },
   })
   require('mini.git').setup()
+  require('mini.icons').setup()
   require('mini.indentscope').setup({ draw = { animation = require('mini.indentscope').gen_animation.none() } })
   require('mini.jump').setup({ mappings = { repeat_jump = '' } })
   require('mini.jump2d').setup({
@@ -255,6 +256,9 @@ MiniDeps.later(function()
   require('mini.splitjoin').setup()
   require('mini.surround').setup()
   require('mini.tabline').setup()
+
+  -- Add support for `nvim-tree/nvim-web-devicons`
+  MiniIcons.mock_nvim_web_devicons()
 
   -- Jump to the matching line when opening `Git blame`
   vim.api.nvim_create_autocmd('User', {
@@ -272,7 +276,6 @@ end)
 
 -- Miscellaneous
 MiniDeps.later(function()
-  MiniDeps.add({ source = 'nvim-tree/nvim-web-devicons' })
   MiniDeps.add({ source = 'tpope/vim-abolish' })
   MiniDeps.add({ source = 'chaucerbao/shelly.nvim' })
 
