@@ -25,11 +25,11 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.cmd('inoreabbrev <buffer> //h // Helpers<Esc>')
     vim.cmd('inoreabbrev <buffer> //e // Exports<Esc>')
 
-    vim.cmd("inoreabbrev <buffer> im import {} from '+'<Esc>F+s" .. eat_space)
-    vim.cmd('inoreabbrev <buffer> log console.log(+)<Esc>F+s' .. eat_space)
-    vim.cmd('inoreabbrev <buffer> logj console.log(JSON.stringify(+, null, 2))<Esc>F+s' .. eat_space)
-    vim.cmd('inoreabbrev <buffer> iife ;(() => {+})()<Esc>F+s' .. eat_space)
-    vim.cmd('inoreabbrev <buffer> aiife ;(async () => {+})()<Esc>F+s' .. eat_space)
+    vim.cmd("inoreabbrev <buffer> im import {} from '+'<Esc>F+\"_s" .. eat_space)
+    vim.cmd('inoreabbrev <buffer> log console.log(+)<Esc>F+"_s' .. eat_space)
+    vim.cmd('inoreabbrev <buffer> jst JSON.stringify(+, null, 2)<Esc>F+"_s' .. eat_space)
+    vim.cmd('inoreabbrev <buffer> iife ;(() => {+})()<Esc>F+"_s' .. eat_space)
+    vim.cmd('inoreabbrev <buffer> aiife ;(async () => {+})()<Esc>F+"_s' .. eat_space)
   end,
 })
 
