@@ -37,6 +37,7 @@ fi
 
 if [ -d "$HOME/.go/bin" ]; then
 	export GOPATH=$HOME/.cache/go
+  export PATH=$GOPATH/bin:$HOME/.go/bin:$PATH
 fi
 
 if [ -x "$(command -v less)" ]; then
@@ -47,6 +48,7 @@ if [ -x "$(command -v n)" ]; then
 	export N_PREFIX=$HOME/.n
 	export N_PRESERVE_NPM=1
 	export N_PRESERVE_COREPACK=1
+  export PATH=node_modules/.bin:$N_PREFIX/bin:$PATH
 fi
 
 if [ -x "$(command -v rg)" ]; then
@@ -64,7 +66,7 @@ if [ -x "$(command -v brew)" ]; then
 	COREUTILS="$(brew --prefix coreutils)/libexec/gnubin"
 fi
 
-export PATH=node_modules/.bin:$HOME/.bin:$N_PREFIX/bin:$HOME/.go/bin:$COREUTILS:$PATH
+export PATH=$HOME/.bin:$COREUTILS:$PATH
 
 # Clean Up
 unset COREUTILS DOTFILES DOTFILES_ABS HOMEBREW_PREFIX
