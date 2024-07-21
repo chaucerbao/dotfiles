@@ -85,12 +85,6 @@ fi
 
 # Miscellaneous
 if [ -x "$(command -v bat)" ]; then alias c='bat'; else alias c='cat'; fi
-if [ -x "$(command -v npx)" ]; then
-	if [ ! -x "$(command -v ncu)" ]; then alias ncu='npx npm-check-updates'; fi
-	if [ ! -x "$(command -v prettier)" ]; then alias prettier='npx prettier'; fi
-	if [ ! -x "$(command -v stylua)" ]; then alias stylua='npx @johnnymorganz/stylua-bin'; fi
-	if [ ! -x "$(command -v tsc)" ]; then alias tsc='npx --package="typescript" -- tsc'; fi
-fi
 alias l='ls -l'
 alias ll='ls --almost-all -l'
 alias ls='ls --color=auto --classify --group-directories-first --human-readable --hyperlink=auto --literal'
