@@ -281,6 +281,8 @@ MiniDeps.later(function()
 
   vim.cmd.packadd('cfilter')
 
+  vim.keymap.set({ 'v' }, 'cr', '<Plug>(abolish-coerce)')
+
   local shelly = require('shelly')
   shelly.setup({ mappings = { close = 'q' } })
 
