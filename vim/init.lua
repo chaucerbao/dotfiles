@@ -291,9 +291,9 @@ MiniDeps.later(function()
   shelly.commands.git_status.create('GitStatus', {
     mappings = {
       edit = '<CR>',
-      stage = '<Leader>s',
-      unstage = '<Leader>S',
-      restore = '<Leader>R',
+      stage = '<Leader>gs',
+      unstage = '<Leader>gS',
+      restore = '<Leader>gR',
       refresh = '<Leader>r',
     },
   })
@@ -404,6 +404,16 @@ MiniDeps.later(function()
     if not ok and string.find(result, 'fatal: no such path ') ~= nil then
       print('`' .. vim.fs.basename(filename) .. '` does not exist before `' .. revision:gsub('%^$', '') .. '`')
     end
+  end)
+
+  vim.keymap.set({ 'n' }, '<Leader>gs', function()
+    pcall(vim.cmd, 'Git add -- ' .. vim.fn.expand('%'))
+  end)
+  vim.keymap.set({ 'n' }, '<Leader>gS', function()
+    pcall(vim.cmd, 'Git restore --staged -- ' .. vim.fn.expand('%'))
+  end)
+  vim.keymap.set({ 'n' }, '<Leader>gR', function()
+    pcall(vim.cmd, 'Git restore -- ' .. vim.fn.expand('%'))
   end)
 
   vim.keymap.set({ 'n' }, '<Leader>h', function()
