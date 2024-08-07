@@ -236,7 +236,7 @@ MiniDeps.later(function()
   require('mini.completion').setup({ lsp_completion = { source_func = 'omnifunc', auto_setup = false } })
   require('mini.diff').setup({
     view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } },
-    mappings = { apply = 'gs', reset = 'gR', textobject = 'h' },
+    mappings = { apply = 'gs', reset = 'gR', textobject = 'ah' },
     options = { algorithm = 'patience' },
   })
   require('mini.files').setup({
