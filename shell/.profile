@@ -33,6 +33,15 @@ if [ -x "$(command -v fzf)" ]; then
 	fi
 
 	export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+
+	export FZF_DEFAULT_OPTS='--info=inline-right --margin=1,2 --no-separator --no-scrollbar'
+	export FZF_ALT_C_OPTS='--preview="ls -1 --almost-all --classify --color=always --group-directories-first --literal {}"'
+
+	if [ -x "$(command -v bat)" ]; then
+		export FZF_CTRL_T_OPTS='--preview="bat --color=always {}"'
+	else
+		export FZF_CTRL_T_OPTS='--preview="cat {}"'
+	fi
 fi
 
 if [ -d "$HOME/.go/bin" ]; then
