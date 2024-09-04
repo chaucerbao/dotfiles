@@ -27,7 +27,7 @@ if [ -x "$(command -v fzf)" ]; then
 
 	# NPM
 	_fzf_complete_npm() {
-		_fzf_complete -- "$@" < <(npm run-script | grep '^\s' | sed '$!N;s/\n/\t/;s/^ *//' | awk -F '\t' '{ printf "%-32s %s\n", $1, $2 }')
+		_fzf_complete -- "$@" < <(npm run-script | grep -v '^\w' | paste - - | column -t -s '	')
 	}
 
 	_fzf_complete_npm_post() {
