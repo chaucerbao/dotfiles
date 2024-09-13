@@ -165,8 +165,8 @@ MiniDeps.now(function()
         })
       end,
 
-      ['tsserver'] = function()
-        lspconfig.tsserver.setup({
+      ['ts_ls'] = function()
+        lspconfig.ts_ls.setup({
           on_attach = function(client, bufnr)
             on_attach(client, bufnr)
 
