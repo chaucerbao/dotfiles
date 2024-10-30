@@ -117,6 +117,7 @@ MiniDeps.now(function()
         local stylelint = require('efmls-configs.linters.stylelint')
         local stylelint_fix = require('efmls-configs.formatters.stylelint')
         local prettier = require('efmls-configs.formatters.prettier_d')
+        local deno_fmt = require('efmls-configs.formatters.deno_fmt')
         local gofumpt = require('efmls-configs.formatters.gofumpt')
 
         local function prettier_parser(ext)
@@ -127,20 +128,24 @@ MiniDeps.now(function()
           )
         end
 
-        local languages = vim.tbl_extend('force', require('efmls-configs.defaults').languages(), {
-          javascript = { eslint, prettier_parser('js'), eslint_fix },
-          javascriptreact = { eslint, prettier_parser('jsx'), eslint_fix },
-          typescript = { eslint, prettier_parser('ts'), eslint_fix },
-          typescriptreact = { eslint, prettier_parser('tsx'), eslint_fix },
+        local function deno_format(ext)
+          return vim.tbl_extend('force', deno_fmt, { formatCommand = deno_fmt.formatCommand:gsub('%${FILEEXT}', ext) })
+        end
 
-          css = { stylelint, prettier_parser('css'), stylelint_fix },
-          scss = { stylelint, prettier_parser('scss'), stylelint_fix },
+        local languages = vim.tbl_extend('force', require('efmls-configs.defaults').languages(), {
+          javascript = { eslint, deno_format('js'), prettier_parser('js'), eslint_fix },
+          javascriptreact = { eslint, deno_format('jsx'), prettier_parser('jsx'), eslint_fix },
+          typescript = { eslint, deno_format('ts'), prettier_parser('ts'), eslint_fix },
+          typescriptreact = { eslint, deno_format('tsx'), prettier_parser('tsx'), eslint_fix },
+
+          css = { stylelint, deno_format('css'), prettier_parser('css'), stylelint_fix },
+          scss = { stylelint, deno_format('scss'), prettier_parser('scss'), stylelint_fix },
 
           graphql = { prettier_parser('graphql') },
-          html = { prettier_parser('html') },
-          json = { prettier_parser('json') },
-          markdown = { prettier_parser('md') },
-          yaml = { prettier_parser('yaml') },
+          html = { deno_format('html'), prettier_parser('html') },
+          json = { deno_format('json'), prettier_parser('json') },
+          markdown = { deno_format('md'), prettier_parser('md') },
+          yaml = { deno_format('yaml'), prettier_parser('yaml') },
 
           go = { gofumpt },
         })
@@ -165,8 +170,17 @@ MiniDeps.now(function()
         })
       end,
 
+      ['denols'] = function()
+        lspconfig.denols.setup({
+          root_dir = lspconfig.util.root_pattern('deno.json', 'deno.jsonc'),
+          on_attach = on_attach,
+        })
+      end,
+
       ['ts_ls'] = function()
         lspconfig.ts_ls.setup({
+          root_dir = lspconfig.util.root_pattern('package.json'),
+          single_file_support = false,
           on_attach = function(client, bufnr)
             on_attach(client, bufnr)
 
