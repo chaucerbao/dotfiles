@@ -129,7 +129,10 @@ MiniDeps.now(function()
         end
 
         local function deno_format(ext)
-          return vim.tbl_extend('force', deno_fmt, { formatCommand = deno_fmt.formatCommand:gsub('%${FILEEXT}', ext) })
+          return vim.tbl_extend('force', deno_fmt, {
+            formatCommand = deno_fmt.formatCommand:gsub('%${FILEEXT}', ext),
+            rootMarkers = { 'deno.json', 'deno.jsonc' },
+          })
         end
 
         local languages = vim.tbl_extend('force', require('efmls-configs.defaults').languages(), {
