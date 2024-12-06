@@ -234,6 +234,18 @@ MiniDeps.later(function()
   })
 end)
 
+-- GitHub Copilot Chat
+MiniDeps.later(function()
+  MiniDeps.add({
+    source = 'CopilotC-Nvim/CopilotChat.nvim',
+    depends = { 'nvim-lua/plenary.nvim' },
+  })
+
+  require('CopilotChat').setup({ window = { width = 0.4 } })
+
+  vim.keymap.set({ 'n', 'v' }, '<Leader>/', '<CMD>CopilotChatToggle<CR>')
+end)
+
 -- User Interface
 MiniDeps.now(function()
   MiniDeps.add({ source = 'folke/tokyonight.nvim' })
