@@ -100,7 +100,7 @@ MiniDeps.now(function()
     vim.keymap.set({ 'n' }, 'gD', vim.lsp.buf.type_definition, keymap_opts)
     vim.keymap.set({ 'n' }, 'gr', vim.lsp.buf.references, keymap_opts)
     vim.keymap.set({ 'n' }, '<Leader>r', vim.lsp.buf.rename, keymap_opts)
-    vim.keymap.set({ 'n' }, '<Leader>.', vim.lsp.buf.code_action, keymap_opts)
+    vim.keymap.set({ 'n' }, '<Leader>;', vim.lsp.buf.code_action, keymap_opts)
   end
 
   require('mason').setup()
@@ -400,7 +400,7 @@ MiniDeps.later(function()
   vim.keymap.set({ 'n' }, '<Leader>G/', function()
     MiniPick.builtin.grep_live(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
   end)
-  vim.keymap.set({ 'n' }, '<Leader>/', function()
+  vim.keymap.set({ 'n' }, '<Leader>.', function()
     MiniPick.builtin.resume()
   end)
 
