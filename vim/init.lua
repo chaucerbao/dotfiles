@@ -275,6 +275,9 @@ MiniDeps.later(function()
   require('mini.surround').setup()
   require('mini.tabline').setup()
 
+  -- Replace the default `vim.ui.select` interface
+  vim.ui.select = MiniPick.ui_select
+
   -- Add support for `nvim-tree/nvim-web-devicons`
   MiniIcons.mock_nvim_web_devicons()
 
