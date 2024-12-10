@@ -36,5 +36,6 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.cmd('inoreabbrev ```g ```global<CR><CR>``<Up>' .. eat_space)
 vim.cmd('inoreabbrev ```h ```http<CR><CR>``<Up>' .. eat_space)
 vim.cmd('inoreabbrev ```j ```javascript<CR><CR>``<Up>' .. eat_space)
-vim.cmd('inoreabbrev ```s ```sql<CR><CR>``<Up>' .. eat_space)
+vim.cmd('inoreabbrev ```t ```typescript<CR><CR>``<Up>' .. eat_space)
 vim.cmd('inoreabbrev ```r ```redis<CR><CR>``<Up>' .. eat_space)
+vim.cmd('inoreabbrev ```s ```sql<CR><CR>``<Up>' .. eat_space)
