@@ -287,6 +287,16 @@ MiniDeps.later(function()
   require('mini.surround').setup()
   require('mini.tabline').setup()
 
+  -- Snippets
+  local gen_loader = require('mini.snippets').gen_loader
+  require('mini.snippets').setup({
+    snippets = {
+      gen_loader.from_file('~/.config/nvim/snippets.lua'),
+      gen_loader.from_file('~/.config/nvim/snippets/global.lua'),
+      gen_loader.from_lang(),
+    },
+  })
+
   -- Replace the default `vim.ui.select` interface
   vim.ui.select = MiniPick.ui_select
 
