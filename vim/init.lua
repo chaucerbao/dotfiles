@@ -229,7 +229,7 @@ MiniDeps.later(function()
   require('copilot').setup({
     suggestion = {
       auto_trigger = true,
-      keymap = { accept = '<C-;>', next = '<C-j>', prev = '<C-k>' },
+      keymap = { accept = '<C-y>', next = '<C-l>', prev = '<C-h>' },
     },
   })
 end)
@@ -260,7 +260,7 @@ end)
 MiniDeps.later(function()
   require('mini.ai').setup()
   require('mini.align').setup()
-  require('mini.bracketed').setup({ diagnostic = { options = { severity = vim.diagnostic.severity.ERROR } } })
+  require('mini.bracketed').setup()
   require('mini.comment').setup()
   require('mini.completion').setup({ lsp_completion = { source_func = 'omnifunc', auto_setup = false } })
   require('mini.diff').setup({
@@ -290,6 +290,7 @@ MiniDeps.later(function()
   -- Snippets
   local gen_loader = require('mini.snippets').gen_loader
   require('mini.snippets').setup({
+    mappings = { expand = '<C-;>' },
     snippets = {
       gen_loader.from_file('~/.config/nvim/snippets.lua'),
       gen_loader.from_file('~/.config/nvim/snippets/global.lua'),
@@ -329,7 +330,7 @@ MiniDeps.later(function()
   local shelly = require('shelly')
   shelly.setup({ mappings = { close = 'q' } })
 
-  vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', shelly.evaluate)
+  vim.keymap.set({ 'n', 'v' }, '<CR>', shelly.evaluate)
   shelly.commands.shell.create('Run')
   shelly.commands.git_status.create('GitStatus', {
     mappings = {
