@@ -257,6 +257,32 @@ MiniDeps.now(function()
 end)
 
 -- mini.nvim
+MiniDeps.now(function()
+  require('mini.files').setup({
+    windows = { preview = true, width_preview = 80 },
+    mappings = { go_in = '', go_in_plus = '<CR>', go_out = '<BS>', go_out_plus = '', reset = '<Leader><BS>' },
+  })
+  require('mini.pick').setup()
+
+  -- Pickers
+  vim.keymap.set({ 'n' }, '<Leader>b', MiniPick.builtin.buffers)
+  vim.keymap.set({ 'n' }, '<Leader>e', function()
+    MiniFiles.open(nil, false)
+  end)
+  vim.keymap.set({ 'n' }, '<Leader>E', function()
+    MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+  end)
+  vim.keymap.set({ 'n' }, '<Leader>f', MiniPick.builtin.files)
+  vim.keymap.set({ 'n' }, '<Leader>F', function()
+    MiniPick.builtin.files(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
+  end)
+  vim.keymap.set({ 'n' }, '<Leader>g/', MiniPick.builtin.grep_live)
+  vim.keymap.set({ 'n' }, '<Leader>G/', function()
+    MiniPick.builtin.grep_live(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
+  end)
+  vim.keymap.set({ 'n' }, '<Leader>.', MiniPick.builtin.resume)
+end)
+
 MiniDeps.later(function()
   require('mini.ai').setup()
   require('mini.align').setup()
@@ -267,10 +293,6 @@ MiniDeps.later(function()
     view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } },
     options = { algorithm = 'patience' },
     mappings = { apply = 'gs', reset = 'gR', textobject = 'ah' },
-  })
-  require('mini.files').setup({
-    windows = { preview = true, width_preview = 80 },
-    mappings = { go_in = '', go_in_plus = '<CR>', go_out = '<BS>', go_out_plus = '', reset = '<Leader><BS>' },
   })
   require('mini.git').setup()
   require('mini.icons').setup()
@@ -283,7 +305,6 @@ MiniDeps.later(function()
     mappings = { start_jumping = 'S' },
   })
   require('mini.pairs').setup()
-  require('mini.pick').setup()
   require('mini.splitjoin').setup()
   require('mini.surround').setup()
   require('mini.tabline').setup()
@@ -401,24 +422,6 @@ MiniDeps.later(function()
     vim.cmd.grep('"' .. vim.fn.escape(search_term, '"') .. '"')
     vim.opt.hlsearch = true
   end)
-
-  -- Pickers
-  vim.keymap.set({ 'n' }, '<Leader>b', MiniPick.builtin.buffers)
-  vim.keymap.set({ 'n' }, '<Leader>e', function()
-    MiniFiles.open(nil, false)
-  end)
-  vim.keymap.set({ 'n' }, '<Leader>E', function()
-    MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-  end)
-  vim.keymap.set({ 'n' }, '<Leader>f', MiniPick.builtin.files)
-  vim.keymap.set({ 'n' }, '<Leader>F', function()
-    MiniPick.builtin.files(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
-  end)
-  vim.keymap.set({ 'n' }, '<Leader>g/', MiniPick.builtin.grep_live)
-  vim.keymap.set({ 'n' }, '<Leader>G/', function()
-    MiniPick.builtin.grep_live(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
-  end)
-  vim.keymap.set({ 'n' }, '<Leader>.', MiniPick.builtin.resume)
 
   -- Git/Diff
   vim.keymap.set({ 'n' }, '<Leader>gb', function()
