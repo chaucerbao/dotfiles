@@ -265,12 +265,12 @@ MiniDeps.later(function()
   require('mini.completion').setup({ lsp_completion = { source_func = 'omnifunc', auto_setup = false } })
   require('mini.diff').setup({
     view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } },
-    mappings = { apply = 'gs', reset = 'gR', textobject = 'ah' },
     options = { algorithm = 'patience' },
+    mappings = { apply = 'gs', reset = 'gR', textobject = 'ah' },
   })
   require('mini.files').setup({
-    mappings = { go_in = '', go_in_plus = '<CR>', go_out = '<BS>', go_out_plus = '', reset = '<Leader><BS>' },
     windows = { preview = true, width_preview = 80 },
+    mappings = { go_in = '', go_in_plus = '<CR>', go_out = '<BS>', go_out_plus = '', reset = '<Leader><BS>' },
   })
   require('mini.git').setup()
   require('mini.icons').setup()
@@ -280,6 +280,7 @@ MiniDeps.later(function()
     spotter = require('mini.jump2d').builtin_opts.word_start.spotter,
     allowed_lines = { blank = false },
     allowed_windows = { not_current = false },
+    mappings = { start_jumping = 'S' },
   })
   require('mini.pairs').setup()
   require('mini.pick').setup()
@@ -290,12 +291,12 @@ MiniDeps.later(function()
   -- Snippets
   local gen_loader = require('mini.snippets').gen_loader
   require('mini.snippets').setup({
-    mappings = { expand = '<C-;>' },
     snippets = {
       gen_loader.from_file('~/.config/nvim/snippets.lua'),
       gen_loader.from_file('~/.config/nvim/snippets/global.lua'),
       gen_loader.from_lang(),
     },
+    mappings = { expand = '<C-;>' },
   })
 
   -- Replace the default `vim.ui.select` interface
