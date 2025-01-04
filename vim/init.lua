@@ -241,7 +241,10 @@ MiniDeps.later(function()
     depends = { 'nvim-lua/plenary.nvim' },
   })
 
-  require('CopilotChat').setup({ window = { width = 0.4 } })
+  require('CopilotChat').setup({
+    window = { width = 0.4 },
+    mappings = { submit_prompt = { normal = '<Leader><CR>' } },
+  })
 
   vim.keymap.set({ 'n', 'v' }, '<Leader>/', '<CMD>CopilotChatToggle<CR>')
 end)
@@ -352,7 +355,7 @@ MiniDeps.later(function()
   local shelly = require('shelly')
   shelly.setup({ mappings = { close = 'q' } })
 
-  vim.keymap.set({ 'n', 'v' }, '<CR>', shelly.evaluate)
+  vim.keymap.set({ 'n', 'v' }, '<Leader><CR>', shelly.evaluate)
   shelly.commands.shell.create('Run')
   shelly.commands.git_status.create('GitStatus', {
     mappings = {
