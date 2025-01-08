@@ -86,6 +86,7 @@ fi
 
 # Miscellaneous
 if [ -x "$(command -v bat)" ]; then alias c='bat'; else alias c='cat'; fi
+alias ducks='du -k --summarize -- * | sort --numeric-sort --reverse | head'
 alias l='ls -l'
 alias ll='ls --almost-all -l'
 alias ls='ls --color=auto --classify --group-directories-first --human-readable --hyperlink=auto --literal'
