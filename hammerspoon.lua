@@ -90,25 +90,25 @@ clipboardManager:bindHotkeys({ toggle_clipboard = { { 'ctrl' }, 'space' } })
 clipboardManager:start()
 
 -- AutoClicker
-local autoClickerInterval = 0.1
+local autoClickerInterval = 0.005
 local autoClickerIcon = hs.menubar.new(false)
-local isAutoClicking = false
+local autoClickerTimer = nil
 
 local function toggleAutoClicker()
-  if isAutoClicking then
+  if autoClickerTimer then
     autoClickerIcon:removeFromMenuBar()
-    isAutoClicking = false
+    autoClickerTimer = nil
   else
-    isAutoClicking = true
     autoClickerIcon:returnToMenuBar()
     autoClickerIcon:setTitle('🐭')
     autoClickerIcon:setClickCallback(toggleAutoClicker)
 
-    hs.timer.doWhile(
-      function() return isAutoClicking end,
-      function() hs.eventtap.leftClick(hs.mouse.absolutePosition(), autoClickerInterval * 0.5) end,
-      autoClickerInterval
-    )
+    -- Store in a variable to prevent garbage collection
+    autoClickerTimer = hs.timer.doWhile(function()
+      return autoClickerTimer
+    end, function()
+      hs.eventtap.leftClick(hs.mouse.absolutePosition(), autoClickerInterval * 0.5)
+    end, autoClickerInterval)
   end
 end
 
