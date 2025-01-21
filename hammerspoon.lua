@@ -191,17 +191,17 @@ hs.hotkey.bind(
 )
 
 -- Quick focus window
-local quickFocusWindow = nil
+local quickFocusWindowId = nil
 
 hs.hotkey.bind(hs.fnutils.concat({ 'shift' }, mods), 'U', function()
-  if quickFocusWindow ~= hs.window.focusedWindow() then
-    quickFocusWindow = hs.window.focusedWindow()
-  else
-    quickFocusWindow = nil
-  end
+  local focusedWindow = hs.window.focusedWindow()
+
+  quickFocusWindowId = quickFocusWindowId ~= focusedWindow:id() and focusedWindow:id() or nil
 end)
 
 hs.hotkey.bind(mods, 'U', function()
+  local quickFocusWindow = quickFocusWindowId and hs.window.get(quickFocusWindowId) or nil
+
   if quickFocusWindow then
     quickFocusWindow:focus()
   end
