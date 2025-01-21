@@ -174,7 +174,6 @@ hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
 hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com.apple.Safari') end)
 
--- Conditional hotkey bindings
 hs.hotkey.bind(mods, 'P', function()
   print(hs.application.frontmostApplication())
   print(hs.application.frontmostApplication():focusedWindow())
@@ -186,6 +185,23 @@ hs.hotkey.bind(
   'escape',
   function() hs.application.launchOrFocusByBundleID(_G.config.terminal and _G.config.terminal or 'com.apple.Terminal') end
 )
+
+-- Quick focus window
+local quickFocusWindow = nil
+
+hs.hotkey.bind(hs.fnutils.concat({ 'shift' }, mods), 'U', function()
+  if quickFocusWindow ~= hs.window.focusedWindow() then
+    quickFocusWindow = hs.window.focusedWindow()
+  else
+    quickFocusWindow = nil
+  end
+end)
+
+hs.hotkey.bind(mods, 'U', function()
+  if quickFocusWindow then
+    quickFocusWindow:focus()
+  end
+end)
 
 if _G.config.browser then
   hs.hotkey.bind(mods, 'O', function() hs.application.launchOrFocusByBundleID(_G.config.browser) end)
