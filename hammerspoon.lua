@@ -139,6 +139,7 @@ _G.watchers.safariApplicationWatcher:start()
 -- Hotkey bindings
 local mods = { 'ctrl', 'cmd' }
 
+-- Move and resize windows
 hs.hotkey.bind(mods, '1', function() moveTo(1) end)
 hs.hotkey.bind(mods, '2', function() moveTo(2) end)
 hs.hotkey.bind(mods, '3', function() moveTo(3) end)
@@ -163,22 +164,25 @@ hs.hotkey.bind(mods, 'L', function() hs.window.frontmostWindow():moveToUnit(hs.l
 hs.hotkey.bind(mods, '[', function() hs.window.frontmostWindow():moveOneScreenWest() end)
 hs.hotkey.bind(mods, ']', function() hs.window.frontmostWindow():moveOneScreenEast() end)
 
+-- Volume
 hs.hotkey.bind(mods, '0', function() setVolume(0, { 'Mute', 'Unmute' }) end)
 hs.hotkey.bind(mods, '-', function() setVolume(2 / 16, 'Volume low') end)
 hs.hotkey.bind(mods, '=', function() setVolume(8 / 16, 'Volume normal') end)
 hs.hotkey.bind(mods, 'delete', function() toggleMicMute() end)
 
+-- Utilities
 hs.hotkey.bind(mods, 'A', toggleAutoClicker)
 hs.hotkey.bind(mods, 'Z', toggleCaffeine)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
-
-hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com.apple.Safari') end)
 
 hs.hotkey.bind(mods, 'P', function()
   print(hs.application.frontmostApplication())
   print(hs.application.frontmostApplication():focusedWindow())
   print(hs.application.frontmostApplication():bundleID())
 end)
+
+-- Focus applications
+hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com.apple.Safari') end)
 
 hs.hotkey.bind(
   'cmd',
@@ -215,6 +219,7 @@ if _G.config.quickLaunch then
   end)
 end
 
+-- Shortcut chooser
 if _G.config.shortcuts then
   local function sendText(text)
     local delimiterMap = { ['\n'] = 'return', ['\t'] = 'tab' }
