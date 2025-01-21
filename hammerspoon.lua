@@ -175,7 +175,11 @@ hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com.apple.Safari') end)
 
 -- Conditional hotkey bindings
-hs.hotkey.bind(mods, 'P', function() print(hs.application.frontmostApplication():bundleID()) end)
+hs.hotkey.bind(mods, 'P', function()
+  print(hs.application.frontmostApplication())
+  print(hs.application.frontmostApplication():focusedWindow())
+  print(hs.application.frontmostApplication():bundleID())
+end)
 
 hs.hotkey.bind(
   'cmd',
