@@ -12,4 +12,9 @@ return {
   { prefix = 'logj', body = 'console.log(JSON.stringify($0, null, 2))' },
   { prefix = 'iife', body = ';(() => {\n\t$0\n})()' },
   { prefix = 'aiife', body = ';(async () => {\n\t$0\n})()' },
+
+  {
+    prefix = 'fc',
+    body = 'interface ${1:Component}Props {\n\t$2\n}\n\nconst $1: React.FunctionComponent<$1Props> = (props) => {\n\t$0\n}',
+  },
 }
