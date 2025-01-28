@@ -246,7 +246,7 @@ MiniDeps.later(function()
     mappings = { submit_prompt = { normal = '<Leader><CR>' } },
   })
 
-  vim.keymap.set({ 'n', 'v' }, '<Leader>/', '<CMD>CopilotChatToggle<CR>')
+  vim.keymap.set({ 'n', 'v' }, '<Leader>\\', '<CMD>CopilotChatToggle<CR>')
 end)
 
 -- User Interface
@@ -261,28 +261,60 @@ end)
 
 -- mini.nvim
 MiniDeps.now(function()
+  require('mini.extra').setup()
   require('mini.files').setup({
     windows = { preview = true, width_preview = 80 },
     mappings = { go_in = '', go_in_plus = '<CR>', go_out = '<BS>', go_out_plus = '', reset = '<Leader><BS>' },
   })
   require('mini.pick').setup()
+  require('mini.visits').setup()
 
   -- Pickers
   vim.keymap.set({ 'n' }, '<Leader>b', MiniPick.builtin.buffers)
+
+  vim.keymap.set({ 'n' }, '<Leader>d', MiniExtra.pickers.diagnostic)
+
   vim.keymap.set({ 'n' }, '<Leader>e', function()
     MiniFiles.open(nil, false)
   end)
   vim.keymap.set({ 'n' }, '<Leader>E', function()
     MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
   end)
-  vim.keymap.set({ 'n' }, '<Leader>f', MiniPick.builtin.files)
+
+  vim.keymap.set({ 'n' }, '<Leader>f', MiniExtra.pickers.explorer)
   vim.keymap.set({ 'n' }, '<Leader>F', function()
+    MiniExtra.pickers.explorer({ cwd = vim.fn.expand('%:p:h') })
+  end)
+
+  vim.keymap.set({ 'n' }, '<Leader>gc', MiniExtra.pickers.git_commits)
+
+  vim.keymap.set({ 'n' }, '<Leader>t', MiniPick.builtin.files)
+  vim.keymap.set({ 'n' }, '<Leader>T', function()
     MiniPick.builtin.files(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
   end)
-  vim.keymap.set({ 'n' }, '<Leader>g/', MiniPick.builtin.grep_live)
-  vim.keymap.set({ 'n' }, '<Leader>G/', function()
+
+  vim.keymap.set({ 'n' }, '<Leader>/', MiniPick.builtin.grep_live)
+  vim.keymap.set({ 'n' }, '<Leader>?', function()
     MiniPick.builtin.grep_live(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
   end)
+
+  vim.keymap.set({ 'n' }, '<Leader>v', MiniExtra.pickers.visit_paths)
+  vim.keymap.set({ 'n' }, '<Leader>V', MiniExtra.pickers.visit_labels)
+  vim.keymap.set({ 'n' }, '<Leader>Vl', MiniVisits.add_label)
+  vim.keymap.set({ 'n' }, '<Leader>VL', MiniVisits.remove_label)
+
+  local function git_branch_current()
+    local branch = vim.fn.system({ 'git', 'branch', '--show-current' })
+    return vim.v.shell_error == 0 and vim.trim(branch) or nil
+  end
+
+  vim.keymap.set({ 'n' }, '<Leader>Vb', function()
+    MiniVisits.add_label(git_branch_current())
+  end)
+  vim.keymap.set({ 'n' }, '<Leader>VB', function()
+    MiniVisits.remove_label(git_branch_current())
+  end)
+
   vim.keymap.set({ 'n' }, '<Leader>.', MiniPick.builtin.resume)
 end)
 
