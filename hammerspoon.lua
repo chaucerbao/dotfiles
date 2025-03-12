@@ -112,6 +112,22 @@ local function toggleAutoClicker()
   end
 end
 
+local function setAutoClickerInterval()
+  local buttonText, clicksPerSecond =
+    hs.dialog.textPrompt('AutoClicker Interval', 'Clicks per second', tostring(1 / autoClickerInterval), 'OK', 'Cancel')
+
+  if buttonText == 'OK' then
+    clicksPerSecond = tonumber(clicksPerSecond)
+
+    if clicksPerSecond ~= nil then
+      autoClickerInterval = 1 / clicksPerSecond
+      hs.alert.show((1 / autoClickerInterval) .. ' clicks per second')
+    else
+      hs.alert.show('The value must be a number', { textColor = { hex = 'FF4136' } })
+    end
+  end
+end
+
 -- Safari mouse bindings
 _G.watchers = {}
 
@@ -138,6 +154,7 @@ _G.watchers.safariApplicationWatcher:start()
 
 -- Hotkey bindings
 local mods = { 'ctrl', 'cmd' }
+local shiftMods = { 'shift', 'ctrl', 'cmd' }
 
 -- Move and resize windows
 hs.hotkey.bind(mods, '1', function() moveTo(1) end)
@@ -172,6 +189,7 @@ hs.hotkey.bind(mods, 'delete', function() toggleMicMute() end)
 
 -- Utilities
 hs.hotkey.bind(mods, 'A', toggleAutoClicker)
+hs.hotkey.bind(shiftMods, 'A', setAutoClickerInterval)
 hs.hotkey.bind(mods, 'Z', toggleCaffeine)
 hs.hotkey.bind(mods, 'R', function() hs.reload() end)
 
