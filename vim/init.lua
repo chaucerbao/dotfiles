@@ -358,8 +358,9 @@ MiniDeps.later(function()
   -- Replace the default `vim.ui.select` interface
   vim.ui.select = MiniPick.ui_select
 
-  -- Add support for `nvim-tree/nvim-web-devicons`
+  -- Apply `mini.icons`
   MiniIcons.mock_nvim_web_devicons()
+  MiniIcons.tweak_lsp_kind()
 
   -- Jump to the matching line when opening `Git blame`
   vim.api.nvim_create_autocmd('User', {
