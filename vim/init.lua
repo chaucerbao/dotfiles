@@ -234,19 +234,28 @@ MiniDeps.later(function()
   })
 end)
 
--- GitHub Copilot Chat
+-- CodeCompanion
 MiniDeps.later(function()
   MiniDeps.add({
-    source = 'CopilotC-Nvim/CopilotChat.nvim',
-    depends = { 'nvim-lua/plenary.nvim' },
+    source = 'olimorris/codecompanion.nvim',
+    depends = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
   })
 
-  require('CopilotChat').setup({
-    window = { width = 0.4 },
-    mappings = { submit_prompt = { normal = '<Leader><CR>' } },
+  require('codecompanion').setup({
+    display = { chat = { window = { width = 0.4 } } },
+    strategies = {
+      chat = {
+        keymaps = {
+          send = { modes = { n = { '<Leader><CR>', '<C-s>' } } },
+          close = { modes = { n = 'q', i = {} } },
+          stop = { modes = { n = '<C-c>' } },
+          completion = { modes = { i = '<C-x><C-o>' } },
+        },
+      },
+    },
   })
 
-  vim.keymap.set({ 'n', 'v' }, '<Leader>\\', '<CMD>CopilotChatToggle<CR>')
+  vim.keymap.set({ 'n', 'v' }, '<Leader>\\', '<CMD>CodeCompanionActions<CR>')
 end)
 
 -- User Interface
