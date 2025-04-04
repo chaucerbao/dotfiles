@@ -189,7 +189,7 @@ MiniDeps.now(function()
 
             -- Organize Imports
             vim.keymap.set({ 'n' }, 'gi', function()
-              client:_exec_cmd({
+              client:exec_cmd({
                 command = '_typescript.organizeImports',
                 arguments = { vim.api.nvim_buf_get_name(bufnr) },
               })
