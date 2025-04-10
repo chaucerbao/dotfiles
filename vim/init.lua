@@ -36,12 +36,20 @@ MiniDeps.later(function()
   vim.opt.foldmethod = 'indent'
 
   -- Diagnostics
-  vim.diagnostic.config({ virtual_text = { spacing = 0, prefix = '«' } })
-  vim.fn.sign_define({
-    { name = 'DiagnosticSignError', text = '✕' },
-    { name = 'DiagnosticSignWarn', text = '△' },
-    { name = 'DiagnosticSignInfo', text = 'ℹ' },
-    { name = 'DiagnosticSignHint', text = '?' },
+  vim.diagnostic.config({
+    signs = {
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = 'ErrorMsg',
+        [vim.diagnostic.severity.WARN] = 'WarningMsg',
+      },
+      text = {
+        [vim.diagnostic.severity.ERROR] = '✕',
+        [vim.diagnostic.severity.WARN] = '△',
+        [vim.diagnostic.severity.INFO] = 'ℹ',
+        [vim.diagnostic.severity.HINT] = '?',
+      },
+    },
+    virtual_text = { prefix = '«', spacing = 0 },
   })
 
   -- Search
