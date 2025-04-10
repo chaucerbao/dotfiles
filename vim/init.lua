@@ -99,24 +99,12 @@ MiniDeps.now(function()
     end
   end
 
-  local function on_attach(client, bufnr)
-    vim.bo[bufnr].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
-
-    local keymap_opts = { buffer = bufnr }
-
-    vim.keymap.set({ 'n' }, 'gd', vim.lsp.buf.definition, keymap_opts)
-    vim.keymap.set({ 'n' }, 'gD', vim.lsp.buf.type_definition, keymap_opts)
-    vim.keymap.set({ 'n' }, 'gr', vim.lsp.buf.references, keymap_opts)
-    vim.keymap.set({ 'n' }, '<Leader>r', vim.lsp.buf.rename, keymap_opts)
-    vim.keymap.set({ 'n' }, '<Leader>;', vim.lsp.buf.code_action, keymap_opts)
-  end
-
   require('mason').setup()
   require('mason-lspconfig').setup({
     ensure_installed = { 'efm' },
     handlers = {
       function(server_name)
-        lspconfig[server_name].setup({ on_attach = on_attach })
+        lspconfig[server_name].setup({})
       end,
 
       ['efm'] = function()
@@ -184,7 +172,6 @@ MiniDeps.now(function()
       ['denols'] = function()
         lspconfig.denols.setup({
           root_dir = lspconfig.util.root_pattern('deno.json', 'deno.jsonc'),
-          on_attach = on_attach,
         })
       end,
 
@@ -193,8 +180,6 @@ MiniDeps.now(function()
           root_dir = lspconfig.util.root_pattern('package.json'),
           single_file_support = false,
           on_attach = function(client, bufnr)
-            on_attach(client, bufnr)
-
             -- Organize Imports
             vim.keymap.set({ 'n' }, 'gi', function()
               client:exec_cmd({
@@ -206,6 +191,14 @@ MiniDeps.now(function()
         })
       end,
     },
+  })
+
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+      vim.bo[args.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
+
+      vim.keymap.set({ 'n' }, 'gd', vim.lsp.buf.definition, { buffer = args.buf })
+    end,
   })
 end)
 
