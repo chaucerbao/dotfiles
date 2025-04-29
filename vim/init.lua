@@ -309,13 +309,15 @@ MiniDeps.now(function()
   end)
 
   vim.keymap.set({ 'n' }, '<Leader>v', MiniExtra.pickers.visit_paths)
-  vim.keymap.set({ 'n' }, '<Leader>Vv', MiniExtra.pickers.visit_labels)
 
   local function git_branch_current()
     local branch = vim.fn.system({ 'git', 'branch', '--show-current' })
     return vim.v.shell_error == 0 and vim.trim(branch) or nil
   end
 
+  vim.keymap.set({ 'n' }, '<Leader>Vv', function()
+    MiniExtra.pickers.visit_paths({ filter = git_branch_current() })
+  end)
   vim.keymap.set({ 'n' }, '<Leader>Vl', function()
     MiniVisits.add_label(git_branch_current())
   end)
