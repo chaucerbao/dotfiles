@@ -1,5 +1,7 @@
 -- Initialize the configuration
-if _G.config == nil then _G.config = {} end
+if _G.config == nil then
+  _G.config = {}
+end
 
 -- Style options
 hs.alert.defaultStyle.radius = 3
@@ -40,12 +42,16 @@ local function setVolume(target, message)
   if target == 0 then
     audioDevice:setMuted(not audioDevice:muted())
 
-    if message then hs.alert.show(audioDevice:muted() and message[1] or message[2]) end
+    if message then
+      hs.alert.show(audioDevice:muted() and message[1] or message[2])
+    end
   else
     audioDevice:setVolume(target * 100)
     audioDevice:setMuted(false)
 
-    if message then hs.alert.show(message) end
+    if message then
+      hs.alert.show(message)
+    end
   end
 end
 
@@ -142,7 +148,9 @@ local safariMouseEventWatcher = hs.eventtap.new({ hs.eventtap.event.types.otherM
 end)
 
 _G.watchers.safariApplicationWatcher = hs.application.watcher.new(function(applicationName, eventType, application)
-  if applicationName ~= 'Safari' then return end
+  if applicationName ~= 'Safari' then
+    return
+  end
 
   if eventType == hs.application.watcher.activated then
     safariMouseEventWatcher:start()
@@ -157,41 +165,67 @@ local mods = { 'ctrl', 'cmd' }
 local shiftMods = { 'shift', 'ctrl', 'cmd' }
 
 -- Move and resize windows
-hs.hotkey.bind(mods, '1', function() moveTo(1) end)
-hs.hotkey.bind(mods, '2', function() moveTo(2) end)
-hs.hotkey.bind(mods, '3', function() moveTo(3) end)
-hs.hotkey.bind(mods, '4', function() moveTo(4) end)
-hs.hotkey.bind(mods, 'C', function() hs.window.frontmostWindow():centerOnScreen() end)
+hs.hotkey.bind(mods, '1', function()
+  moveTo(1)
+end)
+hs.hotkey.bind(mods, '2', function()
+  moveTo(2)
+end)
+hs.hotkey.bind(mods, '3', function()
+  moveTo(3)
+end)
+hs.hotkey.bind(mods, '4', function()
+  moveTo(4)
+end)
+hs.hotkey.bind(mods, 'C', function()
+  hs.window.frontmostWindow():centerOnScreen()
+end)
 
-hs.hotkey.bind(mods, 'M', function() hs.window.frontmostWindow():maximize() end)
-hs.hotkey.bind(
-  mods,
-  'N',
-  function() hs.window.frontmostWindow():moveToUnit({ x = 1 / 4, y = 1 / 4, w = 1 / 2, h = 1 / 2 }) end
-)
-hs.hotkey.bind(
-  mods,
-  'B',
-  function() hs.window.frontmostWindow():moveToUnit({ x = 1 / 8, y = 1 / 8, w = 3 / 4, h = 3 / 4 }) end
-)
+hs.hotkey.bind(mods, 'M', function()
+  hs.window.frontmostWindow():maximize()
+end)
+hs.hotkey.bind(mods, 'N', function()
+  hs.window.frontmostWindow():moveToUnit({ x = 1 / 4, y = 1 / 4, w = 1 / 2, h = 1 / 2 })
+end)
+hs.hotkey.bind(mods, 'B', function()
+  hs.window.frontmostWindow():moveToUnit({ x = 1 / 8, y = 1 / 8, w = 3 / 4, h = 3 / 4 })
+end)
 
-hs.hotkey.bind(mods, 'H', function() hs.window.frontmostWindow():moveToUnit(hs.layout.left50) end)
-hs.hotkey.bind(mods, 'L', function() hs.window.frontmostWindow():moveToUnit(hs.layout.right50) end)
+hs.hotkey.bind(mods, 'H', function()
+  hs.window.frontmostWindow():moveToUnit(hs.layout.left50)
+end)
+hs.hotkey.bind(mods, 'L', function()
+  hs.window.frontmostWindow():moveToUnit(hs.layout.right50)
+end)
 
-hs.hotkey.bind(mods, '[', function() hs.window.frontmostWindow():moveOneScreenWest() end)
-hs.hotkey.bind(mods, ']', function() hs.window.frontmostWindow():moveOneScreenEast() end)
+hs.hotkey.bind(mods, '[', function()
+  hs.window.frontmostWindow():moveOneScreenWest()
+end)
+hs.hotkey.bind(mods, ']', function()
+  hs.window.frontmostWindow():moveOneScreenEast()
+end)
 
 -- Volume
-hs.hotkey.bind(mods, '0', function() setVolume(0, { 'Mute', 'Unmute' }) end)
-hs.hotkey.bind(mods, '-', function() setVolume(2 / 16, 'Volume low') end)
-hs.hotkey.bind(mods, '=', function() setVolume(8 / 16, 'Volume normal') end)
-hs.hotkey.bind(mods, 'delete', function() toggleMicMute() end)
+hs.hotkey.bind(mods, '0', function()
+  setVolume(0, { 'Mute', 'Unmute' })
+end)
+hs.hotkey.bind(mods, '-', function()
+  setVolume(2 / 16, 'Volume low')
+end)
+hs.hotkey.bind(mods, '=', function()
+  setVolume(8 / 16, 'Volume normal')
+end)
+hs.hotkey.bind(mods, 'delete', function()
+  toggleMicMute()
+end)
 
 -- Utilities
 hs.hotkey.bind(mods, 'A', toggleAutoClicker)
 hs.hotkey.bind(shiftMods, 'A', setAutoClickerInterval)
 hs.hotkey.bind(mods, 'Z', toggleCaffeine)
-hs.hotkey.bind(mods, 'R', function() hs.reload() end)
+hs.hotkey.bind(mods, 'R', function()
+  hs.reload()
+end)
 
 hs.hotkey.bind(mods, 'P', function()
   print(hs.application.frontmostApplication())
@@ -200,13 +234,13 @@ hs.hotkey.bind(mods, 'P', function()
 end)
 
 -- Focus applications
-hs.hotkey.bind(mods, 'I', function() hs.application.launchOrFocusByBundleID('com.apple.Safari') end)
+hs.hotkey.bind(mods, 'I', function()
+  hs.application.launchOrFocusByBundleID('com.apple.Safari')
+end)
 
-hs.hotkey.bind(
-  'cmd',
-  'escape',
-  function() hs.application.launchOrFocusByBundleID(_G.config.terminal and _G.config.terminal or 'com.apple.Terminal') end
-)
+hs.hotkey.bind('cmd', 'escape', function()
+  hs.application.launchOrFocusByBundleID(_G.config.terminal and _G.config.terminal or 'com.apple.Terminal')
+end)
 
 -- Quick focus window
 local quickFocusWindowId = nil
@@ -226,7 +260,9 @@ hs.hotkey.bind(mods, 'U', function()
 end)
 
 if _G.config.browser then
-  hs.hotkey.bind(mods, 'O', function() hs.application.launchOrFocusByBundleID(_G.config.browser) end)
+  hs.hotkey.bind(mods, 'O', function()
+    hs.application.launchOrFocusByBundleID(_G.config.browser)
+  end)
 end
 
 if _G.config.quickLaunch then
@@ -256,7 +292,9 @@ if _G.config.shortcuts then
     for substring in string.gmatch(text, '[^' .. delimiterRegex .. ']*') do
       hs.eventtap.keyStrokes(substring)
 
-      if delimiters[i] then hs.eventtap.keyStroke({}, delimiters[i]) end
+      if delimiters[i] then
+        hs.eventtap.keyStroke({}, delimiters[i])
+      end
 
       i = i + 1
     end
@@ -265,12 +303,16 @@ if _G.config.shortcuts then
   local shortcutChooser = hs.chooser.new(function(choice)
     if choice then
       if choice.keyStrokes then
-        if type(choice.keyStrokes) == 'string' then sendText(choice.keyStrokes) end
+        if type(choice.keyStrokes) == 'string' then
+          sendText(choice.keyStrokes)
+        end
 
         if type(choice.keyStrokes) == 'table' then
           if choice.interval then
             for i, text in ipairs(choice.keyStrokes) do
-              hs.timer.doAfter(choice.interval * (i - 1), function() sendText(text) end)
+              hs.timer.doAfter(choice.interval * (i - 1), function()
+                sendText(text)
+              end)
             end
           else
             sendText(table.concat(choice.keyStrokes, ''))
@@ -278,7 +320,9 @@ if _G.config.shortcuts then
         end
       end
 
-      if _G[choice.callback] ~= nil then _G[choice.callback]() end
+      if _G[choice.callback] ~= nil then
+        _G[choice.callback]()
+      end
     end
   end)
 
