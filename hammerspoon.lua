@@ -96,43 +96,63 @@ clipboardManager:bindHotkeys({ toggle_clipboard = { { 'ctrl' }, 'space' } })
 clipboardManager:start()
 
 -- AutoClicker
-local autoClickerInterval = 0.005
-local autoClickerIcon = hs.menubar.new(false)
-local autoClickerTimer = nil
+local autoClicker = {
+  icon = hs.menubar.new(false),
+  modal = hs.hotkey.modal.new(),
+  interval = 0.005,
+  timer = nil,
+}
 
-local function toggleAutoClicker()
-  if autoClickerTimer then
-    autoClickerIcon:removeFromMenuBar()
-    autoClickerTimer = nil
-  else
-    autoClickerIcon:returnToMenuBar()
-    autoClickerIcon:setTitle('🐭')
-    autoClickerIcon:setClickCallback(toggleAutoClicker)
-
+autoClicker.enable = function(isEnabling)
+  if isEnabling then
     -- Store in a variable to prevent garbage collection
-    autoClickerTimer = hs.timer.doWhile(function()
-      return autoClickerTimer
+    autoClicker.timer = hs.timer.doWhile(function()
+      return autoClicker.timer
     end, function()
-      hs.eventtap.leftClick(hs.mouse.absolutePosition(), autoClickerInterval * 0.5)
-    end, autoClickerInterval)
+      hs.eventtap.leftClick(hs.mouse.absolutePosition(), autoClicker.interval / 2)
+    end, autoClicker.interval)
+  else
+    autoClicker.timer = nil
   end
 end
 
-local function setAutoClickerInterval()
-  local buttonText, clicksPerSecond =
-    hs.dialog.textPrompt('AutoClicker Interval', 'Clicks per second', tostring(1 / autoClickerInterval), 'OK', 'Cancel')
+function autoClicker.modal:entered()
+  autoClicker.icon:returnToMenuBar()
+  autoClicker.icon:setTitle('🐭')
+end
+
+function autoClicker.modal:exited()
+  autoClicker.enable(false)
+  autoClicker.icon:removeFromMenuBar()
+end
+
+autoClicker.modal:bind({ 'cmd' }, ',', function()
+  local buttonText, clicksPerSecond = hs.dialog.textPrompt(
+    'AutoClicker Interval',
+    'Clicks per second',
+    tostring(1 / autoClicker.interval),
+    'OK',
+    'Cancel'
+  )
 
   if buttonText == 'OK' then
     clicksPerSecond = tonumber(clicksPerSecond)
 
     if clicksPerSecond ~= nil then
-      autoClickerInterval = 1 / clicksPerSecond
-      hs.alert.show((1 / autoClickerInterval) .. ' clicks per second')
+      autoClicker.interval = 1 / clicksPerSecond
     else
       hs.alert.show('The value must be a number', { textColor = { hex = 'FF4136' } })
     end
   end
-end
+end)
+
+autoClicker.modal:bind({}, 'space', function()
+  autoClicker.enable(autoClicker.timer == nil)
+end)
+
+autoClicker.modal:bind({}, 'escape', function()
+  autoClicker.modal:exit()
+end)
 
 -- Safari mouse bindings
 _G.watchers = {}
@@ -220,8 +240,14 @@ hs.hotkey.bind(mods, 'delete', function()
 end)
 
 -- Utilities
-hs.hotkey.bind(mods, 'A', toggleAutoClicker)
-hs.hotkey.bind(shiftMods, 'A', setAutoClickerInterval)
+hs.hotkey.bind(mods, 'A', function()
+  if autoClicker.icon:isInMenuBar() then
+    autoClicker.modal:exit()
+  else
+    autoClicker.modal:enter()
+  end
+end)
+-- hs.hotkey.bind(shiftMods, 'A', setAutoClickerInterval)
 hs.hotkey.bind(mods, 'Z', toggleCaffeine)
 hs.hotkey.bind(mods, 'R', function()
   hs.reload()
