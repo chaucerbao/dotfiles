@@ -98,7 +98,10 @@ MiniDeps.later(function()
     depends = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
   })
 
-  require('copilot').setup()
+  require('copilot').setup({
+    panel = { enabled = false },
+    suggestion = { keymap = { accept = '<C-y>', next = '<C-l>', prev = '<C-h>' } },
+  })
   require('codecompanion').setup()
 
   vim.keymap.set({ 'ca' }, 'cc', 'CodeCompanion')
