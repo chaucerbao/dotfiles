@@ -277,7 +277,7 @@ end)
 
 -- Git Navigation
 vim.keymap.set({ 'n', 'x' }, '<Leader>g.', MiniGit.show_at_cursor)
-vim.keymap.set('n', '<Leader>gb', function()
+vim.keymap.set({ 'n' }, '<Leader>gb', function()
   local cword = vim.fn.expand('<cword>')
   local filename = vim.fn.expand('%'):gsub('^.+ -- ', '')
   local revision = (cword:match('^%x%x%x%x%x%x%x+$') and cword:lower() == cword) and (cword .. '^') or 'HEAD'
@@ -285,7 +285,7 @@ vim.keymap.set('n', '<Leader>gb', function()
   local ok, result = pcall(vim.cmd, 'vertical Git blame --date=short ' .. revision .. ' -- ' .. filename)
 
   if ok then
-    vim.keymap.set('n', 'q', ':bdelete<CR>', { silent = true, buffer = true })
+    vim.keymap.set({ 'n' }, 'q', ':bdelete<CR>', { silent = true, buffer = true })
   elseif result:find('fatal: no such path ') then
     print(('`%s` does not exist before `%s`'):format(vim.fs.basename(filename), revision:gsub('%^$', '')))
   end
