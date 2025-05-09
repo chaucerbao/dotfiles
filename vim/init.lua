@@ -230,6 +230,10 @@ vim.keymap.set({ 'n' }, '<Leader>V', function()
 end)
 
 -- Search
+if vim.o.grepprg:match('^rg ') then
+  vim.o.grepprg = vim.o.grepprg .. '--fixed-strings --sort=path'
+end
+
 vim.keymap.set({ 'n', 'x' }, '<Leader>*', function()
   local search_term
   if vim.fn.mode():match('^n') then
