@@ -94,6 +94,14 @@ end)
 MiniDeps.later(function()
   MiniDeps.add({ source = 'zbirenbaum/copilot.lua' })
   MiniDeps.add({
+    source = 'ravitemer/mcphub.nvim',
+    hooks = {
+      post_install = function(event)
+        vim.cmd.source(event.path .. '/bundled_build.lua')
+      end,
+    },
+  })
+  MiniDeps.add({
     source = 'olimorris/codecompanion.nvim',
     depends = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
   })
@@ -102,7 +110,23 @@ MiniDeps.later(function()
     panel = { enabled = false },
     suggestion = { keymap = { accept = '<C-y>', next = '<C-l>', prev = '<C-h>' } },
   })
-  require('codecompanion').setup()
+
+  require('mcphub').setup({ use_bundled_binary = true })
+
+  require('codecompanion').setup({
+    strategies = {
+      chat = { keymaps = { completion = { modes = { i = '<C-x><C-o>' } } } },
+    },
+    extensions = {
+      mcphub = {
+        callback = 'mcphub.extensions.codecompanion',
+        opts = {
+          make_slash_commands = true,
+          make_vars = true,
+        },
+      },
+    },
+  })
 
   vim.keymap.set({ 'ca' }, 'cc', 'CodeCompanion')
   vim.keymap.set({ 'n', 'x' }, '<Leader>\\', '<CMD>CodeCompanionActions<CR>')
