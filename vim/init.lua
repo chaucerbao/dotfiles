@@ -8,6 +8,7 @@ end
 -- mini.nvim
 require('mini.deps').setup()
 
+require('mini.ai').setup()
 require('mini.basics').setup({ options = { extra_ui = true }, mappings = { windows = true } })
 require('mini.bracketed').setup()
 require('mini.completion').setup({ lsp_completion = { source_func = 'omnifunc', auto_setup = false } })
