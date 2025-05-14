@@ -20,7 +20,7 @@ require('mini.jump2d').setup(
   vim.tbl_extend(
     'keep',
     require('mini.jump2d').builtin_opts.word_start,
-    { allowed_lines = { blank = false }, allowed_windows = { not_current = false } }
+    { allowed_lines = { blank = false }, allowed_windows = { not_current = false }, mappings = { start_jumping = 'S' } }
   )
 )
 require('mini.pairs').setup()
