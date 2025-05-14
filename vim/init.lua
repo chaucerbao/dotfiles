@@ -54,7 +54,7 @@ MiniDeps.later(function()
 end)
 
 -- Language Server Protocol
-MiniDeps.later(function()
+MiniDeps.now(function()
   MiniDeps.add({ source = 'mason-org/mason.nvim' })
 
   require('mason').setup()
@@ -260,7 +260,7 @@ end)
 
 -- Search
 if vim.o.grepprg:match('^rg ') then
-  vim.o.grepprg = vim.o.grepprg .. '--fixed-strings --sort=path'
+  vim.o.grepprg = 'rg --no-config --case-sensitive --fixed-strings --sort=path --vimgrep'
 end
 
 vim.keymap.set({ 'n', 'x' }, '<Leader>*', function()
