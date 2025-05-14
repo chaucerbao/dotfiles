@@ -120,16 +120,13 @@ MiniDeps.later(function()
     extensions = {
       mcphub = {
         callback = 'mcphub.extensions.codecompanion',
-        opts = {
-          make_slash_commands = true,
-          make_vars = true,
-        },
+        opts = { make_slash_commands = true, make_vars = true },
       },
     },
   })
 
   vim.keymap.set({ 'ca' }, 'cc', 'CodeCompanion')
-  vim.keymap.set({ 'n', 'x' }, '<Leader>\\', '<CMD>CodeCompanionActions<CR>')
+  vim.keymap.set({ 'n', 'x' }, '<Leader>\\', '<CMD>CodeCompanionChat Toggle<CR>')
 end)
 
 -- Shelly
