@@ -155,6 +155,11 @@ MiniSnippets.config.snippets = {
 }
 
 -- Helpers
+local function git_root()
+  local result = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait()
+  return result.code == 0 and vim.trim(result.stdout) or nil
+end
+
 local function git_branch()
   local result = vim.system({ 'git', 'branch', '--show-current' }):wait()
   return result.code == 0 and vim.trim(result.stdout) or nil
@@ -171,7 +176,7 @@ local function toggle_list(list, open, close)
     if vim.tbl_isempty(vim.tbl_filter(function(window)
       return window[list] > 0
     end, vim.fn.getwininfo())) then
-      local ok, result = pcall(vim.cmd, open)
+      local ok = pcall(vim.cmd, open)
       if ok then
         vim.cmd.wincmd('p')
       else
@@ -308,7 +313,8 @@ vim.keymap.set({ 'n' }, '<Leader>gb', function()
   local filename = vim.fn.expand('%'):gsub('^.+ -- ', '')
   local revision = (cword:match('^%x%x%x%x%x%x%x+$') and cword:lower() == cword) and (cword .. '^') or 'HEAD'
 
-  local ok, result = pcall(vim.cmd, 'vertical Git blame --date=short ' .. revision .. ' -- ' .. filename)
+  local ok, result =
+    pcall(vim.cmd, 'vertical Git -C ' .. git_root() .. ' blame --date=short ' .. revision .. ' -- ' .. filename)
 
   if ok then
     vim.keymap.set({ 'n' }, 'q', ':bdelete<CR>', { silent = true, buffer = true })
