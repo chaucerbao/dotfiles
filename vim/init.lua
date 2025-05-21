@@ -88,6 +88,7 @@ MiniDeps.now(function()
   })
 
   MiniIcons.tweak_lsp_kind()
+  MiniSnippets.start_lsp_server()
   vim.lsp.enable({ 'efm-langserver' })
 end)
 
@@ -116,7 +117,7 @@ MiniDeps.later(function()
 
   require('codecompanion').setup({
     strategies = {
-      chat = { keymaps = { completion = { modes = { i = '<C-x><C-o>' } } } },
+      chat = { keymaps = { completion = { modes = { i = '<C-j>' } } } },
     },
     extensions = {
       mcphub = {
@@ -244,6 +245,11 @@ vim.keymap.set({ 'c', 'i' }, '<C-e>', '<End>')
 -- Yank/Paste
 vim.keymap.set({ 'x' }, 'p', 'pgvy')
 vim.keymap.set({ 'n' }, 'gP', '"+P')
+
+-- Smart `<Tab>`
+local map_multistep = require('mini.keymap').map_multistep
+map_multistep({ 'i' }, '<Tab>', { 'minisnippets_next', 'minisnippets_expand', 'pmenu_next' })
+map_multistep({ 'i' }, '<S-Tab>', { 'minisnippets_prev', 'pmenu_prev' })
 
 -- Pickers
 vim.keymap.set({ 'n' }, '<Leader>b', MiniPick.builtin.buffers)
