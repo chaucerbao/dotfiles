@@ -96,7 +96,6 @@ end)
 
 -- Large Language Models
 MiniDeps.later(function()
-  MiniDeps.add({ source = 'zbirenbaum/copilot.lua' })
   MiniDeps.add({
     source = 'ravitemer/mcphub.nvim',
     hooks = {
@@ -108,11 +107,6 @@ MiniDeps.later(function()
   MiniDeps.add({
     source = 'olimorris/codecompanion.nvim',
     depends = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
-  })
-
-  require('copilot').setup({
-    panel = { enabled = false },
-    suggestion = { keymap = { accept = '<C-y>', next = '<C-l>', prev = '<C-h>' } },
   })
 
   require('mcphub').setup({ use_bundled_binary = true })
@@ -132,6 +126,11 @@ MiniDeps.later(function()
   vim.keymap.set({ 'ca' }, 'cc', 'CodeCompanion')
   vim.keymap.set({ 'n', 'x' }, '<Leader>\\', '<CMD>CodeCompanionChat Toggle<CR>')
 end)
+
+-- Only used once to authenticate with GitHub Copilot (`:Copilot setup`)
+-- MiniDeps.later(function()
+--   MiniDeps.add({ source = 'github/copilot.vim' })
+-- end)
 
 -- Shelly
 MiniDeps.later(function()
