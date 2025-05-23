@@ -14,7 +14,9 @@ require('mini.bracketed').setup()
 require('mini.completion').setup({ lsp_completion = { source_func = 'omnifunc', auto_setup = false } })
 require('mini.diff').setup({ view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } })
 require('mini.extra').setup()
-require('mini.files').setup()
+require('mini.files').setup({
+  mappings = { close = '<Esc>', go_in = '', go_in_plus = '<CR>', go_out = '<BS>', go_out_plus = '', reset = '' },
+})
 require('mini.git').setup()
 require('mini.icons').setup()
 require('mini.jump2d').setup(
