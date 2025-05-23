@@ -250,7 +250,7 @@ vim.keymap.set({ 'n' }, 'gP', '"+P')
 
 -- Smart `<Tab>`
 local map_multistep = require('mini.keymap').map_multistep
-map_multistep({ 'i' }, '<Tab>', { 'minisnippets_next', 'minisnippets_expand', 'pmenu_next' })
+map_multistep({ 'i' }, '<Tab>', { 'minisnippets_next', 'pmenu_next' })
 map_multistep({ 'i' }, '<S-Tab>', { 'minisnippets_prev', 'pmenu_prev' })
 
 -- Pickers
