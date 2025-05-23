@@ -159,7 +159,7 @@ MiniSnippets.config.snippets = {
 
 -- Helpers
 local function git_root()
-  local result = vim.system({ 'git', 'rev-parse', '--show-toplevel' }):wait()
+  local result = vim.system({ 'git', '-C', vim.fn.expand('%:p:h'), 'rev-parse', '--show-toplevel' }):wait()
   return result.code == 0 and vim.trim(result.stdout) or nil
 end
 
@@ -318,11 +318,12 @@ end)
 vim.keymap.set({ 'n', 'x' }, '<Leader>g.', MiniGit.show_at_cursor)
 vim.keymap.set({ 'n' }, '<Leader>gb', function()
   local cword = vim.fn.expand('<cword>')
-  local filename = vim.fn.expand('%'):gsub('^.+ -- ', '')
+  local filename = vim.fn.expand('%:p'):gsub('^.+ -- ', '')
   local revision = (cword:match('^%x%x%x%x%x%x%x+$') and cword:lower() == cword) and (cword .. '^') or 'HEAD'
 
+  local git_root_path = vim.fn.expand('%'):match('^minigit://.+%-C%s+([^%s]+)') or git_root()
   local ok, result =
-    pcall(vim.cmd, 'vertical Git -C ' .. git_root() .. ' blame --date=short ' .. revision .. ' -- ' .. filename)
+    pcall(vim.cmd, 'vertical Git -C ' .. git_root_path .. ' blame --date=short ' .. revision .. ' -- ' .. filename)
 
   if ok then
     vim.keymap.set({ 'n' }, 'q', ':bdelete<CR>', { silent = true, buffer = true })
