@@ -344,7 +344,6 @@ vim.api.nvim_create_autocmd('User', {
     vim.wo.wrap = false
     vim.fn.winrestview({ topline = vim.fn.line('w0', win_source) })
     vim.api.nvim_win_set_cursor(0, { vim.fn.line('.', win_source), 0 })
-    vim.wo[win_source].scrollbind, vim.wo.scrollbind = true, true
   end,
 })
 
