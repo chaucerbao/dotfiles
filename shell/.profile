@@ -57,6 +57,7 @@ if [ -x "$(command -v n)" ]; then
 	export N_PREFIX=$HOME/.n
 	export N_PRESERVE_NPM=1
 	export N_PRESERVE_COREPACK=1
+	export COREPACK_ENABLE_AUTO_PIN=0
   export PATH=node_modules/.bin:$N_PREFIX/bin:$PATH
 fi
 
