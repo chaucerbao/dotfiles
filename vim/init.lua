@@ -75,6 +75,12 @@ MiniDeps.now(function()
           vim.keymap.set({ 'n', 'x' }, 'gq', function()
             vim.lsp.buf.format({ name = 'efm-langserver' })
           end, { buffer = event.buf })
+
+          vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+            callback = function()
+              vim.lsp.buf.format({ name = 'efm-langserver' })
+            end,
+          })
         end
 
         if client.name == 'typescript-language-server' then
