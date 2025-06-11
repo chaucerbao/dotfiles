@@ -7,6 +7,17 @@ tools:
     format-stdin: true
     format-can-range: true
 
+  eslint-format: &eslint-format
+    format-command: 'eslint_d --fix-to-stdout --stdin --stdin-filename "${INPUT}"'
+    format-stdin: true
+    root-markers:
+      - 'eslint.config.js'
+      - 'eslint.config.mjs'
+      - 'eslint.config.cjs'
+      - 'eslint.config.ts'
+      - 'eslint.config.mts'
+      - 'eslint.config.cts'
+
   graphql-prettier: &graphql-prettier
     format-command: 'prettierd file.graphql'
     format-stdin: true
@@ -32,16 +43,9 @@ tools:
     format-stdin: true
     format-can-range: true
 
-  eslint-format: &eslint-format
-    format-command: 'eslint_d --fix-to-stdout --stdin --stdin-filename "${INPUT}"'
+  sql-deno: &sql-deno
+    format-command: 'deno fmt --ext=sql --unstable-sql -'
     format-stdin: true
-    root-markers:
-      - 'eslint.config.js'
-      - 'eslint.config.mjs'
-      - 'eslint.config.cjs'
-      - 'eslint.config.ts'
-      - 'eslint.config.mts'
-      - 'eslint.config.cts'
 
   typescript-prettier: &typescript-prettier
     format-command: 'prettierd file.tsx'
@@ -92,6 +96,9 @@ languages:
   json:
     - <<: *json-prettier
 
+  jsonc:
+    - <<: *json-prettier
+
   lua:
     - <<: *lua-stylua
 
@@ -100,6 +107,9 @@ languages:
 
   scss:
     - <<: *css-prettier
+
+  sql:
+    - <<: *sql-deno
 
   typescript:
     - <<: *eslint-lint
