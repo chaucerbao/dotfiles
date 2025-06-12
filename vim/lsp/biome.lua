@@ -1,13 +1,15 @@
-local root_markers = { 'deno.json', 'deno.jsonc' }
+local root_markers = { 'biome.json', 'biome.jsonc' }
 
 return {
-  cmd = { 'deno', 'lsp' },
+  cmd = { 'biome', 'lsp-proxy' },
   filetypes = {
+    'css',
+    'graphql',
     'javascript',
     'javascriptreact',
     'json',
     'jsonc',
-    'markdown',
+    'scss',
     'typescript',
     'typescriptreact',
   },

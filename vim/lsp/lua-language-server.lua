@@ -1,4 +1,4 @@
-local root_markers = { '.luarc.json', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml' }
+local root_markers = { '.luarc.json', '.luacheckrc', '.stylua.toml', 'stylua.toml' }
 
 return {
   cmd = { 'lua-language-server' },
