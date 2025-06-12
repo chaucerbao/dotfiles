@@ -1,3 +1,5 @@
+local root_markers = { '.git' }
+
 return {
   cmd = { 'efm-langserver' },
   filetypes = {
@@ -16,4 +18,11 @@ return {
     'typescriptreact',
     'yaml',
   },
+  root_dir = function(_bufnr, on_dir)
+    local path = vim.fs.root(0, root_markers)
+
+    if path ~= nil then
+      on_dir(path)
+    end
+  end,
 }

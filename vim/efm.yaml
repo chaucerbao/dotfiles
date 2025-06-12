@@ -1,125 +1,134 @@
 lint-debounce: 1s
 
 tools:
-  # Formatters
-  css-prettier: &css-prettier
-    format-command: 'prettierd file.scss'
+  biome-css: &biome-css
+    format-command: 'biome check --write --stdin-file-path=file.css'
     format-stdin: true
-    format-can-range: true
 
-  eslint-format: &eslint-format
-    format-command: 'eslint_d --fix-to-stdout --stdin --stdin-filename "${INPUT}"'
+  biome-graphql: &biome-graphql
+    format-command: 'biome check --write --stdin-file-path=file.graphql'
     format-stdin: true
-    root-markers:
-      - 'eslint.config.js'
-      - 'eslint.config.mjs'
-      - 'eslint.config.cjs'
-      - 'eslint.config.ts'
-      - 'eslint.config.mts'
-      - 'eslint.config.cts'
 
-  graphql-prettier: &graphql-prettier
-    format-command: 'prettierd file.graphql'
+  biome-javascript: &biome-javascript
+    format-command: 'biome check --write --stdin-file-path=file.tsx'
     format-stdin: true
-    format-can-range: true
 
-  html-prettier: &html-prettier
-    format-command: 'prettierd file.html'
+  biome-json: &biome-json
+    format-command: 'biome check --write --stdin-file-path=file.json'
     format-stdin: true
-    format-can-range: true
 
-  json-prettier: &json-prettier
-    format-command: 'prettierd file.jsonc'
+  deno-css: &deno-css
+    format-command: 'deno fmt --ext=scss -'
     format-stdin: true
-    format-can-range: true
 
-  lua-stylua: &lua-stylua
-    format-command: 'stylua --stdin-filepath "${INPUT}" -'
+  deno-html: &deno-html
+    format-command: 'deno fmt --ext=html -'
     format-stdin: true
-    format-can-range: true
 
-  markdown-prettier: &markdown-prettier
-    format-command: 'prettierd file.mdx'
+  deno-javascript: &deno-javascript
+    format-command: 'deno fmt --ext=tsx -'
     format-stdin: true
-    format-can-range: true
 
-  sql-deno: &sql-deno
+  deno-json: &deno-json
+    format-command: 'deno fmt --ext=jsonc -'
+    format-stdin: true
+
+  deno-markdown: &deno-markdown
+    format-command: 'deno fmt --ext=md -'
+    format-stdin: true
+
+  deno-sql: &deno-sql
     format-command: 'deno fmt --ext=sql --unstable-sql -'
     format-stdin: true
 
-  typescript-prettier: &typescript-prettier
-    format-command: 'prettierd file.tsx'
+  deno-yaml: &deno-yaml
+    format-command: 'deno fmt --ext=yaml -'
     format-stdin: true
-    format-can-range: true
 
-  yaml-prettier: &yaml-prettier
-    format-command: 'prettierd file.yaml'
+  eslint: &eslint
+    format-command: 'eslint_d --fix-to-stdout --stdin --stdin-filename=file.tsx'
     format-stdin: true
-    format-can-range: true
-
-  # Linters
-  eslint-lint: &eslint-lint
-    lint-command: 'eslint_d --format visualstudio --stdin --stdin-filename "${INPUT}"'
+    lint-command: 'eslint_d --format=compact --stdin --stdin-filename="${INPUT}"'
     lint-stdin: true
-    lint-ignore-exit-code: true
     lint-formats:
-      - '%f(%l,%c): %tarning %m'
-      - '%f(%l,%c): %rror %m'
-    root-markers:
-      - 'eslint.config.js'
-      - 'eslint.config.mjs'
-      - 'eslint.config.cjs'
-      - 'eslint.config.ts'
-      - 'eslint.config.mts'
-      - 'eslint.config.cts'
+      - '%f: line %l, col %c, %tarning - %m'
+      - '%f: line %l, col %c, %trror - %m'
+
+  prettier-css: &prettier-css
+    format-command: 'prettierd file.scss ${--range-start=charStart} ${--range-end=charEnd}'
+    format-stdin: true
+    format-can-range: true
+
+  prettier-graphql: &prettier-graphql
+    format-command: 'prettierd file.graphql ${--range-start=charStart} ${--range-end=charEnd}'
+    format-stdin: true
+    format-can-range: true
+
+  prettier-html: &prettier-html
+    format-command: 'prettierd file.html ${--range-start=charStart} ${--range-end=charEnd}'
+    format-stdin: true
+    format-can-range: true
+
+  prettier-javascript: &prettier-javascript
+    format-command: 'prettierd file.tsx ${--range-start=charStart} ${--range-end=charEnd}'
+    format-stdin: true
+    format-can-range: true
+
+  prettier-json: &prettier-json
+    format-command: 'prettierd file.jsonc ${--range-start=charStart} ${--range-end=charEnd}'
+    format-stdin: true
+    format-can-range: true
+
+  prettier-markdown: &prettier-markdown
+    format-command: 'prettierd file.mdx ${--range-start=charStart} ${--range-end=charEnd}'
+    format-stdin: true
+    format-can-range: true
+
+  prettier-yaml: &prettier-yaml
+    format-command: 'prettierd file.yaml ${--range-start=charStart} ${--range-end=charEnd}'
+    format-stdin: true
+    format-can-range: true
+
+  stylua-lua: &stylua-lua
+    format-command: 'stylua ${--range-start=charStart} ${--range-end=charEnd} --stdin-filepath="${INPUT}" -'
+    format-stdin: true
+    format-can-range: true
 
 languages:
-  css:
-    - <<: *css-prettier
+  css: &css
+    - <<: *prettier-css
 
   graphql:
-    - <<: *graphql-prettier
+    - <<: *prettier-graphql
 
   html:
-    - <<: *html-prettier
+    - <<: *prettier-html
 
-  javascript:
-    - <<: *eslint-lint
-    - <<: *typescript-prettier
-    - <<: *eslint-format
+  javascript: &javascript
+    - <<: *prettier-javascript
+    - <<: *eslint
 
-  javascriptreact:
-    - <<: *eslint-lint
-    - <<: *typescript-prettier
-    - <<: *eslint-format
+  javascriptreact: *javascript
 
-  json:
-    - <<: *json-prettier
+  json: &json
+    - <<: *prettier-json
 
-  jsonc:
-    - <<: *json-prettier
+  jsonc: *json
 
   lua:
-    - <<: *lua-stylua
+    - <<: *stylua-lua
 
   markdown:
-    - <<: *markdown-prettier
+    - <<: *prettier-markdown
 
-  scss:
-    - <<: *css-prettier
+  scss: *css
 
   sql:
-    - <<: *sql-deno
+    - <<: *deno-sql
 
-  typescript:
-    - <<: *eslint-lint
-    - <<: *typescript-prettier
-    - <<: *eslint-format
+  typescript: *javascript
 
-  typescriptreact:
-    - <<: *eslint-lint
-    - <<: *typescript-prettier
-    - <<: *eslint-format
+  typescriptreact: *javascript
 
   yaml:
-    - <<: *yaml-prettier
+    - <<: *prettier-yaml
