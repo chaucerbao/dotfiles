@@ -295,6 +295,8 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>*', function()
   vim.opt.hlsearch = true
 end)
 
+vim.keymap.set({ 'ca' }, 'rg', 'grep')
+
 -- Location/QuickFix Lists
 vim.cmd.packadd('cfilter')
 
