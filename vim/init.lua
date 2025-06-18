@@ -217,6 +217,14 @@ vim.o.foldenable = false
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldmethod = 'expr'
 
+vim.api.nvim_create_autocmd({ 'BufReadPre' }, {
+  callback = function()
+    if vim.fn.getfsize(vim.fn.expand('%')) > (2.5 * 1024 * 1024) then
+      vim.wo.foldmethod = 'indent'
+    end
+  end,
+})
+
 -- Diagnostics
 vim.diagnostic.config({
   signs = {
