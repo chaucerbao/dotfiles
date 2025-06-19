@@ -19,6 +19,7 @@ require('mini.files').setup({
 })
 require('mini.git').setup()
 require('mini.icons').setup()
+require('mini.jump').setup()
 require('mini.jump2d').setup(
   vim.tbl_extend(
     'keep',
@@ -39,6 +40,7 @@ require('mini.visits').setup()
 MiniDeps.now(function()
   MiniDeps.add({ source = 'folke/tokyonight.nvim' })
   vim.cmd.colorscheme('tokyonight-storm')
+  vim.api.nvim_set_hl(0, 'MiniJump', { link = 'MiniJump2dSpot' })
 end)
 
 -- Tree-sitter
