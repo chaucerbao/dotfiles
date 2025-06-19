@@ -163,16 +163,6 @@ MiniSnippets.config.snippets = {
 }
 
 -- Helpers
-local function git_root()
-  local result = vim.system({ 'git', '-C', vim.fn.expand('%:p:h'), 'rev-parse', '--show-toplevel' }):wait()
-  return result.code == 0 and vim.trim(result.stdout) or nil
-end
-
-local function git_branch()
-  local result = vim.system({ 'git', 'branch', '--show-current' }):wait()
-  return result.code == 0 and vim.trim(result.stdout) or nil
-end
-
 local function gen_local_picker(picker)
   return function()
     picker(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
@@ -281,7 +271,7 @@ vim.keymap.set({ 'n' }, '<Leader>?', gen_local_picker(MiniPick.builtin.grep_live
 vim.keymap.set({ 'n' }, '<Leader>.', MiniPick.builtin.resume)
 vim.keymap.set({ 'n' }, '<Leader>v', MiniExtra.pickers.visit_paths)
 vim.keymap.set({ 'n' }, '<Leader>V', function()
-  MiniExtra.pickers.visit_paths({ filter = git_branch() or vim.fn.expand('%:p:h') })
+  MiniExtra.pickers.visit_paths({ filter = MiniGit.get_buf_data().head_name or vim.fn.expand('%:p:h') })
 end)
 
 -- Search
@@ -320,7 +310,7 @@ vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
 
 -- Toggle MiniVisit Labels
 vim.keymap.set({ 'n' }, '\\v', function()
-  local label = git_branch() or vim.fn.expand('%:p:h')
+  local label = MiniGit.get_buf_data().head_name or vim.fn.expand('%:p:h')
 
   if vim.list_contains(MiniVisits.list_paths(nil, { filter = label }), vim.api.nvim_buf_get_name(0)) then
     MiniVisits.remove_label(label)
@@ -332,11 +322,16 @@ end)
 -- Git Navigation
 vim.keymap.set({ 'n', 'x' }, '<Leader>g.', MiniGit.show_at_cursor)
 vim.keymap.set({ 'n' }, '<Leader>gb', function()
+  local git_root_path = vim.fn.expand('%'):match('^minigit://.+%-C%s+([^%s]+)') or MiniGit.get_buf_data().root
+  if git_root_path == nil then
+    print('File is not inside a repository')
+    return
+  end
+
   local cword = vim.fn.expand('<cword>')
   local filename = vim.fn.expand('%:p'):gsub('^.+ -- ', '')
   local revision = (cword:match('^%x%x%x%x%x%x%x+$') and cword:lower() == cword) and (cword .. '^') or 'HEAD'
 
-  local git_root_path = vim.fn.expand('%'):match('^minigit://.+%-C%s+([^%s]+)') or git_root()
   local ok, result =
     pcall(vim.cmd, 'vertical Git -C ' .. git_root_path .. ' blame --date=short ' .. revision .. ' -- ' .. filename)
 
