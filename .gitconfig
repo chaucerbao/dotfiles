@@ -1,10 +1,7 @@
 [alias]
 	a = add
 	b = branch
-	bd = !git config --get branch.$(git branch --show-current).description
-	bde = branch --edit-description
-	bm = "!f() { local targetBranch=${1:-master} && git checkout -q $targetBranch && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=$(git merge-base $targetBranch $branch) && [[ $(git cherry $targetBranch $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == \"-\"* ]] && echo $branch; done; }; f"
-	bs = branch --sort=-committerdate
+	bm = "!f() { for localBranch in $(git for-each-ref --format=\"%(refname:short)\" refs/heads/); do git show-ref --verify --quiet \"refs/remotes/origin/$localBranch\" || echo \"$localBranch\"; done; }; f"
 	c = commit --verbose
 	ca = commit --verbose --amend
 	cb = checkout -b
@@ -40,6 +37,8 @@
 	sts = stash show
 	undo = reset HEAD~1
 	wipe = clean --interactive --force -dx
+[branch]
+	sort = -committerdate
 [color "diff"]
 	meta = cyan
 [color "grep"]

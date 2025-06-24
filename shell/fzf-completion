@@ -19,7 +19,7 @@ if [ -x "$(command -v fzf)" ]; then
 
 	# Git
 	_fzf_complete_git() {
-		_fzf_complete --no-sort -- "$@" < <(git branch --verbose | awk '{ sub(/^\*/, ""); print $1 }')
+		_fzf_complete --no-sort -- "$@" < <(git branch --sort=-committerdate --verbose | awk '{ sub(/^\*/, ""); print $1 }')
 	}
 
 	_fzf_complete_g() { _fzf_complete_git "$@"; }
