@@ -2,8 +2,24 @@ escape ^Ww
 
 altscreen on
 defscrollback 10000
+layout save default
 startup_message off
 termcapinfo xterm* ti@:te@
+truecolor on
 
-caption string "%{= kw} %{W}%3n %t%{-} "
-hardstatus alwayslastline "%{= kw} %{g}Screen%{-} | %-w%{= kb}%50>%n %t%{-}%+w%< %= | %{y}%H%{-} | %{m}%l%{-} | %{c}%M %d, %C%a%{-} "
+caption always "%{03} "
+hardstatus alwayslastline "%{234;255} Screen %{245;236} %-w%{123;236}%n %t%{-}%+w%=%{214} %H %{255}%M %d, %C%a "
+rendition so "%{03}"
+
+bind - eval "split" "focus" "screen"
+bind \ eval "split -v" "focus" "screen"
+
+bind _ resize -v max
+bind | resize -h max
+bind + resize -b max
+bind = resize -b =
+
+bind ^h focus left
+bind ^j focus down
+bind ^k focus up
+bind ^l focus right
