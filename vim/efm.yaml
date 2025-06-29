@@ -4,46 +4,72 @@ tools:
   biome-css: &biome-css
     format-command: 'biome check --write --stdin-file-path=file.css'
     format-stdin: true
+    require-marker: true
+    root-markers: &biome-root-markers
+      - biome.json
+      - biome.jsonc
 
   biome-graphql: &biome-graphql
     format-command: 'biome check --write --stdin-file-path=file.graphql'
     format-stdin: true
+    require-marker: true
+    root-markers: *biome-root-markers
 
   biome-javascript: &biome-javascript
     format-command: 'biome check --write --stdin-file-path=file.tsx'
     format-stdin: true
+    require-marker: true
+    root-markers: *biome-root-markers
 
   biome-json: &biome-json
     format-command: 'biome check --write --stdin-file-path=file.json'
     format-stdin: true
+    require-marker: true
+    root-markers: *biome-root-markers
 
   deno-css: &deno-css
     format-command: 'deno fmt --ext=scss -'
     format-stdin: true
+    require-marker: true
+    root-markers: &deno-root-markers
+      - deno.json
+      - deno.jsonc
 
   deno-html: &deno-html
     format-command: 'deno fmt --ext=html -'
     format-stdin: true
+    require-marker: true
+    root-markers: *deno-root-markers
 
   deno-javascript: &deno-javascript
     format-command: 'deno fmt --ext=tsx -'
     format-stdin: true
+    require-marker: true
+    root-markers: *deno-root-markers
 
   deno-json: &deno-json
     format-command: 'deno fmt --ext=jsonc -'
     format-stdin: true
+    require-marker: true
+    root-markers: *deno-root-markers
 
   deno-markdown: &deno-markdown
     format-command: 'deno fmt --ext=md -'
     format-stdin: true
+    require-marker: true
+    root-markers: *deno-root-markers
 
   deno-sql: &deno-sql
     format-command: 'deno fmt --ext=sql --unstable-sql -'
     format-stdin: true
+    require-marker: true
+    root-markers: *deno-root-markers
 
   deno-yaml: &deno-yaml
     format-command: 'deno fmt --ext=yaml -'
     format-stdin: true
+    require-marker: true
+    root-markers: *deno-root-markers
 
   eslint: &eslint
     format-command: 'eslint_d --fix-to-stdout --stdin --stdin-filename=file.tsx'
@@ -53,46 +79,90 @@ tools:
     lint-formats:
       - '%f: line %l, col %c, %tarning - %m'
       - '%f: line %l, col %c, %trror - %m'
+    require-marker: true
+    root-markers: &eslint-root-markers
+      - eslint.config.js
+      - eslint.config.mjs
+      - eslint.config.cjs
+      - eslint.config.ts
+      - eslint.config.mts
+      - eslint.config.cts
 
   prettier-css: &prettier-css
     format-command: 'prettierd file.scss ${--range-start=charStart} ${--range-end=charEnd}'
     format-stdin: true
     format-can-range: true
+    require-marker: true
+    root-markers: &prettier-root-markers
+      - .prettierrc
+      - .prettierrc.cjs
+      - .prettierrc.cts
+      - .prettierrc.js
+      - .prettierrc.json
+      - .prettierrc.json5
+      - .prettierrc.mjs
+      - .prettierrc.mts
+      - .prettierrc.toml
+      - .prettierrc.ts
+      - .prettierrc.yaml
+      - .prettierrc.yml
+      - prettier.config.cjs
+      - prettier.config.cts
+      - prettier.config.js
+      - prettier.config.mjs
+      - prettier.config.mts
+      - prettier.config.ts
 
   prettier-graphql: &prettier-graphql
     format-command: 'prettierd file.graphql ${--range-start=charStart} ${--range-end=charEnd}'
     format-stdin: true
     format-can-range: true
+    require-marker: true
+    root-markers: *prettier-root-markers
 
   prettier-html: &prettier-html
     format-command: 'prettierd file.html ${--range-start=charStart} ${--range-end=charEnd}'
     format-stdin: true
     format-can-range: true
+    require-marker: true
+    root-markers: *prettier-root-markers
 
   prettier-javascript: &prettier-javascript
     format-command: 'prettierd file.tsx ${--range-start=charStart} ${--range-end=charEnd}'
     format-stdin: true
     format-can-range: true
+    require-marker: true
+    root-markers: *prettier-root-markers
 
   prettier-json: &prettier-json
     format-command: 'prettierd file.jsonc ${--range-start=charStart} ${--range-end=charEnd}'
     format-stdin: true
     format-can-range: true
+    require-marker: true
+    root-markers: *prettier-root-markers
 
   prettier-markdown: &prettier-markdown
     format-command: 'prettierd file.mdx ${--range-start=charStart} ${--range-end=charEnd}'
     format-stdin: true
     format-can-range: true
+    require-marker: true
+    root-markers: *prettier-root-markers
 
   prettier-yaml: &prettier-yaml
     format-command: 'prettierd file.yaml ${--range-start=charStart} ${--range-end=charEnd}'
     format-stdin: true
     format-can-range: true
+    require-marker: true
+    root-markers: *prettier-root-markers
 
   stylua-lua: &stylua-lua
     format-command: 'stylua ${--range-start=charStart} ${--range-end=charEnd} --stdin-filepath="${INPUT}" -'
     format-stdin: true
     format-can-range: true
+    require-marker: true
+    root-markers: &stylua-root-markers
+      - .stylua.toml
+      - stylua.toml
 
 languages:
   css: &css
