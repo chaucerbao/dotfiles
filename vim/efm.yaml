@@ -166,21 +166,29 @@ tools:
 
 languages:
   css: &css
+    - <<: *deno-css
+    - <<: *biome-css
     - <<: *prettier-css
 
   graphql:
+    - <<: *biome-graphql
     - <<: *prettier-graphql
 
   html:
+    - <<: *deno-html
     - <<: *prettier-html
 
   javascript: &javascript
+    - <<: *deno-javascript
+    - <<: *biome-javascript
     - <<: *prettier-javascript
     - <<: *eslint
 
   javascriptreact: *javascript
 
   json: &json
+    - <<: *deno-json
+    - <<: *biome-json
     - <<: *prettier-json
 
   jsonc: *json
@@ -189,6 +197,7 @@ languages:
     - <<: *stylua-lua
 
   markdown:
+    - <<: *deno-markdown
     - <<: *prettier-markdown
 
   scss: *css
@@ -201,4 +210,5 @@ languages:
   typescriptreact: *javascript
 
   yaml:
+    - <<: *deno-yaml
     - <<: *prettier-yaml
