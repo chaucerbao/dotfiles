@@ -1,0 +1,12 @@
+{
+  "formatter": {
+    "formatWithErrors": true,
+    "indentStyle": "space"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "asNeeded"
+    }
+  }
+}
