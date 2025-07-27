@@ -133,7 +133,8 @@ MiniDeps.later(function()
   })
 
   vim.keymap.set({ 'ca' }, 'cc', 'CodeCompanion')
-  vim.keymap.set({ 'n', 'x' }, '<Leader>\\', '<CMD>CodeCompanionChat Toggle<CR>')
+  vim.keymap.set({ 'n', 'x' }, "<Leader>'", '<CMD>CodeCompanionChat Toggle<CR>')
+  vim.keymap.set({ 'n', 'x' }, '<Leader>;', '<CMD>CodeCompanionActions<CR>')
 end)
 
 -- Only used once to authenticate with GitHub Copilot (`:Copilot setup`)
