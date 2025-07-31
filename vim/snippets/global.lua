@@ -8,10 +8,11 @@ return {
   { prefix = 'uuid', body = '$UUID', desc = 'UUIDv4' },
 
   -- Shelly Fences
-  { prefix = '`g', body = '```global\n$0\n```', desc = 'Global Fence' },
-  { prefix = '`h', body = '```http\n$0\n```', desc = 'HTTP Fence' },
-  { prefix = '`j', body = '```javascript\n$0\n```', desc = 'JavaScript Fence' },
-  { prefix = '`t', body = '```typescript\n$0\n```', desc = 'TypeScript Fence' },
-  { prefix = '`r', body = '```redis\n$0\n```', desc = 'Redis Fence' },
-  { prefix = '`s', body = '```sql\n$0\n```', desc = 'SQL Fence' },
+  { prefix = '`global', body = '```global\n$0\n```', desc = 'Global Fence' },
+  { prefix = '`http', body = '```http\n$0\n```', desc = 'HTTP Fence' },
+  { prefix = '`json', body = '```json\n$0\n```', desc = 'JavaScript Fence' },
+  { prefix = '`javascript', body = '```javascript\n$0\n```', desc = 'JavaScript Fence' },
+  { prefix = '`typescript', body = '```typescript\n$0\n```', desc = 'TypeScript Fence' },
+  { prefix = '`redis', body = '```redis\n$0\n```', desc = 'Redis Fence' },
+  { prefix = '`sql', body = '```sql\n$0\n```', desc = 'SQL Fence' },
 }
