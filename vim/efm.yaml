@@ -155,6 +155,10 @@ tools:
     require-marker: true
     root-markers: *prettier-root-markers
 
+  shfmt-sh: &shfmt-sh
+    format-command: 'shfmt ${--indent:tabSize} --filename=file.sh'
+    format-stdin: true
+
   stylua-lua: &stylua-lua
     format-command: 'stylua ${--range-start=charStart} ${--range-end=charEnd} --stdin-filepath="${INPUT}" -'
     format-stdin: true
@@ -201,6 +205,9 @@ languages:
     - <<: *prettier-markdown
 
   scss: *css
+
+  sh:
+    - <<: *shfmt-sh
 
   sql:
     - <<: *deno-sql

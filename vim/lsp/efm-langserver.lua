@@ -13,6 +13,7 @@ return {
     'lua',
     'markdown',
     'scss',
+    'sh',
     'sql',
     'typescript',
     'typescriptreact',
