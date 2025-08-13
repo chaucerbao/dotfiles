@@ -156,7 +156,7 @@ tools:
     root-markers: *prettier-root-markers
 
   shfmt-sh: &shfmt-sh
-    format-command: 'shfmt ${--indent:tabSize} --filename=file.sh'
+    format-command: 'shfmt ${--indent:tabSize} --binary-next-line --case-indent --simplify --filename=file.sh'
     format-stdin: true
 
   stylua-lua: &stylua-lua
