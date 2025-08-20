@@ -71,7 +71,7 @@ fi
 # Vim
 if [ -x "$(command -v nvim)" ]; then
 	alias v='nvim'
-	alias vup='nvim --headless +"lua MiniDeps.update(nil, { force = true })" +TSUpdateSync +MasonUpdate +quitall'
+	alias vup='nvim --headless +sleep +DepsUpdate! +TSUpdateSync +MasonUpdate +quitall'
 else
 	alias v='vim'
 fi
