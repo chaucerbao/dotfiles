@@ -125,10 +125,7 @@ MiniDeps.later(function()
       chat = { keymaps = { completion = { modes = { i = '<C-j>' } } } },
     },
     extensions = {
-      mcphub = {
-        callback = 'mcphub.extensions.codecompanion',
-        opts = { make_slash_commands = true, make_vars = true },
-      },
+      mcphub = { callback = 'mcphub.extensions.codecompanion' },
     },
   })
 
