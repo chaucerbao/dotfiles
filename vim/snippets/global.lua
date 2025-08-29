@@ -10,7 +10,7 @@ return {
   -- Shelly Fences
   { prefix = '`global', body = '```global\n$0\n```', desc = 'Global Fence' },
   { prefix = '`http', body = '```http\n$0\n```', desc = 'HTTP Fence' },
-  { prefix = '`json', body = '```json\n$0\n```', desc = 'JavaScript Fence' },
+  { prefix = '`json', body = '```json\n$0\n```', desc = 'JSON Fence' },
   { prefix = '`javascript', body = '```javascript\n$0\n```', desc = 'JavaScript Fence' },
   { prefix = '`typescript', body = '```typescript\n$0\n```', desc = 'TypeScript Fence' },
   { prefix = '`redis', body = '```redis\n$0\n```', desc = 'Redis Fence' },
