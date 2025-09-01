@@ -55,6 +55,8 @@ MiniDeps.later(function()
     indent = { enable = true },
   })
   require('treesitter-context').setup({ mode = 'topline', separator = '─' })
+
+  vim.g._ts_force_sync_parsing = true
 end)
 
 -- Language Server Protocol
@@ -189,7 +191,7 @@ local function toggle_list(list, open, close)
 end
 
 -- Disable Netrw
-vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwPlugin = true
 
 -- General Settings
 vim.o.confirm = true
