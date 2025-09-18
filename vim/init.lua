@@ -121,8 +121,12 @@ MiniDeps.later(function()
   require('mcphub').setup({ use_bundled_binary = true })
 
   require('codecompanion').setup({
+    memory = { opts = { chat = { enabled = true } } },
     strategies = {
-      chat = { keymaps = { completion = { modes = { i = '<C-j>' } } } },
+      chat = {
+        keymaps = { completion = { modes = { i = '<C-j>' } } },
+        tools = { opts = { default_tools = { 'mcp' } } },
+      },
     },
     extensions = {
       mcphub = { callback = 'mcphub.extensions.codecompanion' },
