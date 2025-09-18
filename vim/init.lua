@@ -55,8 +55,6 @@ MiniDeps.later(function()
     indent = { enable = true },
   })
   require('treesitter-context').setup({ mode = 'topline', separator = '─' })
-
-  vim.g._ts_force_sync_parsing = true
 end)
 
 -- Language Server Protocol
