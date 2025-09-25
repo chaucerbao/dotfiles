@@ -2,6 +2,7 @@
 	a = add
 	b = branch
 	bm = "!f() { for localBranch in $(git for-each-ref --format=\"%(refname:short)\" refs/heads/); do git show-ref --verify --quiet \"refs/remotes/origin/$localBranch\" || echo \"$localBranch\"; done; }; f"
+	bs = "!f() { baseBranch=${1:-origin/master}; git log --pretty='format:%D' \"$baseBranch\"..HEAD | sed 's/HEAD *-> *//; s/ *, */\\n/g' | sed '/^origin\\//d; /^$/d'; }; f"
 	c = commit --verbose
 	ca = commit --verbose --amend
 	cb = checkout -b
