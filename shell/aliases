@@ -72,8 +72,10 @@ fi
 if [ -x "$(command -v nvim)" ]; then
 	alias v='nvim'
 	alias vup='nvim --headless +sleep +DepsUpdate! +TSUpdateSync +MasonUpdate +quitall'
+	alias vv='nvim -u NONE'
 else
 	alias v='vim'
+	alias vv='vim -u NONE'
 fi
 
 # Zellij
