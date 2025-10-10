@@ -158,7 +158,9 @@ end)
 
 -- Abolish
 MiniDeps.later(function()
-  MiniDeps.add({ source = 'tpope/vim-abolish' })
+  MiniDeps.add({ source = 'chaucerbao/vim-abolish', checkout = 'coercions' })
+
+  vim.keymap.set({ 'x' }, 'cr', '<Plug>(abolish-coerce)')
 end)
 
 -- Snippets
