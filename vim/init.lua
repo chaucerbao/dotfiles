@@ -13,6 +13,7 @@ require('mini.align').setup()
 require('mini.basics').setup({ options = { extra_ui = true }, mappings = { windows = true } })
 require('mini.bracketed').setup()
 require('mini.completion').setup({ lsp_completion = { source_func = 'omnifunc', auto_setup = false } })
+require('mini.cursorword').setup()
 require('mini.diff').setup({ view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } })
 require('mini.extra').setup()
 require('mini.files').setup({
@@ -28,6 +29,7 @@ require('mini.jump2d').setup(
     { allowed_lines = { blank = false }, allowed_windows = { not_current = false }, mappings = { start_jumping = 'S' } }
   )
 )
+require('mini.notify').setup()
 require('mini.pairs').setup()
 require('mini.pick').setup()
 require('mini.snippets').setup()
