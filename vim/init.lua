@@ -321,6 +321,10 @@ vim.keymap.set({ 'n' }, '\\v', function()
   end
 end)
 
+-- Git Staging
+vim.keymap.set({ 'n' }, '<Leader>gh', ':silent !git add -- %<CR>', { silent = true })
+vim.keymap.set({ 'n' }, '<Leader>gH', ':silent !git restore --staged -- %<CR>', { silent = true })
+
 -- Git Navigation
 vim.keymap.set({ 'n', 'x' }, '<Leader>g.', MiniGit.show_at_cursor)
 vim.keymap.set({ 'n' }, '<Leader>gb', function()
