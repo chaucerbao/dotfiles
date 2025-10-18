@@ -21,6 +21,11 @@ require('mini.files').setup({
 })
 require('mini.git').setup()
 require('mini.icons').setup()
+require('mini.indentscope').setup({ draw = {
+  animation = function()
+    return 0
+  end,
+} })
 require('mini.jump').setup()
 require('mini.jump2d').setup(
   vim.tbl_extend(
