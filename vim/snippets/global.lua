@@ -8,7 +8,7 @@ return {
   { prefix = 'uuid', body = '$UUID', desc = 'UUIDv4' },
 
   -- Shelly Fences
-  { prefix = '`global', body = '```global\n$0\n```', desc = 'Global Fence' },
+  { prefix = '`context', body = '```context\n$0\n```', desc = 'Context Fence' },
   { prefix = '`http', body = '```http\n$0\n```', desc = 'HTTP Fence' },
   { prefix = '`json', body = '```json\n$0\n```', desc = 'JSON Fence' },
   { prefix = '`javascript', body = '```javascript\n$0\n```', desc = 'JavaScript Fence' },
