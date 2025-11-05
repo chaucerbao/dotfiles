@@ -20,10 +20,6 @@ return {
     'yaml',
   },
   root_dir = function(_bufnr, on_dir)
-    local path = vim.fs.root(0, root_markers)
-
-    if path ~= nil then
-      on_dir(path)
-    end
+    on_dir(vim.fs.root(0, root_markers) or vim.fn.expand("~"))
   end,
 }
