@@ -179,7 +179,7 @@ MiniDeps.later(function()
   end)
 
   vim.api.nvim_create_user_command('Run', function(opts)
-    shelly.execute_shell(opts.args, { vertical = opts.bang })
+    shelly.execute_shell(opts.args, { silent = opts.bang })
   end, { nargs = 1, complete = 'shellcmd', bang = true })
 end)
 
