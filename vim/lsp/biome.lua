@@ -5,6 +5,7 @@ return {
   filetypes = {
     'css',
     'graphql',
+    'html',
     'javascript',
     'javascriptreact',
     'json',
