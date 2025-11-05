@@ -157,10 +157,30 @@ MiniDeps.later(function()
   MiniDeps.add({ source = 'chaucerbao/shelly.nvim' })
 
   local shelly = require('shelly')
-  shelly.setup({ mappings = { close = 'q' } })
 
-  shelly.commands.shell.create('Run')
-  vim.keymap.set({ 'n', 'x' }, '<Leader><CR>', shelly.evaluate)
+  local SPLIT_H = { shelly_args = { size = 30 } }
+  local SPLIT_V = { shelly_args = { vertical = true, size = 35 } }
+  shelly.setup({
+    http = SPLIT_V,
+    javascript = SPLIT_V,
+    lua = SPLIT_V,
+    postgresql = SPLIT_H,
+    python = SPLIT_V,
+    redis = SPLIT_H,
+    sh = SPLIT_V,
+  })
+
+  vim.keymap.set({ 'n', 'x' }, '<Leader><CR>', function()
+    if vim.bo.filetype == '' then
+      vim.bo.filetype = 'markdown'
+    end
+
+    shelly.execute_selection()
+  end)
+
+  vim.api.nvim_create_user_command('Run', function(opts)
+    shelly.execute_shell(opts.args, { vertical = opts.bang })
+  end, { nargs = 1, complete = 'shellcmd', bang = true })
 end)
 
 -- Abolish
