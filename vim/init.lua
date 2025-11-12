@@ -133,7 +133,7 @@ MiniDeps.later(function()
     strategies = {
       chat = {
         keymaps = { completion = { modes = { i = '<C-j>' } } },
-        tools = { opts = { default_tools = { 'mcp' } } },
+        tools = { opts = { default_tools = { 'full_stack_dev', 'mcp' } } },
       },
     },
     extensions = {
