@@ -322,6 +322,34 @@ end)
 
 vim.keymap.set({ 'ca' }, 'rg', 'grep')
 
+-- Formatting
+vim.keymap.set({ 'n' }, 'gq', function()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  vim.cmd('keepjumps normal! gggqG')
+  vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
+end)
+
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    local ext = ({
+      css = 'scss',
+      graphql = 'graphql',
+      html = 'html',
+      javascript = 'tsx',
+      javascriptreact = 'tsx',
+      json = 'jsonc',
+      lua = 'lua',
+      markdown = 'mdx',
+      scss = 'scss',
+      typescript = 'tsx',
+      typescriptreact = 'tsx',
+      yaml = 'yaml',
+    })[vim.bo[args.buf].filetype]
+
+    vim.go.formatprg = ext and (ext == 'lua' and 'stylua -' or 'prettierd file.' .. ext) or ''
+  end,
+})
+
 -- Location/QuickFix Lists
 vim.cmd.packadd('cfilter')
 
