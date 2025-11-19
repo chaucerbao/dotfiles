@@ -13,10 +13,9 @@ shopt -s histappend
 # Completions
 source ${SCRIPT_PATH}/fzf-completion
 
-# Zoxide
-if [ -x "$(command -v zoxide)" ]; then
-	eval "$(zoxide init bash)"
-fi
+# Tooling
+[ -x "$(command -v mise)" ] && eval "$(mise activate bash)"
+[ -x "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 
 # Aliases
 source ${SCRIPT_PATH}/aliases

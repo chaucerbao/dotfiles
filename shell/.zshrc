@@ -15,28 +15,28 @@ autoload -U edit-command-line; zle -N edit-command-line; bindkey '\C-x\C-e' edit
 autoload -U select-word-style; select-word-style bash
 
 # Completions
-if [ -x "$(command -v brew)" ]; then export FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH; fi
-if [ -x "$(command -v fzf)" ]; then source ${SCRIPT_PATH}/fzf-completion; fi
+[ -x "$(command -v brew)" ] && export FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+[ -x "$(command -v fzf)" ] && source ${SCRIPT_PATH}/fzf-completion
 autoload -U compinit; compinit
 
 # Disable START/STOP flow control to reclaim CTRL-S and CTRL-Q
-/bin/stty -ixon
+stty -ixon
 
 # Antidote plugin manager
 antidote() { if [ ! -x "$(command -v antidote)" ] && [ -x "$(command -v brew)" ]; then source $(brew --prefix antidote)/share/antidote/antidote.zsh; fi; antidote "$@"; }
 if [ ! -f "$HOME/.cache/.zsh_plugins" ]; then
 	mkdir --parents $HOME/.cache
 	antidote bundle >$HOME/.cache/.zsh_plugins <<-PLUGINS
-		subnixr/minimal
+		romkatv/powerlevel10k
+		zsh-users/zsh-autosuggestions
 		zsh-users/zsh-syntax-highlighting
 	PLUGINS
 fi
 source $HOME/.cache/.zsh_plugins
 
-# Zoxide
-if [ -x "$(command -v zoxide)" ]; then
-	eval "$(zoxide init zsh)"
-fi
+# Tooling
+[ -x "$(command -v mise)" ] && eval "$(mise activate zsh)"
+[ -x "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
 
 # Aliases
 source ${SCRIPT_PATH}/aliases
