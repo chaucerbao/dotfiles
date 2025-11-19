@@ -40,54 +40,51 @@ alias gstp='git stp'
 alias gsts='git sts'
 
 # Kitty
-if [ -x "$(command -v kitty)" ] && [ ! -z "${KITTY_WINDOW_ID:+X}" ]; then
-	alias icat='kitty +kitten icat'
-fi
+[ ! -z "${KITTY_WINDOW_ID:+X}" ] && {
+  command -v kitty >/dev/null && alias icat='kitty +kitten icat'
+  command -v rg >/dev/null && alias rg='rg --hyperlink-format=kitty'
+}
 
 # Node
-if [ -x "$(command -v npm)" ]; then
-	alias npmD='npm install --save-dev'
-	alias npmS='npm install --save'
-	alias npmR='rm --force --recursive node_modules; npm install'
-fi
+command -v npm >/dev/null && {
+  alias npmD='npm install --save-dev'
+  alias npmS='npm install --save'
+  alias npmR='rm --force --recursive node_modules; npm install'
+}
 
-if [ -x "$(command -v pnpm)" ]; then
-	alias pnpmD='pnpm add --save-dev'
-	alias pnpmS='pnpm add --save-prod'
-	alias pnpmR='pnpm --recursive exec rm --force --recursive node_modules; rm --force --recursive node_modules; pnpm install'
-fi
-
-if [ -x "$(command -v rg)" ] && [ ! -z "${KITTY_WINDOW_ID:+X}" ]; then
-	alias rg='rg --hyperlink-format=kitty'
-fi
+command -v pnpm >/dev/null && {
+  alias pnpmD='pnpm add --save-dev'
+  alias pnpmS='pnpm add --save-prod'
+  alias pnpmR='pnpm --recursive exec rm --force --recursive node_modules; rm --force --recursive node_modules; pnpm install'
+}
 
 # Screen
-if [ -x "$(command -v screen)" ]; then
-	alias s='screen'
-	alias sa='screen -R'
-	alias sls='screen -list'
-fi
+command -v screen >/dev/null && {
+  alias s='screen'
+  alias sa='screen -R'
+  alias sls='screen -list'
+}
 
 # Vim
-if [ -x "$(command -v nvim)" ]; then
-	alias v='nvim'
-	alias vup='nvim --headless +sleep +DepsUpdate! +TSUpdateSync +MasonUpdate +quitall'
-	alias vv='nvim -u NONE'
-else
-	alias v='vim'
-	alias vv='vim -u NONE'
-fi
+command -v nvim >/dev/null && {
+  alias v='nvim'
+  alias vup='nvim --headless +sleep +DepsUpdate! +TSUpdateSync +MasonUpdate +quitall'
+  alias vv='nvim -u NONE'
+} || {
+  alias v='vim'
+  alias vv='vim -u NONE'
+}
 
 # Zellij
-if [ -x "$(command -v zellij)" ]; then
-	alias zj='zellij'
-	alias za='zellij attach --create'
-	alias zls='zellij list-sessions'
-	alias zks='zellij kill-all-sessions'
-fi
+command -v zellij >/dev/null && {
+  alias zj='zellij'
+  alias za='zellij attach --create'
+  alias zls='zellij list-sessions'
+  alias zks='zellij kill-all-sessions'
+}
 
 # Miscellaneous
-if [ -x "$(command -v bat)" ]; then alias c='bat'; else alias c='cat'; fi
+command -v bat >/dev/null && alias c='bat' || alias c='cat'
 alias ducks='du -k --summarize -- * | sort --numeric-sort --reverse | head'
 alias l='ls -l'
 alias ll='ls --almost-all -l'
@@ -95,16 +92,13 @@ alias ls='ls --color=auto --classify --group-directories-first --human-readable 
 
 # macOS
 if [[ $OSTYPE == "darwin"* ]]; then
-	alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
-	alias clean='rg --null --files --no-ignore-vcs --glob "*.DS_Store" $HOME/ | xargs -0 rm --'
+  alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
+  alias clean='rg --null --files --no-ignore-vcs --glob "*.DS_Store" $HOME/ | xargs -0 rm --'
 fi
 
 # Functions
 dco() { if [ -n "$1" ]; then if [ "$1" = "default" ]; then unset DOCKER_CONTEXT; else export DOCKER_CONTEXT="$1"; fi; else docker context list; fi; }
-if [ ! -x "$(command -v fd)" ] && [ -x "$(command -v rg)" ]; then
-	fd() { if [ -n "$1" ]; then rg --files --hidden --glob "!{.git,node_modules}/" --glob "*$1*" "${2:-.}"; fi; }
+if ! command -v fd >/dev/null && command -v rg >/dev/null; then
+  fd() { if [ -n "$1" ]; then rg --files --hidden --glob "!{.git,node_modules}/" "${2:-.}" | rg "$1"; fi; }
 fi
-gbf() { if [ -n "$1" ]; then git checkout -b "feature/$1" "${2:-develop}"; fi; }
-gbh() { if [ -n "$1" ]; then git checkout -b "hotfix/$1" "${2:-master}"; fi; }
-G() { if [ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then v +"lua MiniDeps.later(function() vim.cmd('GitStatus') end)"; fi; }
 myip() { curl --header "Accept: application/json" "https://ipinfo.io/$@"; }
