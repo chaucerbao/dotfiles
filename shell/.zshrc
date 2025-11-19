@@ -20,7 +20,7 @@ command -v fzf >/dev/null && source "${SCRIPT_PATH}/fzf-completion"
 autoload -U compinit; compinit
 
 # Disable START/STOP flow control to reclaim CTRL-S and CTRL-Q
-stty -ixon
+stty -ixon <${TTY} >${TTY}
 
 # Antidote plugin manager
 command -v brew >/dev/null && source "$(brew --prefix antidote)/share/antidote/antidote.zsh"
