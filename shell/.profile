@@ -1,15 +1,14 @@
 # Dotfiles Path
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/.." && pwd -P)"
-DOTFILES="${DOTFILES/#$HOME/~}"
 
 # Load Homebrew Environment
 command -v /opt/homebrew/bin/brew >/dev/null && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Exports
-command -v bat >/dev/null && export BAT_CONFIG_PATH="$DOTFILES/bat.conf"
+command -v bat >/dev/null && export BAT_CONFIG_PATH="${DOTFILES}/bat.conf"
 command -v docker >/dev/null && [ "$(uname -m)" = "arm64" ] && export DOCKER_DEFAULT_PLATFORM=linux/arm64
 command -v less >/dev/null && export LESS="--RAW-CONTROL-CHARS --ignore-case"
-command -v rg >/dev/null && export RIPGREP_CONFIG_PATH="$DOTFILES/.ripgreprc"
+command -v rg >/dev/null && export RIPGREP_CONFIG_PATH="${DOTFILES}/.ripgreprc"
 
 if command -v fzf >/dev/null; then
   if command -v fd >/dev/null; then
