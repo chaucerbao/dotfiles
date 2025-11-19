@@ -1,82 +1,45 @@
 # Dotfiles Path
-DOTFILES_ABS="$(cd $(dirname ${BASH_SOURCE[0]:-$0})/..; pwd -P)"
-DOTFILES="$DOTFILES_ABS"
-case "$DOTFILES" in
-	$HOME* ) DOTFILES="~${DOTFILES#$HOME}" ;;
-esac
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")/.." && pwd -P)"
+DOTFILES="${DOTFILES/#$HOME/~}"
 
-# Homebrew Environment
-if [ "$(uname -m)" = "arm64" ]; then
-	HOMEBREW_PREFIX="/opt/homebrew"
-else
-	HOMEBREW_PREFIX="/usr/local"
-fi
-if [ -x "$(command -v ${HOMEBREW_PREFIX}/bin/brew)" ]; then
-	eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
-fi
+# Load Homebrew Environment
+command -v /opt/homebrew/bin/brew >/dev/null && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Exports
-if [ -x "$(command -v bat)" ]; then
-	eval export BAT_CONFIG_PATH=$DOTFILES/bat.conf
+command -v bat >/dev/null && export BAT_CONFIG_PATH="$DOTFILES/bat.conf"
+command -v docker >/dev/null && [ "$(uname -m)" = "arm64" ] && export DOCKER_DEFAULT_PLATFORM=linux/arm64
+command -v less >/dev/null && export LESS="--RAW-CONTROL-CHARS --ignore-case"
+command -v rg >/dev/null && export RIPGREP_CONFIG_PATH="$DOTFILES/.ripgreprc"
+
+if command -v fzf >/dev/null; then
+  if command -v fd >/dev/null; then
+    export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --strip-cwd-prefix --exclude ".git/" --exclude "node_modules/"'
+    export FZF_ALT_C_COMMAND='fd --type directory --hidden --follow --strip-cwd-prefix --exclude ".git/" --exclude "node_modules/"'
+  elif command -v rg >/dev/null; then
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!{.git,node_modules}/"'
+  fi
+
+  if command -v bat >/dev/null; then
+    export FZF_CTRL_T_OPTS='--preview="bat --color=always {}"'
+  else
+    export FZF_CTRL_T_OPTS='--preview="cat {}"'
+  fi
+
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_DEFAULT_OPTS='--info=inline-right --margin=1,2 --no-separator --no-scrollbar'
+  export FZF_ALT_C_OPTS='--preview="ls -1 --almost-all --classify --color=always --group-directories-first --literal {}"'
 fi
 
-if [ -x "$(command -v docker)" ] && [ "$(uname -m)" = "arm64" ]; then
-	export DOCKER_DEFAULT_PLATFORM=linux/arm64
-fi
-
-if [ -x "$(command -v fzf)" ]; then
-	if [ -x "$(command -v fd)" ]; then
-		export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --strip-cwd-prefix --exclude ".git/" --exclude "node_modules/"'
-		export FZF_ALT_C_COMMAND='fd --type directory --hidden --follow --strip-cwd-prefix --exclude ".git/" --exclude "node_modules/"'
-	elif [ -x "$(command -v rg)" ]; then
-		export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!{.git,node_modules}/"'
-	fi
-
-	export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-
-	export FZF_DEFAULT_OPTS='--info=inline-right --margin=1,2 --no-separator --no-scrollbar'
-	export FZF_ALT_C_OPTS='--preview="ls -1 --almost-all --classify --color=always --group-directories-first --literal {}"'
-
-	if [ -x "$(command -v bat)" ]; then
-		export FZF_CTRL_T_OPTS='--preview="bat --color=always {}"'
-	else
-		export FZF_CTRL_T_OPTS='--preview="cat {}"'
-	fi
-fi
-
-if [ -d "$HOME/.go/bin" ]; then
-	export GOPATH=$HOME/.cache/go
-  export PATH=$GOPATH/bin:$HOME/.go/bin:$PATH
-fi
-
-if [ -x "$(command -v less)" ]; then
-	export LESS="--RAW-CONTROL-CHARS --ignore-case"
-fi
-
-if [ -x "$(command -v n)" ]; then
-	export N_PREFIX=$HOME/.n
-	export N_PRESERVE_NPM=1
-	export N_PRESERVE_COREPACK=1
-	export COREPACK_ENABLE_AUTO_PIN=0
-  export PATH=node_modules/.bin:$N_PREFIX/bin:$PATH
-fi
-
-if [ -x "$(command -v rg)" ]; then
-	eval export RIPGREP_CONFIG_PATH=${DOTFILES}/.ripgreprc
-fi
-
-if [ -x "$(command -v nvim)" ]; then
-	export VISUAL=nvim
-elif [ -x "$(command -v vim)" ]; then
-	export VISUAL=vim
+if command -v nvim >/dev/null; then
+  export VISUAL=nvim
+elif command -v vim >/dev/null; then
+  export VISUAL=vim
 fi
 
 # Path
-if [ -x "$(command -v brew)" ]; then
-	COREUTILS="$(brew --prefix coreutils)/libexec/gnubin"
-fi
-
-export PATH=$HOME/.bin:$COREUTILS:$PATH
+command -v brew >/dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+PATH="node_modules/.bin:$HOME/.bin:$PATH"
+export PATH
 
 # Clean Up
-unset COREUTILS DOTFILES DOTFILES_ABS HOMEBREW_PREFIX
+unset DOTFILES
