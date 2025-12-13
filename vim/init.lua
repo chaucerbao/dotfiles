@@ -113,30 +113,17 @@ end)
 -- Large Language Models
 MiniDeps.later(function()
   MiniDeps.add({
-    source = 'ravitemer/mcphub.nvim',
-    hooks = {
-      post_install = function(event)
-        vim.cmd.source(event.path .. '/bundled_build.lua')
-      end,
-    },
-  })
-  MiniDeps.add({
     source = 'olimorris/codecompanion.nvim',
     depends = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
   })
-
-  require('mcphub').setup({ use_bundled_binary = true })
 
   require('codecompanion').setup({
     memory = { opts = { chat = { enabled = true } } },
     strategies = {
       chat = {
         keymaps = { completion = { modes = { i = '<C-j>' } } },
-        tools = { opts = { default_tools = { 'full_stack_dev', 'mcp' } } },
+        tools = { opts = { default_tools = { 'full_stack_dev' } } },
       },
-    },
-    extensions = {
-      mcphub = { callback = 'mcphub.extensions.codecompanion' },
     },
   })
 
