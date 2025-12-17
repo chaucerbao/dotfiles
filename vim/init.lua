@@ -193,17 +193,17 @@ end
 
 local function toggle_list(list, open, close)
   return function()
-    if vim.tbl_isempty(vim.tbl_filter(function(window)
-      return window[list] > 0
-    end, vim.fn.getwininfo())) then
-      local ok = pcall(vim.cmd, open)
-      if ok then
-        vim.cmd.wincmd('p')
-      else
-        print('No list available')
+    for _, w in ipairs(vim.fn.getwininfo()) do
+      if w[list] and w[list] > 0 then
+        pcall(vim.cmd, close)
+        return
       end
+    end
+    local ok = pcall(vim.cmd, open)
+    if ok then
+      vim.cmd.wincmd('p')
     else
-      vim.cmd(close)
+      print('No list available')
     end
   end
 end
