@@ -191,19 +191,20 @@ local function gen_local_picker(picker)
   end
 end
 
-local function toggle_list(list, open, close)
+local function toggle_list(list_type)
   return function()
-    for _, w in ipairs(vim.fn.getwininfo()) do
-      if w[list] and w[list] > 0 then
-        pcall(vim.cmd, close)
-        return
-      end
-    end
-    local ok = pcall(vim.cmd, open)
-    if ok then
-      vim.cmd.wincmd('p')
+    local prefix = list_type == 'quickfix' and 'c' or 'l'
+    local info = list_type == 'quickfix' and vim.fn.getqflist({ winid = 0 }) or vim.fn.getloclist(0, { winid = 0 })
+
+    if info.winid ~= 0 then
+      vim.cmd(prefix .. 'close')
     else
-      print('No list available')
+      local ok = pcall(vim.cmd, prefix .. 'window')
+      if ok then
+        vim.cmd.wincmd('p')
+      else
+        print('No list available')
+      end
     end
   end
 end
@@ -339,8 +340,8 @@ vim.api.nvim_create_autocmd('FileType', {
 -- Location/QuickFix Lists
 vim.cmd.packadd('cfilter')
 
-vim.keymap.set({ 'n' }, '\\l', toggle_list('loclist', 'lopen', 'lclose'))
-vim.keymap.set({ 'n' }, '\\q', toggle_list('quickfix', 'copen', 'cclose'))
+vim.keymap.set({ 'n' }, '\\l', toggle_list('loclist'))
+vim.keymap.set({ 'n' }, '\\q', toggle_list('quickfix'))
 
 -- Automatically Open Lists
 vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
