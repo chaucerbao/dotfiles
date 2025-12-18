@@ -58,11 +58,9 @@ local function format_buffer(lsp_names)
     end
   end
 
-  if vim.fn.mode():match('^n') then
-    local cursor = vim.api.nvim_win_get_cursor(0)
-    vim.cmd('keepjumps normal! gggqG')
-    vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
-  end
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  vim.cmd('keepjumps normal! gggqG')
+  vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
 end
 
 local function gen_local_picker(picker)
@@ -124,21 +122,7 @@ MiniDeps.now(function()
       vim.keymap.set({ 'n' }, 'gD', vim.lsp.buf.type_definition, { buffer = event.buf })
 
       local client = vim.lsp.get_client_by_id(event.data.client_id)
-
       if client then
-        if client.name == 'efm-langserver' then
-          vim.keymap.set({ 'n', 'x' }, 'gq', function()
-            format_buffer({ 'efm-langserver' })
-          end, { buffer = event.buf })
-
-          vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-            group = vim.api.nvim_create_augroup('FormatOnSave', { clear = true }),
-            callback = function()
-              vim.lsp.buf.format({ name = 'efm-langserver' })
-            end,
-          })
-        end
-
         if client.name == 'typescript-language-server' then
           vim.keymap.set({ 'n' }, 'gi', function()
             client:exec_cmd({
@@ -335,7 +319,9 @@ end)
 vim.keymap.set({ 'ca' }, 'rg', 'grep')
 
 -- Formatting
-vim.keymap.set({ 'n' }, 'gq', format_buffer)
+vim.keymap.set({ 'n', 'x' }, 'gq', function()
+  format_buffer({ 'efm-langserver' })
+end)
 
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(args)
@@ -355,6 +341,13 @@ vim.api.nvim_create_autocmd('FileType', {
     })[vim.bo[args.buf].filetype]
 
     vim.go.formatprg = ext and (ext == 'lua' and 'stylua -' or 'prettierd file.' .. ext) or ''
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+  group = vim.api.nvim_create_augroup('FormatOnSave', { clear = true }),
+  callback = function()
+    format_buffer({ 'efm-langserver' })
   end,
 })
 
