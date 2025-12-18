@@ -105,6 +105,10 @@ MiniDeps.now(function()
     end,
   })
 
+  vim.api.nvim_create_user_command('LspRestart', function()
+    vim.lsp.stop_client(vim.lsp.get_clients())
+  end, {})
+
   MiniIcons.tweak_lsp_kind()
   MiniSnippets.start_lsp_server()
   vim.lsp.enable({ 'efm-langserver' })
