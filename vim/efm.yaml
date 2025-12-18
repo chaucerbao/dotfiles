@@ -170,8 +170,8 @@ tools:
 
 languages:
   css: &css
-    - <<: *deno-css
     - <<: *biome-css
+    - <<: *deno-css
     - <<: *prettier-css
 
   graphql:
@@ -183,16 +183,16 @@ languages:
     - <<: *prettier-html
 
   javascript: &javascript
-    - <<: *deno-javascript
     - <<: *biome-javascript
+    - <<: *deno-javascript
     - <<: *prettier-javascript
     - <<: *eslint
 
   javascriptreact: *javascript
 
   json: &json
-    - <<: *deno-json
     - <<: *biome-json
+    - <<: *deno-json
     - <<: *prettier-json
 
   jsonc: *json
