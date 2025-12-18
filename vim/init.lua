@@ -43,6 +43,52 @@ require('mini.surround').setup()
 require('mini.tabline').setup()
 require('mini.visits').setup()
 
+-- Helpers
+local function format_buffer(lsp_names)
+  if lsp_names and #lsp_names > 0 then
+    local clients = {}
+    for _, client in ipairs(vim.lsp.get_clients({ method = 'textDocument/formatting', bufnr = 0 })) do
+      clients[client.name] = client
+    end
+
+    for _, lsp_name in ipairs(lsp_names) do
+      if clients[lsp_name] and pcall(vim.lsp.buf.format, { name = clients[lsp_name].name }) then
+        return
+      end
+    end
+  end
+
+  if vim.fn.mode():match('^n') then
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    vim.cmd('keepjumps normal! gggqG')
+    vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
+  end
+end
+
+local function gen_local_picker(picker)
+  return function()
+    picker(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
+  end
+end
+
+local function toggle_list(list_type)
+  return function()
+    local prefix = list_type == 'quickfix' and 'c' or 'l'
+    local info = list_type == 'quickfix' and vim.fn.getqflist({ winid = 0 }) or vim.fn.getloclist(0, { winid = 0 })
+
+    if info.winid ~= 0 then
+      vim.cmd(prefix .. 'close')
+    else
+      local ok = pcall(vim.cmd, prefix .. 'window')
+      if ok then
+        vim.cmd.wincmd('p')
+      else
+        vim.notify('No list available')
+      end
+    end
+  end
+end
+
 -- Color Scheme
 MiniDeps.now(function()
   MiniDeps.add({ source = 'folke/tokyonight.nvim' })
@@ -82,7 +128,7 @@ MiniDeps.now(function()
       if client then
         if client.name == 'efm-langserver' then
           vim.keymap.set({ 'n', 'x' }, 'gq', function()
-            vim.lsp.buf.format({ name = 'efm-langserver' })
+            format_buffer({ 'efm-langserver' })
           end, { buffer = event.buf })
 
           vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
@@ -188,31 +234,6 @@ MiniSnippets.config.snippets = {
   gen_loader.from_lang(),
 }
 
--- Helpers
-local function gen_local_picker(picker)
-  return function()
-    picker(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
-  end
-end
-
-local function toggle_list(list_type)
-  return function()
-    local prefix = list_type == 'quickfix' and 'c' or 'l'
-    local info = list_type == 'quickfix' and vim.fn.getqflist({ winid = 0 }) or vim.fn.getloclist(0, { winid = 0 })
-
-    if info.winid ~= 0 then
-      vim.cmd(prefix .. 'close')
-    else
-      local ok = pcall(vim.cmd, prefix .. 'window')
-      if ok then
-        vim.cmd.wincmd('p')
-      else
-        print('No list available')
-      end
-    end
-  end
-end
-
 -- Disable Netrw
 vim.g.loaded_netrwPlugin = true
 
@@ -314,11 +335,7 @@ end)
 vim.keymap.set({ 'ca' }, 'rg', 'grep')
 
 -- Formatting
-vim.keymap.set({ 'n' }, 'gq', function()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  vim.cmd('keepjumps normal! gggqG')
-  vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
-end)
+vim.keymap.set({ 'n' }, 'gq', format_buffer)
 
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(args)
