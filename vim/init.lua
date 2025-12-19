@@ -58,6 +58,10 @@ local function format_buffer(lsp_names)
     end
   end
 
+  if vim.bo.formatprg == '' then
+    return
+  end
+
   local cursor = vim.api.nvim_win_get_cursor(0)
   vim.cmd('keepjumps normal! gggqG')
   vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
@@ -340,7 +344,7 @@ vim.api.nvim_create_autocmd('FileType', {
       yaml = 'yaml',
     })[vim.bo[args.buf].filetype]
 
-    vim.go.formatprg = ext and (ext == 'lua' and 'stylua -' or 'prettierd file.' .. ext) or ''
+    vim.bo.formatprg = ext and (ext == 'lua' and 'stylua -' or 'prettierd file.' .. ext) or ''
   end,
 })
 
