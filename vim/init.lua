@@ -259,6 +259,7 @@ vim.diagnostic.config({
 vim.keymap.set({ 'n', 'x' }, ';', ':')
 vim.keymap.set({ 'n' }, '<Leader>cd', ':lcd %:p:h<CR>:pwd<CR>')
 vim.keymap.set({ 'n' }, '<Leader>h', MiniDiff.toggle_overlay)
+vim.keymap.set({ 'n' }, '<Leader>s', '1z=')
 vim.keymap.set({ 'ca' }, 'vh', 'vertical help')
 
 -- Tabs
