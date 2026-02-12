@@ -272,8 +272,16 @@ vim.keymap.set({ 'n' }, '<S-Tab>', ':bprevious<CR>')
 vim.keymap.set({ 'n' }, '<Leader>O', ':%bdelete|edit #|bdelete #|normal `"<CR>')
 
 -- Movement
+local center_after_jump = function(...)
+  for _, command in ipairs({ ... }) do
+    vim.keymap.set('n', command, command .. 'zz', { noremap = true })
+  end
+end
+
 vim.keymap.set({ 'c', 'i' }, '<C-a>', '<Home>')
 vim.keymap.set({ 'c', 'i' }, '<C-e>', '<End>')
+
+center_after_jump('n', 'N')
 
 -- Yank/Paste
 vim.keymap.set({ 'x' }, 'p', 'pgvy')
