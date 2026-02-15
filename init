@@ -36,6 +36,7 @@ else
 				echo "dofile('$DOTFILES_ABS/vim/init.lua')" >> $HOME/.config/nvim/init.lua
 				ln -s $DOTFILES_ABS/vim/efm.yaml $HOME/.config/efm-langserver/config.yaml
 				ln -s $DOTFILES_ABS/vim/lsp $HOME/.config/nvim/lsp
+				ln -s $DOTFILES_ABS/vim/lua $HOME/.config/nvim/lua
 				ln -s $DOTFILES_ABS/vim/snippets $HOME/.config/nvim/snippets
 				;;
 			prettier )

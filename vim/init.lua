@@ -148,6 +148,40 @@ MiniDeps.now(function()
   vim.lsp.enable({ 'efm-langserver' })
 end)
 
+-- Debug Adapter Protocol
+MiniDeps.now(function()
+  MiniDeps.add({ source = 'mfussenegger/nvim-dap' })
+
+  local dap = require('dap')
+  local dap_ui_widgets = require('dap.ui.widgets')
+  local dap_scopes_sidebar = dap_ui_widgets.sidebar(dap_ui_widgets.scopes)
+
+  local dap_node = require('dap.node')
+
+  dap.adapters = dap_node.adapters
+  dap.configurations = dap_node.configurations
+
+  vim.keymap.set({ 'n' }, '<Leader>db', function()
+    if dap.session() then
+      dap.terminate()
+    else
+      dap.continue()
+    end
+  end)
+
+  vim.keymap.set({ 'n' }, '\\b', dap.list_breakpoints)
+  vim.keymap.set({ 'n' }, '\\B', dap.toggle_breakpoint)
+  vim.keymap.set({ 'n' }, '<Leader>dB', dap.clear_breakpoints)
+  vim.keymap.set({ 'n' }, '<Leader>ds', dap_scopes_sidebar.toggle)
+  vim.keymap.set({ 'n' }, '<Leader>dr', dap.repl.toggle)
+  vim.keymap.set({ 'n', 'v' }, '<Leader>K', dap_ui_widgets.hover)
+
+  vim.keymap.set({ 'n' }, '<S-Up>', dap.run_to_cursor)
+  vim.keymap.set({ 'n' }, '<S-Down>', dap.step_over)
+  vim.keymap.set({ 'n' }, '<S-Left>', dap.step_out)
+  vim.keymap.set({ 'n' }, '<S-Right>', dap.step_into)
+end)
+
 -- Large Language Models
 MiniDeps.later(function()
   MiniDeps.add({
