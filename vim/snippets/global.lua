@@ -9,10 +9,12 @@ return {
 
   -- Shelly Fences
   { prefix = '`context', body = '```context\n$0\n```', desc = 'Context Fence' },
+  { prefix = '`graphql', body = '```graphql\n$0\n```', desc = 'GraphQL Fence' },
   { prefix = '`http', body = '```http\n$0\n```', desc = 'HTTP Fence' },
-  { prefix = '`json', body = '```json\n$0\n```', desc = 'JSON Fence' },
   { prefix = '`javascript', body = '```javascript\n$0\n```', desc = 'JavaScript Fence' },
   { prefix = '`typescript', body = '```typescript\n$0\n```', desc = 'TypeScript Fence' },
+  { prefix = '`lua', body = '```lua\n$0\n```', desc = 'Lua Fence' },
+  { prefix = '`json', body = '```json\n$0\n```', desc = 'JSON Fence' },
   { prefix = '`redis', body = '```redis\n$0\n```', desc = 'Redis Fence' },
   { prefix = '`sql', body = '```sql\n$0\n```', desc = 'SQL Fence' },
 }
