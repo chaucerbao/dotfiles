@@ -184,11 +184,18 @@ MiniDeps.later(function()
   })
 
   require('codecompanion').setup({
-    memory = { opts = { chat = { enabled = true } } },
-    strategies = {
+    adapters = {
+      acp = {
+        claude_code = function()
+          return require('codecompanion.adapters').extend('claude_code', {
+            env = { CLAUDE_CODE_OAUTH_TOKEN = vim.env.CLAUDE_CODE_OAUTH_TOKEN },
+          })
+        end,
+      },
+    },
+    interactions = {
       chat = {
         keymaps = { completion = { modes = { i = '<C-j>' } } },
-        tools = { opts = { default_tools = { 'full_stack_dev' } } },
       },
     },
   })
