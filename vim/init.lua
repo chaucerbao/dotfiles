@@ -103,12 +103,6 @@ MiniDeps.later(function()
   MiniDeps.add({ source = 'nvim-treesitter/nvim-treesitter' })
   MiniDeps.add({ source = 'nvim-treesitter/nvim-treesitter-context', depends = { 'nvim-treesitter/nvim-treesitter' } })
 
-  require('nvim-treesitter.configs').setup({
-    auto_install = vim.fn.executable('tree-sitter') > 0,
-    ensure_installed = { 'diff' },
-    highlight = { enable = true },
-    indent = { enable = true },
-  })
   require('treesitter-context').setup({ mode = 'topline', separator = '─' })
 end)
 
