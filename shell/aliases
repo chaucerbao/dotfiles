@@ -68,7 +68,7 @@ command -v screen >/dev/null && {
 # Vim
 command -v nvim >/dev/null && {
   alias v='nvim'
-  alias vup='nvim --headless +sleep +DepsUpdate! +TSUpdateSync +MasonUpdate +quitall'
+  alias vup='nvim --headless +sleep +DepsUpdate! +TSUpdate +MasonUpdate +quitall'
   alias vv='nvim -u NONE'
 } || {
   alias v='vim'
