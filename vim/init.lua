@@ -108,12 +108,10 @@ MiniDeps.later(function()
   vim.api.nvim_create_autocmd('FileType', {
     pattern = {
       'bash',
-      'crontab',
       'css',
       'csv',
       'diff',
       'dockerfile',
-      'git',
       'gitattributes',
       'gitcommit',
       'gitconfig',
@@ -133,7 +131,6 @@ MiniDeps.later(function()
       'scss',
       'sh',
       'sql',
-      'sudoers',
       'svg',
       'toml',
       'tsv',
