@@ -104,6 +104,52 @@ MiniDeps.later(function()
   MiniDeps.add({ source = 'nvim-treesitter/nvim-treesitter-context', depends = { 'nvim-treesitter/nvim-treesitter' } })
 
   require('treesitter-context').setup({ mode = 'topline', separator = '─' })
+
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = {
+      'bash',
+      'crontab',
+      'css',
+      'csv',
+      'diff',
+      'dockerfile',
+      'git',
+      'gitattributes',
+      'gitcommit',
+      'gitconfig',
+      'gitignore',
+      'gitrebase',
+      'graphql',
+      'html',
+      'http',
+      'javascript',
+      'javascriptreact',
+      'json',
+      'jsonc',
+      'lua',
+      'markdown',
+      'prisma',
+      'ruby',
+      'scss',
+      'sh',
+      'sql',
+      'sudoers',
+      'svg',
+      'toml',
+      'tsv',
+      'typescript',
+      'typescriptreact',
+      'xml',
+      'yaml',
+      'zsh',
+    },
+    callback = function()
+      vim.treesitter.start()
+
+      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo.foldmethod = 'expr'
+    end,
+  })
 end)
 
 -- Language Server Protocol
