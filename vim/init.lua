@@ -198,17 +198,9 @@ MiniDeps.now(function()
   dap.adapters = dap_node.adapters
   dap.configurations = dap_node.configurations
 
-  vim.keymap.set({ 'n' }, '<Leader>db', function()
-    if dap.session() then
-      dap.terminate()
-    else
-      dap.continue()
-    end
-  end)
-
-  vim.keymap.set({ 'n' }, '\\b', dap.list_breakpoints)
-  vim.keymap.set({ 'n' }, '\\B', dap.toggle_breakpoint)
-  vim.keymap.set({ 'n' }, '<Leader>dB', dap.clear_breakpoints)
+  vim.keymap.set({ 'n' }, '<Leader>db', dap.continue)
+  vim.keymap.set({ 'n' }, '\\b', dap.toggle_breakpoint)
+  vim.keymap.set({ 'n' }, '\\B', dap.clear_breakpoints)
   vim.keymap.set({ 'n' }, '<Leader>ds', dap_scopes_sidebar.toggle)
   vim.keymap.set({ 'n' }, '<Leader>dr', dap.repl.toggle)
   vim.keymap.set({ 'n', 'v' }, '<Leader>K', dap_ui_widgets.hover)
