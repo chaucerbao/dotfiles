@@ -231,6 +231,12 @@ MiniDeps.later(function()
     interactions = {
       chat = {
         keymaps = { completion = { modes = { i = '<C-j>' } } },
+        tools = { opts = { default_tools = { 'full_stack_dev' } } },
+      },
+    },
+    prompt_library = {
+      markdown = {
+        dirs = { '~/.config/agents/prompts' },
       },
     },
   })
