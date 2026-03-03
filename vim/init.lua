@@ -109,7 +109,6 @@ MiniDeps.later(function()
     pattern = {
       'bash',
       'css',
-      'csv',
       'diff',
       'dockerfile',
       'gitattributes',
