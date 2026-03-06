@@ -230,7 +230,9 @@ MiniDeps.later(function()
     interactions = {
       chat = {
         keymaps = { completion = { modes = { i = '<C-j>' } } },
-        tools = { opts = { default_tools = { 'full_stack_dev' } } },
+        tools = { opts = { default_tools = { 'agent', 'fetch_webpage' } } },
+      },
+    },
       },
     },
     prompt_library = {
