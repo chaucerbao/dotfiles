@@ -230,7 +230,11 @@ MiniDeps.later(function()
     interactions = {
       chat = {
         keymaps = { completion = { modes = { i = '<C-j>' } } },
-        tools = { opts = { default_tools = { 'agent', 'fetch_webpage' } } },
+        tools = {
+          grep_search = { opts = { require_approval_before = false } },
+          read_file = { opts = { require_approval_before = false } },
+          opts = { default_tools = { 'agent', 'fetch_webpage' } },
+        },
       },
     },
     mcp = {
