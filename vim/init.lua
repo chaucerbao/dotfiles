@@ -233,7 +233,13 @@ MiniDeps.later(function()
         tools = { opts = { default_tools = { 'agent', 'fetch_webpage' } } },
       },
     },
+    mcp = {
+      servers = {
+        ['sequential-thinking'] = {
+          cmd = { 'pnpm', 'dlx', '@modelcontextprotocol/server-sequential-thinking' },
+        },
       },
+      opts = { default_servers = { 'sequential-thinking' } },
     },
     prompt_library = {
       markdown = {
