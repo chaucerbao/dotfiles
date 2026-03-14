@@ -1,68 +1,71 @@
 #!/bin/sh
 
 if [ $# -eq 0 ]; then
-	echo 'Usage: init [agents|bash|git|hammerspoon|kitty|neovim|prettier|screen|tmux|zellij|zsh] ...'
+  echo 'Usage: init [agents|bash|git|hammerspoon|kitty|neovim|prettier|screen|tmux|zellij|zsh] ...'
 else
-	DOTFILES_ABS="$(cd $(dirname $0); pwd -P)"
-	DOTFILES="$DOTFILES_ABS"
-	case "$DOTFILES" in
-		$HOME* ) DOTFILES="~${DOTFILES#$HOME}" ;;
-	esac
+  DOTFILES_ABS="$(
+    cd $(dirname $0)
+    pwd -P
+  )"
+  DOTFILES="$DOTFILES_ABS"
+  case "$DOTFILES" in
+    $HOME*) DOTFILES="~${DOTFILES#$HOME}" ;;
+  esac
 
-	for i do
-		case "$i" in
-			agents )
-				ln -s $DOTFILES_ABS/agents $HOME/.config/agents
-				echo "source $DOTFILES/shell/.profile" >> $HOME/.profile
-				echo "source $DOTFILES/shell/.bashrc" >> $HOME/.bashrc
-				;;
-			bash )
-				echo "source $DOTFILES/shell/.profile" >> $HOME/.profile
-				echo "source $DOTFILES/shell/.bashrc" >> $HOME/.bashrc
-				;;
-			git )
-				git config --global include.path "$DOTFILES/.gitconfig"
-				;;
-			hammerspoon )
-				mkdir -p $HOME/.hammerspoon/Spoons/
-				echo "dofile('$DOTFILES_ABS/hammerspoon.lua')" >> $HOME/.hammerspoon/init.lua
-				;;
-			kitty )
-				mkdir -p $HOME/.config/kitty/
-				ln -s $DOTFILES_ABS/kitty/mime.types $DOTFILES_ABS/kitty/open-actions.conf $HOME/.config/kitty/
-				echo "include $DOTFILES/kitty/kitty.conf" >> $HOME/.config/kitty/kitty.conf
-				;;
-			neovim )
-				mkdir -p $HOME/.config/nvim/
-				mkdir -p $HOME/.config/efm-langserver/
-				echo "dofile('$DOTFILES_ABS/vim/init.lua')" >> $HOME/.config/nvim/init.lua
-				ln -s $DOTFILES_ABS/vim/efm.yaml $HOME/.config/efm-langserver/config.yaml
-				ln -s $DOTFILES_ABS/vim/lsp $HOME/.config/nvim/lsp
-				ln -s $DOTFILES_ABS/vim/lua $HOME/.config/nvim/lua
-				ln -s $DOTFILES_ABS/vim/snippets $HOME/.config/nvim/snippets
-				;;
-			prettier )
-				cp $DOTFILES_ABS/.prettierrc $HOME
-				;;
-			screen )
-				echo "source $DOTFILES_ABS/.screenrc" >> $HOME/.screenrc
-				;;
-			tmux )
-				if [ ! -d $HOME/.tmux/plugins/tpm ]; then git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm; fi
-				echo "source-file $DOTFILES/.tmux.conf" >> $HOME/.tmux.conf
-				;;
-			zellij )
-				mkdir -p $HOME/.config/zellij/
-				ln -s $DOTFILES_ABS/zellij.kdl $HOME/.config/zellij/config.kdl
-				;;
-			zsh )
-				echo "source $DOTFILES/shell/.profile" >> $HOME/.profile
-				ln -s $HOME/.profile $HOME/.zprofile
-				echo "source $DOTFILES/shell/.zshrc" >> $HOME/.zshrc
-				;;
-			* )
-				echo "Unrecognized: $i"
-				;;
-		esac
-	done
+  for i; do
+    case "$i" in
+      agents)
+        ln -s $DOTFILES_ABS/agents $HOME/.config/agents
+        echo "source $DOTFILES/shell/.profile" >>$HOME/.profile
+        echo "source $DOTFILES/shell/.bashrc" >>$HOME/.bashrc
+        ;;
+      bash)
+        echo "source $DOTFILES/shell/.profile" >>$HOME/.profile
+        echo "source $DOTFILES/shell/.bashrc" >>$HOME/.bashrc
+        ;;
+      git)
+        git config --global include.path "$DOTFILES/.gitconfig"
+        ;;
+      hammerspoon)
+        mkdir -p $HOME/.hammerspoon/Spoons/
+        echo "dofile('$DOTFILES_ABS/hammerspoon.lua')" >>$HOME/.hammerspoon/init.lua
+        ;;
+      kitty)
+        mkdir -p $HOME/.config/kitty/
+        ln -s $DOTFILES_ABS/kitty/mime.types $DOTFILES_ABS/kitty/open-actions.conf $HOME/.config/kitty/
+        echo "include $DOTFILES/kitty/kitty.conf" >>$HOME/.config/kitty/kitty.conf
+        ;;
+      neovim)
+        mkdir -p $HOME/.config/nvim/
+        mkdir -p $HOME/.config/efm-langserver/
+        echo "dofile('$DOTFILES_ABS/vim/init.lua')" >>$HOME/.config/nvim/init.lua
+        ln -s $DOTFILES_ABS/vim/efm.yaml $HOME/.config/efm-langserver/config.yaml
+        ln -s $DOTFILES_ABS/vim/lsp $HOME/.config/nvim/lsp
+        ln -s $DOTFILES_ABS/vim/lua $HOME/.config/nvim/lua
+        ln -s $DOTFILES_ABS/vim/snippets $HOME/.config/nvim/snippets
+        ;;
+      prettier)
+        cp $DOTFILES_ABS/.prettierrc $HOME
+        ;;
+      screen)
+        echo "source $DOTFILES_ABS/.screenrc" >>$HOME/.screenrc
+        ;;
+      tmux)
+        if [ ! -d $HOME/.tmux/plugins/tpm ]; then git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm; fi
+        echo "source-file $DOTFILES/.tmux.conf" >>$HOME/.tmux.conf
+        ;;
+      zellij)
+        mkdir -p $HOME/.config/zellij/
+        ln -s $DOTFILES_ABS/zellij.kdl $HOME/.config/zellij/config.kdl
+        ;;
+      zsh)
+        echo "source $DOTFILES/shell/.profile" >>$HOME/.profile
+        ln -s $HOME/.profile $HOME/.zprofile
+        echo "source $DOTFILES/shell/.zshrc" >>$HOME/.zshrc
+        ;;
+      *)
+        echo "Unrecognized: $i"
+        ;;
+    esac
+  done
 fi
