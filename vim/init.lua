@@ -232,7 +232,9 @@ MiniDeps.later(function()
         keymaps = { completion = { modes = { i = '<C-j>' } } },
         tools = {
           grep_search = { opts = { require_approval_before = false } },
+          insert_edit_into_file = { opts = { require_confirmation_after = false } },
           read_file = { opts = { require_approval_before = false } },
+          run_command = { opts = { require_approval_before = false } },
           opts = { default_tools = { 'agent', 'fetch_webpage' } },
         },
       },
@@ -248,6 +250,18 @@ MiniDeps.later(function()
     prompt_library = {
       markdown = {
         dirs = { '~/.config/agents/prompts' },
+      },
+    },
+    rules = {
+      default = {
+        files = {
+          'AGENTS.md',
+          'AGENTS.local.md',
+          '~/.config/agents/AGENTS.md',
+          { path = 'CLAUDE.md', parser = 'claude' },
+          { path = 'CLAUDE.local.md', parser = 'claude' },
+          { path = '~/.claude/CLAUDE.md', parser = 'claude' },
+        },
       },
     },
   })
