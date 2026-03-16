@@ -37,6 +37,10 @@
 	stp = stash pop
 	sts = stash show
 	undo = reset HEAD~1
+	w = worktree
+	wa = worktree add
+	wl = worktree list
+	wr = worktree remove
 	wipe = clean --interactive --force -dx
 [branch]
 	sort = -committerdate
