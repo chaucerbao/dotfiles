@@ -241,9 +241,8 @@ MiniDeps.later(function()
     },
     mcp = {
       servers = {
-        ['sequential-thinking'] = {
-          cmd = { 'pnpm', 'dlx', '@modelcontextprotocol/server-sequential-thinking' },
-        },
+        ['database'] = { cmd = { 'pnpm', 'dlx', '@bytebase/dbhub' } },
+        ['sequential-thinking'] = { cmd = { 'pnpm', 'dlx', '@modelcontextprotocol/server-sequential-thinking' } },
       },
       opts = { default_servers = { 'sequential-thinking' } },
     },
