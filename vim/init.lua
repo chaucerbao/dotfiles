@@ -175,10 +175,6 @@ MiniDeps.now(function()
     end,
   })
 
-  vim.api.nvim_create_user_command('LspRestart', function()
-    vim.lsp.stop_client(vim.lsp.get_clients())
-  end, {})
-
   MiniIcons.tweak_lsp_kind()
   MiniSnippets.start_lsp_server()
   vim.lsp.enable({ 'efm-langserver' })
@@ -326,6 +322,7 @@ MiniSnippets.config.snippets = {
 vim.g.loaded_netrwPlugin = true
 
 -- General Settings
+vim.o.autocomplete = true
 vim.o.confirm = true
 vim.o.spell = true
 vim.o.winborder = 'rounded'
@@ -344,6 +341,7 @@ vim.o.foldmethod = 'indent'
 
 -- Diagnostics
 vim.diagnostic.config({
+  severity_sort = true,
   signs = {
     numhl = { [vim.diagnostic.severity.ERROR] = 'ErrorMsg', [vim.diagnostic.severity.WARN] = 'WarningMsg' },
     text = {
