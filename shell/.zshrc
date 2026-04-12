@@ -16,8 +16,12 @@ autoload -U select-word-style; select-word-style bash
 
 # Completions
 command -v brew >/dev/null && export FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-command -v fzf >/dev/null && source "${SCRIPT_PATH}/fzf-completion"
-autoload -U compinit; compinit
+command -v fzf >/dev/null && {
+  source "${SCRIPT_PATH}/fzf-completion"
+  source <(fzf --zsh)
+}
+autoload -U compinit
+compinit
 
 # Disable START/STOP flow control to reclaim CTRL-S and CTRL-Q
 stty -ixon <${TTY} >${TTY}

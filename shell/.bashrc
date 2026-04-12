@@ -11,10 +11,13 @@ HISTCONTROL=erasedups:ignorespace
 shopt -s histappend
 
 # Completions
-command -v fzf >/dev/null && source "${SCRIPT_PATH}/fzf-completion"
+command -v fzf >/dev/null && {
+  source "${SCRIPT_PATH}/fzf-completion"
+  eval "$(fzf --bash)"
+}
 
 # Disable START/STOP flow control to reclaim CTRL-S and CTRL-Q
-stty -ixon
+stty -ixon <${TTY} >${TTY}
 
 # Tooling
 command -v mise >/dev/null && eval "$(mise activate bash)"

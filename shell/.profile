@@ -38,7 +38,7 @@ fi
 # Path
 command -v brew >/dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 command -v mise >/dev/null && eval "$(mise activate --shims)"
-PATH="node_modules/.bin:$HOME/.bin:$PATH"
+PATH="node_modules/.bin:$HOME/.local/bin:$PATH"
 export PATH
 
 # Clean Up
