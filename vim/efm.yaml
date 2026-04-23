@@ -88,6 +88,10 @@ tools:
       - eslint.config.mts
       - eslint.config.cts
 
+  pgformatter-sh: &pgformatter-sh
+    format-command: 'pg_format ${--spaces:tabSize} -'
+    format-stdin: true
+
   prettier-css: &prettier-css
     format-command: 'prettierd file.scss ${--range-start=charStart} ${--range-end=charEnd}'
     format-stdin: true
@@ -211,6 +215,7 @@ languages:
 
   sql:
     - <<: *deno-sql
+    - <<: *pgformatter-sh
 
   typescript: *javascript
 
