@@ -234,28 +234,11 @@ MiniDeps.later(function()
           opts = { default_tools = { 'agent', 'fetch_webpage' } },
         },
       },
-    },
-    mcp = {
-      servers = {
-        ['database'] = { cmd = { 'pnpm', 'dlx', '@bytebase/dbhub' } },
-        ['sequential-thinking'] = { cmd = { 'pnpm', 'dlx', '@modelcontextprotocol/server-sequential-thinking' } },
-      },
-      opts = { default_servers = { 'sequential-thinking' } },
-    },
-    prompt_library = {
-      markdown = {
-        dirs = { '~/.config/agents/prompts' },
-      },
-    },
-    rules = {
-      default = {
-        files = {
-          'AGENTS.md',
-          'AGENTS.local.md',
-          '~/.config/agents/AGENTS.md',
-          { path = 'CLAUDE.md', parser = 'claude' },
-          { path = 'CLAUDE.local.md', parser = 'claude' },
-          { path = '~/.claude/CLAUDE.md', parser = 'claude' },
+      cli = {
+        agent = 'pi',
+        agents = {
+          claude_code = { cmd = 'claude', description = 'Claude Code CLI' },
+          pi = { cmd = 'pi', description = 'Pi Agent CLI' },
         },
       },
     },
