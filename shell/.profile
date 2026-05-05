@@ -35,6 +35,11 @@ elif command -v vim >/dev/null; then
   export VISUAL=vim
 fi
 
+# XDG Base Directory Specification
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
 # Path
 command -v brew >/dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 command -v mise >/dev/null && eval "$(mise activate --shims)"
