@@ -15,11 +15,12 @@ return {
     'scss',
     'sh',
     'sql',
+    'toml',
     'typescript',
     'typescriptreact',
     'yaml',
   },
   root_dir = function(_bufnr, on_dir)
-    on_dir(vim.fs.root(0, root_markers) or vim.fn.expand("~"))
+    on_dir(vim.fs.root(0, root_markers) or vim.fn.expand('~'))
   end,
 }

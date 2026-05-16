@@ -429,6 +429,7 @@ vim.api.nvim_create_autocmd('FileType', {
       lua = 'lua',
       markdown = 'mdx',
       scss = 'scss',
+      toml = 'toml',
       typescript = 'tsx',
       typescriptreact = 'tsx',
       yaml = 'yaml',

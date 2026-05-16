@@ -88,6 +88,57 @@ tools:
       - eslint.config.mts
       - eslint.config.cts
 
+  oxfmt-css: &oxfmt-css
+    format-command: 'oxfmt --stdin-filepath=file.scss'
+    format-stdin: true
+    require-marker: true
+    root-markers: &oxfmt-root-markers
+      - .oxfmtrc.json
+      - .oxfmtrc.jsonc
+      - oxfmt.config.ts
+
+  oxfmt-graphql: &oxfmt-graphql
+    format-command: 'oxfmt --stdin-filepath=file.graphql'
+    format-stdin: true
+    require-marker: true
+    root-markers: *oxfmt-root-markers
+
+  oxfmt-html: &oxfmt-html
+    format-command: 'oxfmt --stdin-filepath=file.html'
+    format-stdin: true
+    require-marker: true
+    root-markers: *oxfmt-root-markers
+
+  oxfmt-javascript: &oxfmt-javascript
+    format-command: 'oxfmt --stdin-filepath=file.tsx'
+    format-stdin: true
+    require-marker: true
+    root-markers: *oxfmt-root-markers
+
+  oxfmt-json: &oxfmt-json
+    format-command: 'oxfmt --stdin-filepath=file.jsonc'
+    format-stdin: true
+    require-marker: true
+    root-markers: *oxfmt-root-markers
+
+  oxfmt-markdown: &oxfmt-markdown
+    format-command: 'oxfmt --stdin-filepath=file.mdx'
+    format-stdin: true
+    require-marker: true
+    root-markers: *oxfmt-root-markers
+
+  oxfmt-toml: &oxfmt-toml
+    format-command: 'oxfmt --stdin-filepath=file.toml'
+    format-stdin: true
+    require-marker: true
+    root-markers: *oxfmt-root-markers
+
+  oxfmt-yaml: &oxfmt-yaml
+    format-command: 'oxfmt --stdin-filepath=file.yaml'
+    format-stdin: true
+    require-marker: true
+    root-markers: *oxfmt-root-markers
+
   pgformatter-sql: &pgformatter-sql
     format-command: 'pg_format ${--spaces:tabSize} -'
     format-stdin: true
@@ -179,19 +230,23 @@ tools:
 languages:
   css: &css
     - <<: *biome-css
+    - <<: *oxfmt-css
     - <<: *deno-css
     - <<: *prettier-css
 
   graphql:
     - <<: *biome-graphql
+    - <<: *oxfmt-graphql
     - <<: *prettier-graphql
 
   html:
+    - <<: *oxfmt-html
     - <<: *deno-html
     - <<: *prettier-html
 
   javascript: &javascript
     - <<: *biome-javascript
+    - <<: *oxfmt-javascript
     - <<: *deno-javascript
     - <<: *prettier-javascript
     - <<: *eslint
@@ -200,6 +255,7 @@ languages:
 
   json: &json
     - <<: *biome-json
+    - <<: *oxfmt-json
     - <<: *deno-json
     - <<: *prettier-json
 
@@ -209,6 +265,7 @@ languages:
     - <<: *stylua-lua
 
   markdown:
+    - <<: *oxfmt-markdown
     - <<: *deno-markdown
     - <<: *prettier-markdown
 
@@ -222,10 +279,14 @@ languages:
     - <<: *sqlformatter-sql
     - <<: *pgformatter-sql
 
+  toml:
+    - <<: *oxfmt-toml
+
   typescript: *javascript
 
   typescriptreact: *javascript
 
   yaml:
+    - <<: *oxfmt-yaml
     - <<: *deno-yaml
     - <<: *prettier-yaml
