@@ -88,7 +88,7 @@ tools:
       - eslint.config.mts
       - eslint.config.cts
 
-  pgformatter-sh: &pgformatter-sh
+  pgformatter-sql: &pgformatter-sql
     format-command: 'pg_format ${--spaces:tabSize} -'
     format-stdin: true
 
@@ -163,6 +163,10 @@ tools:
     format-command: 'shfmt ${--indent:tabSize} --binary-next-line --case-indent --simplify --filename=file.sh'
     format-stdin: true
 
+  sqlformatter-sql: &sqlformatter-sql
+    format-command: 'sql-formatter --language=postgresql'
+    format-stdin: true
+
   stylua-lua: &stylua-lua
     format-command: 'stylua ${--range-start=charStart} ${--range-end=charEnd} --stdin-filepath="${INPUT}" -'
     format-stdin: true
@@ -215,7 +219,8 @@ languages:
 
   sql:
     - <<: *deno-sql
-    - <<: *pgformatter-sh
+    - <<: *sqlformatter-sql
+    - <<: *pgformatter-sql
 
   typescript: *javascript
 
