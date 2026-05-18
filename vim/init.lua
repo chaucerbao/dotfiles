@@ -479,7 +479,7 @@ vim.keymap.set({ 'n', 'x' }, '<Leader>g.', MiniGit.show_at_cursor)
 vim.keymap.set({ 'n' }, '<Leader>gb', function()
   local git_root_path = vim.fn.expand('%'):match('^minigit://.+%-C%s+([^%s]+)') or MiniGit.get_buf_data().root
   if git_root_path == nil then
-    print('File is not inside a repository')
+    vim.notify('File is not inside a repository')
     return
   end
 
@@ -493,7 +493,7 @@ vim.keymap.set({ 'n' }, '<Leader>gb', function()
   if ok then
     vim.keymap.set({ 'n' }, 'q', ':bdelete<CR>', { silent = true, buffer = true })
   elseif result:find('fatal: no such path ') then
-    print(('`%s` does not exist before `%s`'):format(vim.fs.basename(filename), revision:gsub('%^$', '')))
+    vim.notify(('`%s` does not exist before `%s`'):format(vim.fs.basename(filename), revision:gsub('%^$', '')))
   end
 end)
 
