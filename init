@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ $# -eq 0 ]; then
-  echo 'Usage: init [bash|git|hammerspoon|kitty|neovim|prettier|screen|tmux|zellij|zsh] ...'
+  echo 'Usage: init [bash|git|hammerspoon|kitty|neovim|oxfmt|prettier|screen|tmux|zellij|zsh] ...'
 else
   DOTFILES_ABS="$(
     cd $(dirname $0)
@@ -37,6 +37,9 @@ else
         ln -s $DOTFILES_ABS/vim/lsp $HOME/.config/nvim/lsp
         ln -s $DOTFILES_ABS/vim/lua $HOME/.config/nvim/lua
         ln -s $DOTFILES_ABS/vim/snippets $HOME/.config/nvim/snippets
+        ;;
+      oxfmt)
+        cp $DOTFILES_ABS/.oxfmtrc.json $HOME
         ;;
       prettier)
         cp $DOTFILES_ABS/.prettierrc $HOME

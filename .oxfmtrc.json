@@ -1,0 +1,7 @@
+{
+  "insertFinalNewline": false,
+  "semi": false,
+  "singleQuote": true,
+  "sortImports": true,
+  "overrides": [{ "files": ["*.jsonc"], "options": { "trailingComma": "none" } }]
+}
