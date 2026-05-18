@@ -63,7 +63,7 @@ local function format_buffer(lsp_names)
   end
 
   local cursor = vim.api.nvim_win_get_cursor(0)
-  vim.cmd('keepjumps normal! gggqG')
+  vim.cmd('silent keepjumps normal! gggqG')
   vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
 end
 
@@ -107,7 +107,6 @@ MiniDeps.later(function()
 
   vim.api.nvim_create_autocmd('FileType', {
     pattern = {
-      'bash',
       'css',
       'diff',
       'dockerfile',
@@ -419,27 +418,28 @@ end)
 
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(args)
-    local ext = ({
+    local filetype_ext = {
       css = 'scss',
-      graphql = 'graphql',
-      html = 'html',
       javascript = 'tsx',
       javascriptreact = 'tsx',
       json = 'jsonc',
-      lua = 'lua',
       markdown = 'mdx',
-      scss = 'scss',
-      toml = 'toml',
       typescript = 'tsx',
       typescriptreact = 'tsx',
-      yaml = 'yaml',
-    })[vim.bo[args.buf].filetype]
+    }
 
-    vim.bo.formatprg = ext and (ext == 'lua' and 'stylua -' or 'prettierd file.' .. ext) or ''
+    local filetype = vim.bo[args.buf].filetype
+    local ext = filetype_ext[filetype] or filetype
+    local file = 'file.' .. ext
+    local indent_size = vim.bo.shiftwidth > 0 and vim.bo.shiftwidth or vim.bo.tabstop
+
+    vim.bo.formatprg = ext
+        and ((ext == 'lua' and 'stylua -') or ((ext == 'sh' or ext == 'zsh') and 'shfmt --binary-next-line --case-indent --simplify --indent=' .. indent_size .. ' --filename="' .. file .. '"') or ('oxfmt --stdin-filepath="' .. file .. '"'))
+      or ''
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+vim.api.nvim_create_autocmd('BufWritePre', {
   group = vim.api.nvim_create_augroup('FormatOnSave', { clear = true }),
   callback = function()
     format_buffer({ 'efm-langserver' })
@@ -453,7 +453,7 @@ vim.keymap.set({ 'n' }, '\\l', toggle_list('loclist'))
 vim.keymap.set({ 'n' }, '\\q', toggle_list('quickfix'))
 
 -- Automatically Open Lists
-vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
+vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   callback = function(event)
     vim.cmd((event.match:find('^l') and 'lwindow' or 'cwindow'))
   end,
