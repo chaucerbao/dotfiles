@@ -420,17 +420,24 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function(args)
     local filetype_ext = {
       css = 'scss',
+      graphql = 'graphql',
+      html = 'html',
       javascript = 'tsx',
       javascriptreact = 'tsx',
       json = 'jsonc',
+      lua = 'lua',
       markdown = 'mdx',
+      sh = 'sh',
+      toml = 'toml',
       typescript = 'tsx',
       typescriptreact = 'tsx',
+      yaml = 'yaml',
+      zsh = 'zsh',
     }
 
     local filetype = vim.bo[args.buf].filetype
-    local ext = filetype_ext[filetype] or filetype
-    local file = 'file.' .. ext
+    local ext = filetype_ext[filetype]
+    local file = ext and 'file.' .. ext
     local indent_size = vim.bo.shiftwidth > 0 and vim.bo.shiftwidth or vim.bo.tabstop
 
     vim.bo.formatprg = ext
