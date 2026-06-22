@@ -1,12 +1,8 @@
 -- Package Manager
-local mini_path = vim.fn.stdpath('data') .. '/site/pack/deps/start/mini.nvim'
-if not vim.loop.fs_stat(mini_path) then
-  vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/nvim-mini/mini.nvim', mini_path })
-  vim.cmd('packadd mini.nvim | helptags ALL')
-end
+vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' })
 
 -- mini.nvim
-require('mini.deps').setup()
+require('mini.misc').setup()
 
 require('mini.ai').setup()
 require('mini.align').setup()
@@ -92,16 +88,18 @@ local function toggle_list(list_type)
 end
 
 -- Color Scheme
-MiniDeps.now(function()
-  MiniDeps.add({ source = 'folke/tokyonight.nvim' })
+MiniMisc.safely('now', function()
+  vim.pack.add({ 'https://github.com/folke/tokyonight.nvim' })
   vim.cmd.colorscheme('tokyonight-storm')
   vim.api.nvim_set_hl(0, 'MiniJump', { link = 'MiniJump2dSpot' })
 end)
 
 -- Tree-sitter
-MiniDeps.later(function()
-  MiniDeps.add({ source = 'nvim-treesitter/nvim-treesitter' })
-  MiniDeps.add({ source = 'nvim-treesitter/nvim-treesitter-context', depends = { 'nvim-treesitter/nvim-treesitter' } })
+MiniMisc.safely('later', function()
+  vim.pack.add({
+    'https://github.com/nvim-treesitter/nvim-treesitter',
+    'https://github.com/nvim-treesitter/nvim-treesitter-context',
+  })
 
   require('treesitter-context').setup({ mode = 'topline', separator = '─' })
 
@@ -148,8 +146,8 @@ MiniDeps.later(function()
 end)
 
 -- Language Server Protocol
-MiniDeps.now(function()
-  MiniDeps.add({ source = 'mason-org/mason.nvim' })
+MiniMisc.safely('now', function()
+  vim.pack.add({ 'https://github.com/mason-org/mason.nvim' })
 
   require('mason').setup()
 
@@ -180,8 +178,8 @@ MiniDeps.now(function()
 end)
 
 -- Debug Adapter Protocol
-MiniDeps.now(function()
-  MiniDeps.add({ source = 'mfussenegger/nvim-dap' })
+MiniMisc.safely('now', function()
+  vim.pack.add({ 'https://github.com/mfussenegger/nvim-dap' })
 
   local dap = require('dap')
   local dap_ui_widgets = require('dap.ui.widgets')
@@ -206,10 +204,11 @@ MiniDeps.now(function()
 end)
 
 -- Large Language Models
-MiniDeps.later(function()
-  MiniDeps.add({
-    source = 'olimorris/codecompanion.nvim',
-    depends = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
+MiniMisc.safely('later', function()
+  vim.pack.add({
+    'https://github.com/nvim-lua/plenary.nvim',
+    'https://github.com/nvim-treesitter/nvim-treesitter',
+    'https://github.com/olimorris/codecompanion.nvim',
   })
 
   require('codecompanion').setup({
@@ -250,13 +249,13 @@ MiniDeps.later(function()
 end)
 
 -- Only used once to authenticate with GitHub Copilot (`:Copilot setup`)
--- MiniDeps.later(function()
---   MiniDeps.add({ source = 'github/copilot.vim' })
+-- MiniMisc.safely('later', function()
+--   vim.pack.add({ 'https://github.com/github/copilot.vim' })
 -- end)
 
 -- Shelly
-MiniDeps.later(function()
-  MiniDeps.add({ source = 'chaucerbao/shelly.nvim' })
+MiniMisc.safely('later', function()
+  vim.pack.add({ 'https://github.com/chaucerbao/shelly.nvim' })
 
   local shelly = require('shelly')
 
@@ -286,8 +285,8 @@ MiniDeps.later(function()
 end)
 
 -- Abolish
-MiniDeps.later(function()
-  MiniDeps.add({ source = 'chaucerbao/vim-abolish', checkout = 'coercions' })
+MiniMisc.safely('later', function()
+  vim.pack.add({ { src = 'https://github.com/chaucerbao/vim-abolish', version = 'coercions' } })
 
   vim.keymap.set({ 'x' }, 'cr', '<Plug>(abolish-coerce)')
 end)
