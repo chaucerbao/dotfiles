@@ -136,8 +136,12 @@ MiniMisc.safely('later', function()
       'yaml',
       'zsh',
     },
-    callback = function()
-      vim.treesitter.start()
+    callback = function(event)
+      if not pcall(vim.treesitter.start, event.buf) then
+        local language = vim.treesitter.language.get_lang(event.match) or event.match
+        vim.cmd('TSInstall ' .. language)
+        return
+      end
 
       vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
       vim.wo.foldmethod = 'expr'
