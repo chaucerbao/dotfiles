@@ -92,7 +92,7 @@ alias ls='ls --color=auto --classify --group-directories-first --human-readable 
 
 # macOS
 if [[ $OSTYPE == "darwin"* ]]; then
-  alias bubu='brew update && brew outdated && brew upgrade && brew cleanup'
+  alias bubu='brew update && brew outdated && brew upgrade --yes && brew cleanup'
   alias clean='fd --hidden --type=file .DS_Store ~ --exec rm --force'
 fi
 
