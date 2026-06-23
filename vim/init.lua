@@ -182,7 +182,7 @@ MiniMisc.safely('now', function()
 end)
 
 -- Debug Adapter Protocol
-MiniMisc.safely('now', function()
+MiniMisc.safely('later', function()
   vim.pack.add({ 'https://github.com/mfussenegger/nvim-dap' })
 
   local dap = require('dap')
@@ -307,7 +307,6 @@ MiniSnippets.config.snippets = {
 vim.g.loaded_netrwPlugin = true
 
 -- General Settings
-vim.o.autocomplete = true
 vim.o.confirm = true
 vim.o.spell = true
 vim.o.winborder = 'rounded'
