@@ -103,48 +103,36 @@ MiniMisc.safely('later', function()
 
   require('treesitter-context').setup({ mode = 'topline', separator = '─' })
 
+  local treesitter = require('nvim-treesitter')
+  local parsers = treesitter.get_available()
+
+  local function enable_treesitter(buf)
+    if not vim.api.nvim_buf_is_valid(buf) or not pcall(vim.treesitter.start, buf) then
+      return false
+    end
+
+    for _, win in ipairs(vim.fn.win_findbuf(buf)) do
+      vim.wo[win].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[win].foldmethod = 'expr'
+    end
+
+    return true
+  end
+
   vim.api.nvim_create_autocmd('FileType', {
-    pattern = {
-      'css',
-      'diff',
-      'dockerfile',
-      'gitattributes',
-      'gitcommit',
-      'gitconfig',
-      'gitignore',
-      'gitrebase',
-      'graphql',
-      'html',
-      'http',
-      'javascript',
-      'javascriptreact',
-      'json',
-      'jsonc',
-      'lua',
-      'markdown',
-      'prisma',
-      'ruby',
-      'scss',
-      'sh',
-      'sql',
-      'svg',
-      'toml',
-      'tsv',
-      'typescript',
-      'typescriptreact',
-      'xml',
-      'yaml',
-      'zsh',
-    },
     callback = function(event)
-      if not pcall(vim.treesitter.start, event.buf) then
-        local language = vim.treesitter.language.get_lang(event.match) or event.match
-        vim.cmd('TSInstall ' .. language)
+      if enable_treesitter(event.buf) then
         return
       end
 
-      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-      vim.wo.foldmethod = 'expr'
+      local language = vim.treesitter.language.get_lang(event.match) or event.match
+      if vim.list_contains(parsers, language) then
+        treesitter.install({ language }):await(vim.schedule_wrap(function(error)
+          if not error then
+            enable_treesitter(event.buf)
+          end
+        end))
+      end
     end,
   })
 end)
