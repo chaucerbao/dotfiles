@@ -197,53 +197,17 @@ end)
 
 -- Large Language Models
 MiniMisc.safely('later', function()
-  vim.pack.add({
-    'https://github.com/nvim-lua/plenary.nvim',
-    'https://github.com/nvim-treesitter/nvim-treesitter',
-    'https://github.com/olimorris/codecompanion.nvim',
-  })
+  vim.pack.add({ 'https://github.com/folke/sidekick.nvim' })
 
-  require('codecompanion').setup({
-    adapters = {
-      acp = {
-        claude_code = function()
-          return require('codecompanion.adapters').extend('claude_code', {
-            env = { CLAUDE_CODE_OAUTH_TOKEN = vim.env.CLAUDE_CODE_OAUTH_TOKEN },
-          })
-        end,
-      },
-    },
-    interactions = {
-      chat = {
-        keymaps = { completion = { modes = { i = '<C-j>' } } },
-        tools = {
-          grep_search = { opts = { require_approval_before = false } },
-          insert_edit_into_file = { opts = { require_confirmation_after = false } },
-          read_file = { opts = { require_approval_before = false } },
-          run_command = { opts = { require_approval_before = false } },
-          opts = { default_tools = { 'agent', 'fetch_webpage' } },
-        },
-      },
-      cli = {
-        agent = 'pi',
-        agents = {
-          claude_code = { cmd = 'claude', description = 'Claude Code CLI' },
-          pi = { cmd = 'pi', description = 'Pi Agent CLI' },
-        },
-      },
-    },
-  })
+  require('sidekick').setup({ nes = { enabled = false } })
 
-  vim.keymap.set({ 'ca' }, 'cc', 'CodeCompanion')
-  vim.keymap.set({ 'n', 'x' }, "<Leader>'", '<CMD>CodeCompanionChat Toggle<CR>')
-  vim.keymap.set({ 'n', 'x' }, '<Leader>"', '<CMD>CodeCompanionChat Add<CR>')
-  vim.keymap.set({ 'n', 'x' }, '<Leader>;', '<CMD>CodeCompanionActions<CR>')
+  local sidekick_cli = require('sidekick.cli')
+
+  vim.keymap.set({ 'n' }, "<Leader>'", sidekick_cli.toggle)
+  vim.keymap.set({ 'x' }, "<Leader>'", function()
+    sidekick_cli.send({ msg = '{selection}' })
+  end)
 end)
-
--- Only used once to authenticate with GitHub Copilot (`:Copilot setup`)
--- MiniMisc.safely('later', function()
---   vim.pack.add({ 'https://github.com/github/copilot.vim' })
--- end)
 
 -- Shelly
 MiniMisc.safely('later', function()
