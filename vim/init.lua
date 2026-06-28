@@ -299,7 +299,6 @@ vim.o.confirm = true
 vim.o.spell = true
 vim.o.winborder = 'rounded'
 vim.opt.listchars = { tab = '»·', trail = '·', nbsp = '◡' }
-vim.ui.select = MiniPick.ui_select
 
 -- Indentation
 vim.o.tabstop = 2
