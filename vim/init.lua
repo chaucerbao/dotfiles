@@ -1,95 +1,94 @@
--- Package Manager
+-- Initialize
 vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' })
 
--- mini.nvim
 require('mini.misc').setup()
 
-require('mini.ai').setup()
-require('mini.align').setup()
-require('mini.basics').setup({ options = { extra_ui = true }, mappings = { windows = true } })
-require('mini.bracketed').setup()
-require('mini.completion').setup({ lsp_completion = { source_func = 'omnifunc', auto_setup = false } })
-require('mini.diff').setup({ view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } })
-require('mini.extra').setup()
-require('mini.files').setup({
-  mappings = { close = '<Esc>', go_in = '', go_in_plus = '<CR>', go_out = '<BS>', go_out_plus = '', reset = '' },
-})
-require('mini.git').setup()
-require('mini.icons').setup()
-require('mini.indentscope').setup({ draw = {
-  animation = function()
-    return 0
-  end,
-} })
-require('mini.jump').setup()
-require('mini.jump2d').setup(
-  vim.tbl_extend(
-    'keep',
-    require('mini.jump2d').builtin_opts.word_start,
-    { allowed_lines = { blank = false }, allowed_windows = { not_current = false }, mappings = { start_jumping = 'S' } }
-  )
-)
-require('mini.notify').setup()
-require('mini.pairs').setup()
-require('mini.pick').setup()
-require('mini.snippets').setup()
-require('mini.splitjoin').setup()
-require('mini.statusline').setup()
-require('mini.surround').setup()
-require('mini.tabline').setup()
-require('mini.visits').setup()
+-- Package Manager
+MiniMisc.safely('later', function()
+  vim.pack.add({ 'https://github.com/mason-org/mason.nvim' })
 
--- Helpers
-local function format_buffer(lsp_names)
-  if lsp_names and #lsp_names > 0 then
-    local clients = {}
-    for _, client in ipairs(vim.lsp.get_clients({ method = 'textDocument/formatting', bufnr = 0 })) do
-      clients[client.name] = client
-    end
+  require('mason').setup()
+end)
 
-    for _, lsp_name in ipairs(lsp_names) do
-      if clients[lsp_name] and pcall(vim.lsp.buf.format, { name = clients[lsp_name].name }) then
-        return
-      end
-    end
-  end
+-- mini.nvim
+MiniMisc.safely('now', function()
+  require('mini.basics').setup({ options = { extra_ui = true }, mappings = { windows = true } })
+  require('mini.icons').setup()
+  require('mini.notify').setup()
+  require('mini.statusline').setup()
+  require('mini.tabline').setup()
+end)
 
-  if vim.bo.formatprg == '' then
-    return
-  end
+MiniMisc.safely('later', function()
+  require('mini.ai').setup()
+  require('mini.align').setup()
+  require('mini.bracketed').setup()
+  require('mini.completion').setup({ lsp_completion = { source_func = 'omnifunc', auto_setup = false } })
+  require('mini.diff').setup({ view = { style = 'sign', signs = { add = '+', change = '~', delete = '-' } } })
+  require('mini.extra').setup()
+  require('mini.files').setup({
+    mappings = { close = '<Esc>', go_in = '', go_in_plus = '<CR>', go_out = '<BS>', go_out_plus = '', reset = '' },
+  })
+  require('mini.git').setup()
+  require('mini.indentscope').setup({ draw = {
+    animation = function()
+      return 0
+    end,
+  } })
+  require('mini.jump').setup()
+  require('mini.jump2d').setup(vim.tbl_extend('keep', require('mini.jump2d').builtin_opts.word_start, {
+    allowed_lines = { blank = false },
+    allowed_windows = { not_current = false },
+    mappings = { start_jumping = 'S' },
+  }))
+  require('mini.pairs').setup()
+  require('mini.pick').setup()
+  require('mini.snippets').setup()
+  require('mini.splitjoin').setup()
+  require('mini.surround').setup()
+  require('mini.visits').setup()
+end)
 
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  vim.cmd('silent keepjumps normal! gggqG')
-  vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
-end
+-- General Settings
+MiniMisc.safely('now', function()
+  -- Disable Netrw
+  vim.g.loaded_netrwPlugin = true
 
-local function gen_local_picker(picker)
-  return function()
-    picker(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
-  end
-end
+  -- Editor options
+  vim.o.confirm = true
+  vim.o.spell = true
+  vim.o.winborder = 'rounded'
+  vim.opt.listchars = { tab = '»·', trail = '·', nbsp = '◡' }
 
-local function toggle_list(list_type)
-  return function()
-    local prefix = list_type == 'quickfix' and 'c' or 'l'
-    local info = list_type == 'quickfix' and vim.fn.getqflist({ winid = 0 }) or vim.fn.getloclist(0, { winid = 0 })
+  -- Indentation
+  vim.o.tabstop = 2
+  vim.o.shiftwidth = 0
+  vim.o.shiftround = true
+  vim.o.expandtab = true
 
-    if info.winid ~= 0 then
-      vim.cmd(prefix .. 'close')
-    else
-      local ok = pcall(vim.cmd, prefix .. 'window')
-      if ok then
-        vim.cmd.wincmd('p')
-      else
-        vim.notify('No list available')
-      end
-    end
-  end
-end
+  -- Folding
+  vim.o.foldenable = false
+  vim.o.foldmethod = 'indent'
+
+  -- Diagnostics
+  vim.diagnostic.config({
+    severity_sort = true,
+    signs = {
+      numhl = { [vim.diagnostic.severity.ERROR] = 'ErrorMsg', [vim.diagnostic.severity.WARN] = 'WarningMsg' },
+      text = {
+        [vim.diagnostic.severity.ERROR] = '⛌',
+        [vim.diagnostic.severity.WARN] = '△',
+        [vim.diagnostic.severity.INFO] = '𝓲',
+        [vim.diagnostic.severity.HINT] = '»',
+      },
+    },
+  })
+end)
 
 -- Color Scheme
 MiniMisc.safely('now', function()
   vim.pack.add({ 'https://github.com/folke/tokyonight.nvim' })
+
   vim.cmd.colorscheme('tokyonight-storm')
   vim.api.nvim_set_hl(0, 'MiniJump', { link = 'MiniJump2dSpot' })
 end)
@@ -139,10 +138,6 @@ end)
 
 -- Language Server Protocol
 MiniMisc.safely('now', function()
-  vim.pack.add({ 'https://github.com/mason-org/mason.nvim' })
-
-  require('mason').setup()
-
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(event)
       vim.bo[event.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
@@ -165,7 +160,7 @@ MiniMisc.safely('now', function()
   })
 
   MiniIcons.tweak_lsp_kind()
-  MiniSnippets.start_lsp_server()
+
   vim.lsp.enable({ 'efm-langserver' })
 end)
 
@@ -174,10 +169,9 @@ MiniMisc.safely('later', function()
   vim.pack.add({ 'https://github.com/mfussenegger/nvim-dap' })
 
   local dap = require('dap')
+  local dap_node = require('dap.node')
   local dap_ui_widgets = require('dap.ui.widgets')
   local dap_scopes_sidebar = dap_ui_widgets.sidebar(dap_ui_widgets.scopes)
-
-  local dap_node = require('dap.node')
 
   dap.adapters = dap_node.adapters
   dap.configurations = dap_node.configurations
@@ -248,234 +242,267 @@ MiniMisc.safely('later', function()
 end)
 
 -- Snippets
-local gen_loader = MiniSnippets.gen_loader
-MiniSnippets.config.snippets = {
-  gen_loader.from_file(vim.fn.stdpath('config') .. '/snippets.lua'),
-  gen_loader.from_file(vim.fn.stdpath('config') .. '/snippets/global.lua'),
-  gen_loader.from_lang(),
-}
+MiniMisc.safely('later', function()
+  MiniSnippets.config.snippets = {
+    MiniSnippets.gen_loader.from_file(vim.fn.stdpath('config') .. '/snippets.lua'),
+    MiniSnippets.gen_loader.from_file(vim.fn.stdpath('config') .. '/snippets/global.lua'),
+    MiniSnippets.gen_loader.from_lang(),
+  }
 
--- Disable Netrw
-vim.g.loaded_netrwPlugin = true
-
--- General Settings
-vim.o.confirm = true
-vim.o.spell = true
-vim.o.winborder = 'rounded'
-vim.opt.listchars = { tab = '»·', trail = '·', nbsp = '◡' }
-
--- Indentation
-vim.o.tabstop = 2
-vim.o.shiftwidth = 0
-vim.o.shiftround = true
-vim.o.expandtab = true
-
--- Folding
-vim.o.foldenable = false
-vim.o.foldmethod = 'indent'
-
--- Diagnostics
-vim.diagnostic.config({
-  severity_sort = true,
-  signs = {
-    numhl = { [vim.diagnostic.severity.ERROR] = 'ErrorMsg', [vim.diagnostic.severity.WARN] = 'WarningMsg' },
-    text = {
-      [vim.diagnostic.severity.ERROR] = '⛌',
-      [vim.diagnostic.severity.WARN] = '△',
-      [vim.diagnostic.severity.INFO] = '𝓲',
-      [vim.diagnostic.severity.HINT] = '»',
-    },
-  },
-})
+  MiniSnippets.start_lsp_server()
+end)
 
 -- Keymaps
-vim.keymap.set({ 'n', 'x' }, ';', ':')
-vim.keymap.set({ 'n' }, '<Leader>cd', ':lcd %:p:h<CR>:pwd<CR>')
-vim.keymap.set({ 'n' }, '<Leader>h', MiniDiff.toggle_overlay)
-vim.keymap.set({ 'n' }, '<Leader>s', '1z=')
-vim.keymap.set({ 'ca' }, 'vh', 'vertical help')
+MiniMisc.safely('later', function()
+  -- General
+  vim.keymap.set({ 'n', 'x' }, ';', ':')
+  vim.keymap.set({ 'n' }, '<Leader>cd', ':lcd %:p:h<CR>:pwd<CR>')
+  vim.keymap.set({ 'n' }, '<Leader>h', MiniDiff.toggle_overlay)
+  vim.keymap.set({ 'n' }, '<Leader>s', '1z=')
+  vim.keymap.set({ 'ca' }, 'vh', 'vertical help')
 
--- Tabs
-vim.keymap.set({ 'n' }, '<Leader><Tab>', ':$tabnew<CR>')
-vim.keymap.set({ 'n' }, 'g<Tab>', ':$tab split<CR>')
+  -- Tabs
+  vim.keymap.set({ 'n' }, '<Leader><Tab>', ':$tabnew<CR>')
+  vim.keymap.set({ 'n' }, 'g<Tab>', ':$tab split<CR>')
 
--- Buffers
-vim.keymap.set({ 'n' }, '<Tab>', ':bnext<CR>')
-vim.keymap.set({ 'n' }, '<S-Tab>', ':bprevious<CR>')
-vim.keymap.set({ 'n' }, '<Leader>O', ':%bdelete|edit #|bdelete #|normal `"<CR>')
+  -- Buffers
+  vim.keymap.set({ 'n' }, '<Tab>', ':bnext<CR>')
+  vim.keymap.set({ 'n' }, '<S-Tab>', ':bprevious<CR>')
+  vim.keymap.set({ 'n' }, '<Leader>O', ':%bdelete|edit #|bdelete #|normal `"<CR>')
 
--- Movement
-local center_after_jump = function(...)
-  for _, command in ipairs({ ... }) do
-    vim.keymap.set('n', command, command .. 'zz', { noremap = true })
+  -- Movement
+  local center_after_jump = function(...)
+    for _, command in ipairs({ ... }) do
+      vim.keymap.set('n', command, command .. 'zz', { noremap = true })
+    end
   end
-end
 
-vim.keymap.set({ 'c', 'i' }, '<C-a>', '<Home>')
-vim.keymap.set({ 'c', 'i' }, '<C-e>', '<End>')
+  vim.keymap.set({ 'c', 'i' }, '<C-a>', '<Home>')
+  vim.keymap.set({ 'c', 'i' }, '<C-e>', '<End>')
+  center_after_jump('n', 'N')
 
-center_after_jump('n', 'N')
+  -- Yank/Paste
+  vim.keymap.set({ 'x' }, 'p', 'pgvy')
+  vim.keymap.set({ 'n' }, 'gP', '"+P')
 
--- Yank/Paste
-vim.keymap.set({ 'x' }, 'p', 'pgvy')
-vim.keymap.set({ 'n' }, 'gP', '"+P')
-
--- Smart `<Tab>`
-local map_multistep = require('mini.keymap').map_multistep
-map_multistep({ 'i' }, '<Tab>', { 'minisnippets_next', 'pmenu_next' })
-map_multistep({ 'i' }, '<S-Tab>', { 'minisnippets_prev', 'pmenu_prev' })
+  -- Smart `<Tab>`
+  local map_multistep = require('mini.keymap').map_multistep
+  map_multistep({ 'i' }, '<Tab>', { 'minisnippets_next', 'pmenu_next' })
+  map_multistep({ 'i' }, '<S-Tab>', { 'minisnippets_prev', 'pmenu_prev' })
+end)
 
 -- Pickers
-vim.keymap.set({ 'n' }, '<Leader>b', MiniPick.builtin.buffers)
-vim.keymap.set({ 'n' }, '<Leader>e', function()
-  MiniFiles.open(nil, false)
-end)
-vim.keymap.set({ 'n' }, '<Leader>E', function()
-  MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
-end)
-vim.keymap.set({ 'n' }, '<Leader>f', MiniPick.builtin.files)
-vim.keymap.set({ 'n' }, '<Leader>F', gen_local_picker(MiniPick.builtin.files))
-vim.keymap.set({ 'n' }, '<Leader>/', MiniPick.builtin.grep_live)
-vim.keymap.set({ 'n' }, '<Leader>?', gen_local_picker(MiniPick.builtin.grep_live))
-vim.keymap.set({ 'n' }, '<Leader>.', MiniPick.builtin.resume)
-vim.keymap.set({ 'n' }, '<Leader>v', MiniExtra.pickers.visit_paths)
-vim.keymap.set({ 'n' }, '<Leader>V', function()
-  MiniExtra.pickers.visit_paths({ filter = MiniGit.get_buf_data().head_name or vim.fn.expand('%:p:h') })
+MiniMisc.safely('later', function()
+  local function gen_local_picker(picker)
+    return function()
+      picker(nil, { source = { cwd = vim.fn.expand('%:p:h') } })
+    end
+  end
+
+  vim.keymap.set({ 'n' }, '<Leader>b', MiniPick.builtin.buffers)
+  vim.keymap.set({ 'n' }, '<Leader>e', function()
+    MiniFiles.open(nil, false)
+  end)
+  vim.keymap.set({ 'n' }, '<Leader>E', function()
+    MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+  end)
+  vim.keymap.set({ 'n' }, '<Leader>f', MiniPick.builtin.files)
+  vim.keymap.set({ 'n' }, '<Leader>F', gen_local_picker(MiniPick.builtin.files))
+  vim.keymap.set({ 'n' }, '<Leader>/', MiniPick.builtin.grep_live)
+  vim.keymap.set({ 'n' }, '<Leader>?', gen_local_picker(MiniPick.builtin.grep_live))
+  vim.keymap.set({ 'n' }, '<Leader>.', MiniPick.builtin.resume)
+  vim.keymap.set({ 'n' }, '<Leader>v', MiniExtra.pickers.visit_paths)
+  vim.keymap.set({ 'n' }, '<Leader>V', function()
+    MiniExtra.pickers.visit_paths({ filter = MiniGit.get_buf_data().head_name or vim.fn.expand('%:p:h') })
+  end)
 end)
 
 -- Search
-if vim.o.grepprg:match('^rg ') then
-  vim.o.grepprg = 'rg --no-config --case-sensitive --fixed-strings --sort=path --vimgrep'
-end
-
-vim.keymap.set({ 'n', 'x' }, '<Leader>*', function()
-  local search_term
-  if vim.fn.mode():match('^n') then
-    search_term = vim.fn.expand('<cword>')
-  else
-    vim.cmd('normal y')
-    search_term = vim.fn.getreg('"')
+MiniMisc.safely('later', function()
+  if vim.o.grepprg:match('^rg ') then
+    vim.o.grepprg = 'rg --no-config --case-sensitive --fixed-strings --sort=path --vimgrep'
   end
 
-  vim.fn.setreg('/', vim.fn.escape(search_term, '/\\'))
-  vim.cmd.grep('"' .. vim.fn.escape(search_term, '"') .. '"')
-  vim.opt.hlsearch = true
-end)
+  vim.keymap.set({ 'n', 'x' }, '<Leader>*', function()
+    local search_term
+    if vim.fn.mode():match('^n') then
+      search_term = vim.fn.expand('<cword>')
+    else
+      vim.cmd('normal y')
+      search_term = vim.fn.getreg('"')
+    end
 
-vim.keymap.set({ 'ca' }, 'rg', 'grep')
+    vim.fn.setreg('/', vim.fn.escape(search_term, '/\\'))
+    vim.cmd.grep('"' .. vim.fn.escape(search_term, '"') .. '"')
+    vim.opt.hlsearch = true
+  end)
+
+  vim.keymap.set({ 'ca' }, 'rg', 'grep')
+end)
 
 -- Formatting
-vim.keymap.set({ 'n', 'x' }, 'gq', function()
-  format_buffer({ 'efm-langserver' })
-end)
+MiniMisc.safely('now', function()
+  local function format_buffer(lsp_names)
+    if lsp_names and #lsp_names > 0 then
+      local clients = {}
+      for _, client in ipairs(vim.lsp.get_clients({ method = 'textDocument/formatting', bufnr = 0 })) do
+        clients[client.name] = client
+      end
 
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function(args)
-    local filetype_ext = {
-      css = 'scss',
-      graphql = 'graphql',
-      html = 'html',
-      javascript = 'tsx',
-      javascriptreact = 'tsx',
-      json = 'jsonc',
-      lua = 'lua',
-      markdown = 'mdx',
-      sh = 'sh',
-      toml = 'toml',
-      typescript = 'tsx',
-      typescriptreact = 'tsx',
-      yaml = 'yaml',
-      zsh = 'zsh',
-    }
+      for _, lsp_name in ipairs(lsp_names) do
+        if clients[lsp_name] and pcall(vim.lsp.buf.format, { name = clients[lsp_name].name }) then
+          return
+        end
+      end
+    end
 
-    local filetype = vim.bo[args.buf].filetype
-    local ext = filetype_ext[filetype]
-    local file = ext and 'file.' .. ext
-    local indent_size = vim.bo.shiftwidth > 0 and vim.bo.shiftwidth or vim.bo.tabstop
-
-    vim.bo.formatprg = ext
-        and ((ext == 'lua' and 'stylua -') or ((ext == 'sh' or ext == 'zsh') and 'shfmt --binary-next-line --case-indent --simplify --indent=' .. indent_size .. ' --filename="' .. file .. '"') or ('oxfmt --stdin-filepath="' .. file .. '"'))
-      or ''
-  end,
-})
-
-vim.api.nvim_create_autocmd('BufWritePre', {
-  group = vim.api.nvim_create_augroup('FormatOnSave', { clear = true }),
-  callback = function()
-    format_buffer({ 'efm-langserver' })
-  end,
-})
-
--- Location/QuickFix Lists
-vim.cmd.packadd('cfilter')
-
-vim.keymap.set({ 'n' }, '\\l', toggle_list('loclist'))
-vim.keymap.set({ 'n' }, '\\q', toggle_list('quickfix'))
-
--- Automatically Open Lists
-vim.api.nvim_create_autocmd('QuickFixCmdPost', {
-  callback = function(event)
-    vim.cmd((event.match:find('^l') and 'lwindow' or 'cwindow'))
-  end,
-})
-
--- Toggle MiniVisit Labels
-vim.keymap.set({ 'n' }, '\\v', function()
-  local label = MiniGit.get_buf_data().head_name or vim.fn.expand('%:p:h')
-
-  if vim.list_contains(MiniVisits.list_paths(nil, { filter = label }), vim.api.nvim_buf_get_name(0)) then
-    MiniVisits.remove_label(label)
-  else
-    MiniVisits.add_label(label)
-  end
-end)
-
--- Git Staging
-vim.keymap.set({ 'n' }, '<Leader>gh', ':silent !git add -- "%"<CR>', { silent = true })
-vim.keymap.set({ 'n' }, '<Leader>gH', ':silent !git restore --staged -- "%"<CR>', { silent = true })
-
--- Git Navigation
-vim.keymap.set({ 'n', 'x' }, '<Leader>g.', MiniGit.show_at_cursor)
-vim.keymap.set({ 'n' }, '<Leader>gb', function()
-  local git_root_path = vim.fn.expand('%'):match('^minigit://.+%-C%s+([^%s]+)') or MiniGit.get_buf_data().root
-  if git_root_path == nil then
-    vim.notify('File is not inside a repository')
-    return
-  end
-
-  local cword = vim.fn.expand('<cword>')
-  local filename = vim.fn.expand('%:p'):gsub('^.+ -- ', '')
-  local revision = (cword:match('^%x%x%x%x%x%x%x+$') and cword:lower() == cword) and (cword .. '^') or 'HEAD'
-
-  local ok, result =
-    pcall(vim.cmd, 'vertical Git -C ' .. git_root_path .. ' blame --date=short ' .. revision .. ' -- ' .. filename)
-
-  if ok then
-    vim.keymap.set({ 'n' }, 'q', ':bdelete<CR>', { silent = true, buffer = true })
-  elseif result:find('fatal: no such path ') then
-    vim.notify(('`%s` does not exist before `%s`'):format(vim.fs.basename(filename), revision:gsub('%^$', '')))
-  end
-end)
-
--- Align Git Blame Windows
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'MiniGitCommandSplit',
-  callback = function(event)
-    if event.data.git_subcommand ~= 'blame' then
+    if vim.bo.formatprg == '' then
       return
     end
 
-    local win_source = event.data.win_source
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    vim.cmd('silent keepjumps normal! gggqG')
+    vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
+  end
 
-    vim.wo.wrap = false
-    vim.fn.winrestview({ topline = vim.fn.line('w0', win_source) })
-    vim.api.nvim_win_set_cursor(0, { vim.fn.line('.', win_source), 0 })
-  end,
-})
+  vim.keymap.set({ 'n', 'x' }, 'gq', function()
+    format_buffer({ 'efm-langserver' })
+  end)
 
--- Automatically Resize Windows
-vim.api.nvim_create_autocmd('VimResized', {
-  callback = function()
-    vim.cmd.wincmd('=')
-  end,
-})
+  vim.api.nvim_create_autocmd('FileType', {
+    callback = function(args)
+      local filetype_ext = {
+        css = 'scss',
+        graphql = 'graphql',
+        html = 'html',
+        javascript = 'tsx',
+        javascriptreact = 'tsx',
+        json = 'jsonc',
+        lua = 'lua',
+        markdown = 'mdx',
+        sh = 'sh',
+        toml = 'toml',
+        typescript = 'tsx',
+        typescriptreact = 'tsx',
+        yaml = 'yaml',
+        zsh = 'zsh',
+      }
+
+      local filetype = vim.bo[args.buf].filetype
+      local ext = filetype_ext[filetype]
+      local file = ext and 'file.' .. ext
+      local indent_size = vim.bo.shiftwidth > 0 and vim.bo.shiftwidth or vim.bo.tabstop
+
+      vim.bo.formatprg = ext
+          and ((ext == 'lua' and 'stylua -') or ((ext == 'sh' or ext == 'zsh') and 'shfmt --binary-next-line --case-indent --simplify --indent=' .. indent_size .. ' --filename="' .. file .. '"') or ('oxfmt --stdin-filepath="' .. file .. '"'))
+        or ''
+    end,
+  })
+
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    group = vim.api.nvim_create_augroup('FormatOnSave', { clear = true }),
+    callback = function()
+      format_buffer({ 'efm-langserver' })
+    end,
+  })
+end)
+
+-- Location/QuickFix Lists
+MiniMisc.safely('later', function()
+  vim.cmd.packadd('cfilter')
+
+  local function toggle_list(list_type)
+    return function()
+      local prefix = list_type == 'quickfix' and 'c' or 'l'
+      local info = list_type == 'quickfix' and vim.fn.getqflist({ winid = 0 }) or vim.fn.getloclist(0, { winid = 0 })
+
+      if info.winid ~= 0 then
+        vim.cmd(prefix .. 'close')
+      else
+        local ok = pcall(vim.cmd, prefix .. 'window')
+        if ok then
+          vim.cmd.wincmd('p')
+        else
+          vim.notify('No list available')
+        end
+      end
+    end
+  end
+
+  vim.keymap.set({ 'n' }, '\\l', toggle_list('loclist'))
+  vim.keymap.set({ 'n' }, '\\q', toggle_list('quickfix'))
+
+  -- Automatically Open Lists
+  vim.api.nvim_create_autocmd('QuickFixCmdPost', {
+    callback = function(event)
+      vim.cmd((event.match:find('^l') and 'lwindow' or 'cwindow'))
+    end,
+  })
+end)
+
+-- Git
+MiniMisc.safely('later', function()
+  -- Toggle MiniVisit Labels
+  vim.keymap.set({ 'n' }, '\\v', function()
+    local label = MiniGit.get_buf_data().head_name or vim.fn.expand('%:p:h')
+
+    if vim.list_contains(MiniVisits.list_paths(nil, { filter = label }), vim.api.nvim_buf_get_name(0)) then
+      MiniVisits.remove_label(label)
+    else
+      MiniVisits.add_label(label)
+    end
+  end)
+
+  -- Staging
+  vim.keymap.set({ 'n' }, '<Leader>gh', ':silent !git add -- "%"<CR>', { silent = true })
+  vim.keymap.set({ 'n' }, '<Leader>gH', ':silent !git restore --staged -- "%"<CR>', { silent = true })
+
+  -- Navigation
+  vim.keymap.set({ 'n', 'x' }, '<Leader>g.', MiniGit.show_at_cursor)
+  vim.keymap.set({ 'n' }, '<Leader>gb', function()
+    local git_root_path = vim.fn.expand('%'):match('^minigit://.+%-C%s+([^%s]+)') or MiniGit.get_buf_data().root
+    if git_root_path == nil then
+      vim.notify('File is not inside a repository')
+      return
+    end
+
+    local cword = vim.fn.expand('<cword>')
+    local filename = vim.fn.expand('%:p'):gsub('^.+ -- ', '')
+    local revision = (cword:match('^%x%x%x%x%x%x%x+$') and cword:lower() == cword) and (cword .. '^') or 'HEAD'
+
+    local ok, result =
+      pcall(vim.cmd, 'vertical Git -C ' .. git_root_path .. ' blame --date=short ' .. revision .. ' -- ' .. filename)
+
+    if ok then
+      vim.keymap.set({ 'n' }, 'q', ':bdelete<CR>', { silent = true, buffer = true })
+    elseif result:find('fatal: no such path ') then
+      vim.notify(('`%s` does not exist before `%s`'):format(vim.fs.basename(filename), revision:gsub('%^$', '')))
+    end
+  end)
+
+  -- Align Git Blame Windows
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'MiniGitCommandSplit',
+    callback = function(event)
+      if event.data.git_subcommand ~= 'blame' then
+        return
+      end
+
+      local win_source = event.data.win_source
+
+      vim.wo.wrap = false
+      vim.fn.winrestview({ topline = vim.fn.line('w0', win_source) })
+      vim.api.nvim_win_set_cursor(0, { vim.fn.line('.', win_source), 0 })
+    end,
+  })
+end)
+
+-- Window Management
+MiniMisc.safely('later', function()
+  -- Automatically Resize Windows
+  vim.api.nvim_create_autocmd('VimResized', {
+    callback = function()
+      vim.cmd.wincmd('=')
+    end,
+  })
+end)
