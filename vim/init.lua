@@ -13,7 +13,6 @@ end)
 -- mini.nvim
 MiniMisc.safely('now', function()
   require('mini.basics').setup({ options = { extra_ui = true }, mappings = { windows = true } })
-  require('mini.icons').setup()
   require('mini.notify').setup()
   require('mini.statusline').setup()
   require('mini.tabline').setup()
@@ -30,6 +29,7 @@ MiniMisc.safely('later', function()
     mappings = { close = '<Esc>', go_in = '', go_in_plus = '<CR>', go_out = '<BS>', go_out_plus = '', reset = '' },
   })
   require('mini.git').setup()
+  require('mini.icons').setup()
   require('mini.indentscope').setup({ draw = {
     animation = function()
       return 0
@@ -137,25 +137,13 @@ MiniMisc.safely('later', function()
 end)
 
 -- Language Server Protocol
-MiniMisc.safely('now', function()
+MiniMisc.safely('later', function()
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(event)
       vim.bo[event.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
 
       vim.keymap.set({ 'n' }, 'gd', vim.lsp.buf.definition, { buffer = event.buf })
       vim.keymap.set({ 'n' }, 'gD', vim.lsp.buf.type_definition, { buffer = event.buf })
-
-      local client = vim.lsp.get_client_by_id(event.data.client_id)
-      if client then
-        if client.name == 'typescript-language-server' then
-          vim.keymap.set({ 'n' }, 'gi', function()
-            client:exec_cmd({
-              command = '_typescript.organizeImports',
-              arguments = { vim.api.nvim_buf_get_name(event.buf) },
-            })
-          end, { buffer = event.buf })
-        end
-      end
     end,
   })
 
@@ -342,33 +330,6 @@ end)
 
 -- Formatting
 MiniMisc.safely('now', function()
-  local function format_buffer(lsp_names)
-    if lsp_names and #lsp_names > 0 then
-      local clients = {}
-      for _, client in ipairs(vim.lsp.get_clients({ method = 'textDocument/formatting', bufnr = 0 })) do
-        clients[client.name] = client
-      end
-
-      for _, lsp_name in ipairs(lsp_names) do
-        if clients[lsp_name] and pcall(vim.lsp.buf.format, { name = clients[lsp_name].name }) then
-          return
-        end
-      end
-    end
-
-    if vim.bo.formatprg == '' then
-      return
-    end
-
-    local cursor = vim.api.nvim_win_get_cursor(0)
-    vim.cmd('silent keepjumps normal! gggqG')
-    vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
-  end
-
-  vim.keymap.set({ 'n', 'x' }, 'gq', function()
-    format_buffer({ 'efm-langserver' })
-  end)
-
   vim.api.nvim_create_autocmd('FileType', {
     callback = function(args)
       local filetype_ext = {
@@ -398,6 +359,35 @@ MiniMisc.safely('now', function()
         or ''
     end,
   })
+end)
+
+MiniMisc.safely('later', function()
+  local function format_buffer(lsp_names)
+    if lsp_names and #lsp_names > 0 then
+      local clients = {}
+      for _, client in ipairs(vim.lsp.get_clients({ method = 'textDocument/formatting', bufnr = 0 })) do
+        clients[client.name] = client
+      end
+
+      for _, lsp_name in ipairs(lsp_names) do
+        if clients[lsp_name] and pcall(vim.lsp.buf.format, { name = clients[lsp_name].name }) then
+          return
+        end
+      end
+    end
+
+    if vim.bo.formatprg == '' then
+      return
+    end
+
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    vim.cmd('silent keepjumps normal! gggqG')
+    vim.api.nvim_win_set_cursor(0, { math.min(vim.api.nvim_buf_line_count(0), cursor[1]), cursor[2] })
+  end
+
+  vim.keymap.set({ 'n', 'x' }, 'gq', function()
+    format_buffer({ 'efm-langserver' })
+  end)
 
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = vim.api.nvim_create_augroup('FormatOnSave', { clear = true }),
