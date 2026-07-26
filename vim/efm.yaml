@@ -71,7 +71,7 @@ tools:
     require-marker: true
     root-markers: *deno-root-markers
 
-  eslint: &eslint
+  eslint-javascript: &eslint-javascript
     format-command: 'eslint_d --fix-to-stdout --stdin --stdin-filename=file.tsx'
     format-stdin: true
     lint-command: 'eslint_d --format=compact --stdin --stdin-filename="${INPUT}"'
@@ -138,6 +138,19 @@ tools:
     format-stdin: true
     require-marker: true
     root-markers: *oxfmt-root-markers
+
+  oxlint-javascript: &oxlint-javascript
+    format-command: 'oxlint --fix --format=agent "${INPUT}"'
+    lint-command: 'oxlint --format=agent "${INPUT}"'
+    lint-formats:
+      - '%f:%l:%c: %trror %m'
+      - '%f:%l:%c: %tarning %m'
+    require-marker: true
+    root-markers: &oxlint-root-markers
+      - .oxlintrc.json
+      - .oxlintrc.jsonc
+      - oxlint.config.ts
+      - oxlint.config.mt
 
   pgformatter-sql: &pgformatter-sql
     format-command: 'pg_format ${--spaces:tabSize} -'
@@ -249,7 +262,8 @@ languages:
     - <<: *oxfmt-javascript
     - <<: *deno-javascript
     - <<: *prettier-javascript
-    - <<: *eslint
+    - <<: *oxlint-javascript
+    - <<: *eslint-javascript
 
   javascriptreact: *javascript
 
