@@ -13,6 +13,7 @@ end)
 -- mini.nvim
 MiniMisc.safely('now', function()
   require('mini.basics').setup({ options = { extra_ui = true }, mappings = { windows = true } })
+  require('mini.input').setup()
   require('mini.notify').setup()
   require('mini.statusline').setup()
   require('mini.tabline').setup()
