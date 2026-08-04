@@ -13,7 +13,6 @@ end)
 -- mini.nvim
 MiniMisc.safely('now', function()
   require('mini.basics').setup({ options = { extra_ui = true }, mappings = { windows = true } })
-  require('mini.input').setup()
   require('mini.notify').setup()
   require('mini.statusline').setup()
   require('mini.tabline').setup()
@@ -36,6 +35,7 @@ MiniMisc.safely('later', function()
       return 0
     end,
   } })
+  require('mini.input').setup()
   require('mini.jump').setup()
   require('mini.jump2d').setup(vim.tbl_extend('keep', require('mini.jump2d').builtin_opts.word_start, {
     allowed_lines = { blank = false },
