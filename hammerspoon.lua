@@ -77,7 +77,7 @@ end
 local caffeineIcon = hs.menubar.new(false)
 
 local function toggleCaffeine()
-  if hs.caffeinate.toggle('displayIdle') then
+  if hs.caffeinate.toggle('systemIdle') then
     caffeineIcon:returnToMenuBar()
     caffeineIcon:setTitle('☕️')
     caffeineIcon:setTooltip('Prevent display from sleeping')
