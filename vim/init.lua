@@ -142,9 +142,6 @@ MiniMisc.safely('later', function()
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(event)
       vim.bo[event.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
-
-      vim.keymap.set({ 'n' }, 'gd', vim.lsp.buf.definition, { buffer = event.buf })
-      vim.keymap.set({ 'n' }, 'gD', vim.lsp.buf.type_definition, { buffer = event.buf })
     end,
   })
 
