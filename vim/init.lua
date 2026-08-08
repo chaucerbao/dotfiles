@@ -252,6 +252,7 @@ MiniMisc.safely('later', function()
   vim.keymap.set({ 'n' }, 'g<Tab>', ':$tab split<CR>')
 
   -- Buffers
+  vim.keymap.set({ 'n' }, '<C-i>', '<C-i>', { noremap = true }) -- Retain `<C-i>` when mapping `<Tab>`
   vim.keymap.set({ 'n' }, '<Tab>', ':bnext<CR>')
   vim.keymap.set({ 'n' }, '<S-Tab>', ':bprevious<CR>')
   vim.keymap.set({ 'n' }, '<Leader>O', ':%bdelete|edit #|bdelete #|normal `"<CR>')
