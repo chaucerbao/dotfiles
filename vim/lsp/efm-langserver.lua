@@ -3,6 +3,7 @@ local root_markers = { '.git' }
 return {
   cmd = { 'efm-langserver' },
   filetypes = {
+    'astro',
     'css',
     'graphql',
     'html',

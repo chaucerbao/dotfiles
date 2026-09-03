@@ -1,4 +1,4 @@
-local root_markers = { 'biome.json', 'biome.jsonc' }
+local root_markers = { 'biome.json', 'biome.jsonc', '.biome.json', '.biome.jsonc' }
 
 return {
   cmd = { 'biome', 'lsp-proxy' },

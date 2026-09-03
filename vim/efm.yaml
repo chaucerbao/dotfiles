@@ -1,13 +1,21 @@
 lint-debounce: 1s
 
 tools:
-  biome-css: &biome-css
-    format-command: 'biome check --write --stdin-file-path=file.css'
+  biome-astro: &biome-astro
+    format-command: 'biome check --write --stdin-file-path=file.astro'
     format-stdin: true
     require-marker: true
     root-markers: &biome-root-markers
       - biome.json
       - biome.jsonc
+      - .biome.json
+      - .biome.jsonc
+
+  biome-css: &biome-css
+    format-command: 'biome check --write --stdin-file-path=file.css'
+    format-stdin: true
+    require-marker: true
+    root-markers: *biome-root-markers
 
   biome-graphql: &biome-graphql
     format-command: 'biome check --write --stdin-file-path=file.graphql'
@@ -241,6 +249,9 @@ tools:
       - stylua.toml
 
 languages:
+  astro:
+    - <<: *biome-astro
+
   css: &css
     - <<: *biome-css
     - <<: *oxfmt-css
