@@ -455,9 +455,9 @@ MiniMisc.safely('later', function()
       return
     end
 
-    local cword = vim.fn.expand('<cword>')
     local filename = vim.fn.expand('%:p'):gsub('^.+ -- ', '')
-    local revision = (cword:match('^%x%x%x%x%x%x%x+$') and cword:lower() == cword) and (cword .. '^') or 'HEAD'
+    local commit_hash = (vim.api.nvim_buf_get_lines(0, 0, 1, false)[1] or ''):match('^([%x]+)%s')
+    local revision = commit_hash and commit_hash .. '^' or 'HEAD'
 
     local ok, result =
       pcall(vim.cmd, 'vertical Git -C ' .. git_root_path .. ' blame --date=short ' .. revision .. ' -- ' .. filename)
