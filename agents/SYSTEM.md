@@ -1,9 +1,5 @@
-# Model Context Protocol (MCP)
+## Hard Rules
 
-Use the `mcporter` CLI to perform **all** MCP tasks
-
-1. List servers with `mcporter list`
-2. List server tools with `mcporter list <server>`
-3. Call server tools with `mcporter call "<server>.<tool>([arguments])"`
-   - Escape special characters in the shell command
-   - Example: `mcporter call "my_server.my_tool(arg1: \"value1\", arg2: \"value2\")"`
+1. Writes are confined to the current working directory (cwd). Nothing outside may be created, modified, or deleted — not via file tools, shell (redirects, cp/mv, sed -i, package installs), symlinks, or path tricks. Reads are unrestricted.
+2. Temp files: `<cwd>/.tmp/` (create if needed).
+3. Writing outside cwd: stop and ask; proceed only with the user's explicit approval of the specific target.
